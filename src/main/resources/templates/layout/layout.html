@@ -5,7 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head xmlns:th="http://www.thymeleaf.org">
+    <head xmlns:th="http://www.thymeleaf.org" th:fragment="head">
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,15 +21,15 @@ and open the template in the editor.
         <link rel="stylesheet" th:href="@{/css/boostrap.min.css}" />
     </head>
     <body>
-        <div class="loader-bg">
+        <div class="loader-bg" th:fragment="loader">
             <div class="loader-bar"></div>
         </div>
 
         <div id="pcoded" class="pcoded">
-            <div class="pcoded-overlay-box"></div>
+            <div class="pcoded-overlay-box" th:fragment="pcoded_box"></div>
             <div class="pcoded-container navbar-wrapper">
 
-                <nav class="navbar header-navbar pcoded-header">
+                <nav class="navbar header-navbar pcoded-header" th:fragment="navbar">
                     <div class="navbar-wrapper">
                         <div class="navbar-logo">
                             <a href="index.html">
@@ -159,7 +159,7 @@ and open the template in the editor.
                     </div>
                 </nav>
 
-                <div id="sidebar" class="users p-chat-user showChat">
+                <div id="sidebar" class="users p-chat-user showChat" th:fragment="sidebar">
                     <div class="had-container">
                         <div class="p-fixed users-main">
                             <div class="user-box">
@@ -229,7 +229,7 @@ and open the template in the editor.
                 </div>
 
 
-                <div class="showChat_inner">
+                <div class="showChat_inner" th:fragment="showChat">
                     <div class="media chat-inner-header">
                         <a class="back_chatBox">
                             <i class="feather icon-x"></i> Josephin Doe
@@ -282,7 +282,7 @@ and open the template in the editor.
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
 
-                        <nav class="pcoded-navbar">
+                        <nav class="pcoded-navbar" th:fragment="navbar_navegation">
                             <div class="nav-list">
                                 <div class="pcoded-inner-navbar main-menu">
                                     <div class="pcoded-navigation-label">Navigation</div>
@@ -1242,33 +1242,35 @@ and open the template in the editor.
                             <h2>Ejemplo</h2>
                         </div>
 
-                        <div id="styleSelector">
+                        <div id="styleSelector" th:fragment="styleSelector">
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-        <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-        <script th:src="@{/js/popper.min.js}"></script>
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/jquery-ui.min.js}"></script>
-        <script th:src="@{/js/sweetalert/sweetalert.js}"></script>
-        <script th:src="@{/js/scrollmagic/scrollmagic.js}"></script>
-        <script data-cfasync="false" th:src="@{/js/layout_empresa/email-decode.min.js}"></script>
-        <script th:src="@{/js/layout_empresa/waves.min.js}"></script>
-        <script th:src="@{/js/layout_empresa/jquery.slimscroll.js}"></script>
-        <script th:src="@{/js/layout_empresa/pcoded.min.js}"></script>
-        <script th:src="@{/js/layout_empresa/vertical-layout.js}"></script>
-        <script th:src="@{/js/layout_empresa/script.min.js}"></script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-        <script type="c326a13879583a964fd0aec1-text/javascript">
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        <footer th:fragment="footer">
+            <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+            <script th:src="@{/js/popper.min.js}"></script>
+            <script th:src="@{/js/bootstrap.min.js}"></script>
+            <script th:src="@{/js/jquery-ui.min.js}"></script>
+            <script th:src="@{/js/sweetalert/sweetalert.js}"></script>
+            <script th:src="@{/js/scrollmagic/scrollmagic.js}"></script>
+            <script data-cfasync="false" th:src="@{/js/layout_empresa/email-decode.min.js}"></script>
+            <script th:src="@{/js/layout_empresa/waves.min.js}"></script>
+            <script th:src="@{/js/layout_empresa/jquery.slimscroll.js}"></script>
+            <script th:src="@{/js/layout_empresa/pcoded.min.js}"></script>
+            <script th:src="@{/js/layout_empresa/vertical-layout.js}"></script>
+            <script th:src="@{/js/layout_empresa/script.min.js}"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+            <script type="c326a13879583a964fd0aec1-text/javascript">
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-        gtag('config', 'UA-23581568-13');
-        </script>
-        <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="c326a13879583a964fd0aec1-|49" defer=""></script>
+                gtag('config', 'UA-23581568-13');
+            </script>
+            <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="c326a13879583a964fd0aec1-|49" defer=""></script>
+        </footer>
     </body>
 </html>
