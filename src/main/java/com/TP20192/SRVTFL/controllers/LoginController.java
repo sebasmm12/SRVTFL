@@ -18,6 +18,6 @@ public class LoginController {
     
     @RequestMapping("/inicio")
     public String layout() {
-        return "Index/index";
+        return "Login/index";
     }
 }
