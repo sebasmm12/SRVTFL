@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.TP20192.SRVTFL.dao;
+package com.TP20192.SRVTFL.models.service;
 
 /**
  *
  * @author USUARIO
  */
-public interface IUserDao {
+public interface IUserService {
     
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.TP20192.SRVTFL.implementation;
+package com.TP20192.SRVTFL.models.entity;
 
 /**
  *
  * @author USUARIO
  */
-public class UserServiceImpl {
+public class User {
     
 }
