@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.TP20192.SRVTFL.models.entity;
+package com.TP20192.SRVTFL.controllers;
+
+import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author USUARIO
  */
-public class User {
+@Controller
+public class PsicologoController {
     
 }
