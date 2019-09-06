@@ -5,10 +5,12 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
+import com.TP20192.SRVTFL.models.entity.Usuario;
+
 /**
  *
  * @author USUARIO
  */
-public interface IUserService {
-    
+public interface IUsuarioService {
+    public Usuario encontrarUsuario(String usuCodigo);
 }

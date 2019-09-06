@@ -6,13 +6,16 @@
 package com.TP20192.SRVTFL.models.implementation;
 
 import com.TP20192.SRVTFL.models.dao.IUsuarioDao;
+import com.TP20192.SRVTFL.models.entity.RolPermiso;
 import com.TP20192.SRVTFL.models.entity.Usuario;
+import com.TP20192.SRVTFL.models.entity.UsuarioRol;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,6 +46,15 @@ public class UsuarioServiceImpl implements UserDetailsService {
        }
        
        List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+       
+       for(UsuarioRol rol: usuario.getRoles()) {
+           logger.info("Role: ".concat(rol.getRol().getNombreRol()));
+           roles.add(new SimpleGrantedAuthority(rol.getRol().getNombreRol())); 
+           for(RolPermiso per : rol.getRol().getPermisos()) {
+               logger.info("Permiso: ".concat(per.getPermiso().getPerNombre()));
+           }
+       }
+       
        logger.info("Bienvenido al sistema"+usuario.getUsu_codigo());
        return new User(usuario.getUsu_codigo(), usuario.getUsu_contraseña(), true,true, true, true, roles);
     }
