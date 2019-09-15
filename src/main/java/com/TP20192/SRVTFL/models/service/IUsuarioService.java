@@ -5,7 +5,9 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
+import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Usuario;
+import java.util.List;
 
 /**
  *
@@ -14,3 +16,4 @@ import com.TP20192.SRVTFL.models.entity.Usuario;
 public interface IUsuarioService {
     public Usuario encontrarUsuario(String usuCodigo);
 }
+

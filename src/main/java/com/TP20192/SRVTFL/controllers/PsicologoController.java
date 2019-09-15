@@ -5,8 +5,13 @@
  */
 package com.TP20192.SRVTFL.controllers;
 
+import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Usuario;
+import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -30,11 +35,30 @@ public class PsicologoController {
     @Qualifier("UsuarioDatos")
     private IUsuarioService usuarioService;
     
+    @Autowired
+    private IPsicologoService psicologoService;
+    
     @GetMapping(value = {"/index","/"})
     public String index(Model model,Authentication authentication) {
-        
         Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
         model.addAttribute("usuario", usuario);
         return "Psicologo/index";
     }
+    
+    @GetMapping(value = "/agenda")
+    public String gestionarAgenda(Map<String, Object> model){
+        Usuario usu=(Usuario)model.get("usuario");
+        Long usu_codigo = usu.getUsu_id();
+        List<Actividad> actividad = new ArrayList<Actividad>();
+        actividad = psicologoService.encontrarActividadPsicologo(usu_codigo);
+        int mes = psicologoService.obtenerDiasMes(15, 9);
+        model.put("cantidad", mes);
+        model.put("actividades", actividad);
+        return "Agenda/agenda";
+    }
+    
+    
+    
+    
+    
 }
