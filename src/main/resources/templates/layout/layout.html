@@ -72,38 +72,18 @@ and open the template in the editor.
                                             <i class="feather icon-bell"></i>
                                             <span class="badge bg-c-red">5</span>
                                         </div>
-                                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" th:id="'notificaciones'+${usuario.usu_id}">
                                             <li>
                                                 <h6>Notifications</h6>
                                                 <label class="label label-danger">New</label>
                                             </li>
-                                            <li>
+                                            <li th:each="Notificacion : ${usuario.Notificaciones}">
                                                 <div class="media">
-                                                    <img class="img-radius" src="/images/avatar-4.jpg" alt="Generic placeholder image">
+                                                    <img class="img-radius" src="/images/avatar-3.jpg" alt="Generic placeholder image"/>
                                                     <div class="media-body">
-                                                        <h5 class="notification-user">John Doe</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <img class="img-radius" src="/images/avatar-3.jpg" alt="Generic placeholder image">
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user">Joseph William</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <img class="img-radius" src="/images/avatar-4.jpg" alt="Generic placeholder image">
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user">Sara Soudein</h5>
-                                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                        <span class="notification-time">30 minutes ago</span>
+                                                        <h5 class="notification-user" th:text="${Notificacion.usuId.usu_codigo}"></h5>
+                                                        <p class="notification-msg" th:text="${Notificacion.notDescripcion}"></p>
+                                                        <span class="notification-time" th:text="${Notificacion.notFecha}"></span>
                                                     </div>
                                                 </div>
                                             </li>
@@ -295,7 +275,7 @@ and open the template in the editor.
                                                 </a>
                                                 <ul class="pcoded-submenu">
                                                     <li class="">
-                                                        <a href="dashboard-crm.html" class="waves-effect waves-dark">
+                                                        <a th:href="@{/ejemplo/index}" class="waves-effect waves-dark">
                                                             <span class="pcoded-mtext" th:text="${RolPermisos.permiso.perNombre}"></span>
                                                         </a>
                                                     </li>
@@ -341,6 +321,9 @@ and open the template in the editor.
                 gtag('config', 'UA-23581568-13');
             </script>
             <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="c326a13879583a964fd0aec1-|49" defer=""></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+            <script th:src="@{/js/notification.js}"></script>
         </footer>
     </body>
 </html>

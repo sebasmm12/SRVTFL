@@ -84,5 +84,17 @@ public class Usuario implements Serializable {
     public void setRoles(List<UsuarioRol> roles) {
         this.roles = roles;
     }
+    
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="usu_id")
+    private List<Notificacion> Notificaciones;
+
+    public List<Notificacion> getNotificaciones() {
+        return Notificaciones;
+    }
+
+    public void setNotificaciones(List<Notificacion> Notificaciones) {
+        this.Notificaciones = Notificaciones;
+    }
 
 }

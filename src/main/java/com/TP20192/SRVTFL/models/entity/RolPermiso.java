@@ -26,8 +26,8 @@ public class RolPermiso implements Serializable {
     @EmbeddedId
     private RolPermisoId Id;
     
-    @JoinColumn(name="per_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="per_id")
     @MapsId("perId")
     private Permiso permiso;
 
