@@ -52,7 +52,7 @@ public class Rol implements Serializable {
     private String nombreRol;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="per_id")
+    @JoinColumn(name ="rol_id")
     private List<RolPermiso> permisos;
 
     public List<RolPermiso> getPermisos() {
