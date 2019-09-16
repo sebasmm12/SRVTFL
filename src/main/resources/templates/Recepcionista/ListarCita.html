@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody Osea donde se muestra todo
+                            Nota: no uses nombres de anotaciones de C# en Spring , los tepecitos se
+                            confunden-->
+
+                            <div class="container py-4">
+                                <div class="card bg-light">
+                                    <div class="card-header" th:text="${titulo}"></div>
+                                    <div class="card-body">
+                                        
+                                       
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Paciente</th>
+                                                    <th>Hora Inicio</th>
+                                                    <th>Hora Fin</th>
+                                                    <th>Estado de Cita</th>
+                                                    <th>Modificar</th>
+                                                    <th>Eliminar</th>
+                                                    <th>Detalle</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="cita: ${citas}">
+                                                    <td th:text="${cita.citId}"></td>
+                                                    <td th:text="${cita.paciente.nombreCompleto()}"></td>
+                                                    <td th:text="${cita.citFechaHoraInicio}"></td>
+                                                    <td th:text="${cita.citFechaHoraFin}"></td>
+                                                    <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
+                                                    <td><a class="btn btn-primary btn-xs"></a>Modificar</td>
+                                                    <td><a class="btn btn-danger btn-xs">Eiminar</a></td>
+                                                    <td><a class="btn btn-danger btn-xs">Detalle</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

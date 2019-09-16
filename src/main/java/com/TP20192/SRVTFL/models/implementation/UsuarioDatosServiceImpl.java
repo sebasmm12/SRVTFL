@@ -27,6 +27,4 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     public Usuario encontrarUsuario(String usuCodigo) {
         return usuarioDao.encontrarUsuario(usuCodigo);
     }
-    
-    
 }

@@ -295,7 +295,7 @@ and open the template in the editor.
                                                 </a>
                                                 <ul class="pcoded-submenu">
                                                     <li class="">
-                                                        <a href="dashboard-crm.html" class="waves-effect waves-dark">
+                                                        <a th:href="@{'/'}+${RolPermisos.permiso.perUrl}" class="waves-effect waves-dark">
                                                             <span class="pcoded-mtext" th:text="${RolPermisos.permiso.perNombre}"></span>
                                                         </a>
                                                     </li>
