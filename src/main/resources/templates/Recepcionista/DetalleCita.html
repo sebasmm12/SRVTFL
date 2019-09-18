@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody Osea donde se muestra todo
+                            Nota: no uses nombres de anotaciones de C# en Spring , los tepecitos se
+                            confunden-->
+
+                            <div class="container py-4">
+                                <div class="card bg-light">
+                                    <h2 class="card-header" th:text="${titulo}"></h2>
+                                    <a class="btn btn-secondary btn-xs" th:href="@{/Recepcionista/GestionarCitas}"> &laquo; Volver</a>
+                                    <div class="card-body">
+                                       
+                                        <h3 th:text="'Datos del Paciente'"></h3>
+                                         <h1
+                                            class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" th:text="'Paciente:    ' + ${cita.paciente.pacNombre} + ' ' + ${cita.paciente.pacNombre}"></li>
+                                            <li class="list-group-item" th:text="'Telefono:    ' + ${cita.paciente.pacTelefono}"></li>
+                                            <li class="list-group-item" th:text="'Numero Doc.: ' + ${cita.paciente.pacNúmeroDocumento}"></li>
+                                            <li class="list-group-item" th:text="'E-mail:      ' + ${cita.paciente.pacEmail}"></li>
+                                        </ul>
+                                        
+                                        <h3 th:text="'Datos de la Cita'"></h3>
+                                         <h1
+                                            class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+                                        
+                                        <ul class="list-group">
+                                            <li class="list-group-item" th:text="'Motivo:      ' + ${cita.citMotivo}"></li>
+                                            <li class="list-group-item" th:text="'Inicio:      ' + ${cita.citFechaHoraInicio}"></li>
+                                            <li class="list-group-item" th:text="'Final:       ' + ${cita.citFechaHoraFin}"></li>
+                                            <li class="list-group-item" th:text="'Estado:      ' + ${cita.estadoCita.estCitNombreEstado}"></li>
+                                        </ul>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
