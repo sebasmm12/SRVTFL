@@ -80,7 +80,7 @@ public class PageRender<T> {
     public boolean isHasNext(){
         return page.hasNext();
     }
-    public boolean isHasPrevius(){
+    public boolean isHasPrevious(){
         return page.hasPrevious();
     }
 }

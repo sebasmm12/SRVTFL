@@ -36,12 +36,11 @@ public class EstadoCita implements Serializable{
     }
     
     @Id
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="est_cit_id")
     private int estCitId;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="est_cit_nombre_estado")
     private String estCitNombreEstado;
 

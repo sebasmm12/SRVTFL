@@ -5,15 +5,19 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
-import com.TP20192.SRVTFL.models.entity.Actividad;
-import com.TP20192.SRVTFL.models.entity.Usuario;
+import com.TP20192.SRVTFL.models.entity.Notificacion;
 import java.util.List;
 
 /**
  *
  * @author USUARIO
  */
-public interface IUsuarioService {
-    public Usuario encontrarUsuario(String usuCodigo);
-}
+public interface INotificacionService {
 
+    public List<Notificacion> findAll();
+
+    public void save(Notificacion notificacion);
+
+    public void delete(Notificacion notificacion);
+
+}

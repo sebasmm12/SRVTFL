@@ -41,63 +41,64 @@ public class Paciente implements Serializable{
     
     @Id
     @Column(name="pac_id")
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int pacId;
+    private Long pacId;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="usu_id")
     private int usu_id;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_edad")
     private int pac_edad;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_nombre")
     private String pacNombre;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_apellido")
     private String pacApellido;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_imagen")
     private String pacImagen;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_telefono")
     private String pacTelefono;
     
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_número_documento")
     private String pacNúmeroDocumento;
     
-    @NotEmpty
+    //@NotEmpty
     @Email
     @Column(name="pac_email")
     private String pacEmail;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_direccion")
     private String pacDireccion;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="tip_doc_id")
     private int tipDocId;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_sexo_biologico")
     private boolean pacSexoBiologico;
-    
-    public int getPacId() {
+
+    public Long getPacId() {
         return pacId;
     }
 
-    public void setPacId(int pacId) {
+    public void setPacId(Long pacId) {
         this.pacId = pacId;
     }
+    
+    
 
     public int getUsu_id() {
         return usu_id;

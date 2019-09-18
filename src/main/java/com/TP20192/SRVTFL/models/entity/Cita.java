@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.models.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,11 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -27,20 +33,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name= "T_Cita")
 public class Cita implements Serializable {
-    
-    public Cita(){
-        this.tratId = 0;
-    }
-    
+
     @Id
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "cit_id")
     private Long citId;
     
-    @NotEmpty
+
     @Column(name= "usu_id")
-    private int usuId;
+    private Long usuId;
 
     public Paciente getPaciente() {
         return paciente;
@@ -58,63 +59,92 @@ public class Cita implements Serializable {
         this.estadoCita = estadoCita;
     }
     
+    @PrePersist
+    public void prepersist(){
+        this.citVr = true;
+    }
     
-    @NotEmpty
+    //@NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pac_id")
     private Paciente paciente;
     
-    @NotEmpty
+    //@NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="est_cit_id")
     private EstadoCita estadoCita;
-    
-    
-    
-    @NotEmpty
+
+    //@NotEmpty
     @Column(name= "dia_id")
-    private int diaId;
+    private Integer diaId;
     
-    @NotEmpty
+    //@Null
     @Column(name= "trat_id")
-    private int tratId;
+    private Integer tratId;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name= "sim_id")
-    private int simId;
+    private Integer simId;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name= "cit_anotaciones")
     private String citAnotaciones;
     
     @NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_inicio")
     private Date citFechaHoraInicio;
     
     @NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_fin")
     private Date citFechaHoraFin;
     
     //@NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_inicio_real")
-    private Date citFechaHoraInicioReal;
+    private String citFechaHoraInicioReal;
     
     //@NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_fin_real")
-    private Date citFechaHoraFinReal;
+    private String citFechaHoraFinReal;
     
     @NotEmpty
+    @Size(min=2, max=255)
     @Column(name= "cit_motivo")
     private String citMotivo;
     
-    @NotEmpty
+    //@Defa
     @Column(name= "cit_vr")
     private boolean citVr;
 
+    public Integer getDiaId() {
+        return diaId;
+    }
+
+    public void setDiaId(Integer diaId) {
+        this.diaId = diaId;
+    }
+
+    public Integer getSimId() {
+        return simId;
+    }
+
+    public void setSimId(Integer simId) {
+        this.simId = simId;
+    }
+    
+    public Integer getTratId() {
+        return tratId;
+    }
+
+    public void setTratId(Integer tratId) {
+        this.tratId = tratId;
+    }
+    
     public Long getCitId() {
         return citId;
     }
@@ -122,41 +152,14 @@ public class Cita implements Serializable {
     public void setCitId(Long citId) {
         this.citId = citId;
     }
-    
-    public int getUsuId() {
+
+    public Long getUsuId() {
         return usuId;
     }
 
-    public void setUsuId(int usuId) {
+    public void setUsuId(Long usuId) {
         this.usuId = usuId;
     }
-
-   
-
-    public int getDiaId() {
-        return diaId;
-    }
-
-    public void setDiaId(int diaId) {
-        this.diaId = diaId;
-    }
-
-    public int getTratId() {
-        return tratId;
-    }
-
-    public void setTratId(int tratId) {
-        this.tratId = tratId;
-    }
-
-    public int getSimId() {
-        return simId;
-    }
-
-    public void setSimId(int simId) {
-        this.simId = simId;
-    }
-
     public String getCitAnotaciones() {
         return citAnotaciones;
     }
@@ -181,21 +184,25 @@ public class Cita implements Serializable {
         this.citFechaHoraFin = citFechaHoraFin;
     }
 
-    public Date getCitFechaHoraInicioReal() {
+    
+    public String getCitFechaHoraInicioReal() {
         return citFechaHoraInicioReal;
     }
 
-    public void setCitFechaHoraInicioReal(Date citFechaHoraInicioReal) {
+    public void setCitFechaHoraInicioReal(String citFechaHoraInicioReal) {
         this.citFechaHoraInicioReal = citFechaHoraInicioReal;
     }
 
-    public Date getCitFechaHoraFinReal() {
+    public String getCitFechaHoraFinReal() {
         return citFechaHoraFinReal;
     }
 
-    public void setCitFechaHoraFinReal(Date citFechaHoraFinReal) {
+    public void setCitFechaHoraFinReal(String citFechaHoraFinReal) {
         this.citFechaHoraFinReal = citFechaHoraFinReal;
     }
+   
+
+  
 
     public String getCitMotivo() {
         return citMotivo;

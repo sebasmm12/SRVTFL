@@ -6,8 +6,11 @@
 package com.TP20192.SRVTFL.models.implementation;
 
 import com.TP20192.SRVTFL.models.dao.IUsuarioDao;
+import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
+import java.util.Calendar;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
