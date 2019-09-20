@@ -24,16 +24,23 @@ and open the template in the editor.
 
                             <div class="container py-4">
                                 <div class="card bg-light">
-                                    <h2 class="card-header" th:text="${titulo}"></h2>
+                                    <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
+                                        th:text="${titulo}"></h2>
                                     <div class="card-body">
-
-                                        <h1
-					class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
-                                        <h4 class="card-title">
-                                            <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs">Registrar
+                                        <div class="row">
+                                            <label class="col-sm-3 col-form-label" style="width: 45px"
+                                                       th:text="'Nombre del Paciente:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control"/>                                                  
+                                                </div>
+                                                <a  class="btn btn-success btn-xs m-b-10 col-sm-1" th:text="'Filtrar'" ></a>
+                                                
+                                        <h4 class="card-title col-sm-4">
+                                            <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
+                                               align-items-lg-end">Registrar
                                                 Nueva Cita</a>
                                         </h4>
-
+                                        </div>
 
                                         <table class="table table-striped">
                                             <thead>
@@ -58,8 +65,10 @@ and open the template in the editor.
                                                     <td th:text="${cita.citFechaHoraInicio}"></td>
                                                     <td th:text="${cita.citFechaHoraFin}"></td>
                                                     <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
-                                                    <td><a class="btn btn-primary btn-xs">Modificar</a></td>
-                                                    <td><a class="btn btn-danger btn-xs">Cancelar</a></td>
+                                                    <td><a class="btn btn-primary btn-xs"
+                                                           th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">Modificar</a></td>
+                                                    <td><a th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-danger btn-xs"
+                                                           onclick="return confirm('estas seguro que deseas Cancelar la Cita??');">Cancelar</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -71,7 +71,7 @@ public class Paciente implements Serializable{
     
     //@NotEmpty
     @Column(name="pac_número_documento")
-    private String pacNúmeroDocumento;
+    private String pacNumeroDocumento;
     
     //@NotEmpty
     @Email
@@ -148,13 +148,15 @@ public class Paciente implements Serializable{
         this.pacTelefono = pacTelefono;
     }
 
-    public String getPacNúmeroDocumento() {
-        return pacNúmeroDocumento;
+    public String getPacNumeroDocumento() {
+        return pacNumeroDocumento;
     }
 
-    public void setPacNúmeroDocumento(String pacNúmeroDocumento) {
-        this.pacNúmeroDocumento = pacNúmeroDocumento;
+    public void setPacNumeroDocumento(String pacNumeroDocumento) {
+        this.pacNumeroDocumento = pacNumeroDocumento;
     }
+
+   
 
     public String getPacEmail() {
         return pacEmail;

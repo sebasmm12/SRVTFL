@@ -35,5 +35,5 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query("select ec from EstadoCita ec where ec.estCitId = :estCitId")
     public EstadoCita findEstadoCitaById(int estCitId);
 
-   
+    
 }

@@ -72,9 +72,6 @@ public class CitaServiceImpl implements ICitaService {
     public EstadoCita findEstadoCitaById(int estCitId) {
         return citaService.findEstadoCitaById(estCitId);       
     }
-    
-    
-    
     @Transactional
     @Override
     public void deleteCitaById(Long id) {

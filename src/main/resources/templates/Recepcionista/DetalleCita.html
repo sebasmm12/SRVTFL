@@ -23,33 +23,86 @@ and open the template in the editor.
                             confunden-->
 
                             <div class="container py-4">
-                                <div class="card bg-light">
-                                    <h2 class="card-header" th:text="${titulo}"></h2>
-                                    <a class="btn btn-secondary btn-xs" th:href="@{/Recepcionista/GestionarCitas}"> &laquo; Volver</a>
-                                    <div class="card-body">
-                                       
-                                        <h3 th:text="'Datos del Paciente'"></h3>
-                                         <h1
-                                            class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
-                                        <ul class="list-group">
-                                            <li class="list-group-item" th:text="'Paciente:    ' + ${cita.paciente.pacNombre} + ' ' + ${cita.paciente.pacNombre}"></li>
-                                            <li class="list-group-item" th:text="'Telefono:    ' + ${cita.paciente.pacTelefono}"></li>
-                                            <li class="list-group-item" th:text="'Numero Doc.: ' + ${cita.paciente.pacNúmeroDocumento}"></li>
-                                            <li class="list-group-item" th:text="'E-mail:      ' + ${cita.paciente.pacEmail}"></li>
-                                        </ul>
-                                        
-                                        <h3 th:text="'Datos de la Cita'"></h3>
-                                         <h1
-                                            class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
-                                        
-                                        <ul class="list-group">
-                                            <li class="list-group-item" th:text="'Motivo:      ' + ${cita.citMotivo}"></li>
-                                            <li class="list-group-item" th:text="'Inicio:      ' + ${cita.citFechaHoraInicio}"></li>
-                                            <li class="list-group-item" th:text="'Final:       ' + ${cita.citFechaHoraFin}"></li>
-                                            <li class="list-group-item" th:text="'Estado:      ' + ${cita.estadoCita.estCitNombreEstado}"></li>
-                                        </ul>
-                                        
+                                <div class="card bg-light ">
 
+
+                                    <div class="card-body">
+                                        <div class="form-group row text-secondary border border-success border-top-0 border-left-0 border-right-0">
+
+                                            <h2 class="card-header col-md-8" th:text="${titulo}"></h2>
+
+                                            <a class="btn btn-secondary btn-xs col-md-4 align-content-center m-t-15 m-b-20" th:href="@{/Recepcionista/GestionarCitas}"> &laquo; Volver</a>
+                                        </div>
+
+                                        <div class="m-b-15">
+                                            <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
+                                                th:text="'Detalle del Paciente'"></h2>
+                                            <div class="m-l-10">
+                                                <div class="form-group row m-t-15">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Paciente:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNombre} + ' ' + ${cita.paciente.pacApellido}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Telefono:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacTelefono}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Numero Doc.:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNumeroDocumento}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'E-Mail:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacEmail}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
+                                                th:text="'Informacion de la Cita'"></h2>
+                                            <div class="m-l-10">
+                                                <div class="form-group row m-t-15">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Motivo:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.citMotivo}" 
+                                                               class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Fecha/Hora Inicio:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.citFechaHoraInicio}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Numero Doc.:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNumeroDocumento}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Estado de Cita:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.estadoCita.estCitNombreEstado}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
                                     </div>
                                 </div>
                             </div>
