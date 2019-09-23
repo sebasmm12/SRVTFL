@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,6 +33,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name= "T_Cita")
+
 public class Cita implements Serializable {
 
     @Id
@@ -43,6 +45,7 @@ public class Cita implements Serializable {
     @Column(name= "usu_id")
     private Long usuId;
 
+    
     public Paciente getPaciente() {
         return paciente;
     }
@@ -50,7 +53,7 @@ public class Cita implements Serializable {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-
+    
     public EstadoCita getEstadoCita() {
         return estadoCita;
     }
@@ -65,11 +68,13 @@ public class Cita implements Serializable {
     }
     
     //@NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pac_id")
     private Paciente paciente;
     
     //@NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="est_cit_id")
     private EstadoCita estadoCita;

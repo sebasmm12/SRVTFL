@@ -27,9 +27,8 @@ public class DetalleUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @JoinColumn(name="usu_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Usuario usuId;
+    @Column(name="usu_id")
+    private Long usu_id;
     
     @JoinColumn(name="tip_det_usu_id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -79,13 +78,27 @@ public class DetalleUsuario implements Serializable {
     @Column(name="det_usu_lugar_nacimiento")
     private String detUsuLugarNacimiento;
 
-    public Usuario getUsuId() {
-        return usuId;
+    @JoinColumn(name="usu_id",unique=true)
+    @OneToOne(fetch = FetchType.LAZY)
+    private Usuario usuario;
+
+    public Long getUsu_id() {
+        return usu_id;
     }
 
-    public void setUsuId(Usuario usuId) {
-        this.usuId = usuId;
+    public void setUsu_id(Long usu_id) {
+        this.usu_id = usu_id;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
 
     public TipoDetalleUsuario getTipDetUsuId() {
         return tipDetUsuId;

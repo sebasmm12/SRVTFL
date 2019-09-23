@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,8 +33,10 @@ public class Usuario implements Serializable {
     @Column(name = "usu_id")
     private Long usu_id;
 
-    @Column(name = "est_usu_id")
-    private int est_usu_id;
+    //@Column(name = "est_usu_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="est_usu_id")
+    private EstadoUsuario estadoUsuario;
 
     @Column(name = "usu_codigo")
     private String usu_codigo;
@@ -46,14 +49,13 @@ public class Usuario implements Serializable {
         this.usu_id = usu_id;
     }
 
-    public int getEst_usu_id() {
-        return est_usu_id;
+    public EstadoUsuario getEstadoUsuario() {
+        return estadoUsuario;
     }
 
-    public void setEst_usu_id(int est_usu_id) {
-        this.est_usu_id = est_usu_id;
+    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
     }
-
     public String getUsu_codigo() {
         return usu_codigo;
     }
