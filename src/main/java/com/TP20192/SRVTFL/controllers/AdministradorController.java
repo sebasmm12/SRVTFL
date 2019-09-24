@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -43,5 +46,31 @@ public class AdministradorController {
         model.addAttribute("titulo","Gestion de Usurios y Cuentas");
         model.addAttribute("page",pageRender);
         return "Administrador/ListarUsuario";
+    }
+    
+    @GetMapping("/RegistrarUsuario")
+    public String registrarUsuario(Model model){
+        model.addAttribute("titulo", "Registro de Usuarios");
+        Usuario usu = new Usuario();
+        DetalleUsuario detUsu = new DetalleUsuario();
+        model.addAttribute("usu", usu);
+        model.addAttribute("detUsu", detUsu);
+        return "Administrador/RegistrarUsuario";
+    }
+    @PostMapping("/GuardarUsuario")
+    public String guardarUsuario(@PathVariable(name="usuaio") Usuario usuario){
+        return "";
+    }
+    
+    @GetMapping("/consultarUsuario/{usu_id}")
+    public String consultarUsuario(@PathVariable(name="usu_id") Long usu_id, Model model){
+        DetalleUsuario detUsu = new DetalleUsuario();
+        detUsu = usuarioService.obtenerDetalleUsuario(usu_id);
+        if(detUsu == null){
+            return "redirect: Administrador/GestionarUsuarios";
+        }
+        model.addAttribute("detUsu",detUsu);
+        model.addAttribute("titulo","Detalle de Cuenta de Usuario");
+        return "Administrador/ConsultarUsuario";
     }
 }

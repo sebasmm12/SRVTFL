@@ -23,5 +23,7 @@ public interface IUsuarioService {
     
     public Page<DetalleUsuario> encontrarDetalleUsuario(Pageable page);
     
+    public DetalleUsuario obtenerDetalleUsuario(Long usu_id);
+    
 }
 

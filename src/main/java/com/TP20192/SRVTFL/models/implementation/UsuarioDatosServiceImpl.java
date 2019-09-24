@@ -48,4 +48,9 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
         return detUsuDao.findAll(page);
     }
 
+    @Override
+    public DetalleUsuario obtenerDetalleUsuario(Long usu_id) {
+       return detUsuDao.findById(usu_id).orElse(null);
+    }
+
 }
