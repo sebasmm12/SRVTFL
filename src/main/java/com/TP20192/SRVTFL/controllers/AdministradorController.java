@@ -41,7 +41,7 @@ public class AdministradorController {
 
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<DetalleUsuario> detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
-        PageRender<Usuario> pageRender = new PageRender("Administrador/GestionarUsuarios", detUsus);
+        PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios", detUsus);
         model.addAttribute("detUsus", detUsus);
         model.addAttribute("titulo","Gestion de Usurios y Cuentas");
         model.addAttribute("page",pageRender);

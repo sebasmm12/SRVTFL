@@ -8,7 +8,10 @@ package com.TP20192.SRVTFL.controllers;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,7 +36,7 @@ public class UsuarioController {
     private IUsuarioService usuarioService;
     
     @GetMapping("/GestionarDatosPersonales")
-    public String GestionarDatosPersonales(Map<String,Object> model) {
+    public String GestionarDatosPersonales(Map<String,Object> model) throws UnsupportedEncodingException {
         Long Id=((Usuario)model.get("usuario")).getUsu_id();
         DetalleUsuario detalleUsuario=usuarioService.obtenerDetalleUsuario(Id);
         model.put("DetalleUsuario",detalleUsuario);

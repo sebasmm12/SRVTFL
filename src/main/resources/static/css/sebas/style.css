@@ -21,4 +21,19 @@ label {
     .btn-imagen {
         margin-top: auto;
     }
+    .btn-image-second {
+        margin-top:auto;
+    }
+    .btn-registrar {
+        margin-left: auto;
+    }
+}
+.icon-size {
+    font-size: 20px !important;
+}
+.btn-image-second {
+    margin-top: 5%;
+}
+.btn-registrar {
+    margin-left: 75% !important;
 }
