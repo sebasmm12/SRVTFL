@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -51,6 +52,7 @@ public class Rol implements Serializable {
     @Column(name = "rol_nombre")
     private String nombreRol;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name ="rol_id")
     private List<RolPermiso> permisos;

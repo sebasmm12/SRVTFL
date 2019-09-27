@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -72,7 +74,8 @@ public class DetalleUsuario implements Serializable {
     private String detUsuEstadoCivil;
     
     @Column(name="det_usu_fecha_nacimiento")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date detUsuFechaNacimiento;
     
     @Column(name="det_usu_lugar_nacimiento")
@@ -98,8 +101,6 @@ public class DetalleUsuario implements Serializable {
         this.usuario = usuario;
     }
     
-
-
     public TipoDetalleUsuario getTipDetUsuId() {
         return tipDetUsuId;
     }

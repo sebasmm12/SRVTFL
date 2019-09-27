@@ -76,6 +76,5 @@ public class CitaServiceImpl implements ICitaService {
     @Override
     public void deleteCitaById(Long id) {
         citaService.deleteById(id);
-    
     }
 }

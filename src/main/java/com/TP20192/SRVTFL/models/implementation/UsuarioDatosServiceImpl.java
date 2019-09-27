@@ -7,11 +7,14 @@ package com.TP20192.SRVTFL.models.implementation;
 
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IUsuarioDao;
-import com.TP20192.SRVTFL.models.entity.Actividad;
+import com.TP20192.SRVTFL.models.dao.IUsuarioRolDao;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
+import com.TP20192.SRVTFL.models.entity.Rol;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
+import com.TP20192.SRVTFL.models.entity.UsuarioRol;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
-import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +34,9 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     
     @Autowired
     private IDetalleUsuarioDao detUsuDao;
+    
+    @Autowired
+    private IUsuarioRolDao usuRolDao;
     
     @Override
     @Transactional(readOnly = true)
@@ -53,4 +59,45 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
        return detUsuDao.findById(usu_id).orElse(null);
     }
 
+    @Override
+    public List<TipoDocumento> listarTipoDocuemto() {
+        return detUsuDao.listarTipoDocumento();
+    }
+
+    @Override
+    public List<Rol> listarRol(String term) {
+        return detUsuDao.encontrarRol(term);
+    }
+
+    @Override
+    public Usuario obtenerUsuarioPorNombre(String term) {
+       return detUsuDao.encontrarUsuarioPorCodigo(term);
+    }
+
+    @Override
+    @Transactional(readOnly=true)
+    public EstadoUsuario obtenerEstadoUsuario(int estUsuId) {
+        return detUsuDao.encontrarEstadoUsuario(estUsuId);
+    }
+
+    @Override
+    public Usuario guardarUsuario(Usuario usu) {
+       return usuarioDao.save(usu);
+    }
+
+    @Override
+    public void guardarRolesUsuario(List<UsuarioRol> rolesUsuario) {
+            usuRolDao.saveAll(rolesUsuario);
+    }
+
+    @Override
+    public Rol obtenerRolPorId(Long id) {
+        return new Rol();
+    
+    }
+
+    @Override
+    public void guardarDetalleUsuario(DetalleUsuario detUsu) {
+        detUsuDao.save(detUsu);
+    }
 }

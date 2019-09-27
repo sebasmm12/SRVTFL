@@ -26,6 +26,9 @@ public class TipoDocumento implements Serializable {
     @Column(name = "tip_doc_id")
     private Long tipDocId;
 
+     @Column(name="tip_doc_nombre")
+    private String tipDocNombre;
+    
     public Long getTipDocId() {
         return tipDocId;
     }
@@ -42,6 +45,5 @@ public class TipoDocumento implements Serializable {
         this.tipDocNombre = tipDocNombre;
     }
     
-    @Column(name="tip_doc_nombre")
-    private String tipDocNombre;
+   
 }

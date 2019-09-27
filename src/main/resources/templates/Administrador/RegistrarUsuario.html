@@ -84,9 +84,16 @@ and open the template in the editor.
                                                     </div>
                                                     <label for=""class="col-sm-2 col-form-label"
                                                            th:text="'Tipo Documento:'"></label>
-                                                    <div class="col-sm-4">
+                                                    
+                                                    <select  class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  311.66px">
+                                                        <option  th:each="item : ${tipDocs}" th:value="${item}"  
+                                                                th:field="*{tipDocId}"
+                                                                th:text="${item.tipDocNombre}"></option>
+                                                    </select>
+                                                    
+                                                    <!--div class="col-sm-4">
                                                         <input type="text" th:field="*{tipDocId}" class="form-control"/>            
-                                                    </div>
+                                                    </div-->
                                                 </div>
 
                                                 <div class="form-group row m-l-25">
@@ -154,13 +161,27 @@ and open the template in the editor.
                                                 </div>
 
                                                 <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-4 col-form-label"
+                                                    <label for="buscar_rol"class="col-sm-4 col-form-label"
                                                            th:text="'Roles'"></label>
                                                     <div class="col-sm-8">
-                                                        <input type="text"  class="form-control"/>            
+                                                        <input type="text"  class="form-control" name="buscar_rol" id="buscar_rol"/>            
                                                     </div>
                                                 </div>
-
+                                                <table th:replace="Administrador/plantilla-roles :: rolesUsuario"></table>
+                                                
+                                                <table id="cargarRolesUsuario" class="table table-sm table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre del Rol</th>
+                                                            <th>Eliminar Rol</th>
+                                                            <th>Detalle de Rol</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                    </tbody>
+                                                    
+                                                </table>
                                             </div>
 
                                             <div class="form-group row">
@@ -184,6 +205,10 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        
+        
         <footer th:replace="layout/layout :: footer"></footer>
+        <script th:replace="Administrador/js/autocomplete-rol :: javascript"></script>
     </body>
+    <!--script type="text/javascript" th:src="@{'/js/autocomplete-rol.js'}"/-->
 </html>

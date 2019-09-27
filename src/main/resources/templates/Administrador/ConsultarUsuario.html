@@ -34,44 +34,47 @@ and open the template in the editor.
                                         <div class="m-b-15 card p-l-15 col-sm-12">
                                             <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
                                                 th:text="'Datos Personales'"></h2>
-                                            <div>
-                                                <div class="form-group row m-t-25 m-l-25">
-                                                    <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'Nombre Completo:'"></label>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" disabled="disabled" th:value="${detUsu.detUsuNombre}" class="form-control"/>            
+                                            <div class="row">
+                                                <div class="col-sm-9">
+                                                    <div class="form-group row m-t-25 m-l-25">
+                                                        <label for=""class="col-sm-3 col-form-label"
+                                                               th:text="'Nombre Completo:'"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" disabled="disabled" th:value="${detUsu.detUsuNombre}" class="form-control"/>            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row m-l-25">
+                                                        <label for=""class="col-sm-3 col-form-label"
+                                                               th:text="'E-Mail:'"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" disabled="disabled" th:value="${detUsu.detUsuCorreo}" class="form-control"/>            
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row m-l-25">
+                                                        <label for=""class="col-sm-3 col-form-label"
+                                                               th:text="'Direccion:'"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" disabled="disabled" th:value="${detUsu.detUsuDireccion}" class="form-control"/>            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row m-l-25">
+                                                        <label for=""class="col-sm-3 col-form-label"
+                                                               th:text="'Telefono:'"></label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" disabled="disabled" th:value="${detUsu.detUsuTelefono}" class="form-control"/>            
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'E-Mail:'"></label>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" disabled="disabled" th:value="${detUsu.detUsuCorreo}" class="form-control"/>            
-                                                    </div>
+                                                <div class="col-sm-3">
+                                                <img th:if="${#strings.length(detUsu.detUsuImagen) > 0}"
+                                                     class="img-thumbnail img-fluid rounded col-sm-12 m-t-20" style="max-width: 100%"
+                                                     th:src="@{'/SRVTFLrepo/' + ${detUsu.detUsuImagen}}" th:alt="${detUsu.detUsuImagen}" />
                                                 </div>
-
-
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'Direccion:'"></label>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" disabled="disabled" th:value="${detUsu.detUsuDireccion}" class="form-control"/>            
-                                                    </div>
                                                 </div>
-
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'Telefono:'"></label>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" disabled="disabled" th:value="${detUsu.detUsuTelefono}" class="form-control"/>            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <img th:if="${#strings.length(detUsu.detUsuImagen) > 0}"
-                                                 class="img-thumbnail rounded float-right" style="max-width: 25%"
-                                                 th:src="@{'/SRVTFLrepo/' + ${detUsu.detUsuImagen}}" th:alt="${detUsu.detUsuImagen}" />
-
 
                                             <!--falta el selector para el tipo de documento-->
                                             <div class="form-group row m-l-25">
