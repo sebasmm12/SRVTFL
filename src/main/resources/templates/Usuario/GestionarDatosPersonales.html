@@ -228,7 +228,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="m-2 p-2 container">
-                                            <button class="btn btn-outline-success btn-registrar">
+                                            <button class="btn btn-outline-success btn-registrar" id="RegistraDatosId">
                                                 <i class="fa fa-check"></i>
                                                 <span class="btn-text">Guardar Datos Personales</span>
                                             </button>            
@@ -246,5 +246,6 @@ and open the template in the editor.
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
     <script th:replace="Usuario/js/ObtenerContra :: javascriptContraseña"></script>
+    <script th:src="@{/js/sebas/RegistrarDatos.js}"></script>
 </body>
 </html>
