@@ -96,10 +96,11 @@ public class AdministradorController {
             UsuarioRol ur = new UsuarioRol();
             
             UsuarioRolId uri = new UsuarioRolId();
-            //Rol rol = 
-            uri.setUsuId(usu.getUsu_id().intValue());
-            uri.setRolId(Idroles[i].intValue());
+            Rol rol = usuarioService.obtenerRolPorId(Idroles[i]);
+            uri.setUsuId(usu.getUsu_id());
+            uri.setRolId(Idroles[i]);
             ur.setId(uri);
+            ur.setRol(rol);
             lur.add(ur);
         }
         //Guardando los permisos en la Base de Datos
@@ -107,9 +108,10 @@ public class AdministradorController {
        //actualizando al usuario en sus roles
        //usu.setRoles(lur);
        //usuarioService.guardarUsuario(usu); 
+       detUsu.setUsu_id(usu.getUsu_id());
        usuarioService.guardarDetalleUsuario(detUsu);
        //Guardando Datos Personales
-        return "Administrador/GestionarUsuarios";
+        return "redirect:/Administrador/GestionarUsuarios";
     }
     
     private Long[] conversion(String[] array){

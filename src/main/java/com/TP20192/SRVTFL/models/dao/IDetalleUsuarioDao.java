@@ -45,6 +45,6 @@ public interface IDetalleUsuarioDao extends PagingAndSortingRepository<DetalleUs
     @Query("select eu from EstadoUsuario eu where eu.estUsuId = :estUsuId")
     public EstadoUsuario encontrarEstadoUsuario(@Param("estUsuId") int estUsuId);
     
-//    @Query("select r from Rol r where r.Id = :id")
-//    public Rol encontrarRolPorId(@Param("id") int )
+    @Query("select r from Rol r where r.Id = :id")
+    public Rol encontrarRolPorId(@Param("id") Long id);
 }

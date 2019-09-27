@@ -19,13 +19,13 @@ public class UsuarioRolId implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "rol_id")
-    private int rolId;
+    private Long rolId;
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 29 * hash + this.rolId;
-        hash = 29 * hash + this.usuId;
+        hash = 29 * hash + this.rolId.intValue();
+        hash = 29 * hash + this.usuId.intValue();
         return hash;
     }
 
@@ -50,21 +50,23 @@ public class UsuarioRolId implements Serializable {
         return true;
     }
     @Column(name = "usu_id")
-    private int usuId;
+    private Long usuId;
 
-    public int getRolId() {
+    public Long getRolId() {
         return rolId;
     }
 
-    public void setRolId(int rolId) {
+    public void setRolId(Long rolId) {
         this.rolId = rolId;
     }
 
-    public int getUsuId() {
+    public Long getUsuId() {
         return usuId;
     }
 
-    public void setUsuId(int usuId) {
+    public void setUsuId(Long usuId) {
         this.usuId = usuId;
     }
+
+   
 }
