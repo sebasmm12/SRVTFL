@@ -38,7 +38,7 @@ public class PacienteServiceImpl  implements  IPacienteService{
       return  (Paciente) pacienteService.buscarPaciente(paciente_id);
     }
     
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public int registrarPaciente(Paciente paciente) {
      

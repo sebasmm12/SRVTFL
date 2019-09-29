@@ -45,34 +45,40 @@ and open the template in the editor.
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>pacId</th>
-                                                    <th>pac_edad</th>
-                                                    <th>pacNombre</th>
-                                                    <th>pacApellido</th>
-                                                    <th>pacNumeroDocumento</th>
-                                                    <th>tipDocId</th>
-                                                    <th>pacSexoBiologico</th>
+                                                    <th>pacId</th>                                                   
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                     <th>Edad</th>
+                                                    <th>Numer de Documento</th>
+                                                    <th>Tipo Documento</th>
+                                                    <th>Sexo</th>
                                                     
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr th:each="paciente: ${pacientes}">
-                                                    <td>
-                                                        class="btn btn-success btn-xs" 
-                                                        th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}"
-                                                    </td>
-                                                    <td th:text="${paciente.pacNombre}+ ' ' + ${paciente.pacApellido}"></td>
-                                                    <td th:text="${paciente.pacEdad}"></td>
-                                                    <td th:text="${paciente.pacNombre}"></td>
+                                                    <td class="btn btn-success btn-xs" 
+                                                        th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}">
+                                                        
+                                                    </td>                                            
+                                                   <td th:text="${paciente.pacNombre}"></td>                                                                                                     
                                                     <td th:text="${paciente.pacApellido}"></td>
+                                                    <td th:text="${paciente.pac_edad}"></td>   
                                                     <td th:text="${paciente.pacNumeroDocumento}"></td>
-                                                    <td th:text="${paciente.tipDocId}"></td>
-                                                    <td th:text="${paciente.pacSexoBiologico}"></td>
+                                                    <td >
+                                                        <span th:if="${paciente.tipDocId == 1}">DNI</span>
+                                                        <span th:if="${paciente.tipDocId == 2}">Pasaporte</span> 
+                                                    </td>
+                                                    <td >
+                                                         <span th:if="${paciente.pacSexoBiologico == true}">Masculino</span>
+                                                          <span th:if="${paciente.pacSexoBiologico == false}">Femenino</span>    
+                                                        
+                                                        
+                                                    </td>
                                                     
                                                     <td><a class="btn btn-primary btn-xs"
                                                            th:href="@{'/Paciente/ActualizarPaciente/' + ${paciente.pacId}}">Modificar</a></td>
-                                                    <td><a th:href="@{'/Paciente/EliminarPaciente/' + ${paciente.pacId}}" class="btn btn-danger btn-xs"
-                                                           onclick="return confirm('estas seguro que deseas Eliminar el Paciente??');">Eliminar</a></td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </table>

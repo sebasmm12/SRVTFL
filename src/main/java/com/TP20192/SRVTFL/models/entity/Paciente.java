@@ -46,7 +46,7 @@ public class Paciente implements Serializable{
     
     //@NotEmpty
     @Column(name="usu_id")
-    private int usu_id;
+    private long usu_id;
     
     //@NotEmpty
     @Column(name="pac_edad")
@@ -100,11 +100,11 @@ public class Paciente implements Serializable{
     
     
 
-    public int getUsu_id() {
+    public long getUsu_id() {
         return usu_id;
     }
 
-    public void setUsu_id(int usu_id) {
+    public void setUsu_id(long usu_id) {
         this.usu_id = usu_id;
     }
 
@@ -190,13 +190,12 @@ public class Paciente implements Serializable{
         this.pacSexoBiologico = pacSexoBiologico;
     }
 
-    public void getPacNombre(String pacNombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public String toString() {
+        return "Paciente{" + "pacId=" + pacId + ", usu_id=" + usu_id + ", pac_edad=" + pac_edad + ", pacNombre=" + pacNombre + ", pacApellido=" + pacApellido + ", pacImagen=" + pacImagen + ", pacTelefono=" + pacTelefono + ", pacNumeroDocumento=" + pacNumeroDocumento + ", pacEmail=" + pacEmail + ", pacDireccion=" + pacDireccion + ", tipDocId=" + tipDocId + ", pacSexoBiologico=" + pacSexoBiologico + '}';
     }
 
-    public void getPacNumeroDocumento(String pacNumeroDocumento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     
     
     

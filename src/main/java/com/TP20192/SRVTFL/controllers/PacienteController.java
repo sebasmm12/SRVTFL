@@ -35,7 +35,7 @@ import org.springframework.web.bind.support.SessionStatus;
  * @author alumno
  */
 @Controller
-@RequestMapping("/Paciente")
+    @RequestMapping("/Paciente")
 @SessionAttributes({"usuario","paciente"})
 
 public class PacienteController {       
@@ -57,7 +57,7 @@ public class PacienteController {
         
         Pageable pageRequest = PageRequest.of(page, 5);    
         Page<Paciente> pacientes = pacienteService.obtenerPacientes(pageRequest);
-        PageRender<Paciente> pageRender= new PageRender("/Paciente/GestionarPaciente",pacientes);
+        PageRender<Paciente> pageRender= new PageRender("/Paciente/GestionarPacientes",pacientes);
         model.addAttribute("titulo", "Gestion de Pacientes");
         model.addAttribute("pacientes",pacientes);
         model.addAttribute("page",pageRender);
@@ -71,6 +71,8 @@ public class PacienteController {
         model.addAttribute("paciente", paciente);
         return "Paciente/RegistrarPaciente";
     }
+    
+    
      @GetMapping("/detallePaciente/{pacienteId}")
     public String detallePaciente(
             @PathVariable(name="pacienteId") Long pacienteId,
@@ -81,36 +83,43 @@ public class PacienteController {
         }        
         model.addAttribute("paciente", paciente);
         model.addAttribute("titulo", "Paciente");
-        return "Paciente/DetallePaciente";
+        return "PacienteDetallePaciente";
     }
     
-    
      @PostMapping(value="/ModificarPaciente")
-    public String modificarPaciente(@Valid Paciente paciente, Map<String, Object>  model, SessionStatus se ){
-             
+    public String modificarPaciente(@Valid Paciente paciente, Map<String, Object>  model, SessionStatus se ){             
         Usuario usu = (Usuario)model.get("usuario");
         Paciente pac = new Paciente();
-        pac = pacienteService.obtenerPaciente(paciente.getPacId());
-        
+        pac = pacienteService.obtenerPaciente(paciente.getPacId());        
         pac.setPac_edad(paciente.getPac_edad());
         pac.setPacNombre(paciente.getPacNombre());
         pac.setPacApellido(paciente.getPacApellido());
         pac.setPacNumeroDocumento(paciente.getPacNumeroDocumento());
         pac.setTipDocId(paciente.getTipDocId());
-       // pac.setPacSexoBiologico(paciente.get());
-            
-        pacienteService.registrarPaciente(pac);
+        pac.setPacEmail(paciente.getPacEmail());
+        pac.setPacSexoBiologico(paciente.isPacSexoBiologico());
+        pac.setPacTelefono(paciente.getPacTelefono());
+          pacienteService.registrarPaciente(pac);
         return "redirect:/Paciente/GestionarPacientes";
     }
     
     @GetMapping(value="/ActualizarPaciente/{pacienteId}")
     public String actualizarPaciente(@PathVariable (name="pacienteId") Long id, Model model){
         Paciente paciente = pacienteService.obtenerPaciente(id);
+        System.out.println(paciente.toString());
         model.addAttribute("paciente", paciente);
         model.addAttribute("titulo","Modificacion del Paciente");
-        return "Paciente/ActualizarPaciente";
+        return "Paciente/DetallePaciente";
     }
     
-    
+    @PostMapping(value="/GuardarPaciente")
+    public String guardarPaciente(@Valid Paciente paciente, Map<String, Object>  model, SessionStatus se ){   
+        Usuario usu = (Usuario)model.get("usuario");
+        paciente.setUsu_id(usu.getUsu_id());
+        paciente.setPacId(null);
+        System.out.println(paciente.toString());
+                  pacienteService.registrarPaciente(paciente);
+        return "redirect:/Paciente/GestionarPacientes";
+    }
         
 }

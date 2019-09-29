@@ -9,7 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 /**
  *
@@ -17,7 +16,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>   {
     
-    @Query("select c from Paciente c where c.paciente_id = :paciente_id")
+    @Query("select c from Paciente c where c.pacId = :paciente_id")
     public Paciente buscarPaciente (@Param("paciente_id") Long paciente_id);
     
     @Query("select p from Paciente p where p.pacNombre like %?1%")
