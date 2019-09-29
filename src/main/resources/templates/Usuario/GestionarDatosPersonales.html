@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <link rel="stylesheet" th:href="@{/css/sebas/style.css}">
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+                            <div class="container py-4">
+                                <div class="card bg-light">
+                                    <h2 class="card-header text-secondary" th:text="${titulo}"></h2>
+                                    <div class="card-body" th:object="${DetalleUsuario}">
+                                        <div class="m-2 p-2 container">
+                                            <div class="card bg-light">
+                                                <h2 class="card-header text-secondary" th:text="'Datos Básicos'"></h2>
+                                                <div class="card-body">
+                                                    <div class="row my-4">
+                                                        <div class="col-sm-6 col-12 col-md-6 col-lg-6">
+                                                            <div class="row mb-4">
+                                                                <div class="col-sm-12 col-12">
+                                                                    <div>
+                                                                        <label class="font-weight-bolder">
+                                                                            Nombres y Apellidos
+                                                                        </label>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" th:field="*{detUsuNombre}" />
+                                                                </div> 
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12 col-12 m-1">
+                                                                    <div>
+                                                                        <label class="font-weight-bolder">
+                                                                            Dirección
+                                                                        </label>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" th:field="*{detUsuDireccion}" />
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6 col-lg-6">
+                                                            <div class="row h-100">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div>
+                                                                        <label class="font-weight-bolder">
+                                                                            Foto
+                                                                        </label>
+                                                                    </div>
+                                                                    <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                         class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet"
+                                                                         th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenId"/>
+                                                                    <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                         class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet;display: none"
+                                                                         th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    
+                                                                    <label class="btn btn-success btn-imagen" for="file-upload">
+                                                                        <i class="fa fa-user-circle icon-size"></i>
+                                                                        <span class="btn-text">Cambiar Imagen</span>
+                                                                    </label>
+                                                                    <input id="file-upload" type="file" style="display: none;"/>
+                                                                    <div id="info" class="btn-text"></div>
+                                                                    <button class="btn btn-info btn-image-second" id="RestaurarId">
+                                                                        <i class="fa fa-arrow-circle-left icon-size"></i>
+                                                                        <span class="btn-text">Restaurar Imagen</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row my-4">
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Teléfono
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuTelefono}" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Edad
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuEdad}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row my-4"> 
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Fecha de Nacimiento
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuFechaNacimiento}" />
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Sexo
+                                                                </label>
+                                                            </div>
+                                                            <input th:if="${#strings.equals(DetalleUsuario.detUsuSexo,'M')}" class="form-control" name="detUsuSexo" id="detUsuSexo" value="Masculino" />
+                                                            <input th:if="${not #strings.equals(DetalleUsuario.detUsuSexo,'M')}" class="form-control" name="detUsuSexo" id="detUsuSexo" value="Femenino" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-2 p-2 container">
+                                            <div class="card bg-light">
+                                                <h2 class="card-header text-secondary" th:text="'Datos Secundarios'"></h2>
+                                                <div class="card-body">
+                                                    <div class="mb-4 row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Correo
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuCorreo}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Número de Documento
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuTipoDocNumero}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-4 row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Código del Colegio
+                                                                </label> 
+                                                            </div>
+                                                            <input  type="text" class="form-control" th:field="*{detUsuCodigoColegio}"/>
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Especialidad
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuEspecialidad}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-4 row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Estado Civil
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuEstadoCivil}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Lugar de Nacimiento
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuLugarNacimiento}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-4 row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Ocupación
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuOcupacion}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Religión
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{detUsuReligion}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-2 p-2 container">
+                                            <div class="card bg-light">
+                                                <h2 class="card-header text-secondary" th:text="'Datos de la Cuenta'"></h2>
+                                                <div class="card-body">
+                                                    <div class="mb-4 row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Nombre de Usuario
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="*{usuario.usu_codigo}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="font-weight-bolder">
+                                                                    Contraseña
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" name="password" id="passwordId"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-2 p-2 container">
+                                            <button class="btn btn-outline-success btn-registrar" id="RegistraDatosId">
+                                                <i class="fa fa-check"></i>
+                                                <span class="btn-text">Guardar Datos Personales</span>
+                                            </button>            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+    <script th:replace="Usuario/js/ObtenerContra :: javascriptContraseña"></script>
+    <script th:src="@{/js/sebas/RegistrarDatos.js}"></script>
+</body>
+</html>

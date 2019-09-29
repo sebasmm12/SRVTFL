@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.thymeleaf.org">
+    <body>
+        <script type="text/javascript" th:fragment="javascriptContraseña">
+            $(document).ready(function (){
+                var contraseña =localStorage.getItem('contrasena');
+               $("#passwordId").val(contraseña);
+                var imagenInicial=document.getElementById('imagenIdRepetido');
+               function cambiar(){
+                   var pdrs=document.getElementById('file-upload').files[0].name;
+                   var imagen=document.getElementById('imagenId');
+                   var file =document.getElementById('file-upload').files[0];
+                   var leer = new FileReader();
+                   
+                   if(file) {
+                       leer.readAsDataURL(file);
+                       
+                       leer.onloadend = function () {
+                           imagen.src=leer.result;
+                       };
+                   }else {
+                       imagen.src="";
+                   }
+                   document.getElementById('info').innerHTML = pdrs;
+               }
+               var Restaurar = function (){
+                   var Imagen = document.getElementById('imagenId');
+                   Imagen.src=imagenInicial.src;
+                   alert(imagenInicial.src);
+               };
+               $("#RestaurarId").click(Restaurar);
+               $("#file-upload").change(cambiar);
+            });
+        </script>
+    </body>
+</html>
