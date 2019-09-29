@@ -45,7 +45,6 @@ public class RecepcionistaController {
     @Autowired
     public ICitaService citaService;
     
-    @Autowired
     @Qualifier("UsuarioDatos")
     private IUsuarioService usuarioService;
     

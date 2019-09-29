@@ -77,4 +77,10 @@ public class CitaServiceImpl implements ICitaService {
     public void deleteCitaById(Long id) {
         citaService.deleteById(id);
     }
+
+    @Override
+    public Page<Cita> obtenerCitasporPaciente(long pac_id, Pageable page) {
+       return citaService.listarCitasporPaciente(pac_id, page) ;
+    
+    }
 }

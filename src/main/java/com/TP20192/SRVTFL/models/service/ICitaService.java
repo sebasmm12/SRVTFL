@@ -33,4 +33,6 @@ public interface ICitaService {
     
     public Paciente findPacienteById(Long Id);
     
+    public Page<Cita> obtenerCitasporPaciente(long pac_id,Pageable page);
+    
 }

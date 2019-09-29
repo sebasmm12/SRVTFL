@@ -9,6 +9,8 @@ import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 //import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -34,6 +36,8 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     
     @Query("select ec from EstadoCita ec where ec.estCitId = :estCitId")
     public EstadoCita findEstadoCitaById(int estCitId);
-
+ 
+    @Query("select c from Cita c where c.paciente.pacId = :pacId")
+    public Page<Cita> listarCitasporPaciente(@Param("pacId") Long usuId, Pageable page);
     
 }

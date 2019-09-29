@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody Osea donde se muestra todo
+                            Nota: no uses nombres de anotaciones de C# en Spring , los tepecitos se
+                            confunden-->
+
+                            <div class="container py-4">
+                                <div class="card bg-light ">
+
+
+                                    <div class="card-body">
+                                        <div class="form-group row text-secondary border border-success border-top-0 border-left-0 border-right-0">
+
+                                            <h2 class="card-header col-md-8" th:text="${titulo}"></h2>
+
+                                            <a class="btn btn-secondary btn-xs col-md-4 align-content-center m-t-15 m-b-20" th:href="@{/Recepcionista/GestionarCitas}"> &laquo; Volver</a>
+                                        </div>
+
+                                        <div class="m-b-15">
+                                            <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
+                                                th:text="'Detalle del Paciente'"></h2>
+                                            <div class="m-l-10">
+                                                <div class="form-group row m-t-15">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Paciente:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNombre} + ' ' + ${cita.paciente.pacApellido}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Telefono:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacTelefono}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Numero Doc.:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNumeroDocumento}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'E-Mail:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacEmail}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
+                                                th:text="'Informacion de la Cita'"></h2>
+                                            <div class="m-l-10">
+                                                <div class="form-group row m-t-15">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Motivo:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.citMotivo}" 
+                                                               class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Fecha/Hora Inicio:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.citFechaHoraInicio}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Numero Doc.:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.paciente.pacNumeroDocumento}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label"
+                                                           th:text="'Estado de Cita:'"></label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" th:value="${cita.estadoCita.estCitNombreEstado}" class="form-control" disabled="disabled"/>                           
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
