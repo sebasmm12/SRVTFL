@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author hp
  */
-@Service("CitaServiceImpl")
+@Service("IPacienteService")
 public class CitaServiceImpl implements ICitaService {
     
     @Autowired

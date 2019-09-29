@@ -189,6 +189,14 @@ public class Paciente implements Serializable{
     public void setPacSexoBiologico(boolean pacSexoBiologico) {
         this.pacSexoBiologico = pacSexoBiologico;
     }
+
+    public void getPacNombre(String pacNombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getPacNumeroDocumento(String pacNumeroDocumento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

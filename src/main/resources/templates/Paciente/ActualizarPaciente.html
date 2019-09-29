@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody Osea donde se muestra todo
+                            Nota: no uses nombres de anotaciones de C# en Spring , los tepecitos se
+                            confunden-->
+
+                            <div class="container py-4">
+                                <div class="card bg-light">
+                                    <div class="card-header">
+                                    <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h2>
+                                    </div>
+                                    <div th:object="${paciente}" th:remove="tag">
+                                        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
+                                            <li th:each="err: ${#fields.errors('*')}"
+                                                th:text="${err}"></li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <form th:action="@{/Paciente/ModificarPaciente}" th:object="${paciente}" method="post">
+                                            <!--<div th:object="${cliente}" th:remove="tag" class=" form-group row col-sm-8">
+                                                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                                    <li th:each="er: ${#fields.errors('*')}" th:text="${er}"></li>
+                                                </ul>
+                                            </div>-->
+                                            
+                                            
+                                            
+                                            <div class="form-group row">
+                                                <label for="pac_edad" class="col-sm-2 col-form-label"
+                                                       th:text="'Edad'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="number" th:field="*{pac_edad}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/> 
+                                                    <small th:if="${#fields.hasErrors('pac_edad')}" th:errors="*{pac_edad}"
+                                                           class="form-text text-danger"></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="pacNombre" class="col-sm-2 col-form-label"
+                                                       th:text="'Nombre'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:field="*{pacNombre}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacNombre')}" th:errors="*{pacNombre}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="pacApellido" class="col-sm-2 col-form-label"
+                                                       th:text="'Apellido'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:p th:field="*{pacApellido}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacApellido')}" th:errors="*{pacApellido}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+                                    
+                                    <div class="form-group row">
+                                                <label for="pacNumeroDocumento" class="col-sm-2 col-form-label"
+                                                       th:text="'Numero de documento'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="number" th:p th:field="*{pacNumeroDocumento}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacNumeroDocumento')}" th:errors="*{pacNumeroDocumento}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+                                    
+                                    <div class="form-group row">
+                                                <label for="tipDocId" class="col-sm-2 col-form-label"
+                                                       th:text="'Tipo de documento'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:p th:field="*{tipDocId}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('tipDocId')}" th:errors="*{tipDocId}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+                                    
+                                    <div class="form-group row">
+                                                <label for="pacSexoBiologico" class="col-sm-2 col-form-label"
+                                                       th:text="'Sexo Biologico'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:p th:field="*{pacSexoBiologico}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacSexoBiologico')}" th:errors="*{pacSexoBiologico}"
+                                                           class="form-text text-danger"></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6">
+                                                    <input type="submit" class="btn btn-success"
+                                                           value="Modificar Paciente"/>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="paciente_id" th:value="${paciente.pacId}" id="paciente_id"/>
+                                            <input type="hidden" th:field="*{pacId}"  />
+                                            <!-- comentado para utilizar una variable session -->
+                                        </form>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+    <script th:replace="Paciente/js/autocomplete-paciente :: javascript"></script>
+</body>
+</html>
