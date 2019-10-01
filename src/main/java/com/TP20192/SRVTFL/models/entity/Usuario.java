@@ -5,8 +5,10 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,6 +51,7 @@ public class Usuario implements Serializable {
         this.usu_id = usu_id;
     }
 
+    @JsonIgnoreProperties
     public EstadoUsuario getEstadoUsuario() {
         return estadoUsuario;
     }
@@ -77,6 +80,7 @@ public class Usuario implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "usu_id")
+    @JsonIgnoreProperties
     private List<UsuarioRol> roles;
 
     public List<UsuarioRol> getRoles() {
@@ -89,6 +93,7 @@ public class Usuario implements Serializable {
     
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="usu_id")
+    @JsonIgnoreProperties
     private List<Notificacion> Notificaciones;
 
     public List<Notificacion> getNotificaciones() {

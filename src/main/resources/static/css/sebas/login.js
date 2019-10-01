@@ -9,7 +9,6 @@ $(document).ready(function () {
 
     var Aceptar = function () {
         var contraseña = $('#password').val();
-        alert(contraseña);
         localStorage.clear();
         localStorage.setItem('contrasena', contraseña);
     };

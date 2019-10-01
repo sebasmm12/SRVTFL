@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -34,10 +35,12 @@ public class DetalleUsuario implements Serializable {
     
     @JoinColumn(name="tip_det_usu_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties
     private TipoDetalleUsuario tipDetUsuId;
     
     @JoinColumn(name="tip_doc_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties
     private TipoDocumento tipDocId;
     
     @Column(name="det_usu_nombre")

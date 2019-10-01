@@ -67,17 +67,18 @@ and open the template in the editor.
                                                                          th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/>
                                                                 </div>
                                                                 <div class="col-12 col-sm-6">
-                                                                    
+                                                                    <form id="form">
                                                                     <label class="btn btn-success btn-imagen" for="file-upload">
                                                                         <i class="fa fa-user-circle icon-size"></i>
                                                                         <span class="btn-text">Cambiar Imagen</span>
                                                                     </label>
-                                                                    <input id="file-upload" type="file" style="display: none;"/>
+                                                                    <input id="file-upload" type="file" style="display: none;" name="uploadfile"/>
                                                                     <div id="info" class="btn-text"></div>
                                                                     <button class="btn btn-info btn-image-second" id="RestaurarId">
                                                                         <i class="fa fa-arrow-circle-left icon-size"></i>
                                                                         <span class="btn-text">Restaurar Imagen</span>
-                                                                    </button>
+                                                                    </button>    
+                                                                    </form> 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -115,8 +116,10 @@ and open the template in the editor.
                                                                     Sexo
                                                                 </label>
                                                             </div>
-                                                            <input th:if="${#strings.equals(DetalleUsuario.detUsuSexo,'M')}" class="form-control" name="detUsuSexo" id="detUsuSexo" value="Masculino" />
-                                                            <input th:if="${not #strings.equals(DetalleUsuario.detUsuSexo,'M')}" class="form-control" name="detUsuSexo" id="detUsuSexo" value="Femenino" />
+                                                            <select class="custom-select" id="selectedSexo">
+                                                                <option th:selected="${#strings.equals(DetalleUsuario.detUsuSexo,'M')}" value="M">Masculino</option>
+                                                                <option th:selected="${not #strings.equals(DetalleUsuario.detUsuSexo,'M')}" value="F">Femenino</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -170,7 +173,12 @@ and open the template in the editor.
                                                                     Estado Civil
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuEstadoCivil}" />
+                                                            <select class="custom-select" id="civilSelect">
+                                                                <option th:value="1" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'SOLTERO')}">Soltero</option>
+                                                                <option th:value="2" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'CASADO')}">Casado</option>
+                                                                <option th:value="3" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'DIVORCIADO')}">Divorciado</option>
+                                                                <option th:value="4" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'VIUDO')}">Viudo</option>
+                                                            </select>
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">
                                                             <div>

@@ -12,40 +12,36 @@ var Guardar = function () {
     var telefono = $('#detUsuTelefono').val();
     var edad = $('#detUsuEdad').val();
     var fechaNacimiento = $('#detUsuFechaNacimiento').val();
-    var sexo = $('#detUsuSexo').val();
-    var sexoReal = null;
-    if (sexo === 'Masculino') {
-        sexoReal = 'M';
-    } else {
-        sexoReal = 'F';
-    }
+    var sexo =$('#selectedSexo').val();
     var correo = $('#detUsuCorreo').val();
     var codigoColegio = $('#detUsuCodigoColegio').val();
     var numeroDocumento = $('#detUsuTipoDocNumero').val();
     var especialidad = $('#detUsuEspecialidad').val();
-    var estadoCivil = $('#detUsuEstadoCivil').val();
+    var estado =document.getElementById('civilSelect');
+    var estadoCivil = estado.options[estado.selectedIndex].innerText;
+    alert(estadoCivil);
     var lugarNacimiento = $('#detUsuLugarNacimiento').val();
     var Ocupacion = $('#detUsuOcupacion').val();
     var Religion = $('#detUsuReligion').val();
-    var UsuarioCodigo = $('#usuario.usu_codigo').val();
+    var UsuarioCodigo = document.getElementById('usuario.usu_codigo').value;
+    var Imagen = document.getElementById('imagenId');
     var UsuarioContrasena = $('#passwordId').val();
-
-    var Usuario = {
-        usu_id: 17,
+    var usuario = {
+        usu_id: 0,
         usu_codigo: UsuarioCodigo,
         usu_contraseña: UsuarioContrasena
     };
 
-    var detalleUsuarios = {
-        usu_id: 17,
-        usuario: null,
+    var detalleUsuario = {
+        usu_id: 0,
+        usuario: usuario,
         detUsuNombre: nombresApellidos,
         detUsuCorreo: correo,
         detUsuDireccion: direccion,
-        detUsuTelefono: null,
-        detUsuSexo: sexoReal,
+        detUsuTelefono: telefono,
+        detUsuSexo: sexo,
         detUsuTipoDocNumero: numeroDocumento,
-        detUsuImagen: 'Hola',
+        detUsuImagen: Imagen.src,
         detUsuCodigoColegio: codigoColegio,
         detUsuEspecialidad: especialidad,
         detUsuEdad: edad,
@@ -53,22 +49,47 @@ var Guardar = function () {
         detUsuLugarNacimiento: lugarNacimiento,
         detUsuOcupacion: Ocupacion,
         detUsuReligion: Religion,
-        detUsuEstadoCivil: estadoCivil,
-        tipDetUsuId: null,
-        tipDocId: null
+        detUsuEstadoCivil: estadoCivil
     };
     $.ajax({
         url: "/api/usuario/registrar",
-        data: {
-            detalleUsuarios: detalleUsuarios,
-            xd: 'xd',
-            nombres: numeroDocumento
-        },
-        type: 'GET',
+        type: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(detalleUsuario),
         success: function (data) {
-            alert(data);
+            if(data==="1") {
+                ActualizarImagen();   
+            }
         }
     });
+};
+
+var ActualizarImagen = function(){
+    
+       var uploadfile = new FormData($("#form")[0]);    
+       $.ajax({
+        url: "/api/usuario/actualizarImagen",
+        type: 'POST',
+        data: uploadfile ,
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (data) {
+            if (data === "1") {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Se modifico los datos personales exitosamente',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = "/";
+                    }
+                });
+            }
+        }
+    });
+    
 };
 
 $("#RegistraDatosId").click(Guardar);
