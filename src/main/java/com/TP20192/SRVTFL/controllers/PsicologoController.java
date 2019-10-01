@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,16 +45,14 @@ public class PsicologoController {
         return "Psicologo/index";
     }
     
-    @GetMapping(value = "/agenda")
+    @GetMapping(value = "/GestionarAgenda")
     public String gestionarAgenda(Map<String, Object> model){
         Usuario usu=(Usuario)model.get("usuario");
         Long usu_codigo = usu.getUsu_id();
         List<Actividad> actividad = new ArrayList<Actividad>();
         actividad = psicologoService.encontrarActividadPsicologo(usu_codigo);
-        int mes = psicologoService.obtenerDiasMes(15, 9);
-        model.put("cantidad", mes);
         model.put("actividades", actividad);
-        return "Agenda/agenda";
+        return "Agenda/index";
     }
     
     

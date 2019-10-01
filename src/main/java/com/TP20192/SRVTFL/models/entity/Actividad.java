@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,11 +28,16 @@ public class Actividad {
     private Long agenda_id;
     
     @Column(name = "act_descripcion")
-    private Date act_descripcion;
-    
+    private String act_descripcion;
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
     @Column(name = "act_inicio")
+    private Date act_inicio;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
+    @Column(name = "act_fin")
     private Date act_fin;
 
+    
     public Long getAct_id() {
         return act_id;
     }
@@ -48,22 +54,28 @@ public class Actividad {
         this.act_nombre = act_nombre;
     }
 
+    public String getAct_descripcion() {
+        return act_descripcion;
+    }
+
+    public void setAct_descripcion(String act_descripcion) {
+        this.act_descripcion = act_descripcion;
+    }
+
+    public Date getAct_inicio() {
+        return act_inicio;
+    }
+
+    public void setAct_inicio(Date act_inicio) {
+        this.act_inicio = act_inicio;
+    }
+
     public Long getAgenda_id() {
         return agenda_id;
     }
 
     public void setAgenda_id(Long agenda_id) {
         this.agenda_id = agenda_id;
-    }
-
-   
-
-    public Date getAct_descripcion() {
-        return act_descripcion;
-    }
-
-    public void setAct_descripcion(Date act_descripcion) {
-        this.act_descripcion = act_descripcion;
     }
 
     public Date getAct_fin() {
