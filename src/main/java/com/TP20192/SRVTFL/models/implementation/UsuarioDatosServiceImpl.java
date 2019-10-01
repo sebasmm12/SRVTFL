@@ -11,6 +11,7 @@ import com.TP20192.SRVTFL.models.dao.IUsuarioRolDao;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
+import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.entity.UsuarioRol;
@@ -98,5 +99,27 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     @Override
     public void guardarDetalleUsuario(DetalleUsuario detUsu) {
         detUsuDao.save(detUsu);
+    }
+
+    @Override
+    public TipoDetalleUsuario encontrarTipoDetalleUsuarioPorId(Long id) {
+        return detUsuDao.encontrarTipoDetalleUsuario(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario encontrarUsuarioPorId(Long usu_id) {
+        return usuarioDao.encontrarUsuarioPorId(usu_id);
+        
+    }
+
+    @Override
+    public Page<DetalleUsuario> filtroDetUsuEspecifico(String nombre, Pageable page) {
+        return detUsuDao.filtroDetUsuEspecifico(nombre, page);
+    }
+
+    @Override
+    public Page<DetalleUsuario> filtroDetUsuAproximado(String nombre, Pageable page) {
+         return detUsuDao.filtroDetUsuAproximado(nombre, page);
     }
 }

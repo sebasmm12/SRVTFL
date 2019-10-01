@@ -18,6 +18,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -43,23 +46,29 @@ public class DetalleUsuario implements Serializable {
     @JsonIgnoreProperties
     private TipoDocumento tipDocId;
     
+    @NotEmpty
     @Column(name="det_usu_nombre")
     private String detUsuNombre;
     
+    @Email
+    @NotEmpty
     @Column(name="det_usu_correo")
     private String detUsuCorreo;
     
+    @NotEmpty
     @Column(name="det_usu_direccion")
     private String detUsuDireccion;
     
+    @NotEmpty
     @Column(name="det_usu_telefono")
     private String detUsuTelefono;
     
     @Column(name="det_usu_sexo")
     private String detUsuSexo;
     
+    @NotEmpty
     @Column(name="det_usu_tip_doc_numero")
-    private Integer detUsuTipoDocNumero;
+    private String detUsuTipoDocNumero;
     
     @Column(name="det_usu_imagen")
     private String detUsuImagen;
@@ -78,9 +87,11 @@ public class DetalleUsuario implements Serializable {
     
     @Column(name="det_usu_fecha_nacimiento")
     @Temporal(TemporalType.DATE)
+    @NotNull
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date detUsuFechaNacimiento;
     
+    @NotEmpty
     @Column(name="det_usu_lugar_nacimiento")
     private String detUsuLugarNacimiento;
 
@@ -160,11 +171,11 @@ public class DetalleUsuario implements Serializable {
         this.detUsuSexo = detUsuSexo;
     }
 
-    public Integer getDetUsuTipoDocNumero() {
+    public String getDetUsuTipoDocNumero() {
         return detUsuTipoDocNumero;
     }
 
-    public void setDetUsuTipoDocNumero(Integer detUsuTipoDocNumero) {
+    public void setDetUsuTipoDocNumero(String detUsuTipoDocNumero) {
         this.detUsuTipoDocNumero = detUsuTipoDocNumero;
     }
 

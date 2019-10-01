@@ -28,17 +28,26 @@ and open the template in the editor.
                                         th:text="${titulo}"></h2>
                                     <div class="card-body">
                                         <div class="row">
-                                            <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                       th:text="'Nombre de Usuario'"></label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control"/>                                                  
+                                            <form name="GestionarUsuarios" action="GestionarUsuarios" method="GET" class="col-sm-10">
+                                                <div class="row">
+                                                    <label class="col-sm-3 col-form-label" style="width: 45px"
+                                                           th:text="'Nombre del Usuario'"></label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" class="form-control" id="nombreUsu" name="nombreUsu" 
+                                                               th:value="${term}"/>                                                  
+                                                    </div>
+                                                    <select id="tipoFiltro" name="tipoFiltro" class="col-sm-3 browser-default custom-select m-l-15">
+                                                        <option th:value="0" th:text="'Especifico'"></option>
+                                                        <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
+                                                    </select>
+                                                    <input type="submit" class="btn btn-success btn-xs m-b-10 col-sm-2 m-l-15"
+                                                           value="Filtrar"/>
                                                 </div>
-                                                <a  class="btn btn-success btn-xs m-b-10 col-sm-1" th:text="'Filtrar'" ></a>
-                                                
-                                        <h4 class="card-title col-sm-4">
-                                            <a  class="btn btn-success btn-xs align-items-lg-end"
-                                                th:href="@{'/Administrador/RegistrarUsuario'}">Registrar Nuevo Usuario</a>
-                                        </h4>
+                                            </form>
+                                            <h4 class="card-title col-sm-2">
+                                                <a  class="btn btn-success btn-xs align-items-lg-end"
+                                                    th:href="@{'/Administrador/RegistrarUsuario'}">Nuevo Usuario</a>
+                                            </h4>
                                         </div>
 
                                         <table class="table table-striped">
@@ -49,6 +58,7 @@ and open the template in the editor.
                                                     <th>Nombre de Usuario</th>
                                                     <th>E-mail</th>
                                                     <th>Estado</th>
+                                                    <th>Cred</th>
                                                     <th>Modificar</th>
                                                     <th>Eliminar</th>
                                                 </tr>
@@ -64,9 +74,12 @@ and open the template in the editor.
                                                     <td th:text="${detUsu.usuario.usu_codigo}"></td>
                                                     <td th:text="${detUsu.detUsuCorreo}"></td>
                                                     <td th:text="${detUsu.usuario.estadoUsuario.estUsuNombre}"></td>
-                                                    <td><a class="btn btn-primary btn-xs">Modificar</a></td>
+                                                    <td><a class="btn btn-success btn-xs"
+                                                           th:href="@{'/Administrador/ModificarCredencial/' + ${detUsu.usu_id}}">Mod</a></td>
+                                                    <td><a class="btn btn-primary btn-xs"
+                                                           th:href="@{'/Administrador/ModificarUsuario/' + ${detUsu.usuario.usu_id}}">Modificar</a></td>
                                                     <td><a  class="btn btn-danger btn-xs"
-                                                           >Inhabilitar</a></td>
+                                                            >Cancelar</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

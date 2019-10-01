@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+
+
+                            <div class="container py-4">
+                                <div class="card bg-light">
+
+                                    <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0 m-l-15 m-t-15" th:text="${titulo}"></h2>
+                                    <div th:object="${usuCred}" th:remove="tag">
+                                        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
+                                            <li th:each="err: ${#fields.errors('*')}"
+                                                th:text="${err}"></li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <form th:action="@{/Administrador/ActualizarCredencial}" th:object="${usuCred}" method="post">
+
+                                            <div class="m-b-15 card p-l-15 col-sm-12">
+                                                <div class="row">   
+                                                    <div class="col-sm-12">   
+                                                        <div class="form-group row m-t-25 m-l-25">
+                                                            <label for=""class="col-sm-3 col-form-label"
+                                                                   th:text="'Nombre de Usuario'"></label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" th:field="*{usu_codigo}" class="form-control"
+                                                                       th:errorClass="'form-control alert-danger'"/>
+                                                                <small th:if="${#fields.hasErrors('usu_codigo')}" th:errors="*{usu_codigo}"
+                                                                       class="form-text text-danger"></small>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row m-l-25">
+                                                            <label for=""class="col-sm-3 col-form-label"
+                                                                   th:text="'Contraseña:'"></label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" th:field="*{usu_contraseña}" class="form-control"
+                                                                       th:errorClass="'form-control alert-danger'"/>
+                                                                <small th:if="${#fields.hasErrors('usu_contraseña')}" th:errors="*{usu_contraseña}"
+                                                                       class="form-text text-danger"></small>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row m-l-25">
+                                                <label for="buscar_rol"class="col-sm-4 col-form-label"
+                                                       th:text="'Roles'"></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control" name="buscar_rol" id="buscar_rol"/>            
+                                                </div>
+                                            </div>
+                                            <table th:replace="Administrador/plantilla-roles :: rolesUsuario"></table>
+
+                                            <table id="cargarRolesUsuario" class="table table-sm table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre del Rol</th>
+                                                        <th>Eliminar Rol</th>
+                                                        <th>Detalle de Rol</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+
+
+                                            <div class="form-group row">
+                                                <div class="col-sm-6">
+                                                    <input type="submit" class="btn btn-success"
+                                                           value="Actualizar Credenciales de Usuario"/>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" th:field="*{usu_id}" />
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:replace="layout/layout :: styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer th:replace="layout/layout :: footer"></footer>
+        <script th:replace="Administrador/js/autocomplete-rol :: javascript"></script>
+    </body>
+    <!--script type="text/javascript" th:src="@{'/js/autocomplete-rol.js'}"/-->
+</html>

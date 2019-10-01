@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 /**
  *
@@ -40,6 +42,7 @@ public class Usuario implements Serializable {
     @JoinColumn(name="est_usu_id")
     private EstadoUsuario estadoUsuario;
 
+    @NotEmpty
     @Column(name = "usu_codigo")
     private String usu_codigo;
 
@@ -74,7 +77,8 @@ public class Usuario implements Serializable {
     public void setUsu_contraseña(String usu_contraseña) {
         this.usu_contraseña = usu_contraseña;
     }
-
+    
+    @NotEmpty
     @Column(name = "usu_contraseña")
     private String usu_contraseña;
 

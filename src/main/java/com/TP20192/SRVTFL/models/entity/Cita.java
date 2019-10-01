@@ -40,7 +40,6 @@ public class Cita implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "cit_id")
     private Long citId;
-    
 
     @Column(name= "usu_id")
     private Long usuId;

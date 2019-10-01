@@ -16,12 +16,16 @@ import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -50,22 +54,68 @@ public class RecepcionistaController {
     
     @GetMapping("/index")
     public String index(Model model,Authentication authentication) {
-      
         model.addAttribute("titulo", "INDEX DE RECEPCIONISTA");        
         return "Recepcionista/index";
     }
     
     @GetMapping("/GestionarCitas")
-    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Model model){
+    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Model model,
+    @RequestParam(name = "nombrePaciente", required = false, defaultValue="") String nombrePaciente,
+    @RequestParam(name = "tipoFiltro", required = false,defaultValue="1") Integer tipoFiltro,
+    @RequestParam(name = "fecha", required = false,defaultValue= "00/00/0000") 
+             /*@DateTimeFormat(pattern = "dd.MM.yyyy")*/String fecha,
+    @RequestParam(name="evalFecha", required = false, defaultValue="1") Integer evalFecha) {
         
+     
         Pageable pageRequest = PageRequest.of(page, 5);    
-        Page<Cita> citas = citaService.obtenerCitas(pageRequest);
-        PageRender<Cita> pageRender= new PageRender("/Recepcionista/GestionarCitas",citas);
+        Page<Cita> citas;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaD = new Date();
+        try{
+         fechaD = format.parse(fecha);
+        }catch(Exception ex){
+            citas = citaService.obtenerCitas(pageRequest);
+            PageRender<Cita> pageRender= new PageRender("/Recepcionista/GestionarCitas",citas);
+            model.addAttribute("titulo", "Gestion de Citas");
+            model.addAttribute("citas",citas);
+            model.addAttribute("mensaje","No se encontro el registro solicitado");
+            model.addAttribute("page",pageRender);
+        }
+        
+        if(nombrePaciente==null|| nombrePaciente.trim().equals("")){
+            if(fecha == null){
+                citas = citaService.obtenerCitas(pageRequest);
+            }else{
+                if(evalFecha == 1){
+                    citas = citaService.filtroCitaFechaAproximado(fechaD,pageRequest);
+                }else{
+                    citas = citaService.filtroCitaFechaEspecifico(fechaD,pageRequest);
+                }
+            }
+        }else{
+            if(tipoFiltro==1){
+                citas = citaService.filtroCitaPacienteAproximado(nombrePaciente, pageRequest);
+            }else{
+                citas = citaService.filtroCitaPacienteEspecifico(nombrePaciente, pageRequest);
+            }
+        }
+        if(citas.isEmpty()){
+            citas = citaService.obtenerCitas(pageRequest);
+            model.addAttribute("mensaje","No se encontro el registro solicitado");
+        }
+        
+        PageRender<Cita> pageRender= new PageRender("/Recepcionista/GestionarCitas?nombrePaciente="+nombrePaciente+
+        "&tipoFiltro="+tipoFiltro+"&fecha="+fecha+"&evalFecha="+evalFecha,citas);
         model.addAttribute("titulo", "Gestion de Citas");
         model.addAttribute("citas",citas);
         model.addAttribute("page",pageRender);
+        model.addAttribute("fecha", fecha);
+        model.addAttribute("nombre",nombrePaciente);
+        model.addAttribute("fech", fecha);
+       
         return "Recepcionista/ListarCita";       
     }
+    
     
     @GetMapping("/RegistrarCita")
     public String registrarCita(Model model){
@@ -77,8 +127,8 @@ public class RecepcionistaController {
     
     @RequestMapping(value="/GuardarCita",method = RequestMethod.POST)
     public String guardarCita(@Valid Cita cita,BindingResult result,
-                             @RequestParam(name="paciente_id") Long paciente_id,
-                             @RequestParam(name="buscar_paciente") String paciente_nombre,
+                             @RequestParam(name="paciente_id", required = false) Long paciente_id,
+                             @RequestParam(name="buscar_paciente", required = false) String paciente_nombre,
                              Map<String, Object>  model, SessionStatus se ){
         
         if(result.hasErrors() || paciente_nombre.equals("") || paciente_nombre== null ||

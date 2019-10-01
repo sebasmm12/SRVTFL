@@ -32,7 +32,7 @@ public class LoginController {
             logger.info("Ya ha iniciado sesión anteriormente");
         }
         if(error !=null) {
-            logger.info("Error en el login");
+            logger.info("Error en el login: "+error);
         }
         if(logout !=null) {
             logger.info("Ha cerrado sesión con exito");

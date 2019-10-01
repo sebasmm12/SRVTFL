@@ -22,9 +22,12 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
+import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 /**
@@ -47,4 +50,15 @@ public interface IDetalleUsuarioDao extends PagingAndSortingRepository<DetalleUs
     
     @Query("select r from Rol r where r.Id = :id")
     public Rol encontrarRolPorId(@Param("id") Long id);
+    
+    @Query("select tdu from TipoDetalleUsuario tdu where tdu.tipDetUsuId = :tipDetUsuId")
+    public TipoDetalleUsuario encontrarTipoDetalleUsuario(@Param("tipDetUsuId") Long tipDetUsuId);
+    
+    //filtros
+    //Especifico
+    @Query("select du from DetalleUsuario du where du.detUsuNombre = :detUsuNombre")
+        public Page<DetalleUsuario> filtroDetUsuEspecifico(@Param("detUsuNombre") String detUsuNombre,Pageable pageable);
+    //Aproximado
+    @Query("select du from DetalleUsuario du where du.detUsuNombre like %?1%")
+    public Page<DetalleUsuario> filtroDetUsuAproximado(String detUsuNombre,Pageable pageable);
 }

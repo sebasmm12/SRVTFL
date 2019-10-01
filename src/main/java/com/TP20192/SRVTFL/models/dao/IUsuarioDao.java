@@ -7,6 +7,7 @@ package com.TP20192.SRVTFL.models.dao;
 
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
+import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import java.util.List;
@@ -25,5 +26,7 @@ public interface IUsuarioDao extends PagingAndSortingRepository<Usuario,Usuario>
     @Query("select u from Usuario u where u.usu_codigo = :usu_codigo")
     public Usuario encontrarUsuario(@Param("usu_codigo")String usu_codigo);
     
+    @Query("select u from Usuario u where u.usu_id = :usu_id")
+    public Usuario encontrarUsuarioPorId(@Param("usu_id")Long usu_id);
     
 }

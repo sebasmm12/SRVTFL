@@ -9,6 +9,7 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
+import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.entity.UsuarioRol;
@@ -22,6 +23,8 @@ import org.springframework.data.domain.Page;
  */
 public interface IUsuarioService {
     public Usuario encontrarUsuario(String usuCodigo);
+    
+    public Usuario encontrarUsuarioPorId(Long usuId);
     
     public Page<Usuario> encontrarUsuarios(Pageable page);
     
@@ -44,5 +47,11 @@ public interface IUsuarioService {
     public Rol obtenerRolPorId(Long id);
     
     public void guardarDetalleUsuario(DetalleUsuario detUsu);
+    
+    public TipoDetalleUsuario encontrarTipoDetalleUsuarioPorId(Long id);
+    
+    public Page<DetalleUsuario> filtroDetUsuEspecifico(String nombre,Pageable page);
+    
+    public Page<DetalleUsuario> filtroDetUsuAproximado(String nombre,Pageable page);
 }
 

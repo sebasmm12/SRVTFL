@@ -26,21 +26,46 @@ and open the template in the editor.
                                 <div class="card bg-light">
                                     <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
                                         th:text="${titulo}"></h2>
+                                    <!--div class="alert alert-danger m-l-10 m-r-10" th:if="">
+                                        
+                                    </div-->
                                     <div class="card-body">
-                                        <div class="row">
-                                            <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                       th:text="'Nombre del Paciente:'"></label>
+                                        <form name="GestionarCitas" action="GestionarCitas" method="GET" class="col-sm-12">
+                                            <div class="row m-b-15">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Paciente Citado:'"></label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control"/>                                                  
+                                                    <input type="text" class="form-control" id="nombrePaciente" name="nombrePaciente"
+                                                           th:value="${nombre}"/>                                                  
                                                 </div>
-                                                <a  class="btn btn-success btn-xs m-b-10 col-sm-1" th:text="'Filtrar'" ></a>
-                                                
-                                        <h4 class="card-title col-sm-4">
+                                                <select id="tipoFiltro" name="tipoFiltro" class="col-sm-2 browser-default custom-select m-l-15">
+                                                    <option th:value="0" th:text="'Especifico'"></option>
+                                                    <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
+                                                </select>
+                                                <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
+                                                   align-items-lg-end col-sm-3 m-l-15">Nueva Cita</a>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Fecha de Cita:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="date" class="form-control" id="fecha" name="fecha" th:value="${fech}"/>                                                  
+                                                </div>
+                                                <select id="evalFecha" name="evalFecha" class="col-sm-2 browser-default custom-select m-l-15">
+                                                    <option th:value="0" th:text="'Actual'"></option>
+                                                    <option th:value="1" selected="selected" th:text="'Anteriores'"></option>
+                                                </select>
+                                                <input type="submit" class="btn btn-success btn-xs m-b-10 col-sm-3 m-l-15"
+                                                       value="Buscar Por Filtros"/>
+                                            </div>
+
+
+                                        </form>
+                                        <!--h4 class="card-title col-sm-4">
                                             <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
-                                               align-items-lg-end">Registrar
-                                                Nueva Cita</a>
-                                        </h4>
-                                        </div>
+                                               align-items-lg-end">Nueva Cita</a>
+                                        </h4-->
+
 
                                         <table class="table table-striped">
                                             <thead>
