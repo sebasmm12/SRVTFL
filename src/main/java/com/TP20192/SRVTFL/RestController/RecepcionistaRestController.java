@@ -33,7 +33,6 @@ public class RecepcionistaRestController {
     public Page<Cita> listarCita(@RequestParam(name="page", defaultValue="0") int page){  
         Pageable pageRequest = PageRequest.of(page, 5);    
         Page<Cita> citas = citaService.obtenerCitas(pageRequest);
- 
         return citas;       
     }
     
@@ -43,7 +42,7 @@ public class RecepcionistaRestController {
        List<String> abc= new ArrayList();
        abc.add("oo");
        abc.add("bb");
-        return abc;       
+       return abc;       
     }
     
     
