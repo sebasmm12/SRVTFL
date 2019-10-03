@@ -17,21 +17,25 @@ import com.TP20192.SRVTFL.models.entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttributes;
 /**
  *
  * @author MAURICIO
  */
 @RestController
 @RequestMapping("/Api/GestionarAgenda")
+@SessionAttributes("usuario")
 public class AgendaRestController {
     
     @Autowired
     private IPsicologoService psicologoService;
     
-    @GetMapping(value="/listarCitas/{codigo}")
-    public  List <Actividad> gestionarAgenda(@PathVariable(value="codigo") Long codigo){
+    @GetMapping(value="/listarAgenda")
+    public  List <Actividad> gestionarAgenda(Map<String, Object> model){
+        Usuario usu=(Usuario)model.get("usuario");
+        Long usu_codigo = usu.getUsu_id();
         List<Actividad> actividad = new ArrayList();
-        actividad = psicologoService.encontrarActividadPsicologo(codigo); 
+        actividad = psicologoService.encontrarActividadPsicologo(usu_codigo); 
         return actividad;
     }
     

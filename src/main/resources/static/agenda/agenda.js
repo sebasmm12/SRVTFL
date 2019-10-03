@@ -2,7 +2,7 @@ $(document).ready(function () {
     var events = [];
     $.ajax({
         type: "GET",
-        url: "/Api/GestionarAgenda/listarCitas/18",
+        url: "/Api/GestionarAgenda/listarAgenda",
         success: function (data) {
             $.each(data, function (i, v) {
                 events.push({
