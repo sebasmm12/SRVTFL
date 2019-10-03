@@ -27,6 +27,13 @@ public class ResultadoSimulacionServiceImpl implements IResultadoSimulacionServi
     public ResultadoSimulacion obtenerParametrosiniciales() {
        return resultadoSimulacioneService.obtenerParametrosiniciales();    
     }
+
+    @Override
+    public void finalizar(int nivelfinal, Long id) {
+        ResultadoSimulacion resultadoSimulacion =   resultadoSimulacioneService.obtenerResultado(id);
+        resultadoSimulacion.setResSimNivelFinal(nivelfinal);
+        resultadoSimulacioneService.save(resultadoSimulacion);
+    }
     
     
 }

@@ -8,6 +8,7 @@ package com.TP20192.SRVTFL.models.dao;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -18,5 +19,6 @@ public interface IResultadoSimulacionDao  extends CrudRepository<ResultadoSimula
     @Query("select c from ResultadoSimulacion c where c.cita.estadoCita.estCitId = 1")
     public ResultadoSimulacion obtenerParametrosiniciales ();
     
-    
+       @Query("select c from ResultadoSimulacion c where c.resSimId = :id")
+    public ResultadoSimulacion obtenerResultado ( @Param("id")  Long id);
 }

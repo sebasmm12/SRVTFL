@@ -14,5 +14,5 @@ import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 public interface IResultadoSimulacionService {
     
      public ResultadoSimulacion obtenerParametrosiniciales();
-    
+      public void finalizar( int nivelfinal, Long id );
 }
