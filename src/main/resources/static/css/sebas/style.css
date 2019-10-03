@@ -37,3 +37,13 @@ label {
 .btn-registrar {
     margin-left: 75% !important;
 }
+.positiveSpan {
+    color: #25be38;
+    font-size:17px !important;
+    font-weight: bolder;
+}
+.negativeSpan {
+    color: #cb2027;
+    font-size:17px !important;
+    font-weight: bolder;
+}

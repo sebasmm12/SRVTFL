@@ -29,7 +29,7 @@ public class Actividad {
     
     @Column(name = "act_descripcion")
     private String act_descripcion;
-    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
+    
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
     @Column(name = "act_inicio")
     private Date act_inicio;
