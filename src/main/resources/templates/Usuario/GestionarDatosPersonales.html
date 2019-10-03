@@ -37,7 +37,7 @@ and open the template in the editor.
                                                                             Nombres y Apellidos
                                                                         </label>
                                                                     </div>
-                                                                    <input type="text" class="form-control" th:field="*{detUsuNombre}" />
+                                                                    <input type="text" class="form-control bg-white" th:field="*{detUsuNombre}" readonly="readonly"/>
                                                                 </div> 
                                                             </div>
                                                             <div class="row">
@@ -91,6 +91,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" th:field="*{detUsuTelefono}" />
+                                                            <div id="detUsuTelefonoError"></div>
                                                         </div>
                                                         <div class="col-12 col-sm-6 col-md-6">
                                                             <div>
@@ -98,7 +99,7 @@ and open the template in the editor.
                                                                     Edad
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuEdad}" />
+                                                            <input type="text" class="form-control bg-white" th:field="*{detUsuEdad}" readonly="readonly"/>
                                                         </div>
                                                     </div>
                                                     <div class="row my-4"> 
@@ -108,7 +109,7 @@ and open the template in the editor.
                                                                     Fecha de Nacimiento
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuFechaNacimiento}" />
+                                                            <input type="text" class="form-control bg-white" th:field="*{detUsuFechaNacimiento}" readonly="readonly" />
                                                         </div>
                                                         <div class="col-12 col-sm-6 col-md-6">
                                                             <div>
@@ -116,7 +117,7 @@ and open the template in the editor.
                                                                     Sexo
                                                                 </label>
                                                             </div>
-                                                            <select class="custom-select" id="selectedSexo">
+                                                            <select class="custom-select bg-white text-dark" id="selectedSexo" disabled="disabled">
                                                                 <option th:selected="${#strings.equals(DetalleUsuario.detUsuSexo,'M')}" value="M">Masculino</option>
                                                                 <option th:selected="${not #strings.equals(DetalleUsuario.detUsuSexo,'M')}" value="F">Femenino</option>
                                                             </select>
@@ -138,6 +139,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" th:field="*{detUsuCorreo}" />
+                                                            <div id="detUsuCorreoError"></div>
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">
                                                             <div>
@@ -145,7 +147,7 @@ and open the template in the editor.
                                                                     Número de Documento
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuTipoDocNumero}" />
+                                                            <input type="text" class="form-control bg-white" th:field="*{detUsuTipoDocNumero}" readonly="readonly" />
                                                         </div>
                                                     </div>
                                                     <div class="mb-4 row">
@@ -155,7 +157,7 @@ and open the template in the editor.
                                                                     Código del Colegio
                                                                 </label> 
                                                             </div>
-                                                            <input  type="text" class="form-control" th:field="*{detUsuCodigoColegio}"/>
+                                                            <input  type="text" class="form-control bg-white" th:field="*{detUsuCodigoColegio}" readonly="readonly"/>
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">
                                                             <div>
@@ -163,7 +165,7 @@ and open the template in the editor.
                                                                     Especialidad
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuEspecialidad}" />
+                                                            <input type="text" class="form-control bg-white" th:field="*{detUsuEspecialidad}" readonly="readonly" />
                                                         </div>
                                                     </div>
                                                     <div class="mb-4 row">
@@ -187,6 +189,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" th:field="*{detUsuLugarNacimiento}" />
+                                                            <div id="detUsuLugarNacimientoError"></div>
                                                         </div>
                                                     </div>
                                                     <div class="mb-4 row">
@@ -196,7 +199,7 @@ and open the template in the editor.
                                                                     Ocupación
                                                                 </label>
                                                             </div>
-                                                            <input type="text" class="form-control" th:field="*{detUsuOcupacion}" />
+                                                            <input type="text" class="form-control bg-white" th:field="*{detUsuOcupacion}" readonly="readonly" />
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">
                                                             <div>
@@ -205,6 +208,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" th:field="*{detUsuReligion}" />
+                                                            <div id="detUsuReligionError"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -222,6 +226,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" th:field="*{usuario.usu_codigo}" />
+                                                            <div id="usuCodigoError"></div>
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">
                                                             <div>
@@ -230,6 +235,7 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <input type="text" class="form-control" name="password" id="passwordId"/>
+                                                            <div id="usuContrasenaError"></div>
                                                         </div>
                                                     </div>
                                                 </div>
