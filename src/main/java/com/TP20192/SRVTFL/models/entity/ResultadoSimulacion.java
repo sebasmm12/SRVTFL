@@ -5,6 +5,8 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -13,7 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,31 +34,32 @@ public class ResultadoSimulacion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "res_sim_id")
     private Long resSimId;
-    
-    @Column(name="res_sim_nivel_inicial")
+
+    @Column(name = "res_sim_nivel_inicial")
     private Integer resSimNivelInicial;
-    
-    @Column(name="res_sim_nivel_final")
+
+    @Column(name = "res_sim_nivel_final")
     private Integer resSimNivelFinal;
-    
-    @Column(name="rest_sim_inicio")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+
+    @Column(name = "rest_sim_inicio")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date restSimInicio;
-    
-    @Column(name="rest_sim_final")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+
+    @Column(name = "rest_sim_fin")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date restSimFinal;
-    
-    @Column(name="rest_sim_salidaemergencia")
+
+    @Column(name = "rest_sim_salidaemergencia")
     private Boolean restSimSalidaEmergencia;
-    
-    @Column(name="cit_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Cita citId;
-    
-    @Column(name="rest_sim_pulso_promedio")
+
+    @JsonIgnore
+    @JoinColumn(name = "cit_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Cita cita;
+
+    @Column(name = "rest_sim_pulso_promedio")
     private Integer restSimPulsoPromedio;
 
     public Long getResSimId() {
@@ -105,12 +110,12 @@ public class ResultadoSimulacion implements Serializable {
         this.restSimSalidaEmergencia = restSimSalidaEmergencia;
     }
 
-    public Cita getCitId() {
-        return citId;
+    public Cita getCita() {
+        return cita;
     }
 
-    public void setCitId(Cita citId) {
-        this.citId = citId;
+    public void setCita(Cita cita) {
+        this.cita = cita;
     }
 
     public Integer getRestSimPulsoPromedio() {
@@ -120,5 +125,5 @@ public class ResultadoSimulacion implements Serializable {
     public void setRestSimPulsoPromedio(Integer restSimPulsoPromedio) {
         this.restSimPulsoPromedio = restSimPulsoPromedio;
     }
-    
+
 }
