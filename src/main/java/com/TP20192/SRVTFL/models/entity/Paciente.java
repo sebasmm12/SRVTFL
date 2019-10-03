@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  *
@@ -48,15 +50,15 @@ public class Paciente implements Serializable{
     @Column(name="usu_id")
     private long usu_id;
     
-    //@NotEmpty
+    @NotNull
     @Column(name="pac_edad")
-    private int pac_edad;
+    private Integer pac_edad;
     
-    //@NotEmpty
+    @NotEmpty
     @Column(name="pac_nombre")
     private String pacNombre;
     
-    //@NotEmpty
+    @NotEmpty
     @Column(name="pac_apellido")
     private String pacApellido;
     
@@ -64,21 +66,22 @@ public class Paciente implements Serializable{
     @Column(name="pac_imagen")
     private String pacImagen;
     
-    //@NotEmpty
+    @NotEmpty
+    @Pattern(regexp = "\\d{9}")
     @Column(name="pac_telefono")
     private String pacTelefono;
     
     
-    //@NotEmpty
+    @NotEmpty
     @Column(name="pac_número_documento")
     private String pacNumeroDocumento;
     
-    //@NotEmpty
+    @NotEmpty
     @Email
     @Column(name="pac_email")
     private String pacEmail;
     
-    //@NotEmpty
+    @NotEmpty
     @Column(name="pac_direccion")
     private String pacDireccion;
     
@@ -108,14 +111,13 @@ public class Paciente implements Serializable{
         this.usu_id = usu_id;
     }
 
-    public int getPac_edad() {
+    public Integer getPac_edad() {
         return pac_edad;
     }
 
-    public void setPac_edad(int pac_edad) {
+    public void setPac_edad(Integer pac_edad) {
         this.pac_edad = pac_edad;
     }
-
     public String getPacNombre() {
         return pacNombre;
     }
