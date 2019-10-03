@@ -5,7 +5,9 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
+import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import java.util.Date;
@@ -22,7 +24,7 @@ public interface ICitaService {
     
     public Cita obtenerCita(Long cita_id);
     
-    public void registrarCita(Cita cita);
+    public Cita registrarCita(Cita cita);
     
     public Page<Cita> obtenerCitas(Pageable page);
     
@@ -42,5 +44,11 @@ public interface ICitaService {
     
     public Page<Cita> filtroCitaFechaAproximado(Date fecha,Pageable pageable);
     public Page<Cita> obtenerCitasporPaciente(long pac_id,Pageable page);
+    public List<DetalleUsuario> findDetalleUsuarioByNombre(String term);
     
+    public void insertaActividad(Actividad act);
+   
+    public Actividad ObtenerActividadPorId(Long Id);
+    
+    public void eliminarActividadPorId(Long Id);
 }

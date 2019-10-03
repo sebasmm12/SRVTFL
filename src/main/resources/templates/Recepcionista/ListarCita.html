@@ -29,6 +29,9 @@ and open the template in the editor.
                                     <!--div class="alert alert-danger m-l-10 m-r-10" th:if="">
                                         
                                     </div-->
+                                     <ul th:if="${mensaje != null}" class="alert alert-danger m-l-10 m-r-10">
+                                            <li th:text="${mensaje}"></li>
+                                        </ul>
                                     <div class="card-body">
                                         <form name="GestionarCitas" action="GestionarCitas" method="GET" class="col-sm-12">
                                             <div class="row m-b-15">

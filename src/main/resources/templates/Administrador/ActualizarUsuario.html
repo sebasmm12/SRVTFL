@@ -47,7 +47,7 @@ and open the template in the editor.
                                                             <label for="detUsuNombre"class="col-sm-3 col-form-label"
                                                                    th:text="'Nombre Completo:'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuNombre}" class="form-control"
+                                                                <input type="text" th:field="*{detUsuNombre}" class="form-control col-sm-12"
                                                                        th:errorClass="'form-control alert-danger'"/>
                                                                  <small th:if="${#fields.hasErrors('detUsuNombre')}" th:errors="*{detUsuNombre}"
                                                                        class="form-text text-danger"></small>
@@ -58,7 +58,7 @@ and open the template in the editor.
                                                             <label for="detUsuCorreo" class="col-sm-3 col-form-label"
                                                                    th:text="'E-Mail:'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuCorreo}" class="form-control"
+                                                                <input type="text" th:field="*{detUsuCorreo}" class="form-control col-sm-12"
                                                                       th:errorClass="'form-control alert-danger'"  /> 
                                                                 <small th:if="${#fields.hasErrors('detUsuCorreo')}" th:errors="*{detUsuCorreo}"
                                                                        class="form-text text-danger"></small>
@@ -70,7 +70,7 @@ and open the template in the editor.
                                                             <label for="detUsuDireccion"class="col-sm-3 col-form-label"
                                                                    th:text="'Direccion:'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuDireccion}" class="form-control"
+                                                                <input type="text" th:field="*{detUsuDireccion}" class="form-control col-sm-12"
                                                                        th:errorClass="'form-control alert-danger'"/>
                                                                 <small th:if="${#fields.hasErrors('detUsuDireccion')}" th:errors="*{detUsuDireccion}"
                                                                        class="form-text text-danger"></small>
@@ -81,7 +81,7 @@ and open the template in the editor.
                                                             <label for="detUsuTelefono"class="col-sm-3 col-form-label"
                                                                    th:text="'Telefono:'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuTelefono}" class="form-control"
+                                                                <input type="text" th:field="*{detUsuTelefono}" class="form-control col-sm-12"
                                                                        th:errorClass="'form-control alert-danger'" maxlength="9"/>
                                                                 <small th:if="${#fields.hasErrors('detUsuTelefono')}" th:errors="*{detUsuTelefono}"
                                                                        class="form-text text-danger"></small>
@@ -177,7 +177,7 @@ and open the template in the editor.
                                                     <label for=""class="col-sm-4 col-form-label"
                                                            th:text="'Codigo de Colegio:'"></label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuCodigoColegio}" class="form-control"/>            
+                                                        <input type="text" th:field="*{detUsuCodigoColegio}" class="form-control col-sm-12"/>            
                                                     </div>
                                                 </div>
 
@@ -185,7 +185,7 @@ and open the template in the editor.
                                                     <label for=""class="col-sm-4 col-form-label"
                                                            th:text="'Especialidad:'"></label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuEspecialidad}" class="form-control"/>            
+                                                        <input type="text" th:field="*{detUsuEspecialidad}" class="form-control col-sm-12"/>            
                                                     </div>
                                                 </div>
 
@@ -193,7 +193,7 @@ and open the template in the editor.
                                                     <label for=""class="col-sm-4 col-form-label"
                                                            th:text="'Ocupacion:'"></label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuOcupacion}" class="form-control"/>            
+                                                        <input type="text" th:field="*{detUsuOcupacion}" class="form-control col-sm-12"/>            
                                                     </div>
                                                 </div>
 
@@ -201,7 +201,7 @@ and open the template in the editor.
                                                     <label for=""class="col-sm-4 col-form-label"
                                                            th:text="'Religion:'"></label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuReligion}" class="form-control"/>            
+                                                        <input type="text" th:field="*{detUsuReligion}" class="form-control col-sm-12"/>            
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +209,7 @@ and open the template in the editor.
                                             <div class="form-group row">
                                                 <div class="col-sm-6">
                                                     <input type="submit" class="btn btn-success"
-                                                           value="Registrar Nuevo Usuario"/>
+                                                           value="Actulizar Usuario"/>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>

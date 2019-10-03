@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.controllers;
 
+import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,10 @@ public class AdministradorController {
                 detUsus = usuarioService.filtroDetUsuAproximado(nombreUsu, pageRequest);
             }
         }
+         if(detUsus.isEmpty()){
+             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
+             model.addAttribute("mensage", "No se pudo encontrar los Datos solicitados, intente cambiando el tipo de filtro o los parametros de entrada");
+         }
         PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios?nombreUsu="+nombreUsu
                 +"&tipoFiltro="+filtro, detUsus);
         model.addAttribute("detUsus", detUsus);
@@ -180,6 +185,15 @@ public class AdministradorController {
         detUsu.setDetUsuEdad(obtenerEdad(detUsu.getDetUsuFechaNacimiento()));
         usuarioService.guardarDetalleUsuario(detUsu);
         //Guardando Datos Personales
+        
+        for (int i = 0; i < rolId.length; i++) {
+            if(rolId[i] == 1){
+                Agenda ag = new Agenda();
+                ag.setAgendaId(nuevoUsuario.getUsu_id());
+                usuarioService.crearAgenda(ag);
+                break;
+            }
+        }
         return "redirect:/Administrador/GestionarUsuarios";
     }
 
@@ -198,6 +212,12 @@ public class AdministradorController {
         if (detUsu == null) {
             return "redirect: Administrador/GestionarUsuarios";
         }
+        Usuario usu = usuarioService.encontrarUsuarioPorId(usu_id);
+        String roles="";
+        for (UsuarioRol ur : usu.getRoles()) {
+            roles += ur.getRol().getNombreRol() + "  ";
+        }
+        model.addAttribute("roles",roles);
         model.addAttribute("detUsu", detUsu);
         model.addAttribute("titulo", "Detalle de Cuenta de Usuario");
         return "Administrador/ConsultarUsuario";
@@ -244,6 +264,14 @@ public class AdministradorController {
         model.addAttribute("usuCred", usuCred);
         model.addAttribute("titulo", "Gestion de Credenciales");
         return "Administrador/ActualizarCredenciales";
+    }
+    
+    @GetMapping("/InhabilitarUsuario/{usu_id}")
+    public String InhabilitarUsuario(@PathVariable(name = "usu_id") Long usu_id, Model model) {
+        Usuario usucan = usuarioService.encontrarUsuarioPorId(usu_id);
+        usucan.setEstadoUsuario(usuarioService.obtenerEstadoUsuario(2));
+        usuarioService.guardarUsuario(usucan);
+        return "redirect:/Administrador/GestionarUsuarios";
     }
 
     @RequestMapping(value = "/ActualizarCredencial", method = RequestMethod.POST)

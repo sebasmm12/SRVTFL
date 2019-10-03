@@ -26,6 +26,9 @@ and open the template in the editor.
                                 <div class="card bg-light">
                                     <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
                                         th:text="${titulo}"></h2>
+                                        <ul th:if="${mensage == null}" class="alert alert-danger m-l-10 m-r-10">
+                                            <li th:text="${mensage}"></li>
+                                        </ul>
                                     <div class="card-body">
                                         <div class="row">
                                             <form name="GestionarUsuarios" action="GestionarUsuarios" method="GET" class="col-sm-10">
@@ -79,6 +82,8 @@ and open the template in the editor.
                                                     <td><a class="btn btn-primary btn-xs"
                                                            th:href="@{'/Administrador/ModificarUsuario/' + ${detUsu.usuario.usu_id}}">Modificar</a></td>
                                                     <td><a  class="btn btn-danger btn-xs"
+                                                            th:href="@{'/Administrador/InhabilitarUsuario/' + ${detUsu.usuario.usu_id}}"
+                                                            onclick="return confirm('estas seguro que deseas Inhabilitar el Usuario??');"
                                                             >Cancelar</a></td>
                                                 </tr>
                                             </tbody>

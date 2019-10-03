@@ -50,6 +50,18 @@ and open the template in the editor.
                                                            class="form-text text-danger"></small>-->
                                                 </div>
                                             </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="buscar_psicologo"class="col-sm-2 col-form-label"
+                                                       th:text="'Psicologo'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="buscar_psicologo" id="buscar_psicologo" class="form-control" />                           
+                                                   <!-- <small th:if="${#fields.hasErrors('pacientenombre')}" th:errors="'pacientenombre'"
+                                                           class="form-text text-danger"></small>-->
+                                                </div>
+                                            </div>
+                                            
+                                            
                                             <div class="form-group row">
                                                 <label for="citMotivo" class="col-sm-2 col-form-label"
                                                        th:text="'Motivo'"></label>
@@ -89,6 +101,7 @@ and open the template in the editor.
                                                 </div>
                                             </div>
                                             <input type="hidden" name="paciente_id"  id="paciente_id"/>
+                                            <input type="hidden" name="psicologo_id"  id="psicologo_id"/>
                                             <input type="hidden" th:field="*{citId}" />
                                             <!-- comentado para utilizar una variable session -->
                                         </form>
@@ -108,5 +121,6 @@ and open the template in the editor.
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
     <script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script>
+    <script th:replace="Recepcionista/js/autocomplete-psicologo :: javascript2"></script>
 </body>
 </html>

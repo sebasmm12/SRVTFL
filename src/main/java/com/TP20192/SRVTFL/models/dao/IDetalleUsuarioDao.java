@@ -61,4 +61,7 @@ public interface IDetalleUsuarioDao extends PagingAndSortingRepository<DetalleUs
     //Aproximado
     @Query("select du from DetalleUsuario du where du.detUsuNombre like %?1%")
     public Page<DetalleUsuario> filtroDetUsuAproximado(String detUsuNombre,Pageable pageable);
+    
+    @Query("select du from DetalleUsuario du where du.detUsuNombre like %?1%")
+    public List<DetalleUsuario> findDetalleUsuarioByNombre(String term);
 }

@@ -42,7 +42,7 @@ and open the template in the editor.
                                                             <label for=""class="col-sm-3 col-form-label"
                                                                    th:text="'Nombre de Usuario'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{usu_codigo}" class="form-control"
+                                                                <input type="text" th:field="*{usu_codigo}" class="form-control col-sm-12"
                                                                        th:errorClass="'form-control alert-danger'"/>
                                                                 <small th:if="${#fields.hasErrors('usu_codigo')}" th:errors="*{usu_codigo}"
                                                                        class="form-text text-danger"></small>
@@ -53,7 +53,7 @@ and open the template in the editor.
                                                             <label for=""class="col-sm-3 col-form-label"
                                                                    th:text="'Contraseña:'"></label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" th:field="*{usu_contraseña}" class="form-control"
+                                                                <input type="text" th:field="*{usu_contraseña}" class="form-control col-sm-12"
                                                                        th:errorClass="'form-control alert-danger'"/>
                                                                 <small th:if="${#fields.hasErrors('usu_contraseña')}" th:errors="*{usu_contraseña}"
                                                                        class="form-text text-danger"></small>
@@ -65,11 +65,11 @@ and open the template in the editor.
                                             </div>
 
 
-                                            <div class="form-group row m-l-25">
-                                                <label for="buscar_rol"class="col-sm-4 col-form-label"
+                                            <div class="form-group row m-l-35">
+                                                <label for="buscar_rol"class="col-sm-3 col-form-label m-l-20"
                                                        th:text="'Roles'"></label>
                                                 <div class="col-sm-8">
-                                                    <input type="text"  class="form-control" name="buscar_rol" id="buscar_rol"/>            
+                                                    <input type="text"  class="form-control col-sm-12" name="buscar_rol" id="buscar_rol"/>            
                                                 </div>
                                             </div>
                                             <table th:replace="Administrador/plantilla-roles :: rolesUsuario"></table>

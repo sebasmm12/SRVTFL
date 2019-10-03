@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.models.service;
 
 import com.TP20192.SRVTFL.models.entity.Actividad;
+import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
@@ -53,5 +54,7 @@ public interface IUsuarioService {
     public Page<DetalleUsuario> filtroDetUsuEspecifico(String nombre,Pageable page);
     
     public Page<DetalleUsuario> filtroDetUsuAproximado(String nombre,Pageable page);
+    
+    public void crearAgenda(Agenda ag);
 }
 

@@ -8,6 +8,8 @@ package com.TP20192.SRVTFL.models.implementation;
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IUsuarioRolDao;
+import com.TP20192.SRVTFL.models.dao.IAgendaDao;
+import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
@@ -38,6 +40,9 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     
     @Autowired
     private IUsuarioRolDao usuRolDao;
+    
+    @Autowired
+    private IAgendaDao agendaDao;
     
     @Override
     @Transactional(readOnly = true)
@@ -121,5 +126,10 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     @Override
     public Page<DetalleUsuario> filtroDetUsuAproximado(String nombre, Pageable page) {
          return detUsuDao.filtroDetUsuAproximado(nombre, page);
+    }
+
+    @Override
+    public void crearAgenda(Agenda ag) {
+        agendaDao.save(ag);
     }
 }
