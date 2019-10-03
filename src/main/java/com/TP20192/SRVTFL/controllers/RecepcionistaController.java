@@ -129,6 +129,8 @@ public class RecepcionistaController {
     public String guardarCita(@Valid Cita cita,BindingResult result,
                              @RequestParam(name="paciente_id", required = false) Long paciente_id,
                              @RequestParam(name="buscar_paciente", required = false) String paciente_nombre,
+                             @RequestParam(name="psicologo_id", required = false) Long psicologo_id,
+                             @RequestParam(name="buscar_psicologo", required = false) String Psicologo_nombre,
                              Map<String, Object>  model, SessionStatus se ){
         
         if(result.hasErrors() || paciente_nombre.equals("") || paciente_nombre== null ||
@@ -138,8 +140,7 @@ public class RecepcionistaController {
             if( paciente_nombre.equals("")){
                 
                 result.addError(new ObjectError("paciente", "Debe ingresar un paciente  obligatoriamente"));
-            }
-            else if(paciente_id != null && paciente_id != 0
+            }else if(paciente_id != null && paciente_id != 0
                     && !citaService.findPacienteById(paciente_id).nombreCompleto().equals(paciente_nombre)){             
                     result.addError(new ObjectError("pacientenombre", "Debe ingresar un paciente existente"));             
             }else{
@@ -158,6 +159,11 @@ public class RecepcionistaController {
         cita.setEstadoCita(ec);
         cita.setPaciente(pac);
         citaService.registrarCita(cita);
+        
+        /*Actividad act = new Actividad();
+        act.setAgenda_id(psicologo_id);
+        act.setAct_nombre("Cita para "+paciente_nombre);
+        act.setAct_descripcion("Motivo :"+cita.getCitMotivo());*/
         return "redirect:/Recepcionista/GestionarCitas";
     }
     
@@ -195,6 +201,13 @@ public class RecepcionistaController {
     @GetMapping(value="/cargar-pacientes/{term}", produces = {"application/json"})
     public @ResponseBody List<Paciente> cargarPacientes(@PathVariable(name="term") String term){
         return citaService.findPacienteByNombre(term);
+    }
+    
+    @GetMapping(value="/cargar-psicologos/{term}" , produces = {"application/json"})
+    public @ResponseBody List<DetalleUsuario> cargarPsicologos(@PathVariable(name="term") String term){
+        List<DetalleUsuario> abc =new ArrayList<>(); 
+        abc = citaService.findDetalleUsuarioByNombre(term);
+        return abc;
     }
     
     @GetMapping("/detalleCita/{citId}")
