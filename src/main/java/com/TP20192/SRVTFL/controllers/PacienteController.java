@@ -94,16 +94,7 @@ public class PacienteController {
             model.put("titulo", "Modificacion del Paciente");
             return "Paciente/ActualizarPaciente";
         }
-        pac = pacienteService.obtenerPaciente(paciente.getPacId());        
-        pac.setPac_edad(paciente.getPac_edad());
-        pac.setPacNombre(paciente.getPacNombre());
-        pac.setPacApellido(paciente.getPacApellido());
-        pac.setPacNumeroDocumento(paciente.getPacNumeroDocumento());
-        pac.setTipDocId(paciente.getTipDocId());
-        pac.setPacEmail(paciente.getPacEmail());
-        pac.setPacSexoBiologico(paciente.isPacSexoBiologico());
-        pac.setPacTelefono(paciente.getPacTelefono());
-          pacienteService.registrarPaciente(pac);
+          pacienteService.registrarPaciente(paciente);
         return "redirect:/Paciente/GestionarPacientes";
     }
     

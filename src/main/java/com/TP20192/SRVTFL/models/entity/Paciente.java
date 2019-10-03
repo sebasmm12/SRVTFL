@@ -73,6 +73,7 @@ public class Paciente implements Serializable{
     
     
     @NotEmpty
+    @Pattern(regexp = "\\d{8}")
     @Column(name="pac_número_documento")
     private String pacNumeroDocumento;
     

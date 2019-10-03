@@ -72,12 +72,49 @@ and open the template in the editor.
 
                                                 </div>
                                             </div>
+                                            
+                                             <div class="form-group row">
+                                                <label for="pacTelefono" class="col-sm-3 col-form-label"
+                                                       th:text="'Telefono'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:field="*{pacTelefono}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacTelefono')}" th:errors="*{pacTelefono}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="pacEmail" class="col-sm-3 col-form-label"
+                                                       th:text="'Email'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:field="*{pacEmail}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacTelefono')}" th:errors="*{pacEmail}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label for="pacDireccion" class="col-sm-3 col-form-label"
+                                                       th:text="'Direccion'"></label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" th:field="*{pacDireccion}" class="form-control"
+                                                           th:errorClass="'form-control alert-danger'"/>
+                                                    <small th:if="${#fields.hasErrors('pacDireccion')}" th:errors="*{pacDireccion}"
+                                                           class="form-text text-danger"></small>
+
+                                                </div>
+                                            </div>
 
                                             <div class="form-group row">
                                                 <label for="pacNumeroDocumento" class="col-sm-3 col-form-label"
                                                        th:text="'Numero de documento'"></label>
                                                 <div class="col-sm-6">
-                                                    <input type="number" th:p th:field="*{pacNumeroDocumento}" class="form-control"
+                                                    <input type="text" th:p th:field="*{pacNumeroDocumento}" class="form-control"
                                                            th:errorClass="'form-control alert-danger'"/>
                                                     <small th:if="${#fields.hasErrors('pacNumeroDocumento')}" th:errors="*{pacNumeroDocumento}"
                                                            class="form-text text-danger"></small>
@@ -129,7 +166,7 @@ and open the template in the editor.
                                                     <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Paciente/GestionarPacientes}"> &laquo; Volver</a>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="paciente_id" th:value="${paciente.pacId}" id="paciente_id"/>
+                                            <!--input type="hidden" name="paciente_id" th:value="${paciente.pacId}" id="paciente_id"/-->
                                             <input type="hidden" th:field="*{pacId}"  />
                                             <!-- comentado para utilizar una variable session -->
                                         </form>
@@ -145,6 +182,6 @@ and open the template in the editor.
         </div>
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
-    <script th:replace="Paciente/js/autocomplete-paciente :: javascript"></script>
+    <!--script th:replace="Paciente/js/autocomplete-paciente :: javascript"></script-->
 </body>
 </html>
