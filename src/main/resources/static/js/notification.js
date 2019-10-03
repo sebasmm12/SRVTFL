@@ -21,12 +21,14 @@ $(function () {
     }
 
     function send(event) {
-        var messageContent = $("#notificacionMensaje").val();
-
-        if (messageContent && stompClient) {
+        if (stompClient) {
+            
+            var nombrePaciente = $('#buscar_paciente').val();
+            var psicologoId =$('#psicologo_id').val();
+            var pacienteId =$('#usu_id').val();
             var usuario = {
-                usu_id: 17,
-                usu_codigo: 'GerhadEgg',
+                usu_id: psicologoId,
+                usu_codigo: '',
                 usu_contraseña: '',
                 est_usu_id: 1
             };
@@ -47,8 +49,8 @@ $(function () {
             var notificacion = {
                 usuId: usuario,
                 notNombre: 'Realización de una cita',
-                notDescripcion: 'Se va a realizar una cita con el paciente Colomobo',
-                usuEnvio: 19,
+                notDescripcion: 'Se va a realizar una cita con el paciente '+nombrePaciente,
+                usuEnvio: pacienteId,
                 notFecha: null,
                 notUrl: 'Psicologo/Index',
                 tipNotId: tipoNotificacion,
@@ -57,12 +59,13 @@ $(function () {
 
             stompClient.send("/app/chat.send", {}, JSON.stringify(notificacion));
         }
-        event.preventDefault();
     }
 
     function onMessageReceived(payload) {
         var message = JSON.parse(payload.body);
 
+        var psicologoId =$('#psicologo_id').val();
+        
         var primerElemento = $('<li></li>');
 
         var segundoElemento = $('<div class="media"></div>');
@@ -79,10 +82,10 @@ $(function () {
 
         primerElemento.append(segundoElemento);
 
-        $("#notificaciones"+"18").append(primerElemento);
+        $("#notificaciones"+psicologoId).append(primerElemento);
 
 
     }
-   $("#btnRegistrar").click(connect);
-   $("#btnEnviar").click(send);
+    connect();
+    $("#btnRegistrarCita").click(send);
 });
