@@ -49,16 +49,19 @@ and open the template in the editor.
                                                     <th>Nombre</th>
                                                     <th>Apellidos</th>
                                                      <th>Edad</th>
-                                                    <th>Numer de Documento</th>
+                                                    <th>Numero de Documento</th>
                                                     <th>Tipo Documento</th>
                                                     <th>Sexo</th>
+                                                    <th>Funciones</th>
                                                     
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="paciente: ${pacientes}">
-                                                    <td class="btn btn-success btn-xs" 
-                                                        th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}">
+                                                <tr th:each="paciente, iStat: ${pacientes}">
+                                                    <td><a class="btn btn-success btn-xs" 
+                                                        th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}"
+                                                        th:text="${iStat.count}">
+                                                            </a>
                                                         
                                                     </td>                                            
                                                    <td th:text="${paciente.pacNombre}"></td>                                                                                                     

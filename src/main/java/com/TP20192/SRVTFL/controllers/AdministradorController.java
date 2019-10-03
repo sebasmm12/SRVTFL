@@ -65,12 +65,12 @@ public class AdministradorController {
 
     @RequestMapping("/GestionarUsuarios")
     public String gestionarUsuarios(@RequestParam(name = "page", defaultValue = "0") int page,
-            Model model,@RequestParam(name = "nombreUsu", required = false, defaultValue="") String nombreUsu,
-            @RequestParam(name = "tipoFiltro", required = false,defaultValue="1") Integer filtro) {
+            Model model, @RequestParam(name = "nombreUsu", required = false, defaultValue = "") String nombreUsu,
+            @RequestParam(name = "tipoFiltro", required = false, defaultValue = "1") Integer filtro) {
 
-        Pageable pageRequest = PageRequest.of(page, 5); 
+        Pageable pageRequest = PageRequest.of(page, 5);
         Page<DetalleUsuario> detUsus;
-         if (nombreUsu == null || nombreUsu.trim().equals("")) {
+        if (nombreUsu == null || nombreUsu.trim().equals("")) {
             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
         } else {
             if (filtro == 0) {
@@ -79,25 +79,25 @@ public class AdministradorController {
                 detUsus = usuarioService.filtroDetUsuAproximado(nombreUsu, pageRequest);
             }
         }
-         if(detUsus.isEmpty()){
-             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
-             model.addAttribute("mensage", "No se pudo encontrar los Datos solicitados, intente cambiando el tipo de filtro o los parametros de entrada");
-         }
-        PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios?nombreUsu="+nombreUsu
-                +"&tipoFiltro="+filtro, detUsus);
+        if (detUsus.isEmpty()) {
+            detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
+            model.addAttribute("mensage", "No se pudo encontrar los Datos solicitados, intente cambiando el tipo de filtro o los parametros de entrada");
+        }
+        PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios?nombreUsu=" + nombreUsu
+                + "&tipoFiltro=" + filtro, detUsus);
         model.addAttribute("detUsus", detUsus);
         model.addAttribute("titulo", "Gestion de Usuarios y Cuentas");
         model.addAttribute("page", pageRender);
-        model.addAttribute("term",nombreUsu);
+        model.addAttribute("term", nombreUsu);
         return "Administrador/ListarUsuario";
     }
 
-    @RequestMapping(value="/FiltrarUsuario",method = RequestMethod.POST)
+    @RequestMapping(value = "/FiltrarUsuario", method = RequestMethod.POST)
     public String filtrarUsuario(@RequestParam(name = "nombreUsu", required = false) String nombreUsu,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "tipoFiltro", required = false) Integer filtro ,Model model) {
-        int test =0;
-        
+            @RequestParam(name = "tipoFiltro", required = false) Integer filtro, Model model) {
+        int test = 0;
+
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<DetalleUsuario> detUsus;
         //filtro=0 ==> especifico
@@ -110,7 +110,7 @@ public class AdministradorController {
                 detUsus = usuarioService.filtroDetUsuAproximado(nombreUsu, pageRequest);
             }
         }
-        
+
         PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios", detUsus);
         model.addAttribute("detUsus", detUsus);
         model.addAttribute("titulo", "Gestion de Usuarios y Cuentas");
@@ -185,9 +185,9 @@ public class AdministradorController {
         detUsu.setDetUsuEdad(obtenerEdad(detUsu.getDetUsuFechaNacimiento()));
         usuarioService.guardarDetalleUsuario(detUsu);
         //Guardando Datos Personales
-        
+
         for (int i = 0; i < rolId.length; i++) {
-            if(rolId[i] == 1){
+            if (rolId[i] == 1) {
                 Agenda ag = new Agenda();
                 ag.setAgendaId(nuevoUsuario.getUsu_id());
                 usuarioService.crearAgenda(ag);
@@ -213,11 +213,11 @@ public class AdministradorController {
             return "redirect: Administrador/GestionarUsuarios";
         }
         Usuario usu = usuarioService.encontrarUsuarioPorId(usu_id);
-        String roles="";
+        String roles = "";
         for (UsuarioRol ur : usu.getRoles()) {
             roles += ur.getRol().getNombreRol() + "  ";
         }
-        model.addAttribute("roles",roles);
+        model.addAttribute("roles", roles);
         model.addAttribute("detUsu", detUsu);
         model.addAttribute("titulo", "Detalle de Cuenta de Usuario");
         return "Administrador/ConsultarUsuario";
@@ -265,18 +265,23 @@ public class AdministradorController {
         model.addAttribute("titulo", "Gestion de Credenciales");
         return "Administrador/ActualizarCredenciales";
     }
-    
+
     @GetMapping("/InhabilitarUsuario/{usu_id}")
     public String InhabilitarUsuario(@PathVariable(name = "usu_id") Long usu_id, Model model) {
         Usuario usucan = usuarioService.encontrarUsuarioPorId(usu_id);
-        usucan.setEstadoUsuario(usuarioService.obtenerEstadoUsuario(2));
-        usuarioService.guardarUsuario(usucan);
+        if (usucan.getEstadoUsuario().getEstUsuId() == 1) {
+            usucan.setEstadoUsuario(usuarioService.obtenerEstadoUsuario(2));
+            usuarioService.guardarUsuario(usucan);
+        }else{
+            usucan.setEstadoUsuario(usuarioService.obtenerEstadoUsuario(1));
+            usuarioService.guardarUsuario(usucan);
+        }
         return "redirect:/Administrador/GestionarUsuarios";
     }
 
     @RequestMapping(value = "/ActualizarCredencial", method = RequestMethod.POST)
     public String ActualizarCredencial(@Valid @ModelAttribute("usuCred") Usuario usuCred,
-             BindingResult result, Model model,
+            BindingResult result, Model model,
             @RequestParam(name = "item_id[]", required = false) Long[] rolId) {
         int valprueba1 = 0;
         int valprueba2 = 0;

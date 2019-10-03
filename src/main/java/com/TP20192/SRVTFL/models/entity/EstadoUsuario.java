@@ -44,6 +44,4 @@ public class EstadoUsuario implements Serializable{
     public void setEstUsuNombre(String estUsuNombre) {
         this.estUsuNombre = estUsuNombre;
     }
-    
-    
 }

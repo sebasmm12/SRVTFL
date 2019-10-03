@@ -73,9 +73,9 @@ public class PacienteController {
     }
     
     
-     @GetMapping("/detallePaciente/{pacienteId}")
+     @GetMapping("/detallePaciente/{pacId}")
     public String detallePaciente(
-            @PathVariable(name="pacienteId") Long pacienteId,
+            @PathVariable(name="pacId") Long pacienteId,
             Model model){
         Paciente paciente = pacienteService.obtenerPaciente(pacienteId);
         if(paciente == null){
@@ -83,13 +83,17 @@ public class PacienteController {
         }        
         model.addAttribute("paciente", paciente);
         model.addAttribute("titulo", "Paciente");
-        return "PacienteDetallePaciente";
+        return "Paciente/DetallePaciente";
     }
     
      @PostMapping(value="/ModificarPaciente")
-    public String modificarPaciente(@Valid Paciente paciente, Map<String, Object>  model, SessionStatus se ){             
+    public String modificarPaciente(@Valid Paciente paciente, BindingResult result,Map<String, Object>  model, SessionStatus se ){             
         Usuario usu = (Usuario)model.get("usuario");
         Paciente pac = new Paciente();
+        if(result.hasErrors()){
+            model.put("titulo", "Modificacion del Paciente");
+            return "Paciente/ActualizarPaciente";
+        }
         pac = pacienteService.obtenerPaciente(paciente.getPacId());        
         pac.setPac_edad(paciente.getPac_edad());
         pac.setPacNombre(paciente.getPacNombre());
@@ -109,12 +113,16 @@ public class PacienteController {
         System.out.println(paciente.toString());
         model.addAttribute("paciente", paciente);
         model.addAttribute("titulo","Modificacion del Paciente");
-        return "Paciente/DetallePaciente";
+        return "Paciente/ActualizarPaciente";
     }
     
     @PostMapping(value="/GuardarPaciente")
-    public String guardarPaciente(@Valid Paciente paciente, Map<String, Object>  model, SessionStatus se ){   
+    public String guardarPaciente(@Valid Paciente paciente,BindingResult result, Map<String, Object>  model, SessionStatus se ){   
         Usuario usu = (Usuario)model.get("usuario");
+        if(result.hasErrors()){
+            model.put("titulo", "Registro de Paciente");
+            return "Paciente/RegistrarPaciente";
+        }
         paciente.setUsu_id(usu.getUsu_id());
         paciente.setPacId(null);
         System.out.println(paciente.toString());

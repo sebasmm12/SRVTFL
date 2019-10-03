@@ -38,8 +38,8 @@ and open the template in the editor.
                                                 <label class="col-sm-2 col-form-label" style="width: 45px"
                                                        th:text="'Paciente Citado:'"></label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="nombrePaciente" name="nombrePaciente"
-                                                           th:value="${nombre}"/>                                                  
+                                                    <input type="text" class="form-control" 
+                                                           th:value="${nombre}" name="buscar_Paciente" id="buscar_paciente"/>                                                  
                                                 </div>
                                                 <select id="tipoFiltro" name="tipoFiltro" class="col-sm-2 browser-default custom-select m-l-15">
                                                     <option th:value="0" th:text="'Especifico'"></option>
@@ -62,7 +62,7 @@ and open the template in the editor.
                                                        value="Buscar Por Filtros"/>
                                             </div>
 
-
+                                            <!input type="hidden" name="paciente_id"  id="paciente_id"/-->
                                         </form>
                                         <!--h4 class="card-title col-sm-4">
                                             <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
@@ -83,11 +83,12 @@ and open the template in the editor.
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="cita: ${citas}">
+                                                <tr th:each="cita, iStat : ${citas}">
                                                     <td>
+                                                        
                                                         <a class="btn btn-success btn-xs" 
                                                            th:href="@{'/Recepcionista/detalleCita/' + ${cita.citId}}"
-                                                           th:text="${cita.citId}"></a>
+                                                           th:text="${iStat.count}"></a>
                                                     </td>
                                                     <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
                                                     <td th:text="${cita.citFechaHoraInicio}"></td>
@@ -95,6 +96,7 @@ and open the template in the editor.
                                                     <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
                                                     <td><a class="btn btn-primary btn-xs"
                                                            th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">Modificar</a></td>
+                                                           
                                                     <td><a th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-danger btn-xs"
                                                            onclick="return confirm('estas seguro que deseas Cancelar la Cita??');">Cancelar</a></td>
                                                 </tr>
@@ -113,5 +115,6 @@ and open the template in the editor.
         </div>
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
+    <!--script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script-->
 </body>
 </html>

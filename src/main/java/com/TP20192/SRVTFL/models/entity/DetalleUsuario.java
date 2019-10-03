@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -61,6 +62,7 @@ public class DetalleUsuario implements Serializable {
     
     @NotEmpty
     @Column(name="det_usu_telefono")
+    @Pattern(regexp = "/d{9}")
     private String detUsuTelefono;
     
     @Column(name="det_usu_sexo")
