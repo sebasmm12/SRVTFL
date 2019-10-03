@@ -6,8 +6,10 @@
 package com.TP20192.SRVTFL.controllers;
 
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,16 +32,16 @@ public class VisualizarHistorialController {
     @Autowired  
     public ICitaService citaService;
     
-    @GetMapping("/Ver/{id}")
-    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Model model,
-            @PathVariable(name="id") long id){
+    @GetMapping("/Ver")
+    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Map<String,Object> model){
         
+        Long id =((Usuario)model.get("usuario")).getUsu_id();
         Pageable pageRequest = PageRequest.of(page, 5);    
         Page<Cita> citas = citaService.obtenerCitasporPaciente(id,pageRequest);        
-        PageRender<Cita> pageRender= new PageRender("/Historial/Ver/"+id,citas);
-        model.addAttribute("titulo", "Visualizar Historial");
-        model.addAttribute("citas",citas);
-        model.addAttribute("page",pageRender);
+        PageRender<Cita> pageRender= new PageRender("/Historial/Ver",citas);
+        model.put("titulo", "Visualizar Historial");
+        model.put("citas",citas);
+        model.put("page",pageRender);
         return "Historial/ListarHistorial";       
     }
     

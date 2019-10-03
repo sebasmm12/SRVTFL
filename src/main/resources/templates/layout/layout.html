@@ -20,7 +20,6 @@ and open the template in the editor.
         <link rel="stylesheet" th:href="@{/css/layout_empresa/widget.css}" />
         <link rel="stylesheet" th:href="@{/css/boostrap.min.css}" />
         <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
-        <link rel="stylesheet" th:href="@{/css/Site.css}" />
         <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />-->
         <link rel="stylesheet" th:href="@{/css/mauricio/fullcalendar.min.css}" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
@@ -298,8 +297,8 @@ and open the template in the editor.
                         </div>
 
                         <div id="styleSelector" th:fragment="styleSelector">
+                                <input type="hidden" th:field="${usuario.usu_id}" />
                         </div>
-
                     </div>
                 </div>
             </div>

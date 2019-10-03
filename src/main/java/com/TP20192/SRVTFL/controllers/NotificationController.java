@@ -7,7 +7,9 @@ package com.TP20192.SRVTFL.controllers;
 
 import com.TP20192.SRVTFL.models.entity.ChatMessage;
 import com.TP20192.SRVTFL.models.entity.Notificacion;
+import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.INotificacionService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -15,6 +17,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/notificacion")
+@SessionAttributes("usuario")
 public class NotificationController {
     
     @Autowired
