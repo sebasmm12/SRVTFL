@@ -26,6 +26,9 @@ $(function () {
             var nombrePaciente = $('#buscar_paciente').val();
             var psicologoId =$('#psicologo_id').val();
             var pacienteId =$('#usu_id').val();
+            
+            localStorage.setItem('pacienteId',pacienteId);
+            localStorage.setItem('psicologoId',psicologoId);
             var usuario = {
                 usu_id: psicologoId,
                 usu_codigo: '',
@@ -64,8 +67,9 @@ $(function () {
     function onMessageReceived(payload) {
         var message = JSON.parse(payload.body);
 
-        var psicologoId =$('#psicologo_id').val();
+        var psicologoId =localStorage.getItem('psicologoId');
         
+        alert(psicologoId);
         var primerElemento = $('<li></li>');
 
         var segundoElemento = $('<div class="media"></div>');
