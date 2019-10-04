@@ -91,7 +91,7 @@ and open the template in the editor.
                                                 <div class="col-sm-6">
                                                     <input type="text" th:field="*{pacEmail}" class="form-control"
                                                            th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacTelefono')}" th:errors="*{pacEmail}"
+                                                    <small th:if="${#fields.hasErrors('pacEmail')}" th:errors="*{pacEmail}"
                                                            class="form-text text-danger"></small>
 
                                                 </div>

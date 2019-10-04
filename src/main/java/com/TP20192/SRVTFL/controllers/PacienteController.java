@@ -86,6 +86,15 @@ public class PacienteController {
         return "Paciente/DetallePaciente";
     }
     
+    @GetMapping(value="/ActualizarPaciente/{pacienteId}")
+    public String actualizarPaciente(@PathVariable (name="pacienteId") Long id, Model model){
+        Paciente paciente = pacienteService.obtenerPaciente(id);
+        System.out.println(paciente.toString());
+        model.addAttribute("paciente", paciente);
+        model.addAttribute("titulo","Modificacion del Paciente");
+        return "Paciente/ActualizarPaciente";
+    }
+    
      @PostMapping(value="/ModificarPaciente")
     public String modificarPaciente(@Valid Paciente paciente, BindingResult result,Map<String, Object>  model, SessionStatus se ){             
         Usuario usu = (Usuario)model.get("usuario");
@@ -98,14 +107,6 @@ public class PacienteController {
         return "redirect:/Paciente/GestionarPacientes";
     }
     
-    @GetMapping(value="/ActualizarPaciente/{pacienteId}")
-    public String actualizarPaciente(@PathVariable (name="pacienteId") Long id, Model model){
-        Paciente paciente = pacienteService.obtenerPaciente(id);
-        System.out.println(paciente.toString());
-        model.addAttribute("paciente", paciente);
-        model.addAttribute("titulo","Modificacion del Paciente");
-        return "Paciente/ActualizarPaciente";
-    }
     
     @PostMapping(value="/GuardarPaciente")
     public String guardarPaciente(@Valid Paciente paciente,BindingResult result, Map<String, Object>  model, SessionStatus se ){   
