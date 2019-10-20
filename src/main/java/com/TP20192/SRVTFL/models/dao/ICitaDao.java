@@ -57,4 +57,7 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query("select c from Cita c where c.paciente.pacId = :pacId")
     public Page<Cita> listarCitasporPaciente(@Param("pacId") Long usuId, Pageable page);
     
+    @Query("select c from Cita c where c.paciente.pacNombre = :nombrePac and c.citFechaHoraInicio = :fechacita")
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(@Param("fechacita") Date fecha,@Param("nombrePac") String nombrePac, Pageable pageable);
+    
 }

@@ -67,9 +67,6 @@ $(function () {
     function onMessageReceived(payload) {
         var message = JSON.parse(payload.body);
 
-        var psicologoId =localStorage.getItem('psicologoId');
-        
-        alert(psicologoId);
         var primerElemento = $('<li></li>');
 
         var segundoElemento = $('<div class="media"></div>');
@@ -86,7 +83,7 @@ $(function () {
 
         primerElemento.append(segundoElemento);
 
-        $("#notificaciones"+psicologoId).append(primerElemento);
+        $("#notificaciones18").append(primerElemento);
 
 
     }

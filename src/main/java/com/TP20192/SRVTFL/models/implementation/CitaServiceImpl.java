@@ -138,4 +138,9 @@ public class CitaServiceImpl implements ICitaService {
     public void eliminarActividadPorId(Long Id) {
         actividadDao.deleteById(Id);
     }
+
+    @Override
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(String nombrePac, Date fechaCita, Pageable pageable) {
+        return citaService.filtroCombinadoEspecificoUnoaUno(fechaCita, nombrePac, pageable);
+    }
 }

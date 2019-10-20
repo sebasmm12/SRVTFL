@@ -6,19 +6,26 @@
 package com.TP20192.SRVTFL.controllers;
 
 import com.TP20192.SRVTFL.models.entity.Actividad;
+import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Usuario;
+import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
+import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
@@ -38,6 +45,9 @@ public class PsicologoController {
     @Autowired
     private IPsicologoService psicologoService;
     
+    @Autowired
+    private ICitaService citaService;
+    
     @GetMapping(value = {"/index","/"})
     public String index(Model model,Authentication authentication) {
         Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
@@ -54,9 +64,15 @@ public class PsicologoController {
         model.put("actividades", actividad);
         return "Agenda/index";
     }
+    @GetMapping(value="/RealizarSesionTratamiento")
+    public String realizarSesionTratamiento(Model model, @RequestParam(name="page", defaultValue = "0") int page)  {
+        Pageable pageRequest = PageRequest.of(page,5);
+        Page<Cita> citas= citaService.obtenerCitas(pageRequest);
+        PageRender<Cita> pageRender = new PageRender<>("/psicologo/RealizarSesionTratamiento", citas);
+        model.addAttribute("citas",citas);
+        model.addAttribute("page", pageRender);
+        return "Psicologo/RealizarSesionTratamiento/ListarSesionesCitas";
+    }
     
-    
-    
-    
-    
-}
+    } 
+

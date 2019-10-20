@@ -40,6 +40,7 @@ public class Usuario implements Serializable {
     //@Column(name = "est_usu_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="est_usu_id")
+    @JsonIgnoreProperties
     private EstadoUsuario estadoUsuario;
 
     @NotEmpty

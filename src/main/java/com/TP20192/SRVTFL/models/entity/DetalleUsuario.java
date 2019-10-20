@@ -62,7 +62,7 @@ public class DetalleUsuario implements Serializable {
     
     @NotEmpty
     @Column(name="det_usu_telefono")
-    @Pattern(regexp = "/d{9}")
+    @Pattern(regexp = "\\d{9}")
     private String detUsuTelefono;
     
     @Column(name="det_usu_sexo")
@@ -99,7 +99,6 @@ public class DetalleUsuario implements Serializable {
 
     @JoinColumn(name="usu_id",unique=true)
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Usuario usuario;
 
     public Long getUsu_id() {

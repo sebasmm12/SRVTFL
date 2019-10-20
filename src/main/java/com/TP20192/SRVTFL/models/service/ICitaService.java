@@ -51,4 +51,6 @@ public interface ICitaService {
     public Actividad ObtenerActividadPorId(Long Id);
     
     public void eliminarActividadPorId(Long Id);
+    
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(String nombrePac, Date fechaCita, Pageable pageable);
 }

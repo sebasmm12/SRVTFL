@@ -1,0 +1,33 @@
+
+<div class="table-responsive mt-2" th:fragment="ListCitas" id="tableCitas">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="text-center font-weight-bolder bg-white">
+                <th scope="col">#</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Estado de la Cita</th>
+                <th scope="col">Hora Inicio</th>
+                <th scope="col">Hora Fin</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cita, num :${citas}" class="text-center">
+                <th th:text="${num.count}" scope="row"></th>
+                <td th:text="${cita.paciente.nombreCompleto()}"></td>
+                <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
+                <td th:text="${cita.citFechaHoraInicio}"></td>
+                <td th:text="${cita.citFechaHoraFin}"></td>
+                <td>
+                    <a th:href="@{/psicologo/IniciarSesión}" class="btn btn-info">
+                        <i class="fa fa-eye"></i>
+                        Visualizar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-2">
+        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+    </div>
+</div>

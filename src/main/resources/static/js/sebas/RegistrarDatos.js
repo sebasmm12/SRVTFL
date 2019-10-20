@@ -105,10 +105,9 @@ var validacion = function () {
     var validarLugarNacimiento = validacionLugarNacimiento('detUsuLugarNacimientoError', $lugarNacimiento.val(), 'detUsuLugarNacimiento');
     if (validarTelefono === false || validarCorreo === false || validarReligion === false || validarUsuCodigo === false || validarUsuContrasena === false ||
             validarLugarNacimiento === false) {
-
-        alert("xd");
+        
     } else {
-
+        Guardar();
     }
 };
 
