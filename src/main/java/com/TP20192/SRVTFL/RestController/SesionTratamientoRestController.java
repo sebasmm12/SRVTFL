@@ -37,11 +37,12 @@ public class SesionTratamientoRestController {
 
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<Cita> citas = citaService.obtenerCitas(pageRequest);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date fechaD = new Date();
         if (!nombrePaciente.equals("") && !datetime.equals("")) {
             if (!selectFiltroPaciente.equals("Aproximado") && !selectFiltroFecha.equals("Anterior")) {
-                citas = citaService.filtroCombinadoEspecificoUnoaUno(nombrePaciente, fechaD, pageRequest);
+                fechaD = format.parse(datetime);
+                citas = citaService.filtroCombinadoEspecificoUnoaUno(fechaD, nombrePaciente, 2, pageRequest);
             }else {
                 
             }
@@ -56,9 +57,9 @@ public class SesionTratamientoRestController {
             if (!datetime.equals("")) {
                 fechaD = format.parse(datetime);
                 if (selectFiltroFecha.equals("Anterior")) {
-                    citas = citaService.filtroCitaFechaEspecifico(fechaD, pageRequest);
-                } else {
                     citas = citaService.filtroCitaFechaAproximado(fechaD, pageRequest);
+                } else {
+                    citas = citaService.filtroCitaFechaEspecifico(fechaD, pageRequest);
                 }
             }
         }

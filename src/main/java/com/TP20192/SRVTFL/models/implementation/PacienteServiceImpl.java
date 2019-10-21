@@ -6,7 +6,9 @@
 package com.TP20192.SRVTFL.models.implementation;
 
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
+import com.TP20192.SRVTFL.models.dao.ITipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Paciente;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.service.IPacienteService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PacienteServiceImpl  implements  IPacienteService{
     
     @Autowired
     public IPacienteDao pacienteService;
+    
+    @Autowired
+    public ITipoDocumento tipoDocumentoService;
     
      @Transactional(readOnly = true)
     @Override
@@ -60,6 +65,12 @@ public class PacienteServiceImpl  implements  IPacienteService{
     @Override
     public List<Paciente> findPacienteByNombre(String term) {    
         return  pacienteService.findPacienteByNombre(term);      
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public TipoDocumento findDocumentoById(Long id) {
+        return tipoDocumentoService.findById(id).orElse(null);
     }
     
        

@@ -138,9 +138,47 @@ public class CitaServiceImpl implements ICitaService {
     public void eliminarActividadPorId(Long Id) {
         actividadDao.deleteById(Id);
     }
-
+    
+    @Transactional(readOnly = true)
     @Override
-    public Page<Cita> filtroCombinadoEspecificoUnoaUno(String nombrePac, Date fechaCita, Pageable pageable) {
-        return citaService.filtroCombinadoEspecificoUnoaUno(fechaCita, nombrePac, pageable);
+    public Page<Cita> encontrarCitasenEstadoenCita(int id, Pageable pageable) {
+       return citaService.encontrarCitasenEstadoenCita(id, pageable);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(Date fechaCita, String nombrePac, int id, Pageable pageable) {
+       return citaService.filtroCombinadoEspecificoUnoaUno(fechaCita, nombrePac,id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cita> filtroCitaPacienteAproximadoCitado(String term, int id, Pageable pageable) {
+        return citaService.filtroCitaPacienteAproximadoCitado(term, id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cita> filtroCitaPacienteEspecificoCitado(String term, int id, Pageable pageable) {
+        return citaService.filtroCitaPacienteEspecificoCitado(term, id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cita> filtroCitaFechaEspecificoCitado(Date term, int id, Pageable pageable) {
+        return citaService.filtroCitaFechaEspecificoCitado(term, id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Cita> filtroCitaFechaAproximadoCitado(Date term, int id, Pageable pageable) {
+        return citaService.filtroCitaFechaAproximadoCitado(term, id, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Cita encontrarCitaconPacinenteconEstado(Long id) {
+        return citaService.encontrarCitaconPacinenteconEstado(id);
+    }
+
 }

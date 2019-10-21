@@ -7,8 +7,10 @@ package com.TP20192.SRVTFL.controllers;
 
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
+import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
@@ -48,6 +50,9 @@ public class PsicologoController {
     @Autowired
     private ICitaService citaService;
     
+    @Autowired
+    private IPacienteService pacienteService;
+    
     @GetMapping(value = {"/index","/"})
     public String index(Model model,Authentication authentication) {
         Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
@@ -67,12 +72,20 @@ public class PsicologoController {
     @GetMapping(value="/RealizarSesionTratamiento")
     public String realizarSesionTratamiento(Model model, @RequestParam(name="page", defaultValue = "0") int page)  {
         Pageable pageRequest = PageRequest.of(page,5);
-        Page<Cita> citas= citaService.obtenerCitas(pageRequest);
+        Page<Cita> citas= citaService.encontrarCitasenEstadoenCita(2, pageRequest);
         PageRender<Cita> pageRender = new PageRender<>("/psicologo/RealizarSesionTratamiento", citas);
         model.addAttribute("citas",citas);
         model.addAttribute("page", pageRender);
         return "Psicologo/RealizarSesionTratamiento/ListarSesionesCitas";
     }
+    @GetMapping(value="/VisualizarInformacion")
+    public String visualizarInformacionCita(Model model,@RequestParam(value = "citId")Long Id) {
+        Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
+        TipoDocumento tipoDoc =  pacienteService.findDocumentoById(Long.valueOf(cita.getPaciente().getTipDocId()));
+        model.addAttribute("cita", cita);
+        model.addAttribute("documento",tipoDoc);
+        return "Psicologo/RealizarSesionTratamiento/VisualizarCita";
+    }
     
-    } 
+} 
 

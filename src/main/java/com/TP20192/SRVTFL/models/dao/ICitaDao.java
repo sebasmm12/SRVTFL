@@ -26,7 +26,7 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query("select c from Cita c")
     public List<Cita> listarCitas();
 
-    @Query("select c from Cita c where c.id = :cita_id")
+    @Query("select c from Cita c where c.citId = :cita_id")
     public Cita listarCita(@Param("cita_id") Long cita_id);
     
     @Query("select c from Cita c join fetch c.paciente where c.citId = ?1")
@@ -57,7 +57,53 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query("select c from Cita c where c.paciente.pacId = :pacId")
     public Page<Cita> listarCitasporPaciente(@Param("pacId") Long usuId, Pageable page);
     
-    @Query("select c from Cita c where c.paciente.pacNombre = :nombrePac and c.citFechaHoraInicio = :fechacita")
-    public Page<Cita> filtroCombinadoEspecificoUnoaUno(@Param("fechacita") Date fecha,@Param("nombrePac") String nombrePac, Pageable pageable);
+     //Combinado y para sesión de tratamiento
+    
+    
+    @Query(value ="select c from Cita c join fetch c.estadoCita e"
+            + " join fetch c.paciente p"
+            + " where p.pacNombre = :nombrePac and c.citFechaHoraInicio = :fechacita and e.estCitId = :est_cit_id",
+            countQuery = "select count (c) from Cita c join c.estadoCita e"
+                    + " join c.paciente p"
+                    + " where p.pacNombre = :nombrePac and c.citFechaHoraInicio = :fechacita and e.estCitId = :est_cit_id")
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(@Param("fechacita") Date fecha,@Param("nombrePac") String nombrePac,@Param("est_cit_id") int id, Pageable pageable);
+    
+    @Query(value= "select c from Cita c join fetch c.estadoCita e"
+            + " join fetch c.paciente p"
+            + " where p.pacNombre like %:nombrePac% and e.estCitId = :est_cit_id",
+            countQuery = "select count(c) from Cita c join c.estadoCita e"
+                    + " join c.paciente p"
+                    + " where p.pacNombre like %:nombrePac% and e.estCitId = :est_cit_id")
+    public Page<Cita> filtroCitaPacienteAproximadoCitado(@Param("nombrePac")String term,@Param("est_cit_id") int id, Pageable pageable);
+    
+    @Query(value="select c from Cita c join fetch c.estadoCita e"
+            + " join fetch c.paciente p"
+            + " where p.pacNombre = :nombrePac and e.estCitId = :est_cit_id",
+            countQuery = "select count(c) from Cita c join c.estadoCita e"
+                    + " join c.paciente p"
+                    + " where p.pacNombre = :nombrePac and e.estCitId = :est_cit_id")
+    public Page<Cita> filtroCitaPacienteEspecificoCitado(@Param("nombrePac")String term,@Param("est_cit_id") int id, Pageable pageable);
+
+    @Query(value ="select c from Cita c inner join fetch c.estadoCita e "
+            + " where c.citFechaHoraInicio = :fechaCita and e.estCitId = :est_cit_id",
+            countQuery = "select count(c) from Cita c inner join c.estadoCita e "
+                    + " where c.citFechaHoraInicio = :fechaCita and e.estCitId = :est_cit_id")
+    public Page<Cita> filtroCitaFechaEspecificoCitado(@Param("fechaCita") Date term,@Param("est_cit_id") int id, Pageable pageable);
+    
+    @Query(value="select c from Cita c join fetch c.estadoCita e"
+            + " where c.citFechaHoraInicio <= :fechaCita  and e.estCitId = :est_cit_id",
+            countQuery = "select count(c) from Cita c join c.estadoCita e"
+                    + " where c.citFechaHoraInicio = :fechaCita and e.estCitId = :est_cit_id")
+    public Page<Cita> filtroCitaFechaAproximadoCitado(@Param("fechaCita") Date term,@Param("est_cit_id") int id, Pageable pageable);
+    
+    @Query(value="select c from Cita c inner join fetch c.estadoCita e where e.estCitId = :est_cit_id",
+            countQuery = "select count(c) from Cita c inner join c.estadoCita e where e.estCitId = :est_cit_id")
+    public Page<Cita> encontrarCitasenEstadoenCita(@Param("est_cit_id") int id,Pageable pageable);
+    
+    @Query("select c from Cita c join fetch c.estadoCita e"
+            + " join fetch c.paciente p "
+            + " where c.citId = :citId")
+    public Cita encontrarCitaconPacinenteconEstado(@Param("citId") Long id);
+    
     
 }

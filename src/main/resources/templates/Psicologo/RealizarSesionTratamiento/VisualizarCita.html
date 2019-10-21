@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <link rel="stylesheet" th:href="@{/css/sebas/style.css}">
+    <link rel="stylesheet" th:href="@{/css/sebas/RealizarSesionTratamiento/style.css}">
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+                            <div class="container mt-2 py-2">
+                                <div class="card bg-light">
+                                    <h2 class="text-secondary card-header">Realizar Tratamiento</h2>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-12 col-md-12">
+                                                <div class="card bg-white mt-2">
+                                                    <h2 class="text-secondary card-header">Datos del Paciente</h2>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-8 col-md-8 col-12 my-2">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Nombres y Apellidos
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:value="${cita.paciente.nombreCompleto()}" />
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Edad
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.paciente.pac_edad}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Número de Teléfono
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.paciente.pacTelefono}" />
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Número de DNI
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.paciente.pacNumeroDocumento}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Email
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.paciente.pacEmail}" />
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Dirección
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.paciente.pacDireccion}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Tipo de Documento
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:field="${documento.tipDocNombre}" />
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-6 col-12 my-2">
+                                                                        <div>
+                                                                            <label class="label-size">
+                                                                                Sexo Biológico
+                                                                            </label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:if="${cita.paciente.pacSexoBiologico}" value="Masculino" />
+                                                                        <input type="text" class="form-control bg-white" readonly="readonly" th:if="${!cita.paciente.pacSexoBiologico}" value="Femenino" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 col-md-4 col-12 my-2">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Imagen
+                                                                    </label>
+                                                                </div>
+                                                                <img th:if="${#strings.length(cita.paciente.pacImagen) > 0}"
+                                                                     class="img-thumbnail rounded" style="width: 100% !important;height: auto !important;border: dashed blueviolet"
+                                                                     th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}" id="imagenId"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-12 col-md-12">
+                                                <div class="card bg-white mt-2">
+                                                    <h2 class="text-secondary card-header">Datos de la Cita</h2>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6 col-12 col-md-6">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Fecha Inicio
+                                                                    </label>
+                                                                </div>
+                                                                <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraInicio}" />
+                                                            </div>
+                                                            <div class="col-sm-6 col-12 col-md-6">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Fecha Fin
+                                                                    </label>
+                                                                </div>
+                                                                <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraFin}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6 col-md-6 col-12">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Motivo
+                                                                    </label>
+                                                                </div>
+                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.citMotivo}" />
+                                                            </div>
+                                                            <div class="col-sm-6 col-md-6 col-12">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Se necesita Realidad Virtual?
+                                                                    </label>
+                                                                </div>
+                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:if="${cita.citVr}" value="Sí necesita"/>
+                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:if="${!cita.citVr}" value="No necesita"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6 col-md-6 col-12">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Estado de la Cita
+                                                                    </label>
+                                                                </div>
+                                                                <input type="text" class="form-control" th:field="${cita.estadoCita.estCitNombreEstado}" />
+                                                            </div>
+                                                            <div class="col-sm-6 col-md-6 col-12">
+                                                                <div>
+                                                                    <label class="label-size">
+                                                                        Registre Hora de Inicio de la Cita
+                                                                    </label>
+                                                                </div>
+                                                                <input type="datetime-local" class="form-control" id="fechaInicioCita" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-end mt-4">
+                                                            <div class="col-sm-2 col-md-2 col-6">
+                                                                <a th:href="@{/psicologo/RealizarSesionTratamiento}" class="btn btn-secondary btn-SesionTratamiento">
+                                                                    <i class="fa fa-backward icon-tratamiento"></i>
+                                                                    Regresar
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-sm-3 col-md-3 col-6">
+                                                                <button type="button" class="btn btn-success btn-SesionTratamiento">
+                                                                    <i class="fa fa-file-alt icon-tratamiento"></i>
+                                                                    Iniciar Tratamiento
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:replace="layout/layout :: styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layout/layout :: footer"></footer>
+    </body>
+</html>

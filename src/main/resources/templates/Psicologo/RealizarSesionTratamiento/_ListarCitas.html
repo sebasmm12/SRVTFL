@@ -19,7 +19,7 @@
                 <td th:text="${cita.citFechaHoraInicio}"></td>
                 <td th:text="${cita.citFechaHoraFin}"></td>
                 <td>
-                    <a th:href="@{/psicologo/IniciarSesión}" class="btn btn-info">
+                    <a th:href="@{/psicologo/VisualizarInformacion(citId=${cita.citId})}" class="btn btn-info">
                         <i class="fa fa-eye"></i>
                         Visualizar
                     </a>

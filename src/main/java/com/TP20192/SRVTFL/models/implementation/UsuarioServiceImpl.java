@@ -50,10 +50,6 @@ public class UsuarioServiceImpl implements UserDetailsService {
        for(UsuarioRol rol: usuario.getRoles()) {
            logger.info("Role: ".concat(rol.getRol().getNombreRol()));
            roles.add(new SimpleGrantedAuthority(rol.getRol().getNombreRol())); 
-           for(RolPermiso per : rol.getRol().getPermisos()) {
-               logger.info("Permiso: ".concat(per.getPermiso().getPerNombre()));
-           }
-           
        }
        
        logger.info("Bienvenido al sistema"+usuario.getUsu_codigo());

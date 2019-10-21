@@ -22,7 +22,7 @@ public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>
     @Query("select p from Paciente p where p.pacNombre like %?1%")
     public List<Paciente> findPacienteByNombre(String term);
 
-    
-    
+
+        
 }
 

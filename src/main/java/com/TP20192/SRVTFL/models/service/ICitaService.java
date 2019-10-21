@@ -52,5 +52,21 @@ public interface ICitaService {
     
     public void eliminarActividadPorId(Long Id);
     
-    public Page<Cita> filtroCombinadoEspecificoUnoaUno(String nombrePac, Date fechaCita, Pageable pageable);
+    public Page<Cita> filtroCombinadoEspecificoUnoaUno(Date fechaCita, String nombrePac,int id, Pageable pageable);
+    
+    //Para sesión de tratamiento
+   public Page<Cita> encontrarCitasenEstadoenCita(int id ,Pageable pageable);
+    
+    public Page<Cita> filtroCitaPacienteAproximadoCitado(String term, int id, Pageable pageable);
+    
+
+    public Page<Cita> filtroCitaPacienteEspecificoCitado(String term, int id, Pageable pageable);
+
+ 
+    public Page<Cita> filtroCitaFechaEspecificoCitado(Date term,int id, Pageable pageable);
+    
+
+    public Page<Cita> filtroCitaFechaAproximadoCitado(Date term, int id, Pageable pageable);  
+   
+   public Cita encontrarCitaconPacinenteconEstado(Long id);
 }

@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.models.service;
 
 import com.TP20192.SRVTFL.models.entity.Paciente;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +25,7 @@ public interface IPacienteService {
     public Page<Paciente> obtenerPacientes(Pageable page);
     
     public List<Paciente> findPacienteByNombre(String term);    
+    
+    public TipoDocumento findDocumentoById(Long id);
     
 }

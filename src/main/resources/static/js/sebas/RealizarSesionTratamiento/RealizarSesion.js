@@ -18,7 +18,7 @@ var BuscarFiltros = function () {
         data: {
             nombrePaciente: nombrePaciente,
             datetime: datetime,
-            page: 1,
+            page: 0,
             selectFiltroFecha: selectFiltroFecha,
             selectFiltroPaciente: selectFiltroPaciente
         },
@@ -26,9 +26,42 @@ var BuscarFiltros = function () {
             var $newhtml = $(data);
             $("#tableCitas").replaceWith($newhtml);
 
-        }
+        }, error: function (jqXHR, textStatus, errorThrown) {},
+        complete: function (jqXHR, textStatus) {}
     });
 };
 
+var validacionFiltros = function () {
+    var nombrePaciente = $("#nombrePaciente").val();
+    var datetime = $("#datetime").val();
+    
+};
 
-$("#btnFiltrar").click(BuscarFiltros);
+
+
+var addPositiveAtributtes = function (id) {
+    $("#" + id).removeClass('is-invalid');
+    $("#" + id).addClass('is-valid');
+};
+
+var addNegativeAttributtes = function (id) {
+    $("#" + id).removeClass('is-valid');
+    $("#" + id).addClass('is-invalid');
+};
+
+var addPositiveHtml = function (id, message) {
+    $("#" + id).removeClass('negativeSpan');
+    $("#" + id).addClass('positiveSpan');
+    $("#" + id).html('');
+    $("#" + id).html('<i class="fa fa-check"></i><label class="pt-2 pl-1">' + message + '</label>');
+};
+
+var addNegativeHtml = function (id, message) {
+    $("#" + id).removeClass('positiveSpan');
+    $("#" + id).addClass('negativeSpan');
+    $("#" + id).html('');
+    $("#" + id).html('<i class="fa fa-times"></i><label class="pt-2 pl-1">' + message + '</label>');
+};
+
+
+$("#btnFiltrar").click(validacionFiltros);

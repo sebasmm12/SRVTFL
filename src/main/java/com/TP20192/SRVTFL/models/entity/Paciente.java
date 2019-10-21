@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.Generated;
@@ -197,9 +198,9 @@ public class Paciente implements Serializable{
     public String toString() {
         return "Paciente{" + "pacId=" + pacId + ", usu_id=" + usu_id + ", pac_edad=" + pac_edad + ", pacNombre=" + pacNombre + ", pacApellido=" + pacApellido + ", pacImagen=" + pacImagen + ", pacTelefono=" + pacTelefono + ", pacNumeroDocumento=" + pacNumeroDocumento + ", pacEmail=" + pacEmail + ", pacDireccion=" + pacDireccion + ", tipDocId=" + tipDocId + ", pacSexoBiologico=" + pacSexoBiologico + '}';
     }
+    
 
   
-    
-    
+        
     
 }
