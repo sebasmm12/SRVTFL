@@ -86,7 +86,7 @@ var ActualizarImagen = function () {
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = "/";
+                        window.location.href = "/Administrador/GestionarUsuarios";
                     }
                 });
             }
@@ -110,7 +110,7 @@ var validacion = function () {
     var validarLugarNacimiento = validacionLugarNacimiento('detUsuLugarNacimientoError', $lugarNacimiento.val(), 'detUsuLugarNacimiento');
     if (validarTelefono === false || validarCorreo === false || validarReligion === false || validarUsuCodigo === false || validarUsuContrasena === false ||
             validarLugarNacimiento === false) {
-        
+
     } else {
         Guardar();
     }

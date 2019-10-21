@@ -46,7 +46,6 @@ public class DetalleUsuario implements Serializable {
     
     @JoinColumn(name="tip_doc_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private TipoDocumento tipDocId;
     
     @NotEmpty

@@ -36,23 +36,17 @@ public class WsConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/javatechie").
                 setHandshakeHandler(new DefaultHandshakeHandler() {
 
-                    public boolean beforeHandshake(
-                            ServerHttpRequest request,
-                            ServerHttpResponse response,
-                            WebSocketHandler wsHandler,
+                    public boolean beforeHandshake(ServerHttpRequest request,ServerHttpResponse response,WebSocketHandler wsHandler,
                             Map attributes) throws Exception {
                         if (request instanceof ServletServerHttpRequest) {
-                            ServletServerHttpRequest servletRequest
-                                    = (ServletServerHttpRequest) request;
-                            HttpSession session = servletRequest
-                                    .getServletRequest().getSession();
+                            ServletServerHttpRequest servletRequest= (ServletServerHttpRequest) request;
+                            HttpSession session = servletRequest.getServletRequest().getSession();
                             attributes.put("sessionId", session.getId());
                             logger.info(session.getId());
                         }
                         return true;
                     }
-                })
-                .withSockJS();
+                }).withSockJS();
     }
 
     @Override

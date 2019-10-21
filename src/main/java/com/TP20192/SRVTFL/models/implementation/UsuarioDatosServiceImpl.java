@@ -92,11 +92,13 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Transactional
     public void guardarRolesUsuario(List<UsuarioRol> rolesUsuario) {
         usuRolDao.saveAll(rolesUsuario);
     }
 
     @Override
+    
     public Rol obtenerRolPorId(Long id) {
         return  detUsuDao.encontrarRolPorId(id);
     }
