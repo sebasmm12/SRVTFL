@@ -23,90 +23,65 @@ and open the template in the editor.
                             confunden-->
 
                             <div class="container py-4">
-                                <div class="card bg-light">
+                                <div class="card bg-light" style="width:1175px">
                                     <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
-                                        th:text="${titulo}"></h2>
-                                        <ul th:if="${mensage != null}" class="alert alert-danger m-l-10 m-r-10">
-                                            <li th:text="${mensage}"></li>
-                                        </ul>
+                                        th:text="'Gestion de Usuarios y Cuentas del Sistema'"></h2>
                                     <div class="card-body">
+
                                         <div class="row">
-                                            <form name="GestionarUsuarios" action="GestionarUsuarios" method="GET" class="col-sm-10">
-                                                <div class="row">
-                                                    <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                           th:text="'Nombre del Usuario'"></label>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="nombreUsu" name="nombreUsu" 
-                                                               th:value="${term}"/>                                                  
-                                                    </div>
-                                                    <select id="tipoFiltro" name="tipoFiltro" class="col-sm-3 browser-default custom-select m-l-15">
-                                                        <option th:value="0" th:text="'Especifico'"></option>
-                                                        <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
-                                                    </select>
-                                                    <input type="submit" class="btn btn-success btn-xs m-b-10 col-sm-2 m-l-15"
-                                                           value="Filtrar"/>
-                                                </div>
-                                            </form>
-                                            <h4 class="card-title col-sm-2">
-                                                <a  class="btn btn-success btn-xs align-items-lg-end"
-                                                    th:href="@{'/Administrador/RegistrarUsuario'}">Nuevo Usuario</a>
-                                            </h4>
+                                            <label class="col-sm-1 col-form-label" style="width: 45px"
+                                                   th:text="'Usuario: '"></label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control clo-sm-12" id="nombreUsu" name="nombreUsu" 
+                                                       th:value="${term}"/>
+                                                <div id="nombreUsuError"></div>
+                                            </div>
+                                            <select id="tipoFiltro" name="tipoFiltro" class="col-sm-2 browser-default custom-select m-l-15">
+                                                <option th:value="0" th:text="'Especifico'"></option>
+                                                <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
+                                            </select>
+                                            <div>
+                                                <button type="button" class="btn btn btn-outline-secondary btn-xs m-l-15" style="width:200px" id="btnBuscarUsuario">
+                                                    <i class="fa fa-search" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Realizar Busqueda</span>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <a  class="btn btn-outline-success btn-xs align-items-lg-end m-l-15 " style="width:200px"
+                                                    th:href="@{'/Administrador/RegistrarUsuario'}">
+                                                    <i class="fa fa fa-check" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Nuevo Usuario</span>
+                                                </a>
+                                            </div>
                                         </div>
 
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Nombre Completo</th>
-                                                    <th>Nombre de Usuario</th>
-                                                    <th>E-mail</th>
-                                                    <th>Estado</th>
-                                                    <th>Cred</th>
-                                                    <th>Modificar</th>
-                                                    <th>Eliminar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="detUsu, iStat: ${detUsus}">
-                                                    <td>
-                                                        <a class="btn btn-success btn-xs" 
-                                                           th:href="@{'/Administrador/consultarUsuario/' + ${detUsu.usu_id}}"
-                                                           th:text="${iStat.count}"></a>
-                                                    </td>
-                                                    <td th:text="${detUsu.detUsuNombre}"></td>
-                                                    <td th:text="${detUsu.usuario.usu_codigo}"></td>
-                                                    <td th:text="${detUsu.detUsuCorreo}"></td>
-                                                    <td th:text="${detUsu.usuario.estadoUsuario.estUsuNombre}"></td>
-                                                    <td><a class="btn btn-success btn-xs"
-                                                           th:href="@{'/Administrador/ModificarCredencial/' + ${detUsu.usu_id}}">Mod</a></td>
-                                                    <td><a class="btn btn-primary btn-xs"
-                                                           th:href="@{'/Administrador/ModificarUsuario/' + ${detUsu.usuario.usu_id}}">Modificar</a></td>
-                                                    <td><a  class="btn btn-danger btn-xs"
-                                                            th:if="${detUsu.usuario.estadoUsuario.estUsuId == 1}"
-                                                            th:href="@{'/Administrador/InhabilitarUsuario/' + ${detUsu.usuario.usu_id}}"
-                                                            onclick="return confirm('estas seguro que deseas Inhabilitar el Usuario??');"
-                                                            >Cancelar</a>
-                                                    <a  class="btn btn-success btn-xs"
-                                                            th:if="${detUsu.usuario.estadoUsuario.estUsuId == 2}"
-                                                            th:href="@{'/Administrador/InhabilitarUsuario/' + ${detUsu.usuario.usu_id}}"
-                                                            onclick="return confirm('estas seguro que deseas Activar el Usuario??');"
-                                                            >Habilitar</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-12 col-md-12">
+                                            <div th:replace="Administrador/_ListarUsuarios :: ListaUsuarios"></div>
+                                        </div>
                                     </div>
+                                        
+                                        <div>
+                                               <button type="button" class="btn btn btn-outline-secondary btn-xs m-l-15" style="width:200px" id="btnModal">
+                                                    <i class="fa fa-search" style="font-size: 20px"></i>
+                                                    <span class="btn-text">mostrar Modal</span>
+                                                </button>
+                                            </div>
+                                        <div th:replace="Administrador/_modalPermisosRol :: exampleModal"></div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div th:replace="layout/layout :: styleSelector"></div>
+
                 </div>
+                <div th:replace="layout/layout :: styleSelector"></div>
             </div>
         </div>
     </div>
-    <footer th:replace="layout/layout :: footer"></footer>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+<script th:src="@{/js/chocolombo/RegistrarUsuario.js}"></script>
+
 </body>
 </html>
 

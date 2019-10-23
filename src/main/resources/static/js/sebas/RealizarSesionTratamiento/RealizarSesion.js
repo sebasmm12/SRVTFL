@@ -36,7 +36,6 @@ var validacionFiltros = function () {
             complete: function (jqXHR, textStatus) {}
         });
     }
-
 };
 
 var validarNombrePaciente = function (elementError, val, element) {

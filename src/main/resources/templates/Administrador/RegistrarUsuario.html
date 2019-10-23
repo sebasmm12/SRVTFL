@@ -35,7 +35,7 @@ and open the template in the editor.
 
                                         </ul>
                                     </div-->
-                                    <div class="card-body">
+                                    <div class="card-body" >
                                         <!--form th:action="@{/Administrador/GuardarUsuario}" th:object="${detUsu}" method="post" enctype="multipart/form-data"-->
 
                                         <div class="m-b-15 card p-l-15 col-sm-12">
@@ -92,7 +92,7 @@ and open the template in the editor.
                                                 <label for=""class="col-sm-2 col-form-label"
                                                        th:text="'Tipo Documento:'"></label>
                                                 <select class="col-sm-4 browser-default custom-select m-l-15" 
-                                                        style="max-width:  311.66px"
+                                                        style="max-width:  325.33px"
                                                         id="detUsuTipoDocumento">
                                                     <option  th:each="item : ${tipDocs}" th:value="${item.tipDocId}"    
                                                              th:text="${item.tipDocNombre}" 
@@ -122,7 +122,7 @@ and open the template in the editor.
                                             <div class="form-group row m-l-25">
                                                 <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Estado Civil'"></label>
-                                                <select id="detUsuEstadoCivil" class="col-sm-3 browser-default custom-select m-l-15" style="max-width:  226.5px">
+                                                <select id="detUsuEstadoCivil" class="col-sm-3 browser-default custom-select m-l-15" style="max-width:  236.51px">
                                                     <option th:value="Casado" th:text="'Casado'"></option>
                                                     <option th:value="Soltero" th:text="'Soltero'"></option>
                                                     <option th:value="Viudo" th:text="'Viudo'"></option>
@@ -131,7 +131,7 @@ and open the template in the editor.
 
                                                 <label for=""class="col-sm-2 col-form-label m-l-15"
                                                        th:text="'Sexo:'"></label>
-                                                <select id="detUsuSexo" class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  311.66px">
+                                                <select id="detUsuSexo" class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  325.33px">
                                                     <option th:value="M" th:text="'Masculino'"></option>
                                                     <option th:value="F" th:text="'Femenino'"></option>
                                                 </select>
@@ -144,45 +144,45 @@ and open the template in the editor.
                                                 th:text="'Otros Datos de la Cuenta'"></h2>
 
                                             <div class="form-group row m-l-25 m-t-25">
-                                                <label for=""class="col-sm-4 col-form-label"
+                                                <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Codigo de Colegio:'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text" id="detUsuCodigoColegio" class="form-control col-sm-12"/>  
                                                     <div id="detUsuCodigoColegioError"></div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row m-l-25">
-                                                <label for=""class="col-sm-4 col-form-label"
+                                                <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Especialidad:'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text" id="detUsuEspecialidad" class="form-control col-sm-12"/>
                                                     <div id="detUsuEspecialidadError"></div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row m-l-25">
-                                                <label for=""class="col-sm-4 col-form-label"
+                                                <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Ocupacion:'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text" id="detUsuOcupacion" class="form-control col-sm-12"/>
                                                     <div id="detUsuOcupacionError"></div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row m-l-25">
-                                                <label for=""class="col-sm-4 col-form-label"
+                                                <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Religion:'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text" id="detUsuReligion" class="form-control col-sm-12"/>
                                                     <div id="detUsuReligionError"></div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row m-l-25">
-                                                <label for=""class="col-sm-4 col-form-label"
+                                                <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Nombre de Usuario'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text" id="usuCodigo" name="usuCodigo" class="form-control col-sm-12" />
                                                     <div id="usuCodigoError"></div>
                                                     <!--small th:if="${#fields.hasErrors('usuario.usu_codigo')}" th:errors="*{usuario.usu_codigo}"
@@ -191,9 +191,9 @@ and open the template in the editor.
                                             </div>
 
                                             <div class="form-group row m-l-25">
-                                                <label for="buscar_rol"class="col-sm-4 col-form-label"
+                                                <label for="buscar_rol"class="col-sm-3 col-form-label"
                                                        th:text="'Roles'"></label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <input type="text"  class="form-control col-sm-12" name="buscar_rol" id="buscar_rol"/>  
                                                     <div id="buscar_rolError"></div>
                                                 </div>
@@ -217,13 +217,16 @@ and open the template in the editor.
 
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <button class="btn btn-outline-success btn-registrar" id="btnRegistrar">
+                                                <button class="btn btn-outline-success" style="width:500px" id="btnRegistrar">
                                                     <i class="fa fa-check"></i>
                                                     <span class="btn-text">Registrar Usuario</span>
                                                 </button>  
                                             </div>
                                             <div class="col-sm-6">
-                                                <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>
+                                                <a class="btn btn-outline-secondary btn-xs" style="width:500px" th:href="@{/Administrador/GestionarUsuarios}"> 
+                                                     <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion de Usuario</span>
+                                                </a>
                                             </div>
                                         </div>
 
@@ -253,6 +256,7 @@ and open the template in the editor.
 			});
 		});
         </script>
+        <script th:src='@{/js/chocolombo/modal.js}'> </script>
        
     </body>
     <!--script type="text/javascript" th:src="@{'/js/autocomplete-rol.js'}"/-->

@@ -26,104 +26,70 @@ and open the template in the editor.
 
                                     <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0 m-l-15 m-t-15" th:text="${titulo}"></h2>
 
-
-                                   <div th:object="${detUsu}" th:remove="tag">
-                                        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
-                                            <li th:each="err: ${#fields.errors('*')}"
-                                                th:text="${err}"></li>
-
-                                        </ul>
-                                    </div>
-                                    <div class="card-body">
-                                        <form th:action="@{/Administrador/ActualizarUsuario}" th:object="${detUsu}" method="post" enctype="multipart/form-data">
+                                    <div class="card-body" th:object="${detUsu}">
+                                        <!--form th:action="@{/Administrador/ActualizarUsuario}" th:object="${detUsu}" method="post" enctype="multipart/form-data"-->
 
                                             <div class="m-b-15 card p-l-15 col-sm-12">
 
                                                 <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0 m-b-10 m-l-10 m-r-10" 
                                                     th:text="'Datos Personales'"></h2>
-                                                <div class="row">   
-                                                    <div class="col-sm-9">   
-                                                        <div class="form-group row m-t-25 m-l-25">
-                                                            <label for="detUsuNombre"class="col-sm-3 col-form-label"
-                                                                   th:text="'Nombre Completo:'"></label>
-                                                            <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuNombre}" class="form-control col-sm-12"
-                                                                       th:errorClass="'form-control alert-danger'"/>
-                                                                 <small th:if="${#fields.hasErrors('detUsuNombre')}" th:errors="*{detUsuNombre}"
-                                                                       class="form-text text-danger"></small>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row m-l-25">
-                                                            <label for="detUsuCorreo" class="col-sm-3 col-form-label"
-                                                                   th:text="'E-Mail:'"></label>
-                                                            <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuCorreo}" class="form-control col-sm-12"
-                                                                      th:errorClass="'form-control alert-danger'"  /> 
-                                                                <small th:if="${#fields.hasErrors('detUsuCorreo')}" th:errors="*{detUsuCorreo}"
-                                                                       class="form-text text-danger"></small>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="form-group row m-l-25">
-                                                            <label for="detUsuDireccion"class="col-sm-3 col-form-label"
-                                                                   th:text="'Direccion:'"></label>
-                                                            <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuDireccion}" class="form-control col-sm-12"
-                                                                       th:errorClass="'form-control alert-danger'"/>
-                                                                <small th:if="${#fields.hasErrors('detUsuDireccion')}" th:errors="*{detUsuDireccion}"
-                                                                       class="form-text text-danger"></small>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row m-l-25">
-                                                            <label for="detUsuTelefono"class="col-sm-3 col-form-label"
-                                                                   th:text="'Telefono:'"></label>
-                                                            <div class="col-sm-9">
-                                                                <input type="text" th:field="*{detUsuTelefono}" class="form-control col-sm-12"
-                                                                       th:errorClass="'form-control alert-danger'" maxlength="9"/>
-                                                                <small th:if="${#fields.hasErrors('detUsuTelefono')}" th:errors="*{detUsuTelefono}"
-                                                                       class="form-text text-danger"></small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group col-sm-3">
-                                                        <!--label for=""class="col-sm-3 col-form-label"
-                                                               th:text="'Foto Referencial'"></label>
-                                                        <div class="col-sm-6">
-                                                            <input type="file" name="file" class="form-control"/>            
-                                                        </div-->
-                                                        <img th:if="${#strings.length(detUsu.detUsuImagen) > 0}"
-                                                             class="img-thumbnail img-fluid rounded col-sm-12 m-t-20" style="max-width: 100%"
-                                                             th:src="@{'/SRVTFLrepo/' + ${detUsu.detUsuImagen}}" th:alt="${detUsu.detUsuImagen}" />
-
-                                                    </div>
-
+ 
+                                                       <div class="form-group row m-t-25 m-l-25">
+                                                <label for="detUsuNombre"class="col-sm-3 col-form-label"
+                                                       th:text="'Nombre Completo:'" ></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuNombre" th:field="*{detUsuNombre}" class="form-control col-sm-12" maxlength="200"/>
+                                                    <div id="detUsuNombreError"></div>
                                                 </div>
+                                            </div>
+
+                                                        <div class="form-group row m-l-25">
+                                                <label for="detUsuCorreo"class="col-sm-3 col-form-label"
+                                                       th:text="'E-Mail:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuCorreo" th:field="*{detUsuCorreo}" class="form-control col-sm-12"/>
+                                                    <div id="detUsuCorreoError"></div>
+                                                </div>
+                                            </div>
+
+
+                                                        <div class="form-group row m-l-25">
+                                                <label for="detUsuDireccion"class="col-sm-3 col-form-label"
+                                                       th:text="'Direccion:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text"  id="detUsuDireccion" th:field="*{detUsuDireccion}" class="form-control col-sm-12"/>
+                                                    <div id="detUsuDireccionError"></div>
+                                                </div>
+                                            </div>
+
+                                                        <div class="form-group row m-l-25">
+                                                <label for="detUsuTelefono"class="col-sm-3 col-form-label"
+                                                       th:text="'Telefono:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" th:field="*{detUsuTelefono}" id="detUsuTelefono" class="form-control col-sm-12"/>
+                                                    <div id="detUsuTelefonoError"></div>
+                                                </div>
+                                            </div>
+
 
                                                 <!--falta el selector para el tipo de documento-->
                                                 <div class="form-group row m-l-25">
 
-                                                    <label for="detUsuTipoDocNumero"class="col-sm-3 col-form-label"
-                                                           th:text="'Numero de Documento:'"></label>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" th:field="*{detUsuTipoDocNumero}" class="form-control"
-                                                               th:errorClass="'form-control alert-danger'" id="numeroDoc" maxlength="8"/>            
-                                                        <small th:if="${#fields.hasErrors('detUsuTipoDocNumero')}" th:errors="*{detUsuTipoDocNumero}"
-                                                               class="form-text text-danger"></small>
-                                                    </div>
-                                                    <label for=""class="col-sm-2 col-form-label"
-                                                           th:text="'Tipo Documento:'"></label>
-
-                                                    <select th:field="*{tipDocId.tipDocId}" class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  311.66px"
-                                                            onchange="if (this.selectedIndex)itemsHelper.setFieldSize(this.selectedIndex);" id="tipoDoc">
-
-                                                        <option  th:each="item : ${tipDocs}" th:value="${item.tipDocId}"    
-                                                                 th:text="${item.tipDocNombre}"
-                                                                 th:selected="${item.tipDocId==1}"></option>
-                                                    </select>
+                                                   <label for="detUsuTipoDocNumero"class="col-sm-3 col-form-label"
+                                                       th:text="'Numero de Documento:'"></label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" th:field="*{detUsuTipoDocNumero}" id="detUsuTipoDocNumero" class="form-control"/>
+                                                    <div id="detUsuTipoDocNumeroError"></div>
+                                                </div>
+                                                <label for=""class="col-sm-2 col-form-label"
+                                                       th:text="'Tipo Documento:'"></label>
+                                                <select class="col-sm-4 browser-default custom-select m-l-15" 
+                                                        style="max-width:  325.33px"
+                                                        id="detUsuTipoDocumento">
+                                                    <option  th:each="item : ${tipDocs}" th:value="${item.tipDocId}"    
+                                                             th:text="${item.tipDocNombre}" 
+                                                             th:selected="${item.tipDocId==detUsu.tipDocId.tipDocId}" ></option>
+                                                </select>
 
                                                     <!--div class="col-sm-4">
                                                         <input type="text" th:field="*{tipDocId}" class="form-control"/>            
@@ -132,39 +98,36 @@ and open the template in the editor.
 
                                                 <div class="form-group row m-l-25">
                                                     <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'Fecha de Nacimiento'"></label>
-                                                    <div class="col-sm-3">
-                                                        <input type="date" th:field="*{detUsuFechaNacimiento}" 
-                                                               class="form-control" th:errorClass="'form-control alert-danger'"/>            
-                                                        <small th:if="${#fields.hasErrors('detUsuFechaNacimiento')}" th:errors="*{detUsuFechaNacimiento}"
-                                                               class="form-text text-danger"></small>
-                                                    </div>
-                                                    <label for="detUsuLugarNacimiento" class="col-sm-2 col-form-label"
-                                                           th:text="'Lugar Nacimiento:'"></label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" th:field="*{detUsuLugarNacimiento}" class="form-control"
-                                                               th:errorClass="'form-control alert-danger'"/>
-                                                        <small th:if="${#fields.hasErrors('detUsuLugarNacimiento')}" th:errors="*{detUsuLugarNacimiento}"
-                                                               class="form-text text-danger"></small>
-                                                    </div>
+                                                       th:text="'Fecha de Nacimiento'"></label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" id="detUsuFechaNacimiento"  th:field="*{detUsuFechaNacimiento}" class="form-control"/>
+                                                    <div id="detUsuFechaNacimientoError"></div>
+                                                </div>
+                                                <label for="detUsuLugarNacimiento"class="col-sm-2 col-form-label"
+                                                       th:text="'Lugar Nacimiento:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="detUsuLugarNacimiento" 
+                                                           th:field="*{detUsuLugarNacimiento}" class="form-control col-sm-12"/>
+                                                    <div id="detUsuLugarNacimientoError"></div>
+                                                </div>
                                                 </div>
 
                                                 <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-3 col-form-label"
-                                                           th:text="'Estado Civil'"></label>
-                                                    <select th:field="*{detUsuEstadoCivil}" class="col-sm-3 browser-default custom-select m-l-15" style="max-width:  226.5px">
-                                                        <option th:value="Casado" th:text="'Casado'"></option>
-                                                        <option th:value="Soltero" th:text="'Soltero'"></option>
-                                                        <option th:value="Viudo" th:text="'Viudo'"></option>
-                                                        <option th:value="Divorciado" th:text="'Divorciado'"></option>
-                                                    </select>
+                                                   <label for=""class="col-sm-3 col-form-label"
+                                                       th:text="'Estado Civil'"></label>
+                                                <select id="detUsuEstadoCivil" class="col-sm-3 browser-default custom-select m-l-15" style="max-width:  236.5px">
+                                                    <option th:value="Casado" th:text="'Casado'"></option>
+                                                    <option th:value="Soltero" th:text="'Soltero'"></option>
+                                                    <option th:value="Viudo" th:text="'Viudo'"></option>
+                                                    <option th:value="Divorciado" th:text="'Divorciado'"></option>
+                                                </select>
 
-                                                    <label for=""class="col-sm-2 col-form-label m-l-15"
-                                                           th:text="'Sexo:'"></label>
-                                                    <select th:field="*{detUsuSexo}" class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  311.66px">
-                                                        <option th:value="M" th:text="'Masculino'"></option>
-                                                        <option th:value="F" th:text="'Femenino'"></option>
-                                                    </select>
+                                                <label for=""class="col-sm-2 col-form-label m-l-15"
+                                                       th:text="'Sexo:'"></label>
+                                                <select id="detUsuSexo" class="col-sm-4 browser-default custom-select m-l-15" style="max-width:  325.33px">
+                                                    <option th:value="M" th:text="'Masculino'"></option>
+                                                    <option th:value="F" th:text="'Femenino'"></option>
+                                                </select>
                                                 </div>
 
                                             </div>
@@ -174,48 +137,61 @@ and open the template in the editor.
                                                     th:text="'Otros Datos de la Cuenta'"></h2>
 
                                                 <div class="form-group row m-l-25 m-t-25">
-                                                    <label for=""class="col-sm-4 col-form-label"
-                                                           th:text="'Codigo de Colegio:'"></label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuCodigoColegio}" class="form-control col-sm-12"/>            
-                                                    </div>
+                                                <label for=""class="col-sm-3 col-form-label"
+                                                       th:text="'Codigo de Colegio:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuCodigoColegio"
+                                                            th:value="${detUsu.detUsuCodigoColegio}" class="form-control col-sm-12"/>  
+                                                    <div id="detUsuCodigoColegioError"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-4 col-form-label"
-                                                           th:text="'Especialidad:'"></label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuEspecialidad}" class="form-control col-sm-12"/>            
-                                                    </div>
+                                            <div class="form-group row m-l-25">
+                                                <label for=""class="col-sm-3 col-form-label"
+                                                       th:text="'Especialidad:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuEspecialidad" 
+                                                      th:value="${detUsu.detUsuEspecialidad}"  class="form-control col-sm-12"/>
+                                                    <div id="detUsuEspecialidadError"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-4 col-form-label"
-                                                           th:text="'Ocupacion:'"></label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuOcupacion}" class="form-control col-sm-12"/>            
-                                                    </div>
+                                            <div class="form-group row m-l-25">
+                                                <label for=""class="col-sm-3 col-form-label"
+                                                       th:text="'Ocupacion:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuOcupacion" 
+                                                    th:value="${detUsu.detUsuOcupacion}" class="form-control col-sm-12"/>
+                                                    <div id="detUsuOcupacionError"></div>
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group row m-l-25">
-                                                    <label for=""class="col-sm-4 col-form-label"
-                                                           th:text="'Religion:'"></label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" th:field="*{detUsuReligion}" class="form-control col-sm-12"/>            
-                                                    </div>
+                                            <div class="form-group row m-l-25">
+                                                <label for=""class="col-sm-3 col-form-label"
+                                                       th:text="'Religion:'"></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="detUsuReligion" 
+                                                      th:value="${detUsu.detUsuReligion}" class="form-control col-sm-12"/>
+                                                    <div id="detUsuReligionError"></div>
                                                 </div>
+                                            </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <div class="col-sm-6">
-                                                    <input type="submit" class="btn btn-success"
-                                                           value="Actulizar Usuario"/>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>
-                                                </div>
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-outline-success" style="width:500px" id="btnActualizar">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span class="btn-text">Actualizar Usuario</span>
+                                                </button>  
                                             </div>
-                                            <input type="hidden" th:field="*{usu_id}" />
+                                            <div class="col-sm-6">
+                                                <a class="btn btn-outline-secondary btn-xs" style="width:500px" th:href="@{/Administrador/GestionarUsuarios}"> 
+                                                     <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion de Usuario</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                            <input id="usuId" type="hidden" th:field="*{usu_id}">
 
                                         </form>
                                     </div>
@@ -231,6 +207,18 @@ and open the template in the editor.
 
         <footer th:replace="layout/layout :: footer"></footer>
         <script th:replace="Administrador/js/autocomplete-rol :: javascript"></script>
+        <script th:src="@{/js/chocolombo/RegistrarUsuario.js}"></script>
+        <script th:src="@{/js/bootstrap-datepicker.js}"></script>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}">
+        <script>
+            $(function() {
+			$('#detUsuFechaNacimiento').datepicker({
+				'format': 'yyyy-mm-dd',
+				'autoclose': true,
+                                language: 'es-ES',
+			});
+		});
+        </script>
     </body>
     <!--script type="text/javascript" th:src="@{'/js/autocomplete-rol.js'}"/-->
 </html>

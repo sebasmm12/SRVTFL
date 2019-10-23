@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
     @JsonIgnore
     private EstadoUsuario estadoUsuario;
 
-    @NotEmpty
+
     @Column(name = "usu_codigo")
     private String usu_codigo;
 

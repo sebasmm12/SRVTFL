@@ -1,6 +1,155 @@
+$(document).ready(function(){
+    $('#btnModal').on('click',function(event){
+        $('#exampleModal').modal();
+    });
+});
+var validacionBusqueda = function () {
+    var nombreUsuario = $("#nombreUsu").val();
+    var filtroUsuario = document.getElementById("tipoFiltro");
+    var filtroSelected = filtroUsuario.options[filtroUsuario.selectedIndex].value;
+
+    var Vnombreusuario = validarNombreUsuario("nombreUsuError", nombreUsuario, 'nombreUsu');
+    if (Vnombreusuario === false) {
+        alert("Error en el nombre de usuario");
+        return false;
+    } else {
+        $.ajax({
+            url: "/api/administrador/GestionarUsuarios",
+            type: "GET",
+            data: {
+                page: 0,
+                nombreUsu: nombreUsuario,
+                filtro: filtroSelected
+            },
+            success: function (data) {
+                var newView = $(data);
+                $("#tablaUsuarios").replaceWith(newView);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {},
+            complete: function (jqXHR, textStatus) {}
+        });
+    }
+};
 
 
- var registrar = function() {
+var validarNombreUsuario = function (elementoError, valor, elemento) {
+    var regex = /^([A-Za-záéíóúñ])+$/;
+    if (valor === "") {
+        addNegativeAttributtes(elemento);
+        addNegativeHtml(elementoError, "Debe ingresar un nombre Obligatoriamente");
+        $("#" + elemento).keyup(keynombreusuario);
+        return false;
+    } else if (!valor.match(regex)) {
+        addNegativeAttributtes(elemento);
+        addNegativeHtml(elementoError, "Debe ingresar un nombre de usuario valido");
+        $("#" + elemento).keyup(keynombreusuario);
+        return false;
+    } else {
+        addPositiveAtributtes(elemento);
+        addPositiveHtml(elementoError, "Correcto");
+        $("#" + elemento).keyup(keynombreusuario);
+        return true;
+    }
+};
+
+var keynombreusuario = function () {
+    var regex = /^([A-Za-záéíóúñ])+$/;
+    var $nombre = $('#nombreUsu');
+    if ($nombre.val() === "") {
+        addNegativeAttributtes('nombreUsu');
+        addNegativeHtml('nombreUsuError', 'Debe ingresar un nombre Obligatoriamente');
+        return false;
+    } else if (!$nombre.val().match(regex)) {
+        addNegativeAttributtes('nombreUsu');
+        addNegativeHtml('nombreUsuError', "Debe ingresar un nombre de usuario valido");
+        return false;
+    } else {
+        addPositiveAtributtes('nombreUsu');
+        addPositiveHtml('nombreUsuError', 'Correcto');
+        return true;
+    }
+};
+
+var actualizar = function () {
+    var detUsuNombre = $("#detUsuNombre").val();
+    var detUsuCorreo = $("#detUsuCorreo").val();
+    var detUsuDireccion = $("#detUsuDireccion").val();
+    var detUsuTelefono = $("#detUsuTelefono").val();
+    var detUsuTipoDocNumero = $("#detUsuTipoDocNumero").val();
+    var estTipDoc = document.getElementById('detUsuTipoDocumento');
+    var detUsuTipoDocumentoId = estTipDoc.options[estTipDoc.selectedIndex].value;
+    var detUsuTipoDocumentoNombre = estTipDoc.options[estTipDoc.selectedIndex].innerText;
+    var detUsuFechaNacimiento = $("#detUsuFechaNacimiento").val().toString();
+    var detUsuLugarNacimiento = $("#detUsuLugarNacimiento").val();
+    var estCivil = document.getElementById('detUsuEstadoCivil');
+    var detUsuEstadoCivil = estCivil.options[estCivil.selectedIndex].innerText;
+    var estSexo = document.getElementById('detUsuSexo');
+    var detUsuSexo = estSexo.options[estSexo.selectedIndex].value;
+    var detUsuCodigoColegio = $("#detUsuCodigoColegio").val();
+    var detUsuEspecialidad = $("#detUsuEspecialidad").val();
+    var detUsuOcupacion = $("#detUsuOcupacion").val();
+    var detUsuReligion = $("#detUsuReligion").val();
+    var usuCodigo = $("#usuCodigo").val();
+    var usuId = $('#usuId').val();
+
+    var fechaActual = new Date();
+    var fechaNacIngresada = new Date($("#detUsuFechaNacimiento").val());
+    fechaNacIngresada.setDate(fechaNacIngresada.getDate() + 1);
+    fechaActual.setHours(0, 0, 0, 0);
+    fechaNacIngresada.setHours(0, 0, 0, 0);
+    var edad = fechaActual.getFullYear() - fechaNacIngresada.getFullYear();
+
+    var tipDocId = {
+        tipDocId: detUsuTipoDocumentoId,
+        tipDocNombre: detUsuTipoDocumentoNombre
+    };
+
+    var usuario = {
+        usu_id: usuId
+    };
+    var detUsu = {
+        usu_id: usuId,
+        usuario: usuario,
+        detUsuNombre: detUsuNombre,
+        detUsuCorreo: detUsuCorreo,
+        detUsuDireccion: detUsuDireccion,
+        detUsuTelefono: detUsuTelefono,
+        detUsuTipoDocNumero: detUsuTipoDocNumero,
+        detUsuFechaNacimiento: detUsuFechaNacimiento,
+        detUsuLugarNacimiento: detUsuLugarNacimiento,
+        detUsuEstadoCivil: detUsuEstadoCivil,
+        detUsuSexo: detUsuSexo,
+        tipDocId: tipDocId,
+        detUsuCodigoColegio: detUsuCodigoColegio,
+        detUsuEspecialidad: detUsuEspecialidad,
+        detUsuOcupacion: detUsuOcupacion,
+        detUsuReligion: detUsuReligion,
+        detUsuEdad: edad
+    };
+
+    $.ajax({
+        url: "/api/administrador/actualizarUsuario",
+        type: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(detUsu),
+        success: function (data) {
+            if (data === "1") {
+                Swal.fire({
+                    type: 'success',
+                    title: 'Usuario Actualizado Correctamente',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = "/Administrador/GestionarUsuarios";
+                    }
+                });
+            }
+        }
+    });
+
+};
+
+var registrar = function () {
     var detUsuNombre = $("#detUsuNombre").val();
     var detUsuCorreo = $("#detUsuCorreo").val();
     var detUsuDireccion = $("#detUsuDireccion").val();
@@ -26,9 +175,9 @@
     fechaNacIngresada.setDate(fechaNacIngresada.getDate() + 1);
     fechaActual.setHours(0, 0, 0, 0);
     fechaNacIngresada.setHours(0, 0, 0, 0);
-    
+
     var edad = fechaActual.getFullYear() - fechaNacIngresada.getFullYear();
-    
+
     var roles = [];
     $('input[name="item_id[]"]').each(function () {
         if ($(this).val() !== "{ID}") {
@@ -39,7 +188,7 @@
         tipDocId: detUsuTipoDocumentoId,
         tipDocNombre: detUsuTipoDocumentoNombre
     };
-    
+
     var usuario = {
         usu_id: 0,
         usu_codigo: usuCodigo,
@@ -64,21 +213,21 @@
         detUsuReligion: detUsuReligion,
         detUsuEdad: edad
     };
-    
+
     /*var data = {
-      valores: [detUsu,roles];  
-    };*/
-     
-     /*JSON.stringify({
-                detUsu: detUsu,
-                roles: roles
-            }),*/
-    
+     valores: [detUsu,roles];  
+     };*/
+
+    /*JSON.stringify({
+     detUsu: detUsu,
+     roles: roles
+     }),*/
+
     $.ajax({
         url: "/api/administrador/registrarUsuario",
         type: 'POST',
         contentType: 'application/json;charset=utf-8',
-        data:  JSON.stringify(detUsu),
+        data: JSON.stringify(detUsu),
         success: function (data) {
             if (data !== "") {
                 GuardarRoles(data);
@@ -88,30 +237,30 @@
 
 };
 
-var GuardarRoles = function (usu_id){
+var GuardarRoles = function (usu_id) {
     var id = parseInt(usu_id);
-     var roles = [];
+    var roles = [];
     $('input[name="item_id[]"]').each(function () {
         if ($(this).val() !== "{ID}") {
             roles.push($(this).val());
         }
     });
     roles.push(id);
-    
+
     $.ajax({
         url: "/api/administrador/registrarRoles",
         type: "POST",
         contentType: 'application/json;charset=utf-8',
         data: JSON.stringify(roles),
-        success: function(data){
-            if(data === "1"){
+        success: function (data) {
+            if (data === "1") {
                 Swal.fire({
                     type: 'success',
                     title: 'Usuario creado Correctamente',
                     confirmButtonText: 'OK'
                 }).then((result) => {
-                    if(result.value){
-                        window.location.href = ""
+                    if (result.value) {
+                        window.location.href = "/Administrador/GestionarUsuarios";
                     }
                 });
             }
@@ -119,7 +268,56 @@ var GuardarRoles = function (usu_id){
     });
 };
 
-var validar = function () {
+var validarActualizacion = function () {
+    var detUsuNombre = $("#detUsuNombre").val();
+    var detUsuCorreo = $("#detUsuCorreo").val();
+    var detUsuDireccion = $("#detUsuDireccion").val();
+    var detUsuTelefono = $("#detUsuTelefono").val();
+    var detUsuTipoDocNumero = $("#detUsuTipoDocNumero").val();
+    var estTipDoc = document.getElementById('detUsuTipoDocumento');
+    var detUsuTipoDocumento = estTipDoc.options[estTipDoc.selectedIndex].value;
+    var detUsuFechaNacimiento = $("#detUsuFechaNacimiento").val();
+    var detUsuLugarNacimiento = $("#detUsuLugarNacimiento").val();
+    var estCivil = document.getElementById('detUsuEstadoCivil');
+    var detUsuEstadoCivil = estCivil.options[estCivil.selectedIndex].innerText;
+    var estSexo = document.getElementById('detUsuSexo');
+    var detUsuSexo = estSexo.options[estSexo.selectedIndex].value;
+    var detUsuCodigoColegio = $("#detUsuCodigoColegio").val();
+    var detUsuEspecialidad = $("#detUsuEspecialidad").val();
+    var detUsuOcupacion = $("#detUsuOcupacion").val();
+    var detUsuReligion = $("#detUsuReligion").val();
+    var usuCodigo = $("#usuCodigo").val();
+
+    var VdetUsuNombre = validacionNombre('detUsuNombreError', detUsuNombre, 'detUsuNombre');
+    var VdetUsuCorreo = validacionCorreo('detUsuCorreoError', detUsuCorreo, 'detUsuCorreo');
+    var VdetUsuDireccion = validacionDireccion('detUsuDireccionError', detUsuDireccion, 'detUsuDireccion');
+    var VdetUsuTelefono = validacionTelefono('detUsuTelefonoError', detUsuTelefono, 'detUsuTelefono');
+    var VdetUsuTipoDocNumero = validacionNumeroDoc('detUsuTipoDocNumeroError', detUsuTipoDocNumero, 'detUsuTipoDocNumero');
+    var VdetUsuFechaNacimiento = validacionFechaNac('detUsuFechaNacimientoError', detUsuFechaNacimiento, 'detUsuFechaNacimiento');
+    var VdetUsuLugarNacimiento = validacionLugNac('detUsuLugarNacimientoError', detUsuLugarNacimiento, 'detUsuLugarNacimiento');
+
+    var VcodigoColegio = validacionCodigoColegio('detUsuCodigoColegioError', detUsuCodigoColegio, 'detUsuCodigoColegio');
+    var Vespecialidad = validacionEspecialidad('detUsuEspecialidadError', detUsuEspecialidad, 'detUsuEspecialidad')
+    var Vocupacion = validarOcupacion('detUsuOcupacionError', detUsuOcupacion, 'detUsuOcupacion');
+    var Vreligion = validarReligion('detUsuReligionError', detUsuReligion, 'detUsuReligion');
+
+    if (VdetUsuNombre === false || VdetUsuCorreo === false || VdetUsuDireccion === false
+            || VdetUsuTelefono === false || VdetUsuTipoDocNumero === false || VdetUsuFechaNacimiento === false
+            || VdetUsuLugarNacimiento === false || VcodigoColegio === false || Vespecialidad === false
+            || Vocupacion === false || Vreligion === false) {
+        alert("Hay un error");
+        return false;
+    } else {
+        actualizar();
+        alert("todo bien");
+
+    }
+
+};
+
+
+
+var validarRegistro = function () {
 
     var detUsuNombre = $("#detUsuNombre").val();
     var detUsuCorreo = $("#detUsuCorreo").val();
@@ -167,20 +365,20 @@ var validar = function () {
     var Vocupacion = validarOcupacion('detUsuOcupacionError', detUsuOcupacion, 'detUsuOcupacion');
     var Vreligion = validarReligion('detUsuReligionError', detUsuReligion, 'detUsuReligion');
 
-    //var Vroles = validarRoles('buscar_rolError',items,'buscar_rol');
+    var Vroles = validarRoles('buscar_rolError', 'buscar_rol');
 
 
 
     if (VdetUsuNombre === false || VdetUsuCorreo === false || VdetUsuDireccion === false
             || VdetUsuTelefono === false || VdetUsuTipoDocNumero === false || VdetUsuFechaNacimiento === false
             || VdetUsuLugarNacimiento === false || VusuCodigo === false || VcodigoColegio === false || Vespecialidad === false
-            || Vocupacion === false || Vreligion === false) {
+            || Vocupacion === false || Vreligion === false || Vroles === false) {
         alert("Hay un error");
         return false;
     } else {
         registrar();
         alert("todo bien");
-        
+
     }
 };
 
@@ -267,12 +465,12 @@ var validacionDireccion = function (elementoError, valor, elemento) {
         addNegativeHtml(elementoError, 'Debe ingresar una Direccion Obligatoriamente');
         $('#' + elemento).keyup(keydireccion);
         return false;
-    }else if(!valor.match(regex)){
+    } else if (!valor.match(regex)) {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, 'La direccion no debe poseer digitos al inicio ni tener espacios a los extremos, minimo 2 caracteres');
         $('#' + elemento).keyup(keydireccion);
         return false;
-    }else {
+    } else {
         addPositiveAtributtes(elemento);
         addPositiveHtml(elementoError, 'Correcto');
         $('#' + elemento).keyup(keydireccion);
@@ -287,11 +485,11 @@ var keydireccion = function () {
         addNegativeAttributtes('detUsuDireccion');
         addNegativeHtml('detUsuDireccionError', 'Debe una Direccion Obligatoriamente');
         return false;
-    }else if(!$direccion.val().match(regex)){
+    } else if (!$direccion.val().match(regex)) {
         addNegativeAttributtes('detUsuDireccion');
         addNegativeHtml('detUsuDireccionError', 'La direccion no debe poseer digitos al inicio ni tener espacios a los extremos, minimo 2 caracteres');
         return false;
-    }else {
+    } else {
         addPositiveAtributtes('detUsuDireccion');
         addPositiveHtml('detUsuDireccionError', 'Correcto');
         return true;
@@ -419,7 +617,7 @@ var validacionFechaNac = function (elementoError, valor, elemento) {
         addNegativeHtml(elementoError, "La fecha de nacimento no puede ser mayor a la actual");
         $('#' + elemento).keyup(keyfechanac);
         return false;
-    } else if (fechaActual.getFullYear() - fechaNacIngresada.getFullYear()< 18) {
+    } else if (fechaActual.getFullYear() - fechaNacIngresada.getFullYear() < 18) {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "El usuario no es mayor de edad");
         $('#' + elemento).keyup(keyfechanac);
@@ -448,7 +646,7 @@ var keyfechanac = function () {
         addNegativeAttributtes('detUsuFechaNacimiento');
         addNegativeHtml('detUsuFechaNacimientoError', "La fecha de nacimento no puede ser mayor a la actual");
         return false;
-    } else if (fechaActual.getFullYear() - fechaNacIngresada.getFullYear()< 18) {
+    } else if (fechaActual.getFullYear() - fechaNacIngresada.getFullYear() < 18) {
         addNegativeAttributtes('detUsuFechaNacimiento');
         addNegativeHtml('detUsuFechaNacimientoError', "El usuario no es mayor de edad");
         return false;
@@ -466,12 +664,12 @@ var validacionLugNac = function (elementoError, valor, elemento) {
         addNegativeHtml(elementoError, "Debe ingresar un lugar de nacimiento obligatoriamente");
         $('#' + elemento).keyup(keylugnaci);
         return false;
-    }else if(!valor.match(regex)) {
+    } else if (!valor.match(regex)) {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "El lugar de nacimieno no debe poseer digitos al inicio ni  espacios a los extremos, minimo 2 caracteres");
         $('#' + elemento).keyup(keylugnaci);
         return false;
-    }else {
+    } else {
         addPositiveAtributtes(elemento);
         addPositiveHtml(elementoError, 'Correcto');
         $('#' + elemento).keyup(keylugnaci);
@@ -486,7 +684,7 @@ var keylugnaci = function () {
         addNegativeAttributtes('detUsuLugarNacimiento');
         addNegativeHtml('detUsuLugarNacimientoError', "Debe ingresar un lugar de nacimiento obligatoriamente");
         return false;
-    }else if(!$lugnac.val().match(regex)) {
+    } else if (!$lugnac.val().match(regex)) {
         addNegativeAttributtes('detUsuLugarNacimiento');
         addNegativeHtml('detUsuLugarNacimientoError', "El lugar de nacimieno no debe poseer digitos al inicio ni  espacios a los extremos, minimo 2 caracteres");
         return false;
@@ -526,7 +724,6 @@ var keynombreusu = function () {
     } else if (!usunombre.val().match(regex)) {
         addNegativeAttributtes('usuCodigo');
         addNegativeHtml('usuCodigoError', "El usuario debe poseer 2 caraceteres como minimo e iniciar con letras");
-        $('#' + 'usuCodigo').keyup(keynombreusu);
         return false;
     } else {
         addPositiveAtributtes('usuCodigo');
@@ -537,7 +734,7 @@ var keynombreusu = function () {
 
 var validacionCodigoColegio = function (elementoError, valor, elemento) {
     var regex = /^([\d]+)([\d]+)$/;
-    if(valor=== ""){
+    if (valor === "") {
         addNegativeAttributtes('detUsuCodigoColegio');
         addNegativeHtml('detUsuCodigoColegioError', "Debe Ingresar un Codigo de colegio");
         $('#' + elemento).keyup(keycodigoColegio);
@@ -559,11 +756,11 @@ var validacionCodigoColegio = function (elementoError, valor, elemento) {
 var keycodigoColegio = function () {
     var regex = /^([\d]+)([\d]+)$/;
     var $codigoColegio = $('#detUsuCodigoColegio');
-    if($codigoColegio.val() === ""){
+    if ($codigoColegio.val() === "") {
         addNegativeAttributtes('detUsuCodigoColegio');
         addNegativeHtml('detUsuCodigoColegioError', "Debe Ingresar un Codigo de colegio Obligatoriamente");
         return false;
-    }else if ($codigoColegio.val().match(regex)) {
+    } else if ($codigoColegio.val().match(regex)) {
         addPositiveAtributtes('detUsuCodigoColegio');
         addPositiveHtml('detUsuCodigoColegioError', "Correcto");
         return true;
@@ -576,20 +773,19 @@ var keycodigoColegio = function () {
 
 var validacionEspecialidad = function (elementoError, valor, elemento) {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
-    if(valor === ""){
+    if (valor === "") {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "Debe ingresar una Especialidad Obligatoriamente");
         $('#' + elemento).keyup(keyespecialidad);
         return false;
-    }
-    else if (valor.match(regex)) {
+    } else if (valor.match(regex)) {
         addPositiveAtributtes(elemento);
         addPositiveHtml(elementoError, "Correcto");
         $('#' + elemento).keyup(keyespecialidad);
         return true;
     } else {
         addNegativeAttributtes(elemento);
-        addNegativeHtml(elementoError,  "La especialidad no puede tener espacios a los extremos ni valores numericos, minimo 2 caracteres");
+        addNegativeHtml(elementoError, "La especialidad no puede tener espacios a los extremos ni valores numericos, minimo 2 caracteres");
         $('#' + elemento).keyup(keyespecialidad);
         return false;
     }
@@ -598,11 +794,11 @@ var validacionEspecialidad = function (elementoError, valor, elemento) {
 var keyespecialidad = function () {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
     var $especialidad = $('#detUsuEspecialidad');
-    if($especialidad.val() ===""){
+    if ($especialidad.val() === "") {
         addNegativeAttributtes('detUsuEspecialidad');
         addNegativeHtml('detUsuEspecialidadError', "Debe ingresar una Especialidad Obligatoriamente");
         return false;
-    }else if ($especialidad.val().match(regex)) {
+    } else if ($especialidad.val().match(regex)) {
         addPositiveAtributtes('detUsuEspecialidad');
         addPositiveHtml('detUsuEspecialidadError', "Correcto");
         return true;
@@ -615,12 +811,12 @@ var keyespecialidad = function () {
 
 var validarOcupacion = function (elementoError, valor, elemento) {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
-    if(valor === ""){
+    if (valor === "") {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "Debe ingresar una Ocupacion Obligatoriamente");
         $('#' + elemento).keyup(keyocupacion);
         return false;
-    }else if (!valor.match(regex)) {
+    } else if (!valor.match(regex)) {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "La especialidad no puede tener espacios a los extremos ni numeros, minimo 2 caracteres");
         $('#' + elemento).keyup(keyocupacion);
@@ -636,11 +832,11 @@ var validarOcupacion = function (elementoError, valor, elemento) {
 var keyocupacion = function () {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
     var $ocupacion = $('#detUsuOcupacion');
-    if($ocupacion.val() === ""){
+    if ($ocupacion.val() === "") {
         addNegativeAttributtes('detUsuOcupacion');
         addNegativeHtml('detUsuOcupacionError', "Debe ingresar una Ocupacion Obligatoriamente");
         return false;
-    }else if (!$ocupacion.val().match(regex)) {
+    } else if (!$ocupacion.val().match(regex)) {
         addNegativeAttributtes('detUsuOcupacion');
         addNegativeHtml('detUsuOcupacionError', "La especialidad no puede tener espacios a los extremos ni numeros, minimo 2 caracteres");
         return false;
@@ -653,13 +849,12 @@ var keyocupacion = function () {
 
 var validarReligion = function (elementoError, valor, elemento) {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
-    if(valor === ""){
+    if (valor === "") {
         addNegativeAttributtes(elemento);
         addNegativeHtml(elementoError, "Este Campo es obligatorio");
         $('#' + elemento).keyup(keyreligion);
         return false;
-    }
-    else if (valor.match(regex)) {
+    } else if (valor.match(regex)) {
         addPositiveAtributtes(elemento);
         addPositiveHtml(elementoError, "Correcto");
         $('#' + elemento).keyup(keyreligion);
@@ -675,11 +870,11 @@ var validarReligion = function (elementoError, valor, elemento) {
 var keyreligion = function () {
     var regex = /^([^\d\s])([^\d])*([^\d\s])$/;
     var $religion = $('#detUsuReligion');
-    if($religion.val() === ""){
+    if ($religion.val() === "") {
         addNegativeAttributtes('detUsuReligion');
         addNegativeHtml('detUsuReligionError', "Este Campo es obligatorio");
         return false;
-    }else if ($religion.val().match(regex)) {
+    } else if ($religion.val().match(regex)) {
         addPositiveAtributtes('detUsuReligion');
         addPositiveHtml('detUsuReligionError', "Correcto");
         return true;
@@ -690,12 +885,43 @@ var keyreligion = function () {
     }
 };
 
-var validarRoles = function (elementoError, roles, elemento) {
-    var count = $('#cargarRolesUsuario tr').length;
-    if (count === 0) {
+var validarRoles = function (elementoError, elemento) {
+    //var count =  $('input[name="item_id[]"]').length;
+    var roles = [];
+    $('input[name="item_id[]"]').each(function () {
+        if ($(this).val() !== "{ID}") {
+            roles.push($(this).val());
+        }
+    });
+    if (roles.length === 0) {
         addNegativeAttributtes(elemento);
-        addNegativeHtml(elementoError, "Debe ingresar un Ro de usuario Como minimo Obligatoriamemte");
+        addNegativeHtml(elementoError, "Debe ingresar un Rol de usuario Obligatoriamemte, es posible agregar varios");
+        $('#' + elemento).keyup(keyroles);
+        return false;
+    } else {
+        addPositiveAtributtes(elemento);
+        addPositiveHtml(elementoError, 'Correcto');
+        $('#' + elemento).keyup(keyroles);
+        return true;
+    }
+};
 
+var keyroles = function () {
+    //var count = $('input[name="item_id[]"]').length;
+    var roles = [];
+    $('input[name="item_id[]"]').each(function () {
+        if ($(this).val() !== "{ID}") {
+            roles.push($(this).val());
+        }
+    });
+    if (roles.length === 0) {
+        addNegativeAttributtes('buscar_rol');
+        addNegativeHtml('buscar_rolError', "Debe ingresar un Rol de usuario Obligatoriamemte, es posible agregar varios");
+        return false;
+    } else {
+        addPositiveAtributtes('buscar_rol');
+        addPositiveHtml('buscar_rolError', 'Correcto');
+        return true;
     }
 };
 
@@ -732,4 +958,7 @@ var addNegativeHtml = function (id, message) {
     $("#" + id).html('<i class="fa fa-times"></i><label class="pt-2 pl-1">' + message + '</label>');
 };
 
-$('#btnRegistrar').click(validar);
+$('#btnRegistrar').click(validarRegistro);
+$('#btnActualizar').click(validarActualizacion);
+$('#btnBuscarUsuario').click(validacionBusqueda);
+

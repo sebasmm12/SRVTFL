@@ -1,0 +1,61 @@
+<div class="table-responsive mt-2" th:fragment="ListaUsuarios" id="tablaUsuarios">
+    <table class="table table-striped table-bordered">
+        <thead class="text-center font-weight-bolder bg-white">
+            <tr>
+                <th>ID</th>
+                <th>Nombre Completo</th>
+                <th>Nombre de Usuario</th>
+                <!--th>E-mail</th-->
+                <th>Estado</th>
+                <th>Cred</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="detUsu, iStat: ${detUsus}" class="text-center">
+                <td>
+                    <a class="btn btn btn-outline-info btn-xs" 
+                       th:href="@{'/Administrador/consultarUsuario/' + ${detUsu.usu_id}}">
+                        <i class="fa fa-eye" style="font-size: 15px"></i>
+                        <span class="btn-text">Ver</span>
+                    </a>
+                </td>
+                <td th:text="${detUsu.detUsuNombre}"></td>
+                <td th:text="${detUsu.usuario.usu_codigo}"></td>
+                <!--td th:text="${detUsu.detUsuCorreo}"></td-->
+                <td th:text="${detUsu.usuario.estadoUsuario.estUsuNombre}"></td>
+                <td><a class="btn btn-outline-success btn-xs"
+                       th:href="@{'/Administrador/ModificarCredencial/' + ${detUsu.usu_id}}">
+                    <i class="fa fa-edit" style="font-size: 15px"></i>
+                        <span class="btn-text">Cambiar</span>
+                    </a></td>
+                <td><a class="btn btn-outline-primary btn-xs"
+                       th:href="@{'/Administrador/ModificarUsuario/' + ${detUsu.usuario.usu_id}}">
+                        <i class="fa fa-edit" style="font-size: 15px"></i>
+                        <span class="btn-text">Actualizar</span>
+                    </a></td>
+                <td><a  class="btn btn-outline-danger btn-xs"
+                        th:if="${detUsu.usuario.estadoUsuario.estUsuId == 1}"
+                        th:href="@{'/Administrador/InhabilitarUsuario/' + ${detUsu.usuario.usu_id}}"
+                        onclick="return confirm('estas seguro que deseas Inhabilitar el Usuario??');"
+                        >
+                            <i class="fa fa-times" style="font-size: 15px"></i>
+                        <span class="btn-text">Bloquear</span>
+                        
+                    </a>
+                    <a  class="btn btn-outline-success btn-xs"
+                        th:if="${detUsu.usuario.estadoUsuario.estUsuId == 2}"
+                        th:href="@{'/Administrador/InhabilitarUsuario/' + ${detUsu.usuario.usu_id}}"
+                        onclick="return confirm('estas seguro que deseas Activar el Usuario??');">
+                    <i class="fa fa-check" style="font-size: 15px"></i>
+                        <span class="btn-text">Habilitar</span>
+
+                    </a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-2">
+        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+    </div>
+</div>
