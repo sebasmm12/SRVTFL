@@ -45,14 +45,17 @@ var validarNombrePaciente = function (elementError, val, element) {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar un nombre');
         $("#" + element).keyup(KeyNombrePaciente);
+        return false;
     } else {
         if (val.match(RegularExpression)) {
             addPositiveAtributtes(element);
             addPositiveHtml(elementError, 'Correcto !');
+            return true;
         } else {
             addNegativeAttributtes(element);
             addNegativeHtml(elementError, 'Debe ingresar un nombre válido');
             $("#" + element).keyup(KeyNombrePaciente);
+            return false;
         }
     }
 };
@@ -79,13 +82,15 @@ var validarFecha = function (elementError, val, element) {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar una fecha');
         $("#" + element).change(keyFecha);
+        return false;
     } else {
         addPositiveAtributtes(element);
         addPositiveHtml(elementError, 'Correcto !');
+        return true;
     }
 };
 
-var keyFecha = function() {
+var keyFecha = function () {
     var dateTime = $("#datetime");
     if (dateTime.val() === "") {
         addNegativeAttributtes('datetime');
@@ -95,6 +100,36 @@ var keyFecha = function() {
         addPositiveHtml('dateTimeError', 'Correcto !');
     }
 };
+
+
+var getPage = function () {
+    var nombrePaciente = $("#nombrePaciente").val();
+    var datetime = $("#datetime").val();
+    var FiltroFecha = document.getElementById('selectFiltroFecha');
+    var selectFiltroFecha = FiltroFecha.options[FiltroFecha.selectedIndex].innerText;
+    var FiltroPaciente = document.getElementById('selectFiltroPaciente');
+    var selectFiltroPaciente = FiltroPaciente.options[FiltroPaciente.selectedIndex].innerText;
+    var $a = $(this);
+    $.ajax({
+        url: $a.attr("href"),
+        type: 'GET',
+        data: {
+            nombrePaciente: nombrePaciente,
+            datetime: datetime,
+            selectFiltroFecha: selectFiltroFecha,
+            selectFiltroPaciente: selectFiltroPaciente
+        },
+        success: function (data) {
+            var $newhtml = $(data);
+            $("#tableCitas").replaceWith($newhtml);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {},
+        complete: function (jqXHR, textStatus) {}
+    });
+    return false;
+};
+
+
 var addPositiveAtributtes = function (id) {
     $("#" + id).removeClass('is-invalid');
     $("#" + id).addClass('is-valid');
@@ -121,3 +156,4 @@ var addNegativeHtml = function (id, message) {
 
 
 $("#btnFiltrar").click(validacionFiltros);
+$(".pcoded-content").on("click", ".pagedList a", getPage);

@@ -29,7 +29,7 @@ var Guardar = function () {
         usu_codigo: UsuarioCodigo,
         usu_contraseña: UsuarioContrasena
     };
-
+    
     var detalleUsuario = {
         usu_id: 0,
         usuario: usuario,
@@ -49,11 +49,16 @@ var Guardar = function () {
         detUsuReligion: Religion,
         detUsuEstadoCivil: estadoCivil
     };
+    
+     var DetalleUsuarioJson = {
+        detalleUsuario: detalleUsuario,
+        usuario: usuario
+    };
     $.ajax({
         url: "/api/usuario/registrar",
         type: 'POST',
         contentType: 'application/json;charset=utf-8',
-        data: JSON.stringify(detalleUsuario),
+        data: JSON.stringify(DetalleUsuarioJson),
         success: function (data) {
             if (data === "1") {
                 ActualizarImagen();

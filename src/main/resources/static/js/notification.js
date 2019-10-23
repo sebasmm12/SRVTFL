@@ -83,7 +83,7 @@ $(function () {
 
         primerElemento.append(segundoElemento);
 
-        $("#notificaciones18").append(primerElemento);
+        $("#notificaciones"+message.usuEnvio).append(primerElemento);
 
 
     }

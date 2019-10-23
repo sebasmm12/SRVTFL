@@ -49,21 +49,21 @@ public class SesionTratamientoRestController {
         } else {
             if (!nombrePaciente.equals("")) {
                 if (selectFiltroPaciente.equals("Aproximado")) {
-                    citas = citaService.filtroCitaPacienteAproximado(nombrePaciente, pageRequest);
+                    citas = citaService.filtroCitaPacienteAproximadoCitado(nombrePaciente,2, pageRequest);
                 } else {
-                    citas = citaService.filtroCitaPacienteEspecifico(nombrePaciente, pageRequest);
+                    citas = citaService.filtroCitaPacienteEspecificoCitado(nombrePaciente,2, pageRequest);
                 }
             }
             if (!datetime.equals("")) {
                 fechaD = format.parse(datetime);
                 if (selectFiltroFecha.equals("Anterior")) {
-                    citas = citaService.filtroCitaFechaAproximado(fechaD, pageRequest);
+                    citas = citaService.filtroCitaFechaAproximadoCitado(fechaD, 2, pageRequest);
                 } else {
-                    citas = citaService.filtroCitaFechaEspecifico(fechaD, pageRequest);
+                    citas = citaService.filtroCitaFechaEspecificoCitado(fechaD, 2, pageRequest);
                 }
             }
         }
-        PageRender<Cita> pageRender = new PageRender<>("Psicologo/RealizarSesionTratamiento/_ListarCitas", citas);
+        PageRender<Cita> pageRender = new PageRender<>("/api/sesion/buscar", citas);
         model.addObject("citas", citas);
         model.addObject("page", pageRender);
         model.setViewName("Psicologo/RealizarSesionTratamiento/_ListarCitas");

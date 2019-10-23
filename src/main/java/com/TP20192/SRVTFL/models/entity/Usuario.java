@@ -5,6 +5,8 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import net.bytebuddy.implementation.bind.annotation.Empty;
@@ -40,7 +43,7 @@ public class Usuario implements Serializable {
     //@Column(name = "est_usu_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="est_usu_id")
-    @JsonIgnoreProperties
+    @JsonIgnore
     private EstadoUsuario estadoUsuario;
 
     @NotEmpty
@@ -55,7 +58,6 @@ public class Usuario implements Serializable {
         this.usu_id = usu_id;
     }
 
-    @JsonIgnoreProperties
     public EstadoUsuario getEstadoUsuario() {
         return estadoUsuario;
     }
@@ -85,7 +87,7 @@ public class Usuario implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "usu_id")
-    @JsonIgnoreProperties
+    @JsonIgnore
     private List<UsuarioRol> roles;
 
     public List<UsuarioRol> getRoles() {
@@ -98,7 +100,7 @@ public class Usuario implements Serializable {
     
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="usu_id")
-    @JsonIgnoreProperties
+    @JsonIgnore
     private List<Notificacion> Notificaciones;
 
     public List<Notificacion> getNotificaciones() {
@@ -108,5 +110,17 @@ public class Usuario implements Serializable {
     public void setNotificaciones(List<Notificacion> Notificaciones) {
         this.Notificaciones = Notificaciones;
     }
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="usu_id")
+    @JsonIgnore
+    private DetalleUsuario detalleUsuario;
 
+    public DetalleUsuario getDetalleUsuario() {
+        return detalleUsuario;
+    }
+
+    public void setDetalleUsuario(DetalleUsuario detalleUsuario) {
+        this.detalleUsuario = detalleUsuario;
+    }
 }

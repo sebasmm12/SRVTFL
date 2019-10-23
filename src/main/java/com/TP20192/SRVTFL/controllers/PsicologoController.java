@@ -73,7 +73,7 @@ public class PsicologoController {
     public String realizarSesionTratamiento(Model model, @RequestParam(name="page", defaultValue = "0") int page)  {
         Pageable pageRequest = PageRequest.of(page,5);
         Page<Cita> citas= citaService.encontrarCitasenEstadoenCita(2, pageRequest);
-        PageRender<Cita> pageRender = new PageRender<>("/psicologo/RealizarSesionTratamiento", citas);
+        PageRender<Cita> pageRender = new PageRender<>("/api/sesion/buscar", citas);
         model.addAttribute("citas",citas);
         model.addAttribute("page", pageRender);
         return "Psicologo/RealizarSesionTratamiento/ListarSesionesCitas";

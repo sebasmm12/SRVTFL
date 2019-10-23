@@ -21,6 +21,8 @@ import javax.persistence.Table;
 @Table(name="T_Estado_Usuario")
 public class EstadoUsuario implements Serializable{
     
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="est_usu_id")
