@@ -36,7 +36,6 @@ public class RecepcionistaRestController {
         return citas;       
     }
     
-    
      @GetMapping("/Api/ejemplo")
     public List<String> listarCitas(){  
        List<String> abc= new ArrayList();
