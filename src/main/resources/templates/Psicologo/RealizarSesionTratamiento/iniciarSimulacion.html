@@ -54,8 +54,16 @@ and open the template in the editor.
 
                                         </div>
                                         
-                                        <div>
-                                            <label></label>
+                                        <div class="form-group row m-l-25">
+                                                <label for="detUsuTelefono"class="col-sm-3 col-form-label"
+                                                       th:text="'Observaciones en la Simulacion: '"></label>
+                                                <div class="col-sm-9">
+                                                    <textarea type="textarea" id="observaciones" class="form-control col-sm-12" 
+                                                              style="height: 100px">
+                                                        
+                                                    </textarea>
+                                                    <div id="observacionesError"></div>
+                                                </div>
                                         </div>
                                         
                                         <!--div class="form-group row m-t-25 m-l-25">
