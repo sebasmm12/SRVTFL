@@ -9,11 +9,13 @@ import com.TP20192.SRVTFL.models.dao.IActividadDao;
 import com.TP20192.SRVTFL.models.dao.ICitaDao;
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
+import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
+import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +44,9 @@ public class CitaServiceImpl implements ICitaService {
     @Autowired
     public IActividadDao actividadDao;
 
+    @Autowired
+    public IPreguntasDao preguntaDao;
+    
     @Transactional(readOnly = true)
     @Override
     public List<Cita> obtenerCitas() {
@@ -179,6 +184,12 @@ public class CitaServiceImpl implements ICitaService {
     @Override
     public Cita encontrarCitaconPacinenteconEstado(Long id) {
         return citaService.encontrarCitaconPacinenteconEstado(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Pregunta> EncontrarPreguntasCita(Boolean preP, int fobId, Pageable pageable) {
+       return preguntaDao.EncontrarPreguntasCita(preP,fobId, pageable);
     }
 
 }

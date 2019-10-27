@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.RestController;
 
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.text.ParseException;
@@ -16,8 +17,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,15 +46,15 @@ public class SesionTratamientoRestController {
             if (!selectFiltroPaciente.equals("Aproximado") && !selectFiltroFecha.equals("Anterior")) {
                 fechaD = format.parse(datetime);
                 citas = citaService.filtroCombinadoEspecificoUnoaUno(fechaD, nombrePaciente, 2, pageRequest);
-            }else {
-                
+            } else {
+
             }
         } else {
             if (!nombrePaciente.equals("")) {
                 if (selectFiltroPaciente.equals("Aproximado")) {
-                    citas = citaService.filtroCitaPacienteAproximadoCitado(nombrePaciente,2, pageRequest);
+                    citas = citaService.filtroCitaPacienteAproximadoCitado(nombrePaciente, 2, pageRequest);
                 } else {
-                    citas = citaService.filtroCitaPacienteEspecificoCitado(nombrePaciente,2, pageRequest);
+                    citas = citaService.filtroCitaPacienteEspecificoCitado(nombrePaciente, 2, pageRequest);
                 }
             }
             if (!datetime.equals("")) {
@@ -68,5 +71,21 @@ public class SesionTratamientoRestController {
         model.addObject("page", pageRender);
         model.setViewName("Psicologo/RealizarSesionTratamiento/_ListarCitas");
         return model;
+    }
+
+    @GetMapping(value = "/RealizarPreguntas")
+    public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
+        Boolean tratId = false;
+        if (cita.getTratId() == null) {
+            tratId = true;
+        }
+        Pageable pageRequest = PageRequest.of(page, 5);
+        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId(), pageRequest);
+        PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
+        model.addAttribute("preguntas", preguntas);
+        model.addAttribute("cita", cita);
+        model.addAttribute("page", pageRender);
+        return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
 }

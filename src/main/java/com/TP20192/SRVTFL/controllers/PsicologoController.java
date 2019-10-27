@@ -9,6 +9,7 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.ChatMessage;
+import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Pulso;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -16,9 +17,6 @@ import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
-import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortDataListener;
-import com.fazecast.jSerialComm.SerialPortEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -115,30 +113,4 @@ public class PsicologoController {
         return pulso;
     }
     
-    private void lecturaPulso(){
-        SerialPort sp[] = SerialPort.getCommPorts();
-        SerialPort s = sp[0];
-        s.openPort();
-        s.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 0, 0);
-        s.setComPortParameters(9600, 8, 1, 0);
-        if (s.openPort()) {
-            System.out.println("Conected Correctly");
-        }
-        s.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() {
-                return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
-            }
-
-            @Override
-            public void serialEvent(SerialPortEvent event) {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_RECEIVED) {
-                    return;
-                }
-                //byte[] readBuffer = new byte[event.getReceivedData()];
-                String data = new String(event.getReceivedData());
-                System.out.println("Data: " + data);
-            }
-        });
-    }
 }
