@@ -9,19 +9,27 @@ package com.TP20192.SRVTFL.controllers;
  *
  * @author hp
  */
-public  class StaticInteger {
-    
+public class StaticInteger {
+
     private static Integer integer;
+    private static boolean finalizar= false;
 
-	public StaticInteger() {
-		
-	}
-	
-	public static Integer getInteger() {
-		return integer;
-	}
+    
+    public static Integer getInteger() {
+        return integer;
+    }
 
-	public static void setInteger(Integer integer) {
-		StaticInteger.integer = integer;
-	}
+    public static void setInteger(Integer integer) {
+        StaticInteger.integer = integer;
+    }
+
+    public static boolean isFinalizar() {
+        return finalizar;
+    }
+
+    public static void setFinalizar(boolean finalizar) {
+        StaticInteger.finalizar = finalizar;
+    }
+
+    
 }

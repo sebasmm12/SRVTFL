@@ -14,6 +14,9 @@ import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +52,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 public class PsicologoController {
 
     final static Logger logger = LoggerFactory.getLogger(PsicologoController.class);
-    public volatile boolean finalizar = false;
+    //public static boolean finalizar = false;
     public static CopyOnWriteArrayList<Integer> cowl = new CopyOnWriteArrayList<>();
-    StaticInteger si= new StaticInteger();
+    //StaticInteger si;
 
     @Autowired
     @Qualifier("UsuarioDatos")
@@ -122,17 +125,15 @@ public class PsicologoController {
         sseMvcExecutor.execute(() -> {
             try {
                 for (int i = 0; true; i++) {
-                   
-                    /*if (cowl.get(i) != null && cowl.get(i) < 300) {
-                        emitter.send(cowl.get(i));
+
+                    if (StaticInteger.getInteger() != null /*&& cowl.get(i) < 300*/) {
+                        emitter.send(StaticInteger.getInteger());
                         System.out.println("Dato Recivido");
-                    }*/
-                    //if(si.getInteger() != null && si.getInteger()>= 20) {
-                    if(cowl.get(i) != null){
+                    }
+                    /*if(cowl.get(i) != null){
                         emitter.send(cowl.get(i));
                         logger.info("Dato Recivido");
-                    }
-                    //}
+                    }*/
                     Thread.sleep(1500);
                 }
             } catch (Exception ex) {
@@ -152,37 +153,58 @@ public class PsicologoController {
             @Override
             public void run() {
                 SerialPort sp[] = SerialPort.getCommPorts();
+                StaticInteger.setFinalizar(false);
                 SerialPort s = sp[0];
+                System.out.println(s.getDescriptivePortName());
+                System.out.println(s.isOpen());
+
+                s.openPort();
+                s.clearRTS();
+                s.clearDTR();
                 s.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 0, 0);
                 s.setComPortParameters(9600, 8, 1, 0);
-                s.openPort();
+
                 logger.info("Conectado a " + s.getSystemPortName());
+
                 s.addDataListener(new SerialPortDataListener() {
-                    
+
                     @Override
                     public void serialEvent(SerialPortEvent event) {
                         //String data = new String (event.getReceivedData());
                         //chm.put(Integer.parseInt(data), Integer.parseInt(data));
                         //if(th1 == Thread.currentThread()){
-                        String data = new String (event.getReceivedData());
-                        cowl.add(Integer.parseInt(data));
-                        //si.setInteger(Integer.parseInt(data));
-                        logger.info("Data: "+data+" incertado en el concurrentHashMap");
+                        String data = new String(event.getReceivedData());
+                        //cowl.add(Integer.parseInt(data));
+                        StaticInteger.setInteger(Integer.parseInt(data));
+                        logger.info("Data: " + data + " incertado en el concurrentHashMap");
                         /*}else{
                             s.removeDataListener();
-                            s.closePort();
+                            s.closePort();  
                             logger.info("Listener Eliminado y Puerto Cerrado");
                         }*/
+
                     }
+
                     @Override
                     public int getListeningEvents() {
                         return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
                     }
-                });
 
+                });
+                while (!StaticInteger.isFinalizar()) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                s.removeDataListener();
+                s.closePort();
             }
-        });
+        }
+        );
         th1.start();
+
         return "1";
     }
 
@@ -202,6 +224,7 @@ public class PsicologoController {
         //th1 = null;
         System.out.println("Lectura de Listener Finalizado");
         //Aqui se hara algo mas
+        StaticInteger.setFinalizar(true);
         return "1";
     }
     /*Thread th2 = Thread.currentThread();
