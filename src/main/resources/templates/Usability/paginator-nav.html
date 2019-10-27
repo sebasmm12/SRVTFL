@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
 
-        <nav th:fragment="paginator">
+        <nav th:fragment="paginator" class="pagedList">
             <ul class="pagination">
                 <li class="page-item" th:class="${page.first? 'page-item disabled': 'page-item'}">
                     <span class="page-link" th:if="${page.first}">Primera</span>

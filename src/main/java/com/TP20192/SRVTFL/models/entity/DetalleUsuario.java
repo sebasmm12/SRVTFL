@@ -5,7 +5,9 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -44,7 +46,6 @@ public class DetalleUsuario implements Serializable {
     
     @JoinColumn(name="tip_doc_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private TipoDocumento tipDocId;
     
     @NotEmpty
@@ -99,6 +100,7 @@ public class DetalleUsuario implements Serializable {
 
     @JoinColumn(name="usu_id",unique=true)
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Usuario usuario;
 
     public Long getUsu_id() {

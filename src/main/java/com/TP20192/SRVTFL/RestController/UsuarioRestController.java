@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.RestController;
 
+import com.TP20192.SRVTFL.models.JsonClass.DetalleUsuarioJson;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.IUploadFileService;
@@ -49,19 +50,19 @@ public class UsuarioRestController {
     private IUploadFileService uploadService;
 
     @RequestMapping(value = "/registrar", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    public String RegistrarDetalleUsuario(@RequestBody DetalleUsuario detalleUsuario, Map<String, Object> model) {
-        DetalleUsuario DetUsuModificado = detalleUsuario;
+    public String RegistrarDetalleUsuario(@RequestBody DetalleUsuarioJson DetalleUsuarioJson, Map<String, Object> model) {
+        DetalleUsuario DetUsuModificado = DetalleUsuarioJson.getDetalleUsuario();
         Long Id = ((Usuario) model.get("usuario")).getUsu_id();
         DetUsuModificado.setUsu_id(Id);
         Usuario usuario=((Usuario) model.get("usuario"));
         DetUsuModificado.getUsuario().setUsu_id(Id);
         DetUsuModificado.getUsuario().setEstadoUsuario(usuario.getEstadoUsuario());
-        DetUsuModificado.getUsuario().setUsu_codigo(detalleUsuario.getUsuario().getUsu_codigo());
-        DetUsuModificado.getUsuario().setUsu_contraseña(passwordEncoder.encode(detalleUsuario.getUsuario().getUsu_contraseña()));
+        DetUsuModificado.getUsuario().setUsu_codigo(DetalleUsuarioJson.getUsuario().getUsu_codigo());
+        DetUsuModificado.getUsuario().setUsu_contraseña(passwordEncoder.encode(DetalleUsuarioJson.getUsuario().getUsu_contraseña()));
         DetUsuModificado.getUsuario().setEstadoUsuario(usuario.getEstadoUsuario());
         DetUsuModificado.getUsuario().setNotificaciones(usuario.getNotificaciones());
         DetUsuModificado.getUsuario().setRoles(usuario.getRoles());
-        usuarioService.guardarDetalleUsuario(detalleUsuario);
+        usuarioService.guardarDetalleUsuario(DetalleUsuarioJson.getDetalleUsuario());
         usuarioService.guardarUsuario(DetUsuModificado.getUsuario());
         return "1";
     }

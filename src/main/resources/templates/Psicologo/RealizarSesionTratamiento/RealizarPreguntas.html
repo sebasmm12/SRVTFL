@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+                            <div>
+                                <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
+                                     class="img-radius"
+                                     th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>
+                            </div>
+                        </div>
+                        <div th:replace="layout/layout :: styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layout/layout :: footer"></footer>
+    </body>
+</html>

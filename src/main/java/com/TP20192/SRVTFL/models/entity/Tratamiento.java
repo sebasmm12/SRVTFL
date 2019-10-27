@@ -5,12 +5,17 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -36,4 +41,29 @@ public class Tratamiento implements Serializable{
     public void setTratId(int tratId) {
         this.tratId = tratId;
     }
+    
+    @Column(name="trat_primera_vez")
+    private boolean tratPrimeraVez;
+
+    public boolean isTratPrimeraVez() {
+        return tratPrimeraVez;
+    }
+
+    public void setTratPrimeraVez(boolean tratPrimeraVez) {
+        this.tratPrimeraVez = tratPrimeraVez;
+    }
+
+    public Cita getCitId() {
+        return citId;
+    }
+
+    public void setCitId(Cita citId) {
+        this.citId = citId;
+    }
+    
+    
+    @JoinColumn(name="cit_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties
+    private Cita citId;
 }

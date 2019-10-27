@@ -81,10 +81,19 @@ public class Cita implements Serializable {
     //@NotEmpty
     @Column(name= "dia_id")
     private Integer diaId;
+
+    public Tratamiento getTratId() {
+        return tratId;
+    }
+
+    public void setTratId(Tratamiento tratId) {
+        this.tratId = tratId;
+    }
     
     //@Null
-    @Column(name= "trat_id")
-    private Integer tratId;
+    @JoinColumn(name= "trat_id")
+    @ManyToOne(fetch =  FetchType.LAZY)
+    private Tratamiento tratId;
     
     //@NotEmpty
     @Column(name= "sim_id")
@@ -141,13 +150,7 @@ public class Cita implements Serializable {
         this.simId = simId;
     }
     
-    public Integer getTratId() {
-        return tratId;
-    }
-
-    public void setTratId(Integer tratId) {
-        this.tratId = tratId;
-    }
+    
     
     public Long getCitId() {
         return citId;

@@ -253,10 +253,7 @@ public class RecepcionistaController {
     @GetMapping(value = "/cargar-psicologos/{term}", produces = {"application/json"})
     public @ResponseBody
     List<DetalleUsuario> cargarPsicologos(@PathVariable(name = "term") String term) {
-        List<DetalleUsuario> abc = new ArrayList<>();
-        List<DetalleUsuario> fin = new ArrayList<>();
-        abc = citaService.findDetalleUsuarioByNombre(term);
-        return abc;
+        return citaService.findDetalleUsuarioByNombre(term);
     }
 
     @GetMapping("/detalleCita/{citId}")
