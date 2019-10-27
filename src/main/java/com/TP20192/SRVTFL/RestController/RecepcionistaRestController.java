@@ -44,8 +44,4 @@ public class RecepcionistaRestController {
        abc.add("bb");
        return abc;       
     }
-    
-    
-    
-    
 }
