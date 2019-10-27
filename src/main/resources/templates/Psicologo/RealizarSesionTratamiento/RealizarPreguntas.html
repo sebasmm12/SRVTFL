@@ -6,6 +6,8 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="layout/layout :: head"></head>
+    <link rel="stylesheet" th:href="@{/css/sebas/style.css}">
+    <link rel="stylesheet" th:href="@{/css/sebas/RealizarSesionTratamiento/style.css}">
     <body>
         <div th:replace="layout/layout :: loader"></div>
         <div id="pcoded" class="pcoded">
@@ -19,10 +21,51 @@ and open the template in the editor.
                         <nav th:replace="layout/layout :: navbar_navegation"></nav>
                         <div class="pcoded-content">
                             <!--Aqui es el RenderBody-->
-                            <div>
-                                <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
-                                     class="img-radius"
-                                     th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>
+                            <div class="container mt-2 py-2">
+                                <div class="card bg-light">
+                                    <h2 class="text-secondary card-header" th:text="${titulo}"></h2>
+                                    <div class="card-body">
+                                        <div th:each="pregunta : ${preguntas}">
+                                            <div class="card bg-white">
+                                                <div class="card-header pregunta">
+                                                    <a href="#">
+                                                        <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
+                                                             class="img-radius" style="width: 50px !important; height: 50px"
+                                                             th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>    
+                                                    </a> 
+                                                    <div class="pregunta-text">
+                                                        <h2 class="text-secondary" th:text="${pregunta.pregPregunta}"></h2> 
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <textarea class="form-control respuestas" name="respuesta[]" rows="3" placeholder="Registre Respuesta del Paciente"></textarea>
+                                                    <input type="hidden" class="Id" th:value="${pregunta.pregId}" />
+                                                </div>
+                                                <div class="card-footer text-right footer-pregunta">
+                                                    <div class="pregunta-text mr-2 pr-2">
+                                                        <h2 class="text-secondary" th:text="${cita.paciente.nombreCompleto()}"></h2> 
+                                                    </div>
+                                                    <img th:if="${#strings.length(cita.paciente.pacImagen) > 0}"
+                                                         class="img-radius" style="width: 50px !important; height: 50px"
+                                                         th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}"/>
+                                                </div>
+                                            </div>                                   
+                                        </div>
+                                        <div class="mt-2 row">
+                                            <div class="col-sm-8 col-12">
+                                                <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+                                            </div>
+                                            <div class="col-sm-4 text-right col-12">
+                                                <button class="btn btn-success" id="btnRegistrarRespuestas">
+                                                    <i class="fa fa-file" style="font-size: 20px !important"></i>
+                                                    Registrar Preguntas
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="citId" th:value="${cita.citId}" />
                             </div>
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>
@@ -31,5 +74,6 @@ and open the template in the editor.
             </div>
         </div>
         <footer th:replace="layout/layout :: footer"></footer>
+        <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarRespuestas.js}"></script>
     </body>
 </html>

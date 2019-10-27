@@ -5,19 +5,24 @@
  */
 package com.TP20192.SRVTFL.RestController;
 
+import com.TP20192.SRVTFL.models.JsonClass.RespuestaJson;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
+import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +39,7 @@ public class SesionTratamientoRestController {
 
     @Autowired
     private ICitaService citaService;
-
+    
     @RequestMapping(value = "/buscar", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView buscarFiltros(String nombrePaciente, String datetime, int page, ModelAndView model, String selectFiltroFecha, String selectFiltroPaciente) throws ParseException {
 
@@ -72,20 +77,20 @@ public class SesionTratamientoRestController {
         model.setViewName("Psicologo/RealizarSesionTratamiento/_ListarCitas");
         return model;
     }
-
-    @GetMapping(value = "/RealizarPreguntas")
-    public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
-        Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
-        Boolean tratId = false;
-        if (cita.getTratId() == null) {
-            tratId = true;
+    @RequestMapping(value="/registrar", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public String Registrar(@RequestBody List<RespuestaJson> listRespuesta) {
+        
+        Cita cita = citaService.obtenerCita(listRespuesta.get(0).getCitId());
+        for (int i = 0; i < listRespuesta.size(); i++) {
+            
+            Respuesta respuesta = new Respuesta();
+            respuesta.setResRespuesta(listRespuesta.get(i).getResRespuesta());
+            respuesta.setCitaId(cita);
+            Pregunta pregunta = citaService.encontrarPregunta(listRespuesta.get(i).getPregId());
+            respuesta.setPregId(pregunta);
+            citaService.save(respuesta);
         }
-        Pageable pageRequest = PageRequest.of(page, 5);
-        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId(), pageRequest);
-        PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
-        model.addAttribute("preguntas", preguntas);
-        model.addAttribute("cita", cita);
-        model.addAttribute("page", pageRender);
-        return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
+        
+        return "1";
     }
 }

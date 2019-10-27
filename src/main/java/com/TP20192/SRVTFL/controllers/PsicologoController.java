@@ -7,6 +7,7 @@ package com.TP20192.SRVTFL.controllers;
 
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -14,6 +15,9 @@ import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
+import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
+import com.fazecast.jSerialComm.SerialPortEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -204,15 +208,20 @@ public class PsicologoController {
         //Aqui se hara algo mas
         return "1";
     }
-    /*Thread th2 = Thread.currentThread();
-                            while(th1 == th2){
-                                System.out.println("Data: "+i);
-                                i++;
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException ex) {
-                                    //java.util.logging.Logger.getLogger(PsicologoController.class.getName()).log(Level.SEVERE, null, ex);
-                                    System.out.println("Ocurrio un error");
-                                }
-                            }*/
+    @GetMapping(value = "/RealizarPreguntas")
+    public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
+        Boolean tratId = false;
+        if (cita.getTratId() == null) {
+            tratId = true;
+        }
+        Pageable pageRequest = PageRequest.of(page, 10);
+        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId(), pageRequest);
+        PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
+        model.addAttribute("preguntas", preguntas);
+        model.addAttribute("cita", cita);
+        model.addAttribute("page", pageRender);
+        model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
+    }
 }

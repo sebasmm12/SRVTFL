@@ -10,12 +10,14 @@ import com.TP20192.SRVTFL.models.dao.ICitaDao;
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
+import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
+import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +48,9 @@ public class CitaServiceImpl implements ICitaService {
 
     @Autowired
     public IPreguntasDao preguntaDao;
+    
+    @Autowired
+    public IRespuestaDao respuestaDao;
     
     @Transactional(readOnly = true)
     @Override
@@ -190,6 +195,18 @@ public class CitaServiceImpl implements ICitaService {
     @Override
     public Page<Pregunta> EncontrarPreguntasCita(Boolean preP, int fobId, Pageable pageable) {
        return preguntaDao.EncontrarPreguntasCita(preP,fobId, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Pregunta encontrarPregunta(Long Id) {
+        return preguntaDao.findById(Id).orElse(null);
+    }
+
+    @Transactional
+    @Override
+    public void save(Respuesta r) {
+        respuestaDao.save(r);
     }
 
 }
