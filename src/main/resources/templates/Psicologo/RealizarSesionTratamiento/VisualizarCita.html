@@ -189,10 +189,10 @@ and open the template in the editor.
                                                                 </a>
                                                             </div>
                                                             <div class="col-sm-3 col-md-3 col-6">
-                                                                <button type="button" class="btn btn-success btn-SesionTratamiento">
+                                                                <a th:href="@{/api/sesion/RealizarPreguntas(citId=${cita.citId})}" class="btn btn-secondary btn-SesionTratamiento">
                                                                     <i class="fa fa-file-alt icon-tratamiento"></i>
                                                                     Iniciar Tratamiento
-                                                                </button>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>

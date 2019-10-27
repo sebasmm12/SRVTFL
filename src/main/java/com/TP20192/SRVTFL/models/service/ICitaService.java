@@ -10,6 +10,7 @@ import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
+import com.TP20192.SRVTFL.models.entity.Pregunta;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -69,4 +70,7 @@ public interface ICitaService {
     public Page<Cita> filtroCitaFechaAproximadoCitado(Date term, int id, Pageable pageable);  
    
    public Cita encontrarCitaconPacinenteconEstado(Long id);
+   
+   //
+   public Page<Pregunta> EncontrarPreguntasCita(Boolean tratId,int fobId, Pageable pageable);
 }

@@ -5,12 +5,18 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.annotation.Generated;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 
@@ -18,6 +24,8 @@ import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
  *
  * @author hp
  */
+@Entity
+@Table(name ="T_Fobia")
 public class Fobia implements Serializable{
     
     public Fobia(){
@@ -73,8 +81,19 @@ public class Fobia implements Serializable{
     public void setFobUrlVideo(String fobUrlVideo) {
         this.fobUrlVideo = fobUrlVideo;
     }
+
+    public Simulacion getSimId() {
+        return simId;
+    }
+
+    public void setSimId(Simulacion simId) {
+        this.simId = simId;
+    }
     
-    
+    @JoinColumn(name="fob_id",unique=true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Simulacion simId;
     
     
 }
