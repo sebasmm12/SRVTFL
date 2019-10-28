@@ -22,3 +22,22 @@ and open the template in the editor.
 .btn-SesionTratamiento {
     border-radius: 50px !important;
 }
+.pregunta {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.pregunta .pregunta-text {
+    padding-left: 2% !important;
+}
+.pregunta .pregunta-text h2 {
+    font-size: 30px !important;
+}
+.footer-pregunta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.card-altura {
+    height: 20px;
+}
