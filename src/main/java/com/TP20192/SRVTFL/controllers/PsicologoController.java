@@ -5,19 +5,23 @@
  */
 package com.TP20192.SRVTFL.controllers;
 
+import com.TP20192.SRVTFL.models.dao.IPulsoSimulacionDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
+import com.TP20192.SRVTFL.models.service.IPulsoSimulacionService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -68,6 +72,9 @@ public class PsicologoController {
 
     @Autowired
     private IPacienteService pacienteService;
+    
+    @Autowired
+    private IPulsoSimulacionService pulsoSimulacionService;
 
     private volatile Thread th1;
 
@@ -127,7 +134,12 @@ public class PsicologoController {
                 for (int i = 0; true; i++) {
 
                     if (StaticInteger.getInteger() != null /*&& cowl.get(i) < 300*/) {
-                        emitter.send(StaticInteger.getInteger());
+                        //emitter.send(StaticInteger.getInteger());
+                        PulsoSimulacion ps = new PulsoSimulacion();
+                        ps.setPulSimHora(Calendar.getInstance().getTime());
+                        ps.setPulSimNormal(true);
+                        ps.setPulSimPulso(StaticInteger.getInteger().longValue());
+                        pulsoSimulacionService.insertarPulsoSimulacion(ps);
                         System.out.println("Dato Recivido");
                     }
                     /*if(cowl.get(i) != null){
