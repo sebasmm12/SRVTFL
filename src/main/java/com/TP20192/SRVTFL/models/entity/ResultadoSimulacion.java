@@ -42,19 +42,19 @@ public class ResultadoSimulacion implements Serializable {
     private Integer resSimNivelFinal;
 
     @Column(name = "rest_sim_inicio")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date restSimInicio;
 
     @Column(name = "rest_sim_fin")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date restSimFinal;
 
     @Column(name = "rest_sim_salidaemergencia")
     private Boolean restSimSalidaEmergencia;
 
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "cit_id")
     @OneToOne(fetch = FetchType.LAZY)
     private Cita cita;

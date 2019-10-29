@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class PulsoSimulacion {
     @Column(name = "pul_sim_id")
     private Long pulsSimId;
     @Column(name = "pul_sim_hora")
-    private Date pulSimHora;
+    private Time pulSimHora;
     @Column(name = "pul_sim_pulso")
     private Long pulSimPulso;
     @Column(name = "res_sim_id")
@@ -51,12 +52,11 @@ public class PulsoSimulacion {
         this.resSimId = resSimId;
     }
 
-    
-    public Date getPulSimHora() {
+    public Time getPulSimHora() {
         return pulSimHora;
     }
 
-    public void setPulSimHora(Date pulSimHora) {
+    public void setPulSimHora(Time pulSimHora) {
         this.pulSimHora = pulSimHora;
     }
 

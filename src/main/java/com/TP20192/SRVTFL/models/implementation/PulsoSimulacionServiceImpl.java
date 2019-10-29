@@ -9,11 +9,13 @@ import com.TP20192.SRVTFL.models.dao.IPulsoSimulacionDao;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
 import com.TP20192.SRVTFL.models.service.IPulsoSimulacionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author hp
  */
+@Service("IPulsoSimulacionService")
 public class PulsoSimulacionServiceImpl implements IPulsoSimulacionService{
     
     @Autowired

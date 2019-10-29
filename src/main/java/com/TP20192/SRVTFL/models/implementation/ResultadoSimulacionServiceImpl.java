@@ -34,6 +34,9 @@ public class ResultadoSimulacionServiceImpl implements IResultadoSimulacionServi
         resultadoSimulacion.setResSimNivelFinal(nivelfinal);
         resultadoSimulacioneService.save(resultadoSimulacion);
     }
-    
-    
+
+    @Override
+    public ResultadoSimulacion RegistrarResultadoSimulacion(ResultadoSimulacion rs) {
+        return resultadoSimulacioneService.save(rs);
+    }
 }

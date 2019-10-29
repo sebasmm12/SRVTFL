@@ -3,9 +3,21 @@ var ctx = document.getElementById('myChart');
 var btnSimuInicio = document.getElementById('btnsimulacionInicio');
 var btnSimuFin = document.getElementById('btnsimulacionFinalizar');
 var btnPausaReanudar = document.getElementById('btnsimulacionPausaReanudar');
+var btnFinalizarAbruptamente = document.getElementById('btnFinalizarAbruptamente');
 var counter = 0;
 var sse;
 var pausa = false;
+
+var restSimInicio;
+var restSimFin;
+var restSimSalidaEmergencia = false;
+var restSimPulsoPromedio = 0;
+var resSimI;
+var citaId = document.getElementById('citId').value;
+var inicio;
+var fin;
+
+
 document.getElementById('btnsimulacionFinalizar').disabled = true;
 document.getElementById('btnsimulacionPausaReanudar').disabled = true;
 var myChart = new Chart(ctx, {
@@ -34,12 +46,36 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+function parseoFecha(today) {
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes();
+    return date + ' ' + time;
+}
 btnSimuFin.addEventListener('click', function () {
+    restSimFin = new Date();
+    inicio = parseoFecha(restSimInicio);
+    fin = parseoFecha(restSimFin);
+    var observacion = document.getElementById('observaciones').value;
+    var cita = {
+        citId: citaId
+    };
+    var resSim = {
+        resSimId: resSimI,
+        resSimNivelInicial: 1,
+        resSimNivelFinal: 2,
+        restSimInicio: Date.parse(inicio),
+        restSimFinal: Date.parse(fin),
+        restSimSalidaEmergencia: restSimSalidaEmergencia,
+        cita: cita,
+        restSimPulsoPromedio: 0
+    };
     sse.close();
     $.ajax({
-        url: "/psicologo/finalizarLectura",
+        url: "/psicologo/finalizarLectura?observacion="+observacion,
         contentType: 'application/json;charset=utf-8',
-        type: 'GET',
+        type: 'POST',
+        data: JSON.stringify(resSim),
         success: function (data) {
             if (data === "1") {
                 console.log("Finalizaion ejecutada");
@@ -53,6 +89,18 @@ btnSimuFin.addEventListener('click', function () {
     pausar();
 });
 btnSimuInicio.addEventListener('click', function () {
+    restSimInicio = new Date();
+    $.ajax({
+        url: "/psicologo/registrarResultadoSimu?citId="+citaId,
+        contentType: 'application/json;charset=utf-8',
+        type: 'GET',
+        success: function (data) {
+            if (data !== "") {
+                resSimI = parseInt(data);
+                console.log("Inicializacion correcta");
+            }
+        }
+    });
     $.ajax({
         url: "/psicologo/iniciarLectura",
         contentType: 'application/json;charset=utf-8',
@@ -65,12 +113,13 @@ btnSimuInicio.addEventListener('click', function () {
     });
     var millisecondsToWait = 500;
     setTimeout(function () {
-        // Whatever you want to do after the wait
         sse = new EventSource('http://localhost:8080/psicologo/simulacionPulso');
         sse.onmessage = function (evt) {
             myChart.data.datasets[0].data[counter] = parseInt(evt.data);
             myChart.data.labels[counter] = counter + 1;
+            restSimPulsoPromedio += parseInt(evt.data);
             counter++;
+            registrarPulso(parseInt(evt.data));
             myChart.update();
         };
     }, millisecondsToWait);
@@ -79,6 +128,38 @@ btnSimuInicio.addEventListener('click', function () {
     document.getElementById("btnsimulacionFinalizar").disabled = false;
     document.getElementById("btnsimulacionPausaReanudar").disabled = false;
 });
+
+
+btnFinalizarAbruptamente.addEventListener('click',function(){
+    //registrarPulso();
+});
+
+function registrarPulso(pulso){
+    var pulSim ={
+        pulsSimId: 0,
+        pulSimHora: parseoHora(new Date()),
+        pulSimPulso: pulso,
+        resSimId: resSimI,
+        pulSimNormal: true     
+    };
+    
+    $.ajax({
+        url: "/psicologo/registrarPulso",
+        contentType: 'application/json;charset=utf-8',
+        type: 'POST',
+        data: JSON.stringify(pulSim),
+        success: function (data) {
+            if (data === "1") {
+                console.log("Pulso " + pulso + "Registrado Correctamente");
+            }
+        }
+    });
+}
+
+function parseoHora(today) {
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    return time;
+}
 
 btnPausaReanudar.addEventListener('click', function () {
     if (pausa) {

@@ -14,6 +14,8 @@ var RegistrarRespuestas = function (){
     
     var listRespuesta =[];
     
+    var citId =document.getElementById('citId').value;
+    
     for (var i = 0; i < Respuestas.length; i++) {
            var RespuestaJson = new Object();
            RespuestaJson.resId = null;
@@ -34,7 +36,7 @@ var RegistrarRespuestas = function (){
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = "/psicologo/RealizarSesion";
+                        window.location.href = "/psicologo/RealizarSesion?citId="+citId;
                     }
                 });
         },

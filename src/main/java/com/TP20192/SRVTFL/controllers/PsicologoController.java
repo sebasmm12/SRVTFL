@@ -10,12 +10,14 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
+import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IPulsoSimulacionService;
+import com.TP20192.SRVTFL.models.service.IResultadoSimulacionService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
@@ -40,6 +42,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,6 +80,9 @@ public class PsicologoController {
     @Autowired
     private IPulsoSimulacionService pulsoSimulacionService;
 
+    @Autowired
+    private IResultadoSimulacionService resultadoSimulacionService;
+    
     private volatile Thread th1;
 
     @GetMapping(value = {"/index", "/"})
@@ -111,14 +117,16 @@ public class PsicologoController {
         Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
         TipoDocumento tipoDoc = pacienteService.findDocumentoById(Long.valueOf(cita.getPaciente().getTipDocId()));
         model.addAttribute("cita", cita);
-        model.addAttribute("documento", tipoDoc);
+        model.addAttribute("documento", tipoDoc);       
         return "Psicologo/RealizarSesionTratamiento/VisualizarCita";
     }
 
     @GetMapping(value = "/RealizarSesion")
-    public String realizarSesion(Model model) {
+    public String realizarSesion(@RequestParam(name ="citId",required = false, defaultValue = "") Long citId, Model model) {
         model.addAttribute("titulo", "Realizacion de Sesion de Simulacion");
-        System.out.println("Se llego aqui");
+        
+        model.addAttribute("citId", citId);
+        System.out.println("Resultado Simulacion Creada");
         return "Psicologo/RealizarSesionTratamiento/iniciarSimulacion";
     }
 
@@ -135,12 +143,12 @@ public class PsicologoController {
                 for (int i = 0; true; i++) {
 
                     if (StaticInteger.getInteger() != null /*&& cowl.get(i) < 300*/) {
-                        //emitter.send(StaticInteger.getInteger());
-                        PulsoSimulacion ps = new PulsoSimulacion();
+                        emitter.send(StaticInteger.getInteger());
+                        /*PulsoSimulacion ps = new PulsoSimulacion();
                         ps.setPulSimHora(Calendar.getInstance().getTime());
                         ps.setPulSimNormal(true);
                         ps.setPulSimPulso(StaticInteger.getInteger().longValue());
-                        pulsoSimulacionService.insertarPulsoSimulacion(ps);
+                        pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
                         System.out.println("Dato Recivido");
                     }
                     /*if(cowl.get(i) != null){
@@ -189,7 +197,7 @@ public class PsicologoController {
                         String data = new String(event.getReceivedData());
                         //cowl.add(Integer.parseInt(data));
                         StaticInteger.setInteger(Integer.parseInt(data));
-                        logger.info("Data: " + data + " incertado en el concurrentHashMap");
+                        logger.info("Data: " + data + " incertado en la variable estatica");
                         /*}else{
                             s.removeDataListener();
                             s.closePort();  
@@ -212,6 +220,7 @@ public class PsicologoController {
                     }
                 }
                 s.removeDataListener();
+                logger.info("Listener eliminado y puerto Cerrado");
                 s.closePort();
             }
         }
@@ -221,6 +230,31 @@ public class PsicologoController {
         return "1";
     }
 
+    
+    @RequestMapping(value = "/registrarResultadoSimu", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    //@Async
+    public Long registrarResultadoSimu(@RequestParam(name="citId") Long citId) {
+        //th1 = null;
+        ResultadoSimulacion rs = new ResultadoSimulacion();
+        rs.setCita(citaService.obtenerCita(citId));
+        rs.setRestSimSalidaEmergencia(false);
+        rs = resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
+        return rs.getResSimId();
+    }
+    
+    @RequestMapping(value = "/registrarPulso", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    //@Async
+    public String registrarPulso(@RequestBody PulsoSimulacion pulSim) {
+        //th1 = null;
+        pulsoSimulacionService.insertarPulsoSimulacion(pulSim);
+        //StaticInteger.setFinalizar(true);
+        System.out.println("Pulso de Simulacion Creado");
+        return "1";
+    }
+    
+    
     @RequestMapping(value = "/pausarLectura", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     @Async
@@ -230,14 +264,24 @@ public class PsicologoController {
         return "1";
     }
 
-    @RequestMapping(value = "/finalizarLectura", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/finalizarLectura", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    @Async
-    public String finalizarLecturaArduino() {
+    //@Async
+    public String finalizarLecturaArduino(@RequestBody ResultadoSimulacion resSim,
+            @RequestParam(name="observacion") String observacion) {
         //th1 = null;
+        if(observacion =="" || observacion == null){
+            observacion = "NO hay Observaciones";
+        }
         System.out.println("Lectura de Listener Finalizado");
-        //Aqui se hara algo mas
+        ResultadoSimulacion rs = resSim;
+        Cita cita = citaService.obtenerCita(rs.getCita().getCitId());
+        rs.setCita(cita);
+        resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
+        cita.setCitObservacion(observacion);
+        citaService.registrarCita(cita);
         StaticInteger.setFinalizar(true);
+        System.out.println("Resultado Simulacion Modificada");
         return "1";
     }
     @GetMapping(value = "/RealizarPreguntas")
