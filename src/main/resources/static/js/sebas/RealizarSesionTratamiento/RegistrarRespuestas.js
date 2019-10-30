@@ -20,7 +20,7 @@ var RegistrarRespuestas = function (){
            var RespuestaJson = new Object();
            RespuestaJson.resId = null;
            RespuestaJson.resRespuesta = Respuestas[i].value;
-           RespuestaJson.citaId = $("#citId").val();
+           RespuestaJson.citId = parseInt($("#citId").val(), 10);
            RespuestaJson.pregId = parseInt(PreguntasId[i].value,10);
            listRespuesta.push(RespuestaJson);
     }

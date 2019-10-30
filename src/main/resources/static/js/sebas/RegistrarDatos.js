@@ -329,7 +329,7 @@ var validacionLugarNacimiento = function (elementError, val, element) {
 };
 
 var keyLugarNacimiento = function() {
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
     var $lugarNacimiento =$('#detUsuLugarNacimiento');
     if ($lugarNacimiento.val() === "") {
         addNegativeAttributtes('detUsuLugarNacimiento');

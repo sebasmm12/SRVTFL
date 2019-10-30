@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <link rel="stylesheet" th:href="@{/css/sebas/style.css}">
+    <link rel="stylesheet" th:href="@{/css/sebas/RealizarSesionTratamiento/style.css}">
+    <body>
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+                            <div class="container mt-2 py-2">
+                                <div class="card bg-light">
+                                    <h2 class="text-secondary card-header">Registrar Diagnóstico</h2>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-12">
+                                                <div>
+                                                    <label class="label-size">
+                                                        Observaciones:
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaObservaciones" rows="3" placeholder="Ingrese observaciones"></textarea>
+                                                <div>
+                                                    <span id="ObservacionesError"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-12">
+                                                <div>
+                                                    <label class="label-size">
+                                                        Diagnóstico:
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaDiagnostico" rows="3" placeholder="Ingrese Diagnóstico"></textarea>
+                                                <div>
+                                                    <span id="DiagnosticoError"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-12">
+                                                <div>
+                                                    <label class="label-size">
+                                                        Recomendación
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaRecomendacion" rows="3" placeholder="Ingrese Recomendacion"></textarea>
+                                                <div>
+                                                    <span id="RecomendacionError"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-12">
+                                                <button class="btn btn-success btn-SesionTratamiento btnDiagnostico" id="btnRegistrarDiagnostico">
+                                                    <i class="fa fa-file-text icon-tratamiento"></i>
+                                                    Registrar Diagnóstico
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" class="d-none" th:value="${citId}" />
+                        </div>
+                        <div th:replace="layout/layout :: styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layout/layout :: footer"></footer>
+        <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarRespuestas.js}"></script>
+    </body>
+</html>

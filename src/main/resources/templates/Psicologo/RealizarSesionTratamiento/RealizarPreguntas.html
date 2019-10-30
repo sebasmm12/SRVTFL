@@ -57,7 +57,7 @@ and open the template in the editor.
                                                 <nav th:replace="Usability/paginator-nav :: paginator"></nav>
                                             </div>
                                             <div class="col-sm-4 text-right col-12">
-                                                <button class="btn btn-success" id="btnRegistrarRespuestas">
+                                                <button class="btn btn-success  btn-SesionTratamiento" id="btnRegistrarRespuestas">
                                                     <i class="fa fa-file" style="font-size: 20px !important"></i>
                                                     Registrar Preguntas
                                                 </button>
@@ -65,7 +65,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="citId" th:value="${cita.citId}" />
+                                <input type="text" class="d-none" id="citId" th:value="${cita.citId}" />
                             </div>
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>

@@ -300,4 +300,9 @@ public class PsicologoController {
         model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
+    @GetMapping(value ="/RegistarDiagnostico")
+    public String RegistrarDiagnostico(Model model, @RequestParam(value ="citId") Long Id) {
+        model.addAttribute("citId", Id);
+        return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
+    }
 }

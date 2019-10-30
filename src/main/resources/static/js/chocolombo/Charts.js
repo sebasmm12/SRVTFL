@@ -77,9 +77,15 @@ btnSimuFin.addEventListener('click', function () {
         type: 'POST',
         data: JSON.stringify(resSim),
         success: function (data) {
-            if (data === "1") {
-                console.log("Finalizaion ejecutada");
-            }
+            Swal.fire({
+                    type: 'success',
+                    title: 'Se registro las observaciones exitosamente',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = "/psicologo/RegistarDiagnostico?citId="+data;
+                    }
+                });
         }
     });
     document.getElementById("btnsimulacionInicio").disabled = false;

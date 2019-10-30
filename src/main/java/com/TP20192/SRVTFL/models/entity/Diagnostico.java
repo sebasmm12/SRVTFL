@@ -8,9 +8,12 @@ package com.TP20192.SRVTFL.models.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -30,7 +33,7 @@ public class Diagnostico implements Serializable{
     @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dia_id")
-    private int diaId;
+    private Long diaId;
     
     @NotEmpty
     @Column(name="dia_pruebas_aplicadas")
@@ -42,22 +45,39 @@ public class Diagnostico implements Serializable{
     
     
     @NotEmpty
-    @Column(name="dia_antecedentes_caso")
-    private String diaAntecedentesCaso;
-    
-    @NotEmpty
-    @Column(name="dia_antecedentes_personales")
-    private String diaAntecedentesPersonales;
+    @Column(name="dia_diagnostico")
+    private String diaDiagnostico;
+
+    public String getDiaDiagnostico() {
+        return diaDiagnostico;
+    }
+
+    public void setDiaDiagnostico(String diaDiagnostico) {
+        this.diaDiagnostico = diaDiagnostico;
+    }
     
     @NotEmpty
     @Column(name="dia_recomendacion")
     private String diaRecomendacion;
 
-    public int getDiaId() {
+    
+    @JoinColumn(name="cit_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cita citId;
+
+    public Cita getCitId() {
+        return citId;
+    }
+
+    public void setCitId(Cita citId) {
+        this.citId = citId;
+    }
+    
+    public Long getDiaId() {
         return diaId;
     }
 
-    public void setDiaId(int diaId) {
+    public void setDiaId(Long diaId) {
         this.diaId = diaId;
     }
 
@@ -75,22 +95,6 @@ public class Diagnostico implements Serializable{
 
     public void setDiaObservaciones(String diaObservaciones) {
         this.diaObservaciones = diaObservaciones;
-    }
-
-    public String getDiaAntecedentesCaso() {
-        return diaAntecedentesCaso;
-    }
-
-    public void setDiaAntecedentesCaso(String diaAntecedentesCaso) {
-        this.diaAntecedentesCaso = diaAntecedentesCaso;
-    }
-
-    public String getDiaAntecedentesPersonales() {
-        return diaAntecedentesPersonales;
-    }
-
-    public void setDiaAntecedentesPersonales(String diaAntecedentesPersonales) {
-        this.diaAntecedentesPersonales = diaAntecedentesPersonales;
     }
 
     public String getDiaRecomendacion() {

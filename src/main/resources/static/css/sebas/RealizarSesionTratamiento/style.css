@@ -41,3 +41,7 @@ and open the template in the editor.
 .card-altura {
     height: 20px;
 }
+.btnDiagnostico {
+    margin-top: 20% !important;
+    margin-left: 60% !important;
+}
