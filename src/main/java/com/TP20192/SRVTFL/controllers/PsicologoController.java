@@ -282,7 +282,7 @@ public class PsicologoController {
         citaService.registrarCita(cita);
         StaticInteger.setFinalizar(true);
         System.out.println("Resultado Simulacion Modificada");
-        return "1";
+        return cita.getCitId()+"";
     }
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {

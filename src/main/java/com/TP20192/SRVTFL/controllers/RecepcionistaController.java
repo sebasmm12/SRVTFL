@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.TP20192.SRVTFL.models.implementation.*;
 import com.TP20192.SRVTFL.models.entity.*;
 import com.TP20192.SRVTFL.models.service.ICitaService;
+import com.TP20192.SRVTFL.models.service.IFobiaService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.lang.reflect.Method;
@@ -52,6 +53,9 @@ public class RecepcionistaController {
 
     @Qualifier("UsuarioDatos")
     private IUsuarioService usuarioService;
+    
+    @Autowired
+    private IFobiaService fobiaService;
 
     @GetMapping("/index")
     public String index(Model model, Authentication authentication) {
@@ -248,6 +252,12 @@ public class RecepcionistaController {
     public @ResponseBody
     List<Paciente> cargarPacientes(@PathVariable(name = "term") String term) {
         return citaService.findPacienteByNombre(term);
+    }
+    
+    @GetMapping(value = "/cargar-fobias/{term}", produces = {"application/json"})
+    public @ResponseBody
+    List<Fobia> cargarFobias(@PathVariable(name = "term") String term) {
+        return fobiaService.findFobiaByNombre(term);
     }
 
     @GetMapping(value = "/cargar-psicologos/{term}", produces = {"application/json"})

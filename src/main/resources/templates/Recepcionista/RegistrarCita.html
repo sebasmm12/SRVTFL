@@ -25,89 +25,98 @@ and open the template in the editor.
                             <div class="container py-4">
                                 <div class="card bg-light">
                                     <div class="card-header">
-                                    <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h2>
+                                        <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h2>
                                     </div>
                                     <div th:object="${cita}" th:remove="tag">
                                         <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
                                             <li th:each="err: ${#fields.errors('*')}"
                                                 th:text="${err}"></li>
-                                            
+
                                         </ul>
                                     </div>
                                     <div class="card-body">
-                                        <form th:action="@{/Recepcionista/GuardarCita}" th:object="${cita}" method="post">
-                                            <!--<div th:object="${cliente}" th:remove="tag" class=" form-group row col-sm-8">
-                                                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                                    <li th:each="er: ${#fields.errors('*')}" th:text="${er}"></li>
-                                                </ul>
-                                            </div>-->
-                                            <div class="form-group row">
-                                                <label for="buscar_paciente"class="col-sm-2 col-form-label"
-                                                       th:text="'Paciente'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" name="buscar_paciente" id="buscar_paciente" class="form-control" />                           
-                                                   <!-- <small th:if="${#fields.hasErrors('pacientenombre')}" th:errors="'pacientenombre'"
-                                                           class="form-text text-danger"></small>-->
-                                                </div>
+                                        <!--form th:action="@{/Recepcionista/GuardarCita}" th:object="${cita}" method="post"-->
+                                        <!--<div th:object="${cliente}" th:remove="tag" class=" form-group row col-sm-8">
+                                            <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                                <li th:each="er: ${#fields.errors('*')}" th:text="${er}"></li>
+                                            </ul>
+                                        </div>-->
+                                        <div class="form-group row">
+                                            <label for="buscar_paciente"class="col-sm-2 col-form-label"
+                                                   th:text="'Paciente: '"></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="buscar_paciente" id="buscar_paciente" class="form-control" />                           
+                                                <div id="buscar_pacienteError"></div>
                                             </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="buscar_psicologo"class="col-sm-2 col-form-label"
-                                                       th:text="'Psicologo'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" name="buscar_psicologo" id="buscar_psicologo" class="form-control" />                           
-                                                   <!-- <small th:if="${#fields.hasErrors('pacientenombre')}" th:errors="'pacientenombre'"
-                                                           class="form-text text-danger"></small>-->
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            <div class="form-group row">
-                                                <label for="citMotivo" class="col-sm-2 col-form-label"
-                                                       th:text="'Motivo'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{citMotivo}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/> 
-                                                    <small th:if="${#fields.hasErrors('citMotivo')}" th:errors="*{citMotivo}"
-                                                           class="form-text text-danger"></small>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="citFechaHoraInicio" class="col-sm-2 col-form-label"
-                                                       th:text="'Hora de Inicio'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="datetime" th:field="*{citFechaHoraInicio}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('citFechaHoraInicio')}" th:errors="*{citFechaHoraInicio}"
-                                                           class="form-text text-danger"></small>
+                                        </div>
 
-                                                </div>
+                                        <div class="form-group row">
+                                            <label for="buscar_psicologo"class="col-sm-2 col-form-label"
+                                                   th:text="'Psicologo: '"></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="buscar_psicologo" id="buscar_psicologo" class="form-control" />                           
+                                                <div id="buscar_psicologoError"></div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="citFechaHoraFin" class="col-sm-2 col-form-label"
-                                                       th:text="'Hora de Finalizacion'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="datetime" th:p th:field="*{citFechaHoraFin}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('citFechaHoraFin')}" th:errors="*{citFechaHoraFin}"
-                                                           class="form-text text-danger"></small>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-6">
-                                                    <input type="submit" class="btn btn-success"
-                                                           value="Registrar Cita" id="btnRegistrarCita"/>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="paciente_id"  id="paciente_id"/>
-                                            <input type="hidden" name="psicologo_id"  id="psicologo_id"/>
-                                            <input type="hidden" th:field="*{citId}" />
-                                            <!-- comentado para utilizar una variable session -->
-                                        </form>
+                                        </div>
 
 
+                                        <div class="form-group row">
+                                            <label  class="col-sm-2 col-form-label"
+                                                    th:text="'Motivo de la cita: '"></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="citMotivo"/> 
+                                                <div id="citMotivoError"></div>
+                                            </div>
+                                        </div>
 
+                                        <div class="form-group row">
+                                            <label  class="col-sm-2 col-form-label"
+                                                    th:text="'Fobia Especifica: '"></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="buscar_fobia"/>
+                                                <div id="buscar_fobiaError"></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label  class="col-sm-2 col-form-label"
+                                                    th:text="'Fecha de la Cita: '"></label>
+                                            <div class="col-sm-6">
+                                                <input type="text" id="citFecha" class="form-control"/>
+                                                <div id="citFechaError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label"
+                                                   th:text="'Hora de Inicio'"></label>
+                                            <div class="col-sm-6">
+                                                <input type="time" class="form-control" id="fechaHoraInicio"/>
+                                                <div id="fechaHoraInicioError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label  class="col-sm-2 col-form-label"
+                                                    th:text="'Hora de Finalizacion'"></label>
+                                            <div class="col-sm-6">
+                                                <input type="time" id="fechaHoraFin" class="form-control"/>
+                                                <div id="fechaHoraFinError"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-outline-success" style="width:705px" id="btnRegistrarCita">
+                                                    <i class="fa fa-check"></i>
+                                                    <span class="btn-text">Registrar Cita</span>
+                                                </button>  
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="paciente_id"  id="paciente_id"/>
+                                        <input type="hidden" name="fobia_id"  id="fobia_id"/>
+                                        <input type="hidden" name="psicologo_id"  id="psicologo_id"/>
+                                        <!--input type="hidden" th:field="*{citId}" /-->
+                                        <!-- comentado para utilizar una variable session -->
+                                        <!--/form-->
                                     </div>
                                 </div>
                             </div>
@@ -122,5 +131,19 @@ and open the template in the editor.
     <footer th:replace="layout/layout :: footer"></footer>
     <script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script>
     <script th:replace="Recepcionista/js/autocomplete-psicologo :: javascript2"></script>
+    <script th:replace="Recepcionista/js/autocomplete-fobia :: javascript3"></script>
+    <script th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}">
+    <script>
+        $(function () {
+            $('#citFecha').datepicker({
+                'format': 'yyyy-mm-dd',
+                'autoclose': true,
+                language: 'es-ES',
+            });
+        });
+    </script>
+    <script th:src='@{/js/chocolombo/RegistrarCita.js}'> </script>
+
 </body>
 </html>

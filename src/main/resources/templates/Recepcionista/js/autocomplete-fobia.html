@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+  
+    <body>
+<script type="text/javascript" th:fragment="javascript3">
+	$(document).ready(function(){
+		
+		$("#buscar_fobia").autocomplete({
+			
+			source: function(request, response){
+				$.ajax({
+					url:"/Recepcionista/cargar-fobias/" + request.term,
+					dataType: "json",
+					data: {
+						term: request.term
+					},
+					success: function(data){
+						response($.map(data, function(item){
+							return {
+								value: item.fobId,
+								label: item.fobNombre,
+							};
+						}));
+					},
+				});
+			},
+			
+			select: function(event, ui){
+				$("#buscar_fobia").val(ui.item.label);
+				$("#fobia_id").val(ui.item.value);
+				/*if(itemsHelper.hasProducto(ui.item.value)){
+					itemsHelper.incrementaCantidad(ui.item.value,ui.item.precio);
+					return false;
+				}
+				
+				var linea = $("#plantillaItemsFactura").html(); //obtiene el contenido del componente HTML
+				linea = linea.replace(/{ID}/g, ui.item.value);
+				linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+				linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+				//cambiando los valores que tendra cada linea
+				
+				$("#cargarItemProductos tbody").append(linea);
+				itemsHelper.calcularImporte(ui.item.value,ui.item.precio,1);*/
+				
+				return false;
+			}
+		});
+	});
+</script>
+</body>
+    
+</html>
