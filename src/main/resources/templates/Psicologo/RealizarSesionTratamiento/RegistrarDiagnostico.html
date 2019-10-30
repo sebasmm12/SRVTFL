@@ -27,23 +27,51 @@ and open the template in the editor.
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-12">
-                                                
+                                                <div>
+                                                    <label class="label-size">
+                                                        Observaciones:
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaObservaciones" rows="3" placeholder="Ingrese observaciones"></textarea>
+                                                <div>
+                                                    <span id="ObservacionesError"></span>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-12">
-                                                
+                                                <div>
+                                                    <label class="label-size">
+                                                        Diagnóstico:
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaDiagnostico" rows="3" placeholder="Ingrese Diagnóstico"></textarea>
+                                                <div>
+                                                    <span id="DiagnosticoError"></span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-12">
-                                                
+                                                <div>
+                                                    <label class="label-size">
+                                                        Recomendación
+                                                    </label>
+                                                </div>
+                                                <textarea class="form-control" id="diaRecomendacion" rows="3" placeholder="Ingrese Recomendacion"></textarea>
+                                                <div>
+                                                    <span id="RecomendacionError"></span>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-12">
-                                                
+                                                <button class="btn btn-success btn-SesionTratamiento btnDiagnostico" id="btnRegistrarDiagnostico">
+                                                    <i class="fa fa-file-text icon-tratamiento"></i>
+                                                    Registrar Diagnóstico
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <input type="text" class="d-none" th:value="${citId}" />
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>
                     </div>

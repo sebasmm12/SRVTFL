@@ -282,7 +282,7 @@ public class PsicologoController {
         citaService.registrarCita(cita);
         StaticInteger.setFinalizar(true);
         System.out.println("Resultado Simulacion Modificada");
-        return "1";
+        return cita.getCitId()+"";
     }
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -299,5 +299,10 @@ public class PsicologoController {
         model.addAttribute("page", pageRender);
         model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
+    }
+    @GetMapping(value ="/RegistarDiagnostico")
+    public String RegistrarDiagnostico(Model model, @RequestParam(value ="citId") Long Id) {
+        model.addAttribute("citId", Id);
+        return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
 }

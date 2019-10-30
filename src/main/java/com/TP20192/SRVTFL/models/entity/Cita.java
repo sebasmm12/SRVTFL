@@ -78,9 +78,6 @@ public class Cita implements Serializable {
     @JoinColumn(name="est_cit_id")
     private EstadoCita estadoCita;
 
-    //@NotEmpty
-    @Column(name= "dia_id")
-    private Integer diaId;
 
     public Tratamiento getTratId() {
         return tratId;
@@ -144,15 +141,7 @@ public class Cita implements Serializable {
     public void setCitObservacion(String citObservacion) {
         this.citObservacion = citObservacion;
     }
-
-    public Integer getDiaId() {
-        return diaId;
-    }
-
-    public void setDiaId(Integer diaId) {
-        this.diaId = diaId;
-    }
-
+    
     public Integer getSimId() {
         return simId;
     }
