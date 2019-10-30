@@ -5,8 +5,10 @@
  */
 package com.TP20192.SRVTFL.RestController;
 
+import com.TP20192.SRVTFL.models.JsonClass.DiagnosticoJson;
 import com.TP20192.SRVTFL.models.JsonClass.RespuestaJson;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Diagnostico;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -39,7 +41,7 @@ public class SesionTratamientoRestController {
 
     @Autowired
     private ICitaService citaService;
-    
+
     @RequestMapping(value = "/buscar", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView buscarFiltros(String nombrePaciente, String datetime, int page, ModelAndView model, String selectFiltroFecha, String selectFiltroPaciente) throws ParseException {
 
@@ -77,12 +79,13 @@ public class SesionTratamientoRestController {
         model.setViewName("Psicologo/RealizarSesionTratamiento/_ListarCitas");
         return model;
     }
-    @RequestMapping(value="/registrar", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+
+    @RequestMapping(value = "/registrar", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     public String Registrar(@RequestBody List<RespuestaJson> listRespuesta) {
-        
+
         Cita cita = citaService.obtenerCita(listRespuesta.get(0).getCitId());
         for (int i = 0; i < listRespuesta.size(); i++) {
-            
+
             Respuesta respuesta = new Respuesta();
             respuesta.setResRespuesta(listRespuesta.get(i).getResRespuesta());
             respuesta.setCitaId(cita);
@@ -90,6 +93,22 @@ public class SesionTratamientoRestController {
             respuesta.setPregId(pregunta);
             citaService.save(respuesta);
         }
+        return "1";
+    }
+
+    @RequestMapping(value = "/registrarDiagnostico", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public String RegistrarDiagnostico(@RequestBody DiagnosticoJson DiagnosticoJson) {
+
+        Cita cita = citaService.obtenerCita(DiagnosticoJson.getCitId());
+
+        Diagnostico diagnostico = new Diagnostico();
+
+        diagnostico.setDiaDiagnostico(DiagnosticoJson.getDiaDiagnostico());
+        diagnostico.setDiaObservaciones(DiagnosticoJson.getDiaObservaciones());
+        diagnostico.setDiaPruebasAplicadas(DiagnosticoJson.getDiaPruebasAplicadas());
+        diagnostico.setDiaRecomendacion(DiagnosticoJson.getDiaRecomendacion());
+        diagnostico.setCitId(cita);
+        citaService.registrarDiagnostico(diagnostico);
         return "1";
     }
 }

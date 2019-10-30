@@ -8,12 +8,14 @@ package com.TP20192.SRVTFL.models.implementation;
 import com.TP20192.SRVTFL.models.dao.IActividadDao;
 import com.TP20192.SRVTFL.models.dao.ICitaDao;
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
+import com.TP20192.SRVTFL.models.dao.IDiagnosticoDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
 import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.Diagnostico;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
@@ -51,6 +53,9 @@ public class CitaServiceImpl implements ICitaService {
     
     @Autowired
     public IRespuestaDao respuestaDao;
+    
+    @Autowired
+    public IDiagnosticoDao diagnosticoDao;
     
     @Transactional(readOnly = true)
     @Override
@@ -209,4 +214,10 @@ public class CitaServiceImpl implements ICitaService {
         respuestaDao.save(r);
     }
 
+    @Transactional
+    @Override
+    public void registrarDiagnostico(Diagnostico d) {
+        diagnosticoDao.save(d);
+    }
+    
 }
