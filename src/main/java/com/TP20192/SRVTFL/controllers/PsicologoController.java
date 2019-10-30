@@ -23,8 +23,11 @@ import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -298,6 +301,7 @@ public class PsicologoController {
         model.addAttribute("cita", cita);
         model.addAttribute("page", pageRender);
         model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        citaService.registrarCita(cita);
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
     @GetMapping(value ="/RegistarDiagnostico")

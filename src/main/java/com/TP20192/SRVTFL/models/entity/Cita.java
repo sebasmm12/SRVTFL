@@ -113,14 +113,16 @@ public class Cita implements Serializable {
     private Date citFechaHoraFin;
     
     //@NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_inicio_real")
-    private String citFechaHoraInicioReal;
+    private Date citFechaHoraInicioReal;
     
     //@NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name= "cit_fecha_hora_fin_real")
-    private String citFechaHoraFinReal;
+    private Date citFechaHoraFinReal;
     
     @NotEmpty
     @Size(min=2, max=255)
@@ -192,19 +194,19 @@ public class Cita implements Serializable {
     }
 
     
-    public String getCitFechaHoraInicioReal() {
+    public Date getCitFechaHoraInicioReal() {
         return citFechaHoraInicioReal;
     }
 
-    public void setCitFechaHoraInicioReal(String citFechaHoraInicioReal) {
+    public void setCitFechaHoraInicioReal(Date citFechaHoraInicioReal) {
         this.citFechaHoraInicioReal = citFechaHoraInicioReal;
     }
 
-    public String getCitFechaHoraFinReal() {
+    public Date getCitFechaHoraFinReal() {
         return citFechaHoraFinReal;
     }
 
-    public void setCitFechaHoraFinReal(String citFechaHoraFinReal) {
+    public void setCitFechaHoraFinReal(Date citFechaHoraFinReal) {
         this.citFechaHoraFinReal = citFechaHoraFinReal;
     }
    

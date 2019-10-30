@@ -9,6 +9,7 @@ import com.TP20192.SRVTFL.models.JsonClass.DiagnosticoJson;
 import com.TP20192.SRVTFL.models.JsonClass.RespuestaJson;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Diagnostico;
+import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -101,6 +102,10 @@ public class SesionTratamientoRestController {
 
         Cita cita = citaService.obtenerCita(DiagnosticoJson.getCitId());
 
+        EstadoCita estCit = citaService.findEstadoCitaById(3);
+        
+        cita.setEstadoCita(estCit);
+        
         Diagnostico diagnostico = new Diagnostico();
 
         diagnostico.setDiaDiagnostico(DiagnosticoJson.getDiaDiagnostico());
@@ -108,7 +113,25 @@ public class SesionTratamientoRestController {
         diagnostico.setDiaPruebasAplicadas(DiagnosticoJson.getDiaPruebasAplicadas());
         diagnostico.setDiaRecomendacion(DiagnosticoJson.getDiaRecomendacion());
         diagnostico.setCitId(cita);
+        
+        
+        
         citaService.registrarDiagnostico(diagnostico);
+        return "1";
+    }
+
+    @RequestMapping(value = "/registrarFecha", method = RequestMethod.POST)
+    public String RegistrarFechaInicio(String fecha, Long citId) throws ParseException {
+        Cita cita = citaService.obtenerCita(citId);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date fechaD = new Date();
+
+        fechaD = format.parse(fecha);
+        cita.setCitFechaHoraInicioReal(fechaD);
+
+        citaService.registrarCita(cita);
+
         return "1";
     }
 }
