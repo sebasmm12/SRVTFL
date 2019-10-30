@@ -133,6 +133,17 @@ public class Cita implements Serializable {
     //@Defa
     @Column(name= "cit_vr")
     private boolean citVr;
+    
+    @Column(name= "cit_observacion")
+    private String citObservacion;
+
+    public String getCitObservacion() {
+        return citObservacion;
+    }
+
+    public void setCitObservacion(String citObservacion) {
+        this.citObservacion = citObservacion;
+    }
 
     public Integer getDiaId() {
         return diaId;

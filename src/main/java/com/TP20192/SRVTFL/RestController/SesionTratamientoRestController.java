@@ -90,7 +90,6 @@ public class SesionTratamientoRestController {
             respuesta.setPregId(pregunta);
             citaService.save(respuesta);
         }
-        
         return "1";
     }
 }

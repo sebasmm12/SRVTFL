@@ -30,42 +30,54 @@ and open the template in the editor.
 
 
                                         <h2 align="center">Realizacion de Sesion de simulacion</h2>
-                                        
+
                                         <div class="container">
                                             <div class="form-group row m-t-25 m-l-25">
-                                            <button class="btn btn-outline-success btn-registrar col-sm-4"
-                                                    id="btnsimulacionInicio">
-                                                <i class="fa fa-play"></i> <span class="btn-text">INICIAR SIMULACION</span>
-                                            </button>
-                                             <button class="btn btn-outline-danger btn-registrar col-sm-4"
-                                                    id="btnsimulacionPausaReanudar">
-                                                <i class="fa fa-pause"></i> <span class="btn-text">PAUSAR SIMULACION</span>
-                                            </button>
-                                             <button class="btn btn-outline-warning btn-registrar col-sm-4"
-                                                    id="btnsimulacionFinalizar">
-                                                <i class="fa fa-check-square"></i> <span class="btn-text">FINALIZAR SESION</span>
-                                            </button>
-                                        </div>
+                                                <div class="col-sm-4">
+                                                    <button class="btn btn-outline-success btn-registrar m-r-5" style="width:350px"
+                                                            id="btnsimulacionInicio">
+                                                        <i class="fa fa-play"></i> <span class="btn-text">INICIAR SIMULACION</span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button class="btn btn-outline-danger btn-registrar m-r-5" style="width:350px"
+                                                            id="btnsimulacionPausaReanudar">
+                                                        <i class="fa fa-pause"></i> <span class="btn-text">PAUSAR SIMULACION</span>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button class="btn btn-outline-warning btn-registrar" style="width:350px"
+                                                            id="btnsimulacionFinalizar">
+                                                        <i class="fa fa-check-square"></i> <span class="btn-text">FINALIZAR SESION</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-outline-danger" style="width:1064px"
+                                                            id="btnFinalizarAbruptamente">
+                                                        <i class="fa fa-check-square"></i> <span class="btn-text">FINALIZAR SESION ABRUPTAMENTE</span>
+                                                    </button>
+                                            </div>
                                             <div class="chart-container"
-						style="position: relative; height: 400px; width: 1050px; margin-left: auto; margin-right: auto">
-						<canvas id="myChart" style="margin-left: auto; margin-right: auto; width:1000px !important;
-  							height:400px !important;"></canvas>
-					</div>
+                                                 style="position: relative; height: 400px; width: 1050px; margin-left: auto; margin-right: auto">
+                                                <canvas id="myChart" style="margin-left: auto; margin-right: auto; width:1000px !important;
+                                                        height:400px !important;"></canvas>
+                                            </div>
 
                                         </div>
-                                        
+
                                         <div class="form-group row m-l-25">
-                                                <label for="detUsuTelefono"class="col-sm-3 col-form-label"
-                                                       th:text="'Observaciones en la Simulacion: '"></label>
-                                                <div class="col-sm-9">
-                                                    <textarea type="textarea" id="observaciones" class="form-control col-sm-12" 
-                                                              style="height: 100px">
-                                                        
-                                                    </textarea>
-                                                    <div id="observacionesError"></div>
-                                                </div>
+                                            <label for="detUsuTelefono"class="col-sm-3 col-form-label"
+                                                   th:text="'Observaciones en la Simulacion: '"></label>
+                                            <div class="col-sm-9">
+                                                <textarea type="textarea" id="observaciones" class="form-control col-sm-12" 
+                                                          style="height: 100px">
+
+                                                </textarea>
+                                                <div id="observacionesError"></div>
+                                            </div>
                                         </div>
-                                        
+
                                         <!--div class="form-group row m-t-25 m-l-25">
                                             <label class="col-sm-3 col-form-label"
                                                    th:text="'Ingrese Coordenada'"></label>
@@ -89,9 +101,11 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <input type="hidden" id="citId" th:value="${citId}"/>
+        <input type="hidden" id="resSimId"/>
         <footer th:replace="layout/layout :: footer"></footer>
-        
-        
+
+
         <script
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <script th:src="@{/js/chocolombo/Charts.js}"></script>
