@@ -55,6 +55,7 @@ public class UsuarioRestController {
         Long Id = ((Usuario) model.get("usuario")).getUsu_id();
         DetUsuModificado.setUsu_id(Id);
         Usuario usuario=((Usuario) model.get("usuario"));
+        DetUsuModificado.setUsuario(usuario);
         DetUsuModificado.getUsuario().setUsu_id(Id);
         DetUsuModificado.getUsuario().setEstadoUsuario(usuario.getEstadoUsuario());
         DetUsuModificado.getUsuario().setUsu_codigo(DetalleUsuarioJson.getUsuario().getUsu_codigo());

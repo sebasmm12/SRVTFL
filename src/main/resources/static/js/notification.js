@@ -187,7 +187,6 @@ var registrarCita = function () {
         $.ajax({
             url: "/api/recepcionista/ingresarCita",
             type: 'POST',
-            async: false,
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(citaJson),
             success: function (data) {

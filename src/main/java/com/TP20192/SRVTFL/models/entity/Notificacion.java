@@ -142,5 +142,5 @@ public class Notificacion implements Serializable {
     public void setTipNotId(TipoNotificacion tipNotId) {
         this.tipNotId = tipNotId;
     }
-
+    
 }
