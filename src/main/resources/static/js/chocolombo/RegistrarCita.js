@@ -156,7 +156,7 @@ var validacionCitaActualizaion = function () {
 
 
     } else {
-//actualizarCita();
+        actualizarCita();
         actualizarCita();
     }
 };

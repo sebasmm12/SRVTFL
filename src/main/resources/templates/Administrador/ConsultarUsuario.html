@@ -28,7 +28,11 @@ and open the template in the editor.
 
                                             <h2 class="card-header col-md-8" th:text="${titulo}"></h2>
 
-                                            <a class="btn btn-secondary btn-xs col-md-4 align-content-center m-t-15 m-b-20" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>
+                                            <a class="btn btn-outline-secondary btn-xs col-md-4 align-content-center m-t-15 m-b-20" th:href="@{/Administrador/GestionarUsuarios}">
+                                                
+                                                 <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion de Usuario</span>
+                                            </a>
                                         </div>
 
                                         <div class="m-b-15 card p-l-15 col-sm-12">
@@ -70,14 +74,17 @@ and open the template in the editor.
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                <img th:if="${#strings.length(detUsu.detUsuImagen) > 0}"
+                                                <img th:if="${detUsu.detUsuImagen != null}"
                                                      class="img-thumbnail img-fluid rounded col-sm-12 m-t-20" style="max-width: 100%"
                                                      th:src="@{'/SRVTFLrepo/' + ${detUsu.detUsuImagen}}" th:alt="${detUsu.detUsuImagen}" />
+                                                <img th:if="${detUsu.detUsuImagen == null}"
+                                                     class="img-thumbnail img-fluid rounded col-sm-12 m-t-20" style="max-width: 100%"
+                                                     th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" />
                                                 </div>
                                                 </div>
 
                                             <!--falta el selector para el tipo de documento-->
-                                            <div class="form-group row m-l-25">
+                                            <div class="form-group row m-l-25 m-t-15">
 
                                                 <label for=""class="col-sm-3 col-form-label"
                                                        th:text="'Numero de Documento:'"></label>
@@ -166,8 +173,12 @@ and open the template in the editor.
                                         </div>
 
                                         <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <a class="btn btn-secondary btn-xs col-md-4 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> &laquo; Volver</a>
+                                            <div class="col-sm-12">
+                                                <a class="btn btn-outline-secondary btn-xs col-sm-12 align-content-end" th:href="@{/Administrador/GestionarUsuarios}"> 
+                                                    <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion de Usuario</span>
+                                                </a>
+                                                
                                             </div>
                                         </div>
                                         <!--input type="hidden" th:field="*{usu_id}" /-->

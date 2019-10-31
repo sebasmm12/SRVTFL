@@ -205,7 +205,6 @@ var registrar = function () {
         detUsuLugarNacimiento: detUsuLugarNacimiento,
         detUsuEstadoCivil: detUsuEstadoCivil,
         detUsuSexo: detUsuSexo,
-        tipDocId: tipDocId,
         detUsuCodigoColegio: detUsuCodigoColegio,
         detUsuEspecialidad: detUsuEspecialidad,
         detUsuOcupacion: detUsuOcupacion,
@@ -214,7 +213,8 @@ var registrar = function () {
     };
     var detUsuJ = {
         detalleUsuario: detUsu,
-        usuario: usuario
+        usuario: usuario,
+        tipDoc: tipDocId
     };
 
     $.ajax({

@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.models.JsonClass;
 
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 
 /**
@@ -15,7 +16,17 @@ import com.TP20192.SRVTFL.models.entity.Usuario;
 public class DetalleUsuarioJson {
     
     private DetalleUsuario detalleUsuario;
+    private TipoDocumento tipDoc;
+    
 
+    public TipoDocumento getTipDoc() {
+        return tipDoc;
+    }
+
+    public void setTipDoc(TipoDocumento tipDoc) {
+        this.tipDoc = tipDoc;
+    }
+    
     public DetalleUsuario getDetalleUsuario() {
         return detalleUsuario;
     }

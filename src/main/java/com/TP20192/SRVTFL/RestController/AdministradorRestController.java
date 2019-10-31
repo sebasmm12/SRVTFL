@@ -10,6 +10,7 @@ import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
 import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.entity.UsuarioRol;
 import com.TP20192.SRVTFL.models.entity.UsuarioRolId;
@@ -61,6 +62,8 @@ public class AdministradorRestController {
         detUsu.setUsu_id(u.getUsu_id());
         detUsu.setUsuario(u);
         Integer index = 1;
+        TipoDocumento td = detUsuJ.getTipDoc();
+        detUsu.setTipDocId(td);
         detUsu.setTipDetUsuId(usuarioService.encontrarTipoDetalleUsuarioPorId(index.longValue()));
         usuarioService.guardarDetalleUsuario(detUsu);
 
