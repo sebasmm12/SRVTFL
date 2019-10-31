@@ -19,10 +19,22 @@ and open the template in the editor.
                         <nav th:replace="layout/layout :: navbar_navegation"></nav>
                         <div class="pcoded-content">
                             <!--Aqui es el RenderBody-->
-                            <h2>Ejemplo Psicologo </h2>
-                            <input type="text" id="notificacionMensaje" name="notificacionMensaje" class="form-control" />
-                            <button type="button" id="btnEnviar">Enviar Notificacion</button>
-                            <button type="button" id="btnRegistrar">Registrar</button>
+                            <div class="container mt-2 mb-2">
+                                <div th:each="Notificacion : ${usuario.Notificaciones}">
+                                    <div class="alert alert-info" role="alert" style="cursor: pointer">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="alert-heading font-weight-bolder" th:text="${Notificacion.notNombre}"></h4>
+                                        <p th:text="${Notificacion.notDescripcion}"></p>
+                                        <hr>
+                                        <p class="mb-0 text-right">
+                                            <img th:if="${#strings.length(Notificacion.usuId.detalleUsuario.detUsuImagen) > 0}"
+                                                 class="img-radius" style="width: 50px !important; height: 50px"
+                                                 th:src="@{'/SRVTFLrepo/' + ${Notificacion.usuId.detalleUsuario.detUsuImagen}}" th:alt="${Notificacion.usuId.detalleUsuario.detUsuImagen}"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>
                     </div>
