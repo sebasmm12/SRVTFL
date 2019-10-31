@@ -32,7 +32,7 @@ public class Simulacion implements Serializable{
     @Id
     @NotEmpty
     @Column(name="sim_id")
-    private int simId;
+    private Long simId;
     
     @NotEmpty
     @Column(name="sim_nombre")
@@ -46,15 +46,24 @@ public class Simulacion implements Serializable{
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Fobia fobia;
-    
-    public int getSimId() {
+
+    public Long getSimId() {
         return simId;
     }
 
-    public void setSimId(int simId) {
+    public void setSimId(Long simId) {
         this.simId = simId;
     }
 
+    public Fobia getFobia() {
+        return fobia;
+    }
+
+    public void setFobia(Fobia fobia) {
+        this.fobia = fobia;
+    }
+    
+    
     public String getSinNombre() {
         return sinNombre;
     }

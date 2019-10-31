@@ -8,6 +8,7 @@ package com.TP20192.SRVTFL.controllers;
 import com.TP20192.SRVTFL.models.dao.IPulsoSimulacionDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Nivel;
 import com.TP20192.SRVTFL.models.entity.Fobia;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
@@ -26,8 +27,11 @@ import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -304,17 +308,26 @@ public class PsicologoController {
             tratId = true;
         }
         Pageable pageRequest = PageRequest.of(page, 10);
-        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId().intValue(), pageRequest);
+
+        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId().longValue(), pageRequest);
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
         model.addAttribute("preguntas", preguntas);
         model.addAttribute("cita", cita);
         model.addAttribute("page", pageRender);
         model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        citaService.registrarCita(cita);
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
     @GetMapping(value ="/RegistarDiagnostico")
-    public String RegistrarDiagnostico(Model model, @RequestParam(value ="citId") Long Id) {
+    public String RegistrarDiagnostico(Model model, @RequestParam(value ="citId") Long Id,@RequestParam(value= "simId") Long simId) {
+        ResultadoSimulacion resultadoSim = resultadoSimulacionService.findbyId(simId);
+        Cita cita = citaService.obtenerCita(Id);
+        Nivel nivelInicial = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelInicial().longValue(),cita.getSimId());
+        Nivel nivelFinal = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelFinal().longValue(),cita.getSimId());
         model.addAttribute("citId", Id);
+        model.addAttribute("resultadoSim", resultadoSim);
+        model.addAttribute("nivelInicial", nivelInicial);
+        model.addAttribute("nivelFinal", nivelFinal);
         return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
 }

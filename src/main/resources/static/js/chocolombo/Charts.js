@@ -83,7 +83,7 @@ btnSimuFin.addEventListener('click', function () {
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = "/psicologo/RegistarDiagnostico?citId="+data;
+                        window.location.href = "/psicologo/RegistarDiagnostico?citId="+data+"&simId="+resSim.resSimId;
                     }
                 });
         }

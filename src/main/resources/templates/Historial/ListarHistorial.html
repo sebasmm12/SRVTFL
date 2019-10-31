@@ -6,6 +6,8 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="layout/layout :: head"></head>
+    <link rel="stylesheet" th:href="@{/css/sebas/style.css}">
+    <link rel="stylesheet" th:href="@{/css/sebas/RealizarSesionTratamiento/style.css}">
     <body>
         <div th:replace="layout/layout :: loader"></div>
         <div id="pcoded" class="pcoded">
@@ -28,45 +30,11 @@ and open the template in the editor.
                                         th:text="${titulo}"></h2>
                                     <div class="card-body">
                                         <div class="row">
-                                            <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                       th:text="'Nombre del Paciente:'"></label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control"/>                                                  
-                                                </div>
-                                                <a  class="btn btn-success btn-xs m-b-10 col-sm-1" th:text="'Filtrar'" ></a>
-                                                
-                                        <h4 class="card-title col-sm-4">
-                                            <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
-                                               align-items-lg-end">Registrar
-                                                Nueva Cita</a>
-                                        </h4>
+                                            <div class="col-sm-12 col-12 col-md-12">
+                                                <div th:replace="Historial/_TablaCitasPaciente :: ListCitasPaciente"></div>
+                                            </div>
                                         </div>
 
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Paciente</th>
-                                                    <th>Motivo</th>
-                                                    <th>Fecha de atencion</th>
-                                                                                               
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="cita: ${citas}">
-                                                    <td>
-                                                        <a class="btn btn-success btn-xs" 
-                                                           th:href="@{'/Historial/detalleCita/' + ${cita.citId}}"
-                                                           th:text="${cita.citId}"></a>
-                                                    </td>
-                                                    <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
-                                                    <td th:text="${cita.citMotivo}"></td>
-                                                    <td th:text="${cita.citFechaHoraFin}"></td>
-                                                  
-                                                     </tr>
-                                            </tbody>
-                                        </table>
-                                        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
                                     </div>
                                 </div>
                             </div>

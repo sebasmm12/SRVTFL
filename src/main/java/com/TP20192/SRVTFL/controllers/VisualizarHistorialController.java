@@ -32,16 +32,16 @@ public class VisualizarHistorialController {
     @Autowired  
     public ICitaService citaService;
     
-    @GetMapping("/Ver")
-    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Map<String,Object> model){
-        
-        Long id =((Usuario)model.get("usuario")).getUsu_id();
+    @GetMapping("/Ver/{id}")
+    public String listarCita(@RequestParam(name="page", defaultValue="0") int page, Model model,
+             @PathVariable(name="id") Long id/* Map<String,Object> model*/){
+               /* Long id =((Usuario)model.get("usuario")).getUsu_id();*/
         Pageable pageRequest = PageRequest.of(page, 5);    
         Page<Cita> citas = citaService.obtenerCitasporPaciente(id,pageRequest);        
-        PageRender<Cita> pageRender= new PageRender("/Historial/Ver",citas);
-        model.put("titulo", "Visualizar Historial");
-        model.put("citas",citas);
-        model.put("page",pageRender);
+        PageRender<Cita> pageRender= new PageRender("/Historial/Ver/"+id,citas);
+        model.addAttribute("titulo", "Visualizar Historial");
+        model.addAttribute("citas",citas);
+        model.addAttribute("page",pageRender);
         return "Historial/ListarHistorial";       
     }
     

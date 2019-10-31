@@ -30,7 +30,6 @@ public class Diagnostico implements Serializable{
     }
     
     @Id
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dia_id")
     private Long diaId;

@@ -39,7 +39,10 @@ and open the template in the editor.
 
                                                 </div>
                                                 <div class="card-body">
-                                                    <textarea class="form-control respuestas" name="respuesta[]" rows="3" placeholder="Registre Respuesta del Paciente"></textarea>
+                                                    <textarea class="form-control respuestas" name="respuesta[]" rows="3" placeholder="Registre Respuesta del Paciente" th:attr="data-id=${pregunta.pregId}" th:id="'Respuesta'+${pregunta.pregId}"></textarea>
+                                                    <div>
+                                                        <span th:id="'RespuestaError'+${pregunta.pregId}"></span>
+                                                    </div>
                                                     <input type="hidden" class="Id" th:value="${pregunta.pregId}" />
                                                 </div>
                                                 <div class="card-footer text-right footer-pregunta">

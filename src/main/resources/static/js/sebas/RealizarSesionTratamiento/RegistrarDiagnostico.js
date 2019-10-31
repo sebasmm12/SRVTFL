@@ -24,22 +24,51 @@ var RegistrarDiagnostico = function () {
 
 };
 
-var Guardar = function (){
-    
+var Guardar = function () {
+
     let params = new URLSearchParams(location.search);
-    
+
     var citId = params.get('citId');
-    
+
+    var Observaciones = $("#diaObservaciones");
+    var Diagnostico = $("#diaDiagnostico");
+    var Recomendacion = $("#diaRecomendacion");
+
+    var DiagnosticoJson = {
+        diaId: null,
+        diaPruebasAplicadas: 'Se hizo 1 prueba de Realidad Virtual',
+        diaObservaciones: Observaciones.val(),
+        diaDiagnostico: Diagnostico.val(),
+        diaRecomendacion: Recomendacion.val(),
+        citId: parseInt(citId, 10)
+    };
+
     $.ajax({
-       url : '',
-       type: 'POST',
-       
+        url: '/api/sesion/registrarDiagnostico',
+        type: 'POST',
+        data: JSON.stringify(DiagnosticoJson),
+        contentType: 'application/json;charset=utf-8',
+        success: function (data) {
+            if (data === "1") {
+                 Swal.fire({
+                    type: 'success',
+                    title: 'Se registro el diagnóstico exitosamente',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.href = "/psicologo/RealizarSesionTratamiento";
+                    }
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {},
+        complete: function (jqXHR, textStatus) {}
     });
 };
 
 var ValidacionObservaciones = function (element, val, elementError) {
 
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     if (val === "") {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar una observación');
@@ -53,13 +82,13 @@ var ValidacionObservaciones = function (element, val, elementError) {
         } else {
             addNegativeAttributtes(element);
             addNegativeHtml(elementError, 'Debe ingresar una observación');
-            $('#' + element).keyup();
+            $('#' + element).keyup(keyObservacion);
         }
     }
 };
 
 var keyObservacion = function () {
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     var Observaciones = $("#diaObservaciones");
     if (Observaciones.val() === "") {
         addNegativeAttributtes('diaObservaciones');
@@ -80,7 +109,7 @@ var keyObservacion = function () {
 };
 
 var ValidacionDiagnostico = function (element, val, elementError) {
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     if (val === "") {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar un diagnóstico');
@@ -99,8 +128,8 @@ var ValidacionDiagnostico = function (element, val, elementError) {
     }
 };
 
-var KeyDiagnostico = function (){
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+var KeyDiagnostico = function () {
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     var Diagnostico = $("#diaDiagnostico");
     if (Diagnostico.val() === "") {
         addNegativeAttributtes('diaDiagnostico');
@@ -122,7 +151,7 @@ var KeyDiagnostico = function (){
 
 
 var ValidacionRecomendacion = function (element, val, elementError) {
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     if (val === "") {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar una recomendación');
@@ -143,8 +172,8 @@ var ValidacionRecomendacion = function (element, val, elementError) {
 };
 
 
-var KeyRecomendacion = function (){
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+var KeyRecomendacion = function () {
+    var RegularExpression = /^(([A-Za-záéíóúñ])*(\s){0,1}([A-Za-záéíóúñ\d]))+$/;
     var Recomendacion = $("#diaRecomendacion");
     if (Recomendacion.val() === "") {
         addNegativeAttributtes('diaRecomendacion');

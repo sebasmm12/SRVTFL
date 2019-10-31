@@ -26,7 +26,50 @@ and open the template in the editor.
                                     <h2 class="text-secondary card-header">Registrar Diagnóstico</h2>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-12">
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6">
+                                                <div>
+                                                    <label class="label-size">Nivel donde empezó la Simulación</label>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" th:value="${nivelInicial.detNivDescripcionNivel}" readonly="readonly" />
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6">
+                                                <div>
+                                                    <label class="label-size">Nivel donde terminó la Simulación</label>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" th:value="${nivelFinal.detNivDescripcionNivel}" readonly="readonly" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6 mt-2">
+                                                <div>
+                                                    <label class="label-size">Fecha de Inicio la Simulación</label>
+                                                </div>
+                                                <input type="date" class="form-control bg-white" th:value="${resultadoSim.restSimInicio}" readonly="readonly" />
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6 mt-2">
+                                                <div>
+                                                    <label class="label-size">Fecha Fin la Simulación</label>
+                                                </div>
+                                                <input type="date" class="form-control bg-white" th:value="${resultadoSim.restSimFinal}" readonly="readonly" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6 mt-2">
+                                                <div>
+                                                    <label class="label-size">Salida de Emergencia</label>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" th:value="'No necesito salida de emergencia'" th:if="${!resultadoSim.restSimSalidaEmergencia}" readonly="readonly" />
+                                                <input type="text" class="form-control bg-white" th:value="'Si necesito salida de emergencia'" th:if="${resultadoSim.restSimSalidaEmergencia}" readonly="readonly" />
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-12 col-xl-6 mt-2">
+                                                <div>
+                                                    <label class="label-size">Pulso Promedio</label>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" th:value="${resultadoSim.restSimPulsoPromedio}" readonly="readonly" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-12 mt-2">
                                                 <div>
                                                     <label class="label-size">
                                                         Observaciones:
@@ -37,7 +80,7 @@ and open the template in the editor.
                                                     <span id="ObservacionesError"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-12">
+                                            <div class="col-sm-6 col-md-6 col-12 mt-2">
                                                 <div>
                                                     <label class="label-size">
                                                         Diagnóstico:
@@ -50,7 +93,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-12">
+                                            <div class="col-sm-6 col-md-6 col-12 mt-2">
                                                 <div>
                                                     <label class="label-size">
                                                         Recomendación
@@ -61,9 +104,9 @@ and open the template in the editor.
                                                     <span id="RecomendacionError"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-12">
+                                            <div class="col-sm-6 col-md-6 col-12 mt-2">
                                                 <button class="btn btn-success btn-SesionTratamiento btnDiagnostico" id="btnRegistrarDiagnostico">
-                                                    <i class="fa fa-file-text icon-tratamiento"></i>
+                                                    <i class="fa fa-file-signature icon-tratamiento"></i>
                                                     Registrar Diagnóstico
                                                 </button>
                                             </div>
@@ -79,6 +122,6 @@ and open the template in the editor.
             </div>
         </div>
         <footer th:replace="layout/layout :: footer"></footer>
-        <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarRespuestas.js}"></script>
+        <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarDiagnostico.js}"></script>
     </body>
 </html>

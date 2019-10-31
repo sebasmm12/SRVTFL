@@ -43,5 +43,9 @@ and open the template in the editor.
 }
 .btnDiagnostico {
     margin-top: 20% !important;
-    margin-left: 60% !important;
+    margin-left: 50% !important;
+}
+.label-size-paciente {
+    font-size: 15px !important;
+    font-weight: bolder;
 }

@@ -49,11 +49,6 @@ public class Fobia implements Serializable{
     @Column(name="fob_url_video")
     private String fobUrlVideo;
 
-    /*@JoinColumn(name="sim_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Simulacion simulacion;*/
-
     public Long getFobId() {
         return fobId;
     }
