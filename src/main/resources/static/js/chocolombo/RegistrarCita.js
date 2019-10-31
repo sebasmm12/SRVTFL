@@ -9,36 +9,32 @@ var actualizarCita = function () {
     var fobiaCita = document.getElementById('buscar_fobia').value;
     var pacienteCita = document.getElementById('buscar_paciente').value;
     var psicologoCita = document.getElementById('buscar_psicologo').value;
-    var horafechaIni = new Date(fechaCita+' '+horaIniCita+':00');
-    var horaFechaFin = new Date(fechaCita+' '+horaFinCita+':00');
+    var horafechaIni = new Date(fechaCita + ' ' + horaIniCita + ':00');
+    var horaFechaFin = new Date(fechaCita + ' ' + horaFinCita + ':00');
     var citId = document.getElementById('citId').value;
-    
     var cita = {
         citId: citId,
         citFechaHoraInicio: horafechaIni,
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
-    
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
-    
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
         fobiaId: fobId,
         psicologoId: psicoId
     };
-    
-     $.ajax({
-            url: "/api/recepcionista/actualizarCita",
-            type: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(citaJson),
-            success: function (data) {
-                if (data === "1") {
-                   Swal.fire({
+    $.ajax({
+        url: "/api/recepcionista/actualizarCita",
+        type: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(citaJson),
+        success: function (data) {
+            if (data === "1") {
+                Swal.fire({
                     type: 'success',
                     title: 'Cita Actualizada Correctamente',
                     confirmButtonText: 'OK'
@@ -47,12 +43,14 @@ var actualizarCita = function () {
                         window.location.href = "/Recepcionista/GestionarCitas";
                     }
                 });
-                }
             }
-        });
+        }
+    });
 };
-
 var registrarCita = function () {
+
+
+
     var fechaCita = document.getElementById('citFecha').value;
     var horaIniCita = document.getElementById('fechaHoraInicio').value;
     var horaFinCita = document.getElementById('fechaHoraFin').value;
@@ -60,35 +58,32 @@ var registrarCita = function () {
     var fobiaCita = document.getElementById('buscar_fobia').value;
     var pacienteCita = document.getElementById('buscar_paciente').value;
     var psicologoCita = document.getElementById('buscar_psicologo').value;
-    var horafechaIni = new Date(fechaCita+' '+horaIniCita+':00');
-    var horaFechaFin = new Date(fechaCita+' '+horaFinCita+':00')
-    
+    var horafechaIni = new Date(fechaCita + ' ' + horaIniCita + ':00');
+    var horaFechaFin = new Date(fechaCita + ' ' + horaFinCita + ':00')
+
     var cita = {
         citId: 0,
         citFechaHoraInicio: horafechaIni,
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
-    
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
-    
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
         fobiaId: fobId,
         psicologoId: psicoId
     };
-    
-     $.ajax({
-            url: "/api/recepcionista/ingresarCita",
-            type: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(citaJson),
-            success: function (data) {
-                if (data === "1") {
-                   Swal.fire({
+    $.ajax({
+        url: "/api/recepcionista/ingresarCita",
+        type: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(citaJson),
+        success: function (data) {
+            if (data === "1") {
+                Swal.fire({
                     type: 'success',
                     title: 'Cita Registrada Correctamente',
                     confirmButtonText: 'OK'
@@ -97,12 +92,16 @@ var registrarCita = function () {
                         window.location.href = "/Recepcionista/GestionarCitas";
                     }
                 });
-                }
             }
-        });
-    
-    
+        }
+    });
+    });
 };
+function alertas() {
+    alerta();
+}
+
+
 var validacionCitaRegistro = function () {
     var fechaCita = document.getElementById('citFecha').value;
     var horaIniCita = document.getElementById('fechaHoraInicio').value;
@@ -119,18 +118,17 @@ var validacionCitaRegistro = function () {
     var VfobiaCita = validarFobiaCita('buscar_fobiaError', fobiaCita, 'buscar_fobia');
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
     var logHor = validarLogicaHorarios();
-
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false
-            ||logHor === false) {
+            VhoraFinCita === false || VpacienteCita === false || VfobiaCita === false || VpsicologoCita === false
+            || logHor === false) {
         alert("ALGO ESTA MAL!");
     } else {
-        //registrarCita();
+
+        registrarCita();
         alert("TODO BIEN!");
+        registrarCita();
     }
 };
-
-
 var validacionCitaActualizaion = function () {
     var fechaCita = document.getElementById('citFecha').value;
     var horaIniCita = document.getElementById('fechaHoraInicio').value;
@@ -146,43 +144,40 @@ var validacionCitaActualizaion = function () {
     var VpacienteCita = validarPacienteCita('buscar_pacienteError', pacienteCita, 'buscar_paciente');
     var VfobiaCita = validarFobiaCita('buscar_fobiaError', fobiaCita, 'buscar_fobia');
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
-
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false
+            VhoraFinCita === false || VpacienteCita === false || VfobiaCita === false || VpsicologoCita === false
             || validarLogicaHorarios === false) {
         alert("ALGO ESTA MAL!");
+
+
     } else {
-        //actualizarCita();
+//actualizarCita();
         actualizarCita();
-        alert("TODO BIEN!");
     }
 };
-
-var validarLogicaHorarios = function(){
+var validarLogicaHorarios = function () {
     var horaIni = $('#fechaHoraInicio').val();
     var horaFin = $('#fechaHoraFin').val();
     var paramIni = horaIni.split(':');
     var paramFin = horaFin.split(':');
     var fechaIni = new Date();
     var fechaFin = new Date();
-    fechaIni.setFullYear(paramIni[0],paramIni[1],0);
-    fechaFin.setFullYear(paramFin[0],paramFin[1],0);
-    if(fechaIni >= fechaFin){
+    fechaIni.setFullYear(paramIni[0], paramIni[1], 0);
+    fechaFin.setFullYear(paramFin[0], paramFin[1], 0);
+    if (fechaIni >= fechaFin) {
         addNegativeAttributtes('fechaHoraInicio');
-        addNegativeHtml('fechaHoraInicioError','La fecha de Inicio no puede ser mayor a la de finalizacion');
+        addNegativeHtml('fechaHoraInicioError', 'La fecha de Inicio no puede ser mayor a la de finalizacion');
         addNegativeAttributtes('fechaHoraFin');
-        addNegativeHtml('fechaHoraFinError','La fecha de Finalizacion no puede ser menor a la de Inicio');
+        addNegativeHtml('fechaHoraFinError', 'La fecha de Finalizacion no puede ser menor a la de Inicio');
         return false;
-    }else{
+    } else {
         addPositiveAtributtes('fechaHoraInicio');
-        addPositiveHtml('fechaHoraInicioError','Correcto');
+        addPositiveHtml('fechaHoraInicioError', 'Correcto');
         addPositiveAtributtes('fechaHoraFin');
-        addPositiveHtml('fechaHoraFinError','Correcto');
+        addPositiveHtml('fechaHoraFinError', 'Correcto');
         return true;
     }
 };
-
-
 var validarHoraIniCita = function (elementoError, valor, elemento) {
     var horaIni = new Date();
     var minimalHour = new Date();
@@ -206,7 +201,6 @@ var validarHoraIniCita = function (elementoError, valor, elemento) {
         return true;
     }
 };
-
 var keyhorainicita = function () {
     $valor = $('#fechaHoraInicio');
     var horaIni = new Date();
@@ -228,7 +222,6 @@ var keyhorainicita = function () {
         return true;
     }
 };
-
 var validarHoraFinCita = function (elementoError, valor, elemento) {
     var horafin = new Date();
     var maximalHour = new Date();
@@ -252,7 +245,6 @@ var validarHoraFinCita = function (elementoError, valor, elemento) {
         return true;
     }
 };
-
 var keyhorafincita = function () {
     $valor = $('#fechaHoraFin');
     var horafin = new Date();
@@ -274,7 +266,6 @@ var keyhorafincita = function () {
         return true;
     }
 };
-
 var validarFobiaCita = function (elementoError, valor, elemento) {
     var term = valor;
     if (valor === "") {
@@ -306,11 +297,10 @@ var validarFobiaCita = function (elementoError, valor, elemento) {
         });
     }
 };
-
 var keyfobiacita = function () {
     var $fobiaCita = $('#buscar_fobia');
     var term = $fobiaCita.val();
-    if ($fobiaCita.val()=== "") {
+    if ($fobiaCita.val() === "") {
         addNegativeAttributtes('buscar_fobia');
         addNegativeHtml('buscar_fobiaError', "Debe ingresar un Fobia Obligatoriamente");
         return false;
@@ -329,14 +319,13 @@ var keyfobiacita = function () {
                     return true;
                 } else {
                     addNegativeAttributtes('buscar_fobia');
-                    addNegativeHtml('buscar_fobiaError', "La Fobia Ingresada no Existe");             
+                    addNegativeHtml('buscar_fobiaError', "La Fobia Ingresada no Existe");
                     return false;
                 }
             }
         });
     }
 };
-
 var validarPsicologoCita = function (elementoError, valor, elemento) {
     var term = valor;
     if (valor === "") {
@@ -368,7 +357,6 @@ var validarPsicologoCita = function (elementoError, valor, elemento) {
         });
     }
 };
-
 var keynombrepsicologo = function () {
     var $psicologo = $('#buscar_psicologo');
     var term = $psicologo.val();
@@ -398,7 +386,6 @@ var keynombrepsicologo = function () {
         });
     }
 };
-
 var validarPacienteCita = function (elementoError, valor, elemento) {
     //verificarNombrePaciente(valor);
     var term = valor;
@@ -472,7 +459,6 @@ var keynombrepaciente = function () {
         });
     }
 };
-
 var obtenerData = function (valNombreRes) {
     validacionNombre = valNombreRes;
     return validacionNombre;

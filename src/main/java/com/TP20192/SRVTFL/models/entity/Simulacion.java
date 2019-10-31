@@ -42,7 +42,7 @@ public class Simulacion implements Serializable{
     @Column(name="sim_apk_url")
     private String simApkUrl;
 
-    @JoinColumn(name="fob_id",unique=true)
+    @JoinColumn(name="sim_id",unique=true)
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Fobia fobia;

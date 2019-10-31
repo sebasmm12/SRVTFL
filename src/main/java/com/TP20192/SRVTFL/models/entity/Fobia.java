@@ -34,7 +34,6 @@ public class Fobia implements Serializable{
     
     @Id
     @Column(name="fob_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fobId;
     
     
