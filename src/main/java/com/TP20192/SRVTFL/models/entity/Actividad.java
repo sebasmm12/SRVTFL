@@ -36,6 +36,17 @@ public class Actividad {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
     @Column(name = "act_fin")
     private Date act_fin;
+    
+    @Column(name="est_actividad")
+    private Long est_act_id;
+
+    public Long getEst_act_id() {
+        return est_act_id;
+    }
+
+    public void setEst_act_id(Long est_act_id) {
+        this.est_act_id = est_act_id;
+    }
 
     
     public Long getAct_id() {

@@ -919,6 +919,29 @@ var keyroles = function () {
     }
 };
 
+var getPage = function () {
+    var nombreUsuario = $("#nombreUsu").val();
+    var filtroUsuario = document.getElementById("tipoFiltro");
+    var filtroSelected = filtroUsuario.options[filtroUsuario.selectedIndex].value;
+    var $a = $(this);
+    $.ajax({
+        url: $a.attr("href"),
+        type: 'GET',
+        data: {  
+            nombreUsu: nombreUsuario,
+            filtro: parseInt(filtroSelected,10)
+        },
+        success: function (data) {
+            var $newhtml = $(data);
+            $("#tablaUsuarios").replaceWith($newhtml);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {},
+        complete: function (jqXHR, textStatus) {}
+    });
+    return false;
+};
+
+
 var addPositiveAtributtes = function (id) {
     $("#" + id).removeClass('is-invalid');
     $("#" + id).addClass('is-valid');
@@ -955,4 +978,5 @@ var addNegativeHtml = function (id, message) {
 $('#btnRegistrar').click(validarRegistro);
 $('#btnActualizar').click(validarActualizacion);
 $('#btnBuscarUsuario').click(validacionBusqueda);
+$(".pcoded-content").on("click", ".pagedList a", getPage);
 

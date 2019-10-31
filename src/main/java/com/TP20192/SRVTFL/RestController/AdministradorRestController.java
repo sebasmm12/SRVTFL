@@ -115,7 +115,7 @@ public class AdministradorRestController {
             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
             model.addObject("mensage", "No se pudo encontrar los Datos solicitados, intente cambiando el tipo de filtro o los parametros de entrada");
         }
-        PageRender<Usuario> pageRender = new PageRender("/Administrador/_ListarUsuarios", detUsus);
+        PageRender<Usuario> pageRender = new PageRender("/api/administrador/GestionarUsuarios", detUsus);
         model.addObject("detUsus", detUsus);
         model.addObject("page", pageRender);
         model.setViewName("/Administrador/_ListarUsuarios");
