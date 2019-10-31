@@ -28,6 +28,6 @@ public interface IPacienteService {
     
     public TipoDocumento findDocumentoById(Long id);
     
-    public Paciente findOnePaciente(String nombre);
+    public Paciente findOnePaciente(String nombre, String apellido);
     
 }

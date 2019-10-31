@@ -78,4 +78,6 @@ public interface ICitaService {
    public Pregunta encontrarPregunta(Long Id);
    
    public void save(Respuesta r);
+   
+   public DetalleUsuario encontrarDetalleUsuarioByNombre(String term);
 }

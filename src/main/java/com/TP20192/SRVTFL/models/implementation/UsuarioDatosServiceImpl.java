@@ -134,4 +134,9 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     public void crearAgenda(Agenda ag) {
         agendaDao.save(ag);
     }
+
+    @Override
+    public DetalleUsuario encontrarDetalleUsuarioPorId(Long id) {
+        return detUsuDao.encontrarUsuarioById(id);
+    }
 }

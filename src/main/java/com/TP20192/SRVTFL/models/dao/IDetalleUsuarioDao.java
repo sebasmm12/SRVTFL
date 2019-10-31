@@ -64,4 +64,10 @@ public interface IDetalleUsuarioDao extends PagingAndSortingRepository<DetalleUs
     
     @Query("select du from DetalleUsuario du where du.detUsuNombre like %?1%")
     public List<DetalleUsuario> findDetalleUsuarioByNombre(String term);
+    
+    @Query("select du from DetalleUsuario du where du.detUsuNombre = :nombre_usuario")
+    public DetalleUsuario encontrarUsuarioByNombre(@Param("nombre_usuario") String nombreUsuario);
+    
+    @Query("select du from DetalleUsuario du where du.usu_id = :id_usuario")
+    public DetalleUsuario encontrarUsuarioById(@Param("id_usuario") Long id_usuario);
 }

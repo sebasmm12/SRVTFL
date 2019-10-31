@@ -43,8 +43,18 @@ public class Cita implements Serializable {
 
     @Column(name= "usu_id")
     private Long usuId;
-
     
+    @Column(name= "usu_registro")
+    private Long usuRegistro;
+
+    public Long getUsuRegistro() {
+        return usuRegistro;
+    }
+
+    public void setUsuRegistro(Long usuRegistro) {
+        this.usuRegistro = usuRegistro;
+    }
+
     public Paciente getPaciente() {
         return paciente;
     }
@@ -94,7 +104,7 @@ public class Cita implements Serializable {
     
     //@NotEmpty
     @Column(name= "sim_id")
-    private Integer simId;
+    private Long simId;
     
     //@NotEmpty
     @Column(name= "cit_anotaciones")
@@ -141,16 +151,14 @@ public class Cita implements Serializable {
     public void setCitObservacion(String citObservacion) {
         this.citObservacion = citObservacion;
     }
-    
-    public Integer getSimId() {
+
+    public Long getSimId() {
         return simId;
     }
 
-    public void setSimId(Integer simId) {
+    public void setSimId(Long simId) {
         this.simId = simId;
     }
-    
-    
     
     public Long getCitId() {
         return citId;
@@ -207,10 +215,6 @@ public class Cita implements Serializable {
     public void setCitFechaHoraFinReal(String citFechaHoraFinReal) {
         this.citFechaHoraFinReal = citFechaHoraFinReal;
     }
-   
-
-  
-
     public String getCitMotivo() {
         return citMotivo;
     }
@@ -226,9 +230,4 @@ public class Cita implements Serializable {
     public void setCitVr(boolean citVr) {
         this.citVr = citVr;
     }
-
-    
-    
-    
-
 }

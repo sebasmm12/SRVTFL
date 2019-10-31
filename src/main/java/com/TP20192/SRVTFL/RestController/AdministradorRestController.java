@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.RestController;
 
+import com.TP20192.SRVTFL.models.JsonClass.DetalleUsuarioJson;
 import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Rol;
@@ -48,10 +49,11 @@ public class AdministradorRestController {
     public BCryptPasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/registrarUsuario", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    public String registrarUsuario(@RequestBody DetalleUsuario detUsu) {
+    public String registrarUsuario(@RequestBody DetalleUsuarioJson detUsuJ) {
 
         Usuario u = new Usuario();
-        u = detUsu.getUsuario();
+        DetalleUsuario detUsu = detUsuJ.getDetalleUsuario();
+        u = detUsuJ.getUsuario();
         u.setUsu_contraseña(passwordEncoder.encode(detUsu.getDetUsuNombre().trim()));
         u.setEstadoUsuario(usuarioService.obtenerEstadoUsuario(1));
         u = usuarioService.guardarUsuario(u);

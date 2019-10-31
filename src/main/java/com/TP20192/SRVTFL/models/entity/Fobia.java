@@ -35,7 +35,7 @@ public class Fobia implements Serializable{
     @Id
     @Column(name="fob_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fobId;
+    private Long fobId;
     
     
     @Column(name="fob_nombre")
@@ -53,15 +53,15 @@ public class Fobia implements Serializable{
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Simulacion simulacion;*/
-    
-    public int getFobId() {
+
+    public Long getFobId() {
         return fobId;
     }
 
-    public void setFobId(int fobId) {
+    public void setFobId(Long fobId) {
         this.fobId = fobId;
     }
-
+    
     public String getFobNombre() {
         return fobNombre;
     }

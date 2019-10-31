@@ -27,13 +27,6 @@ and open the template in the editor.
                                     <div class="card-header">
                                         <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h2>
                                     </div>
-                                    <div th:object="${cita}" th:remove="tag">
-                                        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
-                                            <li th:each="err: ${#fields.errors('*')}"
-                                                th:text="${err}"></li>
-
-                                        </ul>
-                                    </div>
                                     <div class="card-body">
                                         <!--form th:action="@{/Recepcionista/GuardarCita}" th:object="${cita}" method="post"-->
                                         <!--<div th:object="${cliente}" th:remove="tag" class=" form-group row col-sm-8">
@@ -105,7 +98,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <button class="btn btn-outline-success" style="width:705px" id="btnRegistrarCita">
+                                                <button class="btn btn-outline-success" style="width:705px" id="registrarCitas">
                                                     <i class="fa fa-check"></i>
                                                     <span class="btn-text">Registrar Cita</span>
                                                 </button>  
@@ -127,7 +120,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-    </div>
     <footer th:replace="layout/layout :: footer"></footer>
     <script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script>
     <script th:replace="Recepcionista/js/autocomplete-psicologo :: javascript2"></script>

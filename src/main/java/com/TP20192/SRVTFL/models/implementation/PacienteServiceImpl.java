@@ -74,8 +74,8 @@ public class PacienteServiceImpl  implements  IPacienteService{
     }
 
     @Override
-    public Paciente findOnePaciente(String nombre) {
-        return pacienteService.buscarPacienteNombre(nombre);
+    public Paciente findOnePaciente(String nombre, String apellido) {
+        return pacienteService.buscarPacienteNombre(nombre,apellido);
     }
     
        

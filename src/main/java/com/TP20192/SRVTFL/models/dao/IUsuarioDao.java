@@ -32,4 +32,6 @@ public interface IUsuarioDao extends PagingAndSortingRepository<Usuario,Usuario>
     @Query("select u from Usuario u where u.usu_id = :usu_id")
     public Usuario encontrarUsuarioPorId(@Param("usu_id")Long usu_id);
     
+    
+    
 }

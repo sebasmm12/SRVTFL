@@ -27,5 +27,14 @@ public class FobiaServiceImpl implements IFobiaService {
     public List<Fobia> findFobiaByNombre(String term) {
         return fobiaService.findFobiaByNombre(term);
     }
-    
+
+    @Override
+    public Fobia findOneFobiaByNombre(String term) {
+        return fobiaService.findOneFobiaByNombre(term);
+    }
+
+    @Override
+    public Fobia findFobiaById(Long fobiaId) {
+        return fobiaService.findById(fobiaId).orElse(null);
+    }
 }

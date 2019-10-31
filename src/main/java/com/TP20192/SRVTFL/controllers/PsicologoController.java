@@ -8,17 +8,20 @@ package com.TP20192.SRVTFL.controllers;
 import com.TP20192.SRVTFL.models.dao.IPulsoSimulacionDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
+import com.TP20192.SRVTFL.models.entity.Fobia;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
+import com.TP20192.SRVTFL.models.service.IFobiaService;
 import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IPulsoSimulacionService;
 import com.TP20192.SRVTFL.models.service.IResultadoSimulacionService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
+import com.TP20192.SRVTFL.models.service.IVrAuxService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
@@ -79,10 +82,15 @@ public class PsicologoController {
     
     @Autowired
     private IPulsoSimulacionService pulsoSimulacionService;
+    
+    @Autowired
+    private IFobiaService fobiaService;
 
     @Autowired
     private IResultadoSimulacionService resultadoSimulacionService;
     
+    @Autowired
+    private IVrAuxService vrAuxService;
     private volatile Thread th1;
 
     @GetMapping(value = {"/index", "/"})
@@ -237,9 +245,13 @@ public class PsicologoController {
     public Long registrarResultadoSimu(@RequestParam(name="citId") Long citId) {
         //th1 = null;
         ResultadoSimulacion rs = new ResultadoSimulacion();
-        rs.setCita(citaService.obtenerCita(citId));
+        Cita c = citaService.obtenerCita(citId);
+        rs.setCita(c);
         rs.setRestSimSalidaEmergencia(false);
+        rs.setResSimId(c.getSimId());
         rs = resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
+        Fobia fob = fobiaService.findFobiaById(c.getSimId());
+        vrAuxService.iniciarTratamiento(c.getSimId(),1, rs.getResSimId(), "SIMULACION-"+fob.getFobNombre());
         return rs.getResSimId();
     }
     
@@ -292,7 +304,7 @@ public class PsicologoController {
             tratId = true;
         }
         Pageable pageRequest = PageRequest.of(page, 10);
-        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId(), pageRequest);
+        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId().intValue(), pageRequest);
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
         model.addAttribute("preguntas", preguntas);
         model.addAttribute("cita", cita);

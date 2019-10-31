@@ -15,4 +15,8 @@ import java.util.List;
 public interface IFobiaService {
     
     public List<Fobia> findFobiaByNombre(String term);
+    
+    public Fobia findOneFobiaByNombre(String term);
+    
+    public Fobia findFobiaById(Long fobiaId);
 }
