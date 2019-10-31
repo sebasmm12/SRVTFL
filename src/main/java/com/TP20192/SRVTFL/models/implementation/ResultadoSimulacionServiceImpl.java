@@ -5,11 +5,14 @@
  */
 package com.TP20192.SRVTFL.models.implementation;
 
+import com.TP20192.SRVTFL.models.dao.INivelDao;
 import com.TP20192.SRVTFL.models.dao.IResultadoSimulacionDao;
+import com.TP20192.SRVTFL.models.entity.Nivel;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 import com.TP20192.SRVTFL.models.service.IResultadoSimulacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -20,8 +23,11 @@ import org.springframework.stereotype.Service;
 @Service("IResultadoSimulacionService")
 public class ResultadoSimulacionServiceImpl implements IResultadoSimulacionService{
 
-      @Autowired
+    @Autowired
     public IResultadoSimulacionDao resultadoSimulacioneService;
+    
+    @Autowired
+    public INivelDao nivelDao;
     
     @Override
     public ResultadoSimulacion obtenerParametrosiniciales() {
@@ -38,5 +44,16 @@ public class ResultadoSimulacionServiceImpl implements IResultadoSimulacionServi
     @Override
     public ResultadoSimulacion RegistrarResultadoSimulacion(ResultadoSimulacion rs) {
         return resultadoSimulacioneService.save(rs);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public ResultadoSimulacion findbyId(Long simId) {
+        return resultadoSimulacioneService.findById(simId).orElse(null);
+    }
+
+    @Override
+    public Nivel encontrarNivel(Long nivId, Long simId) {
+        return nivelDao.encontrarNivel(nivId, simId);
     }
 }

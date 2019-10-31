@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="table-responsive mt-2" th:fragment="ListCitasPaciente" id="tableCitasPaciente">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="text-center font-weight-bolder bg-white">
+                <th scope="col">#</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Motivo</th>
+                <th scope="col">Fecha de atencion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cita, num: ${citas}" class="text-center">
+                <th scope="row">
+                    <a class="btn btn-success btn-xs" 
+                       th:href="@{'/Historial/detalleCita/' + ${cita.citId}}"
+                       th:text="${num.count}"></a>
+                </th>
+                <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
+                <td th:text="${cita.citMotivo}"></td>
+                <td th:text="${cita.citFechaHoraFin}"></td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-2">
+        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+    </div>
+</div>

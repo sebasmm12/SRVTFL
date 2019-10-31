@@ -198,7 +198,7 @@ public class CitaServiceImpl implements ICitaService {
 
     @Transactional(readOnly = true)
     @Override
-    public Page<Pregunta> EncontrarPreguntasCita(Boolean preP, int fobId, Pageable pageable) {
+    public Page<Pregunta> EncontrarPreguntasCita(Boolean preP, Long fobId, Pageable pageable) {
        return preguntaDao.EncontrarPreguntasCita(preP,fobId, pageable);
     }
 

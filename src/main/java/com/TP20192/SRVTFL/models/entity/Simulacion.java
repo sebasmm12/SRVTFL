@@ -29,7 +29,7 @@ public class Simulacion implements Serializable{
     @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="sim_id")
-    private int simId;
+    private Long simId;
     
     @NotEmpty
     @Column(name="sim_nombre")
@@ -39,11 +39,11 @@ public class Simulacion implements Serializable{
     @Column(name="sim_apk_url")
     private String simApkUrl;
 
-    public int getSimId() {
+    public Long getSimId() {
         return simId;
     }
 
-    public void setSimId(int simId) {
+    public void setSimId(Long simId) {
         this.simId = simId;
     }
 

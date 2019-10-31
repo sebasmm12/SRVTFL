@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
+import com.TP20192.SRVTFL.models.entity.Nivel;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 
 /**
@@ -18,4 +19,8 @@ public interface IResultadoSimulacionService {
       public void finalizar( int nivelfinal, Long id );
       
       public ResultadoSimulacion RegistrarResultadoSimulacion(ResultadoSimulacion rs);
+      
+      public ResultadoSimulacion findbyId(Long simId);
+      
+      public Nivel encontrarNivel(Long nivId, Long simId);
 }

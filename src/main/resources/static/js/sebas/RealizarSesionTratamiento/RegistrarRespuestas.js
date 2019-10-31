@@ -65,10 +65,8 @@ var validar = function () {
     });
 
     if (number !== 0) {
-        alert('Hay errores');
         return false;
     } else {
-        alert('No hay errores');
         return true;
     }
 };

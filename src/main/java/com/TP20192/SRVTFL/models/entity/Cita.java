@@ -94,7 +94,7 @@ public class Cita implements Serializable {
     
     //@NotEmpty
     @Column(name= "sim_id")
-    private Integer simId;
+    private Long simId;
     
     //@NotEmpty
     @Column(name= "cit_anotaciones")
@@ -144,11 +144,11 @@ public class Cita implements Serializable {
         this.citObservacion = citObservacion;
     }
     
-    public Integer getSimId() {
+    public Long getSimId() {
         return simId;
     }
 
-    public void setSimId(Integer simId) {
+    public void setSimId(Long simId) {
         this.simId = simId;
     }
     

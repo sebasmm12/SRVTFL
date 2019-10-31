@@ -193,6 +193,12 @@ and open the template in the editor.
                                                                 </a>
                                                             </div>
                                                             <div class="col-sm-3 col-md-3 col-6">
+                                                                <a th:href="@{'/Historial/Ver/'+${cita.paciente.pacId}}" target="_blank" class="btn btn-info btn-SesionTratamiento">
+                                                                    <i class="fa fa-info icon-tratamiento"></i>
+                                                                    Historial del Paciente
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-sm-3 col-md-3 col-6">
                                                                 <button class="btn btn-success btn-SesionTratamiento" id="btnIniciarCita" th:attr="data-id=${cita.citId}">
                                                                     <i class="fa fa-file-alt icon-tratamiento"></i>
                                                                     Iniciar Tratamiento

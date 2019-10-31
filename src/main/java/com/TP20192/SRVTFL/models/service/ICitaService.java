@@ -74,7 +74,7 @@ public interface ICitaService {
    public Cita encontrarCitaconPacinenteconEstado(Long id);
    
    //
-   public Page<Pregunta> EncontrarPreguntasCita(Boolean tratId,int fobId, Pageable pageable);
+   public Page<Pregunta> EncontrarPreguntasCita(Boolean tratId,Long fobId, Pageable pageable);
    
    public Pregunta encontrarPregunta(Long Id);
    

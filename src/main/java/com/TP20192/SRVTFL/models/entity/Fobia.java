@@ -36,7 +36,7 @@ public class Fobia implements Serializable{
     @NotEmpty
     @Column(name="fob_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fobId;
+    private Long fobId;
     
     @NotEmpty
     @Column(name="fob_nombre")
@@ -50,11 +50,11 @@ public class Fobia implements Serializable{
     @Column(name="fob_url_video")
     private String fobUrlVideo;
 
-    public int getFobId() {
+    public Long getFobId() {
         return fobId;
     }
 
-    public void setFobId(int fobId) {
+    public void setFobId(Long fobId) {
         this.fobId = fobId;
     }
 
