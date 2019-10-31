@@ -27,6 +27,7 @@ var actualizarCita = function () {
         fobiaId: fobId,
         psicologoId: psicoId
     };
+
     $.ajax({
         url: "/api/recepcionista/actualizarCita",
         type: 'POST',
@@ -67,9 +68,11 @@ var registrarCita = function () {
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
+
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
+
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
