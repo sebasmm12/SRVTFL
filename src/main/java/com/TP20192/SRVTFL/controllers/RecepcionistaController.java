@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.TP20192.SRVTFL.models.implementation.*;
 import com.TP20192.SRVTFL.models.entity.*;
 import com.TP20192.SRVTFL.models.service.ICitaService;
+import com.TP20192.SRVTFL.models.service.IFobiaService;
+import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.lang.reflect.Method;
@@ -50,8 +52,14 @@ public class RecepcionistaController {
     @Autowired
     public ICitaService citaService;
 
-    @Qualifier("UsuarioDatos")
+    @Autowired
     private IUsuarioService usuarioService;
+    
+    @Autowired
+    private IFobiaService fobiaService;
+    
+    @Autowired
+    private IPacienteService pacienteService;
 
     @GetMapping("/index")
     public String index(Model model, Authentication authentication) {
@@ -249,11 +257,18 @@ public class RecepcionistaController {
     List<Paciente> cargarPacientes(@PathVariable(name = "term") String term) {
         return citaService.findPacienteByNombre(term);
     }
+    
+    @GetMapping(value = "/cargar-fobias/{term}", produces = {"application/json"})
+    public @ResponseBody
+    List<Fobia> cargarFobias(@PathVariable(name = "term") String term) {
+        return fobiaService.findFobiaByNombre(term);
+    }
 
     @GetMapping(value = "/cargar-psicologos/{term}", produces = {"application/json"})
     public @ResponseBody
     List<DetalleUsuario> cargarPsicologos(@PathVariable(name = "term") String term) {
-        return citaService.findDetalleUsuarioByNombre(term);
+        List<DetalleUsuario> ldu = citaService.findDetalleUsuarioByNombre(term);
+        return ldu;
     }
 
     @GetMapping("/detalleCita/{citId}")
@@ -273,7 +288,28 @@ public class RecepcionistaController {
     public String actualizarCita(@PathVariable(name = "citId") Long id, Model model) {
         Cita cita = citaService.obtenerCita(id);
         model.addAttribute("cita", cita);
+        DetalleUsuario psicologo ;//= new DetalleUsuario();
+        System.out.println(cita.getUsuId());
+        Paciente pac = cita.getPaciente();
+        psicologo = usuarioService.encontrarDetalleUsuarioPorId(cita.getUsuId());
         model.addAttribute("titulo", "Modificacion de Cita");
+        model.addAttribute("psicologo", psicologo.getDetUsuNombre());
+        Date dateCitaIni = cita.getCitFechaHoraInicio();
+        Date dateCitaFin = cita.getCitFechaHoraFin();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+        Fobia fob = fobiaService.findFobiaById(cita.getSimId());
+        
+        String horaIni = hourFormat.format(dateCitaIni);
+        String horaFin = hourFormat.format(dateCitaFin);
+        String date = dateFormat.format(dateCitaIni);
+        
+        model.addAttribute("horaIni", horaIni);
+        model.addAttribute("horaFin", horaFin);
+        model.addAttribute("date",date);
+        model.addAttribute("paciente", pac.getPacNombre()+" "+pac.getPacApellido());
+        model.addAttribute("fobia",fob.getFobNombre());
+        model.addAttribute("citId", cita.getCitId());
         return "Recepcionista/ActualizarCita";
     }
 
@@ -289,4 +325,6 @@ public class RecepcionistaController {
         citaService.eliminarActividadPorId(id);
         return "redirect:/Recepcionista/GestionarCitas";
     }
+    
+  
 }

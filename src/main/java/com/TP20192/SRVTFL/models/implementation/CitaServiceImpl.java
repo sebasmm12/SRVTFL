@@ -138,6 +138,9 @@ public class CitaServiceImpl implements ICitaService {
         return detUsuDao.findDetalleUsuarioByNombre(term);
     
     }
+    
+    
+    
     @Transactional
     @Override
     public void insertaActividad(Actividad act) {
@@ -220,4 +223,9 @@ public class CitaServiceImpl implements ICitaService {
         diagnosticoDao.save(d);
     }
     
+    @Override
+    public DetalleUsuario encontrarDetalleUsuarioByNombre(String term) {
+        return detUsuDao.encontrarUsuarioByNombre(term);
+    }
+
 }

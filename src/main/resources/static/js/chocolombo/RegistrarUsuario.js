@@ -196,7 +196,6 @@ var registrar = function () {
     };
     var detUsu = {
         usu_id: 0,
-        usuario: usuario,
         detUsuNombre: detUsuNombre,
         detUsuCorreo: detUsuCorreo,
         detUsuDireccion: detUsuDireccion,
@@ -213,21 +212,16 @@ var registrar = function () {
         detUsuReligion: detUsuReligion,
         detUsuEdad: edad
     };
-
-    /*var data = {
-     valores: [detUsu,roles];  
-     };*/
-
-    /*JSON.stringify({
-     detUsu: detUsu,
-     roles: roles
-     }),*/
+    var detUsuJ = {
+        detalleUsuario: detUsu,
+        usuario: usuario
+    };
 
     $.ajax({
         url: "/api/administrador/registrarUsuario",
         type: 'POST',
         contentType: 'application/json;charset=utf-8',
-        data: JSON.stringify(detUsu),
+        data: JSON.stringify(detUsuJ),
         success: function (data) {
             if (data !== "") {
                 GuardarRoles(data);

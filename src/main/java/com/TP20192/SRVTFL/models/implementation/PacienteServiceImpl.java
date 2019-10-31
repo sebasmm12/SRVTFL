@@ -72,6 +72,11 @@ public class PacienteServiceImpl  implements  IPacienteService{
     public TipoDocumento findDocumentoById(Long id) {
         return tipoDocumentoService.findById(id).orElse(null);
     }
+
+    @Override
+    public Paciente findOnePaciente(String nombre, String apellido) {
+        return pacienteService.buscarPacienteNombre(nombre,apellido);
+    }
     
        
     

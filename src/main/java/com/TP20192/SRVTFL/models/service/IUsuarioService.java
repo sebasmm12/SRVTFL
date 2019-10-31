@@ -56,5 +56,7 @@ public interface IUsuarioService {
     public Page<DetalleUsuario> filtroDetUsuAproximado(String nombre,Pageable page);
     
     public void crearAgenda(Agenda ag);
+    
+    public DetalleUsuario encontrarDetalleUsuarioPorId(Long id);
 }
 

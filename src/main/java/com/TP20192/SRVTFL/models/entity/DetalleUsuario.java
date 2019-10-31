@@ -46,6 +46,7 @@ public class DetalleUsuario implements Serializable {
     
     @JoinColumn(name="tip_doc_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private TipoDocumento tipDocId;
     
     @NotEmpty
@@ -260,6 +261,11 @@ public class DetalleUsuario implements Serializable {
     
     @Column(name="det_usu_religion")
     private String detUsuReligion;
+
+    @Override
+    public String toString() {
+        return "DetalleUsuario{" + "usu_id=" + usu_id + ", tipDetUsuId=" + tipDetUsuId + ", tipDocId=" + tipDocId + ", detUsuNombre=" + detUsuNombre + ", detUsuCorreo=" + detUsuCorreo + ", detUsuDireccion=" + detUsuDireccion + ", detUsuTelefono=" + detUsuTelefono + ", detUsuSexo=" + detUsuSexo + ", detUsuTipoDocNumero=" + detUsuTipoDocNumero + ", detUsuImagen=" + detUsuImagen + ", detUsuCodigoColegio=" + detUsuCodigoColegio + ", detUsuEspecialidad=" + detUsuEspecialidad + ", detUsuEdad=" + detUsuEdad + ", detUsuEstadoCivil=" + detUsuEstadoCivil + ", detUsuFechaNacimiento=" + detUsuFechaNacimiento + ", detUsuLugarNacimiento=" + detUsuLugarNacimiento + ", usuario=" + usuario + ", detUsuOcupacion=" + detUsuOcupacion + ", detUsuReligion=" + detUsuReligion + '}';
+    }
     
     
     

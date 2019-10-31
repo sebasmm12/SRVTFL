@@ -81,4 +81,5 @@ public interface ICitaService {
    public void save(Respuesta r);
    
    public void registrarDiagnostico(Diagnostico d);
+   public DetalleUsuario encontrarDetalleUsuarioByNombre(String term);
 }

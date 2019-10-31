@@ -33,20 +33,19 @@ public class Fobia implements Serializable{
     }
     
     @Id
-    @NotEmpty
     @Column(name="fob_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fobId;
     
-    @NotEmpty
+    
     @Column(name="fob_nombre")
     private String fobNombre;
     
-    @NotEmpty
+    
     @Column(name="fob_descripcion")
     private String fobDescripcion;
     
-    @NotEmpty
+    
     @Column(name="fob_url_video")
     private String fobUrlVideo;
 
@@ -57,7 +56,7 @@ public class Fobia implements Serializable{
     public void setFobId(Long fobId) {
         this.fobId = fobId;
     }
-
+    
     public String getFobNombre() {
         return fobNombre;
     }
@@ -82,18 +81,13 @@ public class Fobia implements Serializable{
         this.fobUrlVideo = fobUrlVideo;
     }
 
-    public Simulacion getSimId() {
+   /* public Simulacion getSimId() {
         return simId;
     }
 
     public void setSimId(Simulacion simId) {
         this.simId = simId;
-    }
-    
-    @JoinColumn(name="fob_id",unique=true)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Simulacion simId;
+    }*/
     
     
 }

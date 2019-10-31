@@ -5,12 +5,16 @@
  */
 package com.TP20192.SRVTFL.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -27,7 +31,6 @@ public class Simulacion implements Serializable{
     }
     @Id
     @NotEmpty
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="sim_id")
     private Long simId;
     
@@ -39,6 +42,11 @@ public class Simulacion implements Serializable{
     @Column(name="sim_apk_url")
     private String simApkUrl;
 
+    @JoinColumn(name="fob_id",unique=true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Fobia fobia;
+
     public Long getSimId() {
         return simId;
     }
@@ -47,6 +55,15 @@ public class Simulacion implements Serializable{
         this.simId = simId;
     }
 
+    public Fobia getFobia() {
+        return fobia;
+    }
+
+    public void setFobia(Fobia fobia) {
+        this.fobia = fobia;
+    }
+    
+    
     public String getSinNombre() {
         return sinNombre;
     }
