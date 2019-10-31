@@ -9,36 +9,36 @@ var actualizarCita = function () {
     var fobiaCita = document.getElementById('buscar_fobia').value;
     var pacienteCita = document.getElementById('buscar_paciente').value;
     var psicologoCita = document.getElementById('buscar_psicologo').value;
-    var horafechaIni = new Date(fechaCita+' '+horaIniCita+':00');
-    var horaFechaFin = new Date(fechaCita+' '+horaFinCita+':00');
+    var horafechaIni = new Date(fechaCita + ' ' + horaIniCita + ':00');
+    var horaFechaFin = new Date(fechaCita + ' ' + horaFinCita + ':00');
     var citId = document.getElementById('citId').value;
-    
+
     var cita = {
         citId: citId,
         citFechaHoraInicio: horafechaIni,
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
-    
+
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
-    
+
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
         fobiaId: fobId,
         psicologoId: psicoId
     };
-    
-     $.ajax({
-            url: "/api/recepcionista/actualizarCita",
-            type: 'POST',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(citaJson),
-            success: function (data) {
-                if (data === "1") {
-                   Swal.fire({
+
+    $.ajax({
+        url: "/api/recepcionista/actualizarCita",
+        type: 'POST',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(citaJson),
+        success: function (data) {
+            if (data === "1") {
+                Swal.fire({
                     type: 'success',
                     title: 'Cita Actualizada Correctamente',
                     confirmButtonText: 'OK'
@@ -47,12 +47,15 @@ var actualizarCita = function () {
                         window.location.href = "/Recepcionista/GestionarCitas";
                     }
                 });
-                }
             }
-        });
+        }
+    });
 };
 
 var registrarCita = function () {
+
+
+
     var fechaCita = document.getElementById('citFecha').value;
     var horaIniCita = document.getElementById('fechaHoraInicio').value;
     var horaFinCita = document.getElementById('fechaHoraFin').value;
@@ -60,49 +63,59 @@ var registrarCita = function () {
     var fobiaCita = document.getElementById('buscar_fobia').value;
     var pacienteCita = document.getElementById('buscar_paciente').value;
     var psicologoCita = document.getElementById('buscar_psicologo').value;
-    var horafechaIni = new Date(fechaCita+' '+horaIniCita+':00');
-    var horaFechaFin = new Date(fechaCita+' '+horaFinCita+':00')
-    
+    var horafechaIni = new Date(fechaCita + ' ' + horaIniCita + ':00');
+    var horaFechaFin = new Date(fechaCita + ' ' + horaFinCita + ':00')
+
     var cita = {
         citId: 0,
         citFechaHoraInicio: horafechaIni,
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
-    
+
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
-    
+
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
         fobiaId: fobId,
         psicologoId: psicoId
     };
-    
-     $.ajax({
+
+
+
+
+        $.ajax({
             url: "/api/recepcionista/ingresarCita",
             type: 'POST',
             contentType: 'application/json;charset=utf-8',
             data: JSON.stringify(citaJson),
             success: function (data) {
                 if (data === "1") {
-                   Swal.fire({
-                    type: 'success',
-                    title: 'Cita Registrada Correctamente',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.value) {
-                        window.location.href = "/Recepcionista/GestionarCitas";
-                    }
-                });
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Cita Registrada Correctamente',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = "/Recepcionista/GestionarCitas";
+                        }
+                    });
                 }
             }
         });
-    
-    
+
+    });
+
 };
+
+function alertas() {
+    alerta();
+}
+
+
 var validacionCitaRegistro = function () {
     var fechaCita = document.getElementById('citFecha').value;
     var horaIniCita = document.getElementById('fechaHoraInicio').value;
@@ -120,11 +133,9 @@ var validacionCitaRegistro = function () {
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
 
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false) {
-        alert("ALGO ESTA MAL!");
+            VhoraFinCita === false || VpacienteCita === false || VfobiaCita === false || VpsicologoCita === false) {
     } else {
         registrarCita();
-        alert("TODO BIEN!");
     }
 };
 
@@ -146,12 +157,10 @@ var validacionCitaActualizaion = function () {
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
 
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false) {
-        alert("ALGO ESTA MAL!");
+            VhoraFinCita === false || VpacienteCita === false || VfobiaCita === false || VpsicologoCita === false) {
     } else {
         //actualizarCita();
         actualizarCita();
-        alert("TODO BIEN!");
     }
 };
 
@@ -284,7 +293,7 @@ var validarFobiaCita = function (elementoError, valor, elemento) {
 var keyfobiacita = function () {
     var $fobiaCita = $('#buscar_fobia');
     var term = $fobiaCita.val();
-    if ($fobiaCita.val()=== "") {
+    if ($fobiaCita.val() === "") {
         addNegativeAttributtes('buscar_fobia');
         addNegativeHtml('buscar_fobiaError', "Debe ingresar un Fobia Obligatoriamente");
         return false;
@@ -303,7 +312,7 @@ var keyfobiacita = function () {
                     return true;
                 } else {
                     addNegativeAttributtes('buscar_fobia');
-                    addNegativeHtml('buscar_fobiaError', "La Fobia Ingresada no Existe");             
+                    addNegativeHtml('buscar_fobiaError', "La Fobia Ingresada no Existe");
                     return false;
                 }
             }
