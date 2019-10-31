@@ -290,7 +290,7 @@ public class PsicologoController {
             observacion = "NO hay Observaciones";
         }
         System.out.println("Lectura de Listener Finalizado");
-        ResultadoSimulacion rs = resSim;
+        ResultadoSimulacion rs = resultadoSimulacionService.findbyId(resSim.getResSimId());
         Cita cita = citaService.obtenerCita(rs.getCita().getCitId());
         rs.setCita(cita);
         resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
