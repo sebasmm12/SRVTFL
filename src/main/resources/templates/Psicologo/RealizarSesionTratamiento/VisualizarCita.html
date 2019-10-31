@@ -113,7 +113,10 @@ and open the template in the editor.
                                                                         Imagen
                                                                     </label>
                                                                 </div>
-                                                                <img th:if="${#strings.length(cita.paciente.pacImagen) > 0}"
+                                                                <img th:if="${(cita.paciente.pacImagen) == null || (cita.paciente.pacImagen == '')}"
+                                                                     class="img-thumbnail rounded" style="width: 100% !important;height: auto !important;border: dashed blueviolet"
+                                                                     th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" th:alt="usuario_normal" id="imagenId"/>
+                                                                <img th:if="${#strings.length(cita.paciente.pacImagen) > 0 && cita.paciente.pacImagen != null}"
                                                                      class="img-thumbnail rounded" style="width: 100% !important;height: auto !important;border: dashed blueviolet"
                                                                      th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}" id="imagenId"/>
                                                             </div>
