@@ -18,9 +18,11 @@ var actualizarCita = function () {
         citFechaHoraFin: horaFechaFin,
         citMotivo: motivoCita
     };
+
     var pacId = pacienteId;
     var fobId = fobiaId;
     var psicoId = psicologoId;
+
     var citaJson = {
         cita: cita,
         pacienteId: pacId,
