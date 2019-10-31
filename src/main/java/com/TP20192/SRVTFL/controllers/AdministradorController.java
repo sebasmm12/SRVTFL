@@ -83,8 +83,7 @@ public class AdministradorController {
             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
             model.addAttribute("mensage", "No se pudo encontrar los Datos solicitados, intente cambiando el tipo de filtro o los parametros de entrada");
         }
-        PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios?nombreUsu=" + nombreUsu
-                + "&tipoFiltro=" + filtro, detUsus);
+        PageRender<Usuario> pageRender = new PageRender("/api/administrador/GestionarUsuarios", detUsus);
         model.addAttribute("detUsus", detUsus);
         model.addAttribute("titulo", "Gestion de Usuarios y Cuentas");
         model.addAttribute("page", pageRender);
@@ -111,7 +110,7 @@ public class AdministradorController {
             }
         }
 
-        PageRender<Usuario> pageRender = new PageRender("/Administrador/GestionarUsuarios", detUsus);
+        PageRender<Usuario> pageRender = new PageRender("/api/administrador/registrarUsuario", detUsus);
         model.addAttribute("detUsus", detUsus);
         model.addAttribute("titulo", "Gestion de Usuarios y Cuentas");
         model.addAttribute("page", pageRender);

@@ -155,6 +155,7 @@ public class RecepcionistaRestController {
         act.setAct_descripcion("Motivo :" + cita.getCitMotivo());
         act.setAct_fin(cita.getCitFechaHoraFin());
         act.setAct_inicio(cita.getCitFechaHoraInicio());
+        act.setAct_id(1L);
         //Guardando la Actividad
         citaservice.insertaActividad(act);
         return "1";

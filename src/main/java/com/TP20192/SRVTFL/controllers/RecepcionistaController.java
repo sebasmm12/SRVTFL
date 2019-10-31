@@ -119,6 +119,7 @@ public class RecepcionistaController {
         model.addAttribute("fecha", fecha);
         model.addAttribute("nombre", nombrePaciente);
         model.addAttribute("fech", fecha);
+        System.out.println("Citas "+citas.getSize());
 
         return "Recepcionista/ListarCita";
     }
@@ -319,10 +320,19 @@ public class RecepcionistaController {
         if(cita ==null){
            return "redirect:/Recepcionista/GestionarCitas";
         }
-        EstadoCita ec = citaService.findEstadoCitaById(4);
+        
+        EstadoCita ec = new EstadoCita();
+        if(cita.getEstadoCita().getEstCitId() == 2){
+            ec = citaService.findEstadoCitaById(4);
+        }else{
+            ec = citaService.findEstadoCitaById(2);
+        }  
         cita.setEstadoCita(ec);
         citaService.registrarCita(cita);
-        citaService.eliminarActividadPorId(id);
+        //citaService.eliminarActividadPorId(id);
+        Actividad ac = citaService.ObtenerActividadPorId(cita.getCitId());
+        ac.setEst_act_id(1L);
+        citaService.insertaActividad(ac);
         return "redirect:/Recepcionista/GestionarCitas";
     }
     

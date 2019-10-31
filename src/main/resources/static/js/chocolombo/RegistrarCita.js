@@ -118,12 +118,14 @@ var validacionCitaRegistro = function () {
     var VpacienteCita = validarPacienteCita('buscar_pacienteError', pacienteCita, 'buscar_paciente');
     var VfobiaCita = validarFobiaCita('buscar_fobiaError', fobiaCita, 'buscar_fobia');
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
+    var logHor = validarLogicaHorarios();
 
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false) {
+            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false
+            ||logHor === false) {
         alert("ALGO ESTA MAL!");
     } else {
-        registrarCita();
+        //registrarCita();
         alert("TODO BIEN!");
     }
 };
@@ -146,7 +148,8 @@ var validacionCitaActualizaion = function () {
     var VpsicologoCita = validarPsicologoCita('buscar_psicologoError', psicologoCita, 'buscar_psicologo');
 
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false) {
+            VhoraFinCita === false || VpacienteCita === false|| VfobiaCita===false || VpsicologoCita === false
+            || validarLogicaHorarios === false) {
         alert("ALGO ESTA MAL!");
     } else {
         //actualizarCita();
@@ -155,6 +158,29 @@ var validacionCitaActualizaion = function () {
     }
 };
 
+var validarLogicaHorarios = function(){
+    var horaIni = $('#fechaHoraInicio').val();
+    var horaFin = $('#fechaHoraFin').val();
+    var paramIni = horaIni.split(':');
+    var paramFin = horaFin.split(':');
+    var fechaIni = new Date();
+    var fechaFin = new Date();
+    fechaIni.setFullYear(paramIni[0],paramIni[1],0);
+    fechaFin.setFullYear(paramFin[0],paramFin[1],0);
+    if(fechaIni >= fechaFin){
+        addNegativeAttributtes('fechaHoraInicio');
+        addNegativeHtml('fechaHoraInicioError','La fecha de Inicio no puede ser mayor a la de finalizacion');
+        addNegativeAttributtes('fechaHoraFin');
+        addNegativeHtml('fechaHoraFinError','La fecha de Finalizacion no puede ser menor a la de Inicio');
+        return false;
+    }else{
+        addPositiveAtributtes('fechaHoraInicio');
+        addPositiveHtml('fechaHoraInicioError','Correcto');
+        addPositiveAtributtes('fechaHoraFin');
+        addPositiveHtml('fechaHoraFinError','Correcto');
+        return true;
+    }
+};
 
 
 var validarHoraIniCita = function (elementoError, valor, elemento) {
