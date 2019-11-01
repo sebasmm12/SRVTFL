@@ -154,14 +154,16 @@ public class PsicologoController {
             try {
                 for (int i = 0; true; i++) {
 
-                    if (StaticInteger.getInteger() != null /*&& cowl.get(i) < 300*/) {
-                        emitter.send(StaticInteger.getInteger());
-                        /*PulsoSimulacion ps = new PulsoSimulacion();
-                        ps.setPulSimHora(Calendar.getInstance().getTime());
-                        ps.setPulSimNormal(true);
-                        ps.setPulSimPulso(StaticInteger.getInteger().longValue());
-                        pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
-                        System.out.println("Dato Recivido");
+                    if (StaticInteger.getInteger() != null ) {
+                        if(StaticInteger.getInteger() <= 150){
+                            emitter.send(StaticInteger.getInteger());
+                            /*PulsoSimulacion ps = new PulsoSimulacion();
+                            ps.setPulSimHora(Calendar.getInstance().getTime());
+                            ps.setPulSimNormal(true);
+                            ps.setPulSimPulso(StaticInteger.getInteger().longValue());
+                            pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
+                            System.out.println("Dato Recivido");
+                        }
                     }
                     /*if(cowl.get(i) != null){
                         emitter.send(cowl.get(i));
@@ -253,6 +255,8 @@ public class PsicologoController {
         rs.setCita(c);
         rs.setRestSimSalidaEmergencia(false);
         rs.setResSimId(c.getSimId());
+        rs.setResSimNivelInicial(1);
+        rs.setRestSimPulsoPromedio(0);
         rs = resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
         Fobia fob = fobiaService.findFobiaById(c.getSimId());
         vrAuxService.iniciarTratamiento(c.getSimId(),1, rs.getResSimId(), "SIMULACION-"+fob.getFobNombre());

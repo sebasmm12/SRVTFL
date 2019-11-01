@@ -13,6 +13,7 @@ import com.TP20192.SRVTFL.models.service.IVrAuxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,15 +46,15 @@ public class VRRestController {
     }
     
     @GetMapping("/guardar/{nivelfinal}/{resSimId}")
-    public void  guardar(@Param("nivelfinal") int nivelfinal,@Param("resSimId") Long resSimId) {
+    public void  guardar(@PathVariable("nivelfinal") int nivelfinal,@PathVariable("resSimId") Long resSimId) {
 
          VrAuxService.guardarNivel(resSimId , nivelfinal);
 
     }
     
        @GetMapping("/prueba/{inicial}/{simulacionId}/{resSimId}/{nombreSimulacion}")
-    public void pruebas(@Param("inicial") int inicial,@Param("simulacionId") Long simulacionId,
-            @Param("resSimId") Long resSimId, @Param("nombreSimulacion") String nombreSimulacion
+    public void pruebas(@PathVariable("inicial") int inicial , @PathVariable("simulacionId") Long simulacionId,
+            @PathVariable("resSimId") Long resSimId, @PathVariable("nombreSimulacion") String nombreSimulacion
             
             ) {
          VrVariables.setNivelInicial(inicial);
