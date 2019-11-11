@@ -334,4 +334,8 @@ public class PsicologoController {
         model.addAttribute("nivelFinal", nivelFinal);
         return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
+    @GetMapping(value="/imagen")
+    public String Imagen(Model model) {
+        return "Psicologo/RealizarSesionTratamiento/ImagenPrueba";
+    }
 }

@@ -100,8 +100,8 @@ var registrarCita = function () {
             }
         }
     });
-    });
-};
+    };
+
 function alertas() {
     alerta();
 }
