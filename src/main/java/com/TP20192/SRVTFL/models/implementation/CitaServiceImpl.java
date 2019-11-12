@@ -12,6 +12,7 @@ import com.TP20192.SRVTFL.models.dao.IDiagnosticoDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
 import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
+import com.TP20192.SRVTFL.models.dao.ITratamientoDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
@@ -20,6 +21,7 @@ import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
+import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +58,9 @@ public class CitaServiceImpl implements ICitaService {
     
     @Autowired
     public IDiagnosticoDao diagnosticoDao;
+    
+    @Autowired
+    public ITratamientoDao tratamientoService;
     
     @Transactional(readOnly = true)
     @Override
@@ -227,5 +232,21 @@ public class CitaServiceImpl implements ICitaService {
     public DetalleUsuario encontrarDetalleUsuarioByNombre(String term) {
         return detUsuDao.encontrarUsuarioByNombre(term);
     }
+
+    @Override
+    public Page<Pregunta> encontrarPreguntaPrimeraCita(Boolean primera,Pageable page) {
+        return preguntaDao.encontrarPreguntaPrimeraCita(true,page);
+    }
+
+    @Override
+    public Tratamiento RegistrarTratamiento(Tratamiento t) {
+        return tratamientoService.save(t);
+    }
+
+    @Override
+    public void registrarRespuesta(Respuesta res) {
+        respuestaDao.save(res);
+    }
+    
 
 }

@@ -10,6 +10,7 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Nivel;
 import com.TP20192.SRVTFL.models.entity.Fobia;
+import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
@@ -17,6 +18,7 @@ import com.TP20192.SRVTFL.models.entity.TipoDocumento;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.models.service.IFobiaService;
+import com.TP20192.SRVTFL.models.service.IObservacionService;
 import com.TP20192.SRVTFL.models.service.IPacienteService;
 import com.TP20192.SRVTFL.models.service.IPsicologoService;
 import com.TP20192.SRVTFL.models.service.IPulsoSimulacionService;
@@ -95,6 +97,10 @@ public class PsicologoController {
     
     @Autowired
     private IVrAuxService vrAuxService;
+    
+    @Autowired
+    private IObservacionService observacionService;
+    
     private volatile Thread th1;
 
     @GetMapping(value = {"/index", "/"})
@@ -311,7 +317,7 @@ public class PsicologoController {
         if (cita.getTratId() == null) {
             tratId = true;
         }
-        Pageable pageRequest = PageRequest.of(page, 10);
+        Pageable pageRequest = PageRequest.of(page, 3);
 
         Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId().longValue(), pageRequest);
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
@@ -334,4 +340,46 @@ public class PsicologoController {
         model.addAttribute("nivelFinal", nivelFinal);
         return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
+    //realizar observacion con ajax
+    @RequestMapping(value = "/registrarObservacion", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String registrarObservacionSimulacionPulso(@RequestBody Observacion obs){
+        observacionService.registrarObservacion(obs);
+        return "1";
+    }
+   
+    
+    @RequestMapping(value="/realizarPreguntasPrimeraCita")
+    public String realizarPreguntasPrimeraCita(Model model, @RequestParam(name="citId") Long citId,
+            @RequestParam(name="page",defaultValue = "0") Integer page){
+        Cita cita = citaService.obtenerCita(citId);
+        Pageable pageRequest = PageRequest.of(page, 10);
+        Page<Pregunta> preguntasPrimCita = citaService.encontrarPreguntaPrimeraCita(true,pageRequest);
+        PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntasPrimCita);
+        model.addAttribute("preguntas", preguntasPrimCita);
+        model.addAttribute("cita",cita);
+        model.addAttribute("page", pageRender);
+        model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        return "Psicologo/RealizarPreguntasTratamiento";
+    }
+    /*
+    @GetMapping(value = "/RealizarPreguntas")
+    public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
+        Boolean tratId = false;
+        if (cita.getTratId() == null) {
+            tratId = true;
+        }
+        Pageable pageRequest = PageRequest.of(page, 3);
+
+        Page<Pregunta> preguntas = citaService.EncontrarPreguntasCita(tratId, cita.getSimId().longValue(), pageRequest);
+        PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
+        model.addAttribute("preguntas", preguntas);
+        model.addAttribute("cita", cita);
+        model.addAttribute("page", pageRender);
+        model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        citaService.registrarCita(cita);
+        return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
+    }
+    */
 }
