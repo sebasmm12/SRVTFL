@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/layout :: head"></head>
+    <body onLoad="setInterval('clickButton()', 1000);">
+        <div th:replace="layout/layout :: loader"></div>
+        <div id="pcoded" class="pcoded">
+            <div th:replace="layout/layout :: pcoded_box"></div>
+            <div class="pcoded-container navbar-wrapper">
+                <nav th:replace="layout/layout :: navbar"></nav>
+                <div th:replace="layout/layout :: sidebar"></div>
+                <div th:replace="layout/layout :: showChat"></div>
+                <div class="pcoded-main-container">
+                    <div class="pcoded-wrapper">
+                        <nav th:replace="layout/layout :: navbar_navegation"></nav>
+                        <div class="pcoded-content">
+                            <!--Aqui es el RenderBody-->
+                            <div>
+                                <span id="status"></span>
+                                <div id="box"></div>
+                            </div>
+                        </div>
+                        <div th:replace="layout/layout :: styleSelector"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="layout/layout :: footer"></footer>
+        <p id="paragraphElement"></p> 
+
+        <!-- The server returns a call to the callback function 
+        (processData) that will handle the JSON data -->
+        <script>
+            
+            function clickButton() {
+                var s = document.createElement("script");
+                s.src = "http://192.168.1.20:5000";
+                document.body.appendChild(s);
+            }
+
+            function GG(myObj) {
+
+                $("#box").html(
+                        $('<img>').attr('id', 'desktop').attr('src', 'data:image/jpeg;base64,' + myObj.imagen));
+                
+            }
+
+        </script> 
+
+        <!-- Calling the iTunes API to search for Jack Johnson's songs and return  
+                the first five items -->
+        
+
+
+    </body>
+</html>
+
