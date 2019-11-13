@@ -105,5 +105,8 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
             + " where c.citId = :citId")
     public Cita encontrarCitaconPacinenteconEstado(@Param("citId") Long id);
     
+        @Query("select c from Cita c")
+    public Page<Cita> listarCitasTratamiento(Pageable pageable);
+    
     
 }

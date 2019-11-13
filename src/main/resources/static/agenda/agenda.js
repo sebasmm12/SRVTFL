@@ -9,7 +9,8 @@ $(document).ready(function () {
                     title: v.act_nombre,
                     description: v.act_descripcion,
                     start: moment(v.act_inicio),
-                    end: v.act_fin !== null ? moment(v.act_fin) : null
+                    end: v.act_fin !== null ? moment(v.act_fin) : null,
+                    color: v.estadoActividad.estActColor
                 });
             })
             GenerateCalender(events);

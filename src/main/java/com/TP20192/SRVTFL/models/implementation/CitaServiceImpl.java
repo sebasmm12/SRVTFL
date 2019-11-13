@@ -248,5 +248,8 @@ public class CitaServiceImpl implements ICitaService {
         respuestaDao.save(res);
     }
     
+    public Page<Cita> obtenerTodasLasCitas(Pageable pageable) {
+        return citaService.listarCitasTratamiento(pageable);
+    }
 
 }
