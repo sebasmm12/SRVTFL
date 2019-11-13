@@ -89,4 +89,5 @@ public interface ICitaService {
    public Tratamiento RegistrarTratamiento(Tratamiento t);
    
    public void registrarRespuesta(Respuesta res);
+   public Page<Cita> obtenerTodasLasCitas(Pageable pageable);
 }

@@ -5,12 +5,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="layout/layout :: head">
-
-    </head>
+    <head th:replace="layout/layout :: head"></head>
     <body>
-        <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <div th:replace="layout/layout :: loader"></div>
         <div id="pcoded" class="pcoded">
             <div th:replace="layout/layout :: pcoded_box"></div>
@@ -22,43 +18,127 @@ and open the template in the editor.
                     <div class="pcoded-wrapper">
                         <nav th:replace="layout/layout :: navbar_navegation"></nav>
                         <div class="pcoded-content">
-                            <!--Aqui es el RenderBody-->
-                            <div class="container">
+                            <!--Aqui es el RenderBody Osea donde se muestra todo
+                            Nota: no uses nombres de anotaciones de C# en Spring , los tepecitos se
+                            confunden-->
+
+                            <div class="container py-4">
                                 <div class="card bg-light">
-                                    <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0 m-l-15 m-t-15" th:text="${titulo}"></h2>
+                                    <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
+                                        th:text="${titulo}"></h2>
+                                    <!--div class="alert alert-danger m-l-10 m-r-10" th:if="">
+                                        
+                                    </div-->
+                                    <ul th:if="${mensaje != null}" class="alert alert-danger m-l-10 m-r-10">
+                                        <li th:text="${mensaje}"></li>
+                                    </ul>
                                     <div class="card-body">
+                                        <form name="GestionarCitas"  class="col-sm-12">
+                                            <div class="row m-b-15">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Paciente Citado:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" 
+                                                           th:value="${nombre}" name="buscar_Paciente" id="buscar_paciente"/>                                                  
+                                                </div>
+                                                <select id="tipoFiltro" name="tipoFiltro" class="col-sm-2 browser-default custom-select m-l-15">
+                                                    <option th:value="0" th:text="'Especifico'"></option>
+                                                    <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
+                                                </select>
+                                                <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-outline-success btn-xs
+                                                   align-items-lg-end col-sm-3 m-l-15">
 
-                                        <div class="container">
-                                            <h2 align="center">Grafica de Pulso del Paciente</h2>
-                                            <div class="chart-container" style="position: relative; height:40vh; width:40vw;
-                                                 margin-left: auto; margin-right: auto">
-                                                <canvas id="myChart" style="margin-left: auto; margin-right: auto" ></canvas>
+                                                    <i class="fa fa-check" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Nueva Cita</span>
+                                                </a>
+
+
+
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Fecha de Cita:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="date" class="form-control" id="fecha" name="fecha" th:value="${fech}"/>                                                  
+                                                </div>
+                                                <select id="evalFecha" name="evalFecha" class="col-sm-2 browser-default custom-select m-l-15">
+                                                    <option th:value="0" th:text="'Actual'"></option>
+                                                    <option th:value="1" selected="selected" th:text="'Anteriores'"></option>
+                                                </select>
+                                                <a th:href="@{/Recepcionista/GestionarCitas}" class="btn btn-outline-success btn-xs
+                                                   align-items-lg-end col-sm-3 m-l-15">
+                                                    <i class="fa fa-search" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Buscar Por Filtros</span>
+                                                </a>
                                             </div>
 
-                                        </div>
+                                            <!input type="hidden" name="paciente_id"  id="paciente_id"/-->
+                                        </form>
+                                        <!--h4 class="card-title col-sm-4">
+                                            <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-success btn-xs
+                                               align-items-lg-end">Nueva Cita</a>
+                                        </h4-->
+
                                         <br>
-                                        <div class="form-group row m-t-25 m-l-25">
-                                            <label class="col-sm-3 col-form-label"
-                                                   th:text="'Ingrese Coordenada'" ></label>
-                                            <div class="col-sm-6">
-                                                <input type="text" id="coordenate" class="form-control col-sm-12" maxlength="200"/>
-                                            </div>
-                                            <button class="btn btn-outline-success btn-registrar col-sm-3" id="btnAdd">
-                                                <i class="fa fa-check"></i>
-                                                <span class="btn-text">Agregar Coordenadas</span>
-                                            </button>  
-                                        </div>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Paciente</th>
+                                                    <th>Hora Inicio</th>
+                                                    <th>Hora Fin</th>
+                                                    <th>Estado de Cita</th>
+                                                    <th>Modificar</th>
+                                                    <th>Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="cita, iStat : ${citas}">
+                                                    <td>
 
+                                                        <a class="btn btn-outline-info btn-xs" 
+                                                           th:href="@{'/Recepcionista/detalleCita/' + ${cita.citId}}">
+                                                            <i class="fa fa-eye" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Ver</span>
+                                                        </a>
+                                                    </td>
+                                                    <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
+                                                    <td th:text="${cita.citFechaHoraInicio}"></td>
+                                                    <td th:text="${cita.citFechaHoraFin}"></td>
+                                                    <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
+                                                    <td><a class="btn btn-outline-primary btn-xs"
+                                                           th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">
+                                                            <i class="fa fa-edit" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Actualizar</span></a></td>
+
+                                                    <td>
+                                                        <a th:if="${cita.estadoCita.estCitId  <= 3}"
+                                                           th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-outline-danger btn-xs"
+                                                           onclick="return confirm('estas seguro que deseas Cancelar la Cita??');">
+                                                            <i class="fa fa-times" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Bloquear</span></a>
+                                                        <a th:if="${cita.estadoCita.estCitId == 4}"
+                                                           th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-outline-success btn-xs"
+                                                           onclick="return confirm('estas seguro que deseas Habilitar la Cita??');">
+                                                            <i class="fa fa-unlock" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Habilitar</span></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div th:replace="layout/layout :: styleSelector"></div>
+
                     </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
                 </div>
             </div>
         </div>
-        <footer th:replace="layout/layout :: footer"></footer>
-        <script th:src="@{/js/pulso.js}"></script>
-    </body>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+    <!--script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script-->
+</body>
 </html>

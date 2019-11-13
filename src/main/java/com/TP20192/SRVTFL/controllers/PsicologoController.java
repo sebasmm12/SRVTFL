@@ -110,7 +110,7 @@ public class PsicologoController {
         return "Psicologo/index";
     }
 
-    @GetMapping(value = "/GestionarAgenda")
+    @GetMapping(value = "/GestionarAgenda") 
     public String gestionarAgenda(Map<String, Object> model) {
         Usuario usu = (Usuario) model.get("usuario");
         Long usu_codigo = usu.getUsu_id();
@@ -118,6 +118,18 @@ public class PsicologoController {
         actividad = psicologoService.encontrarActividadPsicologo(usu_codigo);
         model.put("actividades", actividad);
         return "Agenda/index";
+    }
+    
+    @RequestMapping(value = "/GestionarTratamiento", method = RequestMethod.GET)
+    public String gestionarTratamiento(@RequestParam(name="page",defaultValue="0") int page, Model model) {
+        Pageable pageRequest = PageRequest.of(page, 5);
+        Page<Cita> cita = citaService.obtenerTodasLasCitas(pageRequest);
+        PageRender<Cita> pageRender = new PageRender<>("GestionarTratamiento",cita);
+        model.addAttribute("titutlo","LISTAR TRATAMIENTO");
+        model.addAttribute("cita",cita);
+        model.addAttribute("page",pageRender);
+        model.addAttribute("titulo", "Gestion de Tratamientos");
+        return "Psicologo/GestionarTratamiento";
     }
 
     @GetMapping(value = "/RealizarSesionTratamiento")
