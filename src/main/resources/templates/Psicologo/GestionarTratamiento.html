@@ -19,9 +19,26 @@
                                 <div class="card bg-light">
                                     <h2 class="card-header text-secondary border border-success border-top-0 border-left-0 border-right-0"
                                         th:text="${titulo}"></h2>
+                                    <ul th:if="${mensaje != null}" class="alert alert-danger m-l-10 m-r-10">
+                                        <li th:text="${mensaje}"></li>
+                                    </ul>
+                                    
                                     <div class="card-body">
-                                        <table class="table table-bordered">
-                                            <thead class="thead-inverse">
+                                        <form name="GestionarTratamiento" class="col-sm-12">
+                                            <div class="row m-b-15">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Paciente Citado:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" 
+                                                           th:value="${nombre}" name="buscar_Paciente" id="buscar_paciente"/>                                                  
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <table class="table table-striped">
+                                            <thead>
                                             <th>ID</th>
                                             <th>Paciente</th>
                                             <th>HoraInicio</th>
