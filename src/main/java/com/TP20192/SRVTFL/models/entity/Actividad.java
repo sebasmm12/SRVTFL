@@ -9,7 +9,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,16 +40,19 @@ public class Actividad {
     @Column(name = "act_fin")
     private Date act_fin;
     
-    @Column(name="est_actividad")
-    private Long est_act_id;
+   
+    @JoinColumn(name="est_actividad")
+    @ManyToOne(fetch = FetchType.EAGER)   
+    private EstadoActividad EstadoActividad;
 
-    public Long getEst_act_id() {
-        return est_act_id;
+    public EstadoActividad getEstadoActividad() {
+        return EstadoActividad;
     }
 
-    public void setEst_act_id(Long est_act_id) {
-        this.est_act_id = est_act_id;
+    public void setEstadoActividad(EstadoActividad EstadoActividad) {
+        this.EstadoActividad = EstadoActividad;
     }
+    
 
     
     public Long getAct_id() {

@@ -44,6 +44,19 @@ public class EstadoActividad implements Serializable{
         this.estActColor = estActColor;
     }
 
+    public EstadoActividad(int estActId, String estActNombre, String estActColor) {
+        this.estActId = estActId;
+        this.estActNombre = estActNombre;
+        this.estActColor = estActColor;
+    }
+
+    public EstadoActividad() {
+    }
+
+    public EstadoActividad(int estActId) {
+        this.estActId = estActId;
+    }
+
     
     
     

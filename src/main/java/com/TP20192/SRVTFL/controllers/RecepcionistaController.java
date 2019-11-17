@@ -330,8 +330,9 @@ public class RecepcionistaController {
         cita.setEstadoCita(ec);
         citaService.registrarCita(cita);
         //citaService.eliminarActividadPorId(id);
-        Actividad ac = citaService.ObtenerActividadPorId(cita.getCitId());
-        ac.setEst_act_id(1L);
+        Actividad ac = citaService.ObtenerActividadPorId(cita.getCitId());  
+        ac.setEstadoActividad(new EstadoActividad(1,"Urgente","red"));
+          
         citaService.insertaActividad(ac);
         return "redirect:/Recepcionista/GestionarCitas";
     }
