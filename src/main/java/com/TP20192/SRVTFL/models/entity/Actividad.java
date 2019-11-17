@@ -6,14 +6,10 @@
 package com.TP20192.SRVTFL.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,36 +33,21 @@ public class Actividad {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
     @Column(name = "act_inicio")
     private Date act_inicio;
-    
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="America/Lima")
     @Column(name = "act_fin")
     private Date act_fin;
     
-   /* @Column(name="est_actividad")
+    @Column(name="est_actividad")
     private Long est_act_id;
-*/
-    
-    @JoinColumn(name="est_actividad")
-    @ManyToOne(fetch = FetchType.EAGER)   
-   // @JsonIgnore
-    private EstadoActividad estadoActividad;
 
-    public EstadoActividad getEstadoActividad() {
-        return estadoActividad;
-    }
-
-    public void setEstadoActividad(EstadoActividad estadoActividad) {
-        this.estadoActividad = estadoActividad;
-    }
-    
-    /*
     public Long getEst_act_id() {
         return est_act_id;
     }
 
     public void setEst_act_id(Long est_act_id) {
         this.est_act_id = est_act_id;
-    }*/
+    }
+
     
     public Long getAct_id() {
         return act_id;
