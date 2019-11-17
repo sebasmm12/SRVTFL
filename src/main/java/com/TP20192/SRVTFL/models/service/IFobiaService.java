@@ -19,4 +19,6 @@ public interface IFobiaService {
     public Fobia findOneFobiaByNombre(String term);
     
     public Fobia findFobiaById(Long fobiaId);
+    
+    public List<Fobia> findAllFobia();
 }

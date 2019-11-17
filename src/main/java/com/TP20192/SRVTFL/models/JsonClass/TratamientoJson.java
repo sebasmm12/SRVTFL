@@ -14,7 +14,7 @@ import java.util.List;
 public class TratamientoJson {
     
     public Tratamiento tratamiento;
-    public List<Respuesta> respuestas;
+    public List<RespuestaJson> respuestas;
 
     public Tratamiento getTratamiento() {
         return tratamiento;
@@ -24,11 +24,12 @@ public class TratamientoJson {
         this.tratamiento = tratamiento;
     }
 
-    public List<Respuesta> getRespuestas() {
+    public List<RespuestaJson> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(List<Respuesta> respuestas) {
+    public void setRespuestas(List<RespuestaJson> respuestas) {
         this.respuestas = respuestas;
     }
+
 }

@@ -6,7 +6,9 @@
 package com.TP20192.SRVTFL.RestController;
 
 import com.TP20192.SRVTFL.models.JsonClass.DetalleUsuarioJson;
+import com.TP20192.SRVTFL.models.JsonClass.RespuestaJson;
 import com.TP20192.SRVTFL.models.JsonClass.TratamientoJson;
+import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -23,25 +25,30 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author hp
  */
 @RestController
-@RequestMapping("/Api/psicologo")
+@RequestMapping("/api/psicologo")
 @SessionAttributes("usuario")
 public class PsicologoRestController {
     
     @Autowired
     private ICitaService citaService;
     
-     @RequestMapping(value = "/registrarTratamiento", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    public String registrarUsuario(@RequestBody TratamientoJson tratamientojson) {
+     @RequestMapping(value = "/obtenerTratamiento", method = RequestMethod.GET, consumes = "application/json;charset=UTF-8")
+    public Tratamiento obtenerTratamiento(@RequestBody Long citId) {
+        Cita cit = citaService.obtenerCita(citId);
+        Tratamiento tratamiento = cit.getTratId();
+        return tratamiento;
+    }
+    
+    /* @RequestMapping(value = "/registrarTratamiento", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public String registrarTratamiento(@RequestBody TratamientoJson tratamientojson) {
         Tratamiento tr = tratamientojson.getTratamiento();
-         List<Respuesta> respuestas = tratamientojson.getRespuestas();
+         List<RespuestaJson> respuestas = tratamientojson.getRespuestas();
          System.out.println("Tratamiento Creado");
         citaService.RegistrarTratamiento(tr);
          for (int i = 0; i < respuestas.size(); i++) {
              citaService.registrarRespuesta(respuestas.get(i));
          }
         return "1";
-        
-    }
-    
+    }*/
     
 }

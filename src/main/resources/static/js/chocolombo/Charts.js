@@ -16,6 +16,9 @@ var resSimI;
 var citaId = document.getElementById('citId').value;
 var inicio;
 var fin;
+var suma = 0;
+var totPulsos =0;
+var promedio =0;
 
 
 document.getElementById('btnsimulacionFinalizar').disabled = true;
@@ -53,6 +56,7 @@ function parseoFecha(today) {
     return date + ' ' + time;
 }
 btnSimuFin.addEventListener('click', function () {
+    promedio = suma/totPulsos;
     restSimFin = new Date();
     inicio = parseoFecha(restSimInicio);
     fin = parseoFecha(restSimFin);
@@ -68,24 +72,25 @@ btnSimuFin.addEventListener('click', function () {
         restSimFinal: Date.parse(fin),
         restSimSalidaEmergencia: restSimSalidaEmergencia,
         cita: cita,
-        restSimPulsoPromedio: 0
+        restSimPulsoPromedio: promedio
     };
+    
     sse.close();
     $.ajax({
-        url: "/psicologo/finalizarLectura?observacion="+observacion,
+        url: "/psicologo/finalizarLectura?observacion=" + observacion,
         contentType: 'application/json;charset=utf-8',
         type: 'POST',
         data: JSON.stringify(resSim),
         success: function (data) {
             Swal.fire({
-                    type: 'success',
-                    title: 'Se registro las observaciones exitosamente',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.value) {
-                        window.location.href = "/psicologo/RegistarDiagnostico?citId="+data+"&simId="+resSim.resSimId;
-                    }
-                });
+                type: 'success',
+                title: 'Se registro las observaciones exitosamente, Promedio:'+promedio,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.value) {
+                    window.location.href = "/psicologo/RegistarDiagnostico?citId=" + data + "&simId=" + resSim.resSimId;
+                }
+            });
         }
     });
     document.getElementById("btnsimulacionInicio").disabled = false;
@@ -97,13 +102,13 @@ btnSimuFin.addEventListener('click', function () {
 btnSimuInicio.addEventListener('click', function () {
     restSimInicio = new Date();
     $.ajax({
-        url: "/psicologo/registrarResultadoSimu?citId="+citaId,
+        url: "/psicologo/registrarResultadoSimu?citId=" + citaId,
         contentType: 'application/json;charset=utf-8',
         type: 'GET',
         success: function (data) {
             if (data !== "") {
                 resSimI = parseInt(data);
-                console.log("Inicializacion correcta");
+                console.log("Inicializacion correcta" + data);
             }
         }
     });
@@ -121,11 +126,30 @@ btnSimuInicio.addEventListener('click', function () {
     setTimeout(function () {
         sse = new EventSource('http://localhost:8080/psicologo/simulacionPulso');
         sse.onmessage = function (evt) {
-            myChart.data.datasets[0].data[counter] = parseInt(evt.data);
-            myChart.data.labels[counter] = counter + 1;
-            restSimPulsoPromedio += parseInt(evt.data);
+            /*myChart.data.datasets[0].data[counter] = parseInt(evt.data);
+             myChart.data.labels[counter] = counter + 1;
+             restSimPulsoPromedio += parseInt(evt.data);
+             counter++;
+             registrarPulso(parseInt(evt.data));
+             myChart.update();*/
+            totPulsos++;
+            suma = suma + parseInt(evt.data);
+            if (myChart.data.datasets[0].data.length <= 10) {
+                myChart.data.datasets[0].data[counter] = parseInt(evt.data);
+                myChart.data.datasets[0].pointBackgroundColor[counter] = "rgba(63,116,191,0.4)";
+                myChart.data.datasets[0].pointBorderColor[counter] = "rgba(63,116,191,1)";
+                myChart.data.labels[counter] = counter + 1;
+                // myChart.data.datasets[0].pointRadius[counter] =
+                // 4;
+            } else {
+                myChart.data.datasets[0].data[11] = parseInt(evt.data);
+                myChart.data.datasets[0].pointBackgroundColor[11] = "rgba(63,116,191,0.4)";
+                myChart.data.datasets[0].pointBorderColor[11] = "rgba(63,116,191,1)";
+                myChart.data.labels[11] = counter + 1;
+                myChart.data.labels.splice(0, 1);
+                myChart.data.datasets[0].data.splice(0, 1);
+            }
             counter++;
-            registrarPulso(parseInt(evt.data));
             myChart.update();
         };
     }, millisecondsToWait);
@@ -136,19 +160,19 @@ btnSimuInicio.addEventListener('click', function () {
 });
 
 
-btnFinalizarAbruptamente.addEventListener('click',function(){
+btnFinalizarAbruptamente.addEventListener('click', function () {
     //registrarPulso();
 });
 
-function registrarPulso(pulso){
-    var pulSim ={
+function registrarPulso(pulso) {
+    var pulSim = {
         pulsSimId: 0,
         pulSimHora: parseoHora(new Date()),
         pulSimPulso: pulso,
         resSimId: resSimI,
-        pulSimNormal: true     
+        pulSimNormal: true
     };
-    
+
     $.ajax({
         url: "/psicologo/registrarPulso",
         contentType: 'application/json;charset=utf-8',

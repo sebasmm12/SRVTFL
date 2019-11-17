@@ -24,4 +24,7 @@ public interface IFobiaDao extends PagingAndSortingRepository<Fobia, Long>{
     @Query("select f from Fobia f where f.fobNombre = :nombre_fobia")
     public Fobia findOneFobiaByNombre(@Param("nombre_fobia") String term);
     
+    @Query("select f from Fobia f")
+    public List<Fobia> listarFobias();
+    
 }

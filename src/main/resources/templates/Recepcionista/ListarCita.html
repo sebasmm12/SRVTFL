@@ -88,6 +88,7 @@ and open the template in the editor.
                                                     <th>Hora Inicio</th>
                                                     <th>Hora Fin</th>
                                                     <th>Estado de Cita</th>
+                                                    <!--th>Tipo</th-->
                                                     <th>Modificar</th>
                                                     <th>Eliminar</th>
                                                 </tr>
@@ -106,6 +107,7 @@ and open the template in the editor.
                                                     <td th:text="${cita.citFechaHoraInicio}"></td>
                                                     <td th:text="${cita.citFechaHoraFin}"></td>
                                                     <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
+                                                    <!--td th:text="${cita.tratId == null} ? 'Primera Cita' : 'En tratamiento' "></td-->
                                                     <td><a class="btn btn-outline-primary btn-xs"
                                                            th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">
                                                             <i class="fa fa-edit" style="font-size: 15px"></i>

@@ -71,10 +71,12 @@ and open the template in the editor.
                                                     Registrar Preguntas
                                                 </button>
                                             </div>
+                                            <div th:replace="Psicologo/_RegistrarTratamiento :: regTrat"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <input type="text" class="d-none" id="citId" th:value="${cita.citId}" />
+                                <input type="text" class="d-none" id="primCit" th:value="${primCit}" />
                             </div>
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>

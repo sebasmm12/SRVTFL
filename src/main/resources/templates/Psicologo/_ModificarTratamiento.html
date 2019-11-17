@@ -1,0 +1,67 @@
+<div class="modal" tabindex="-1" th:fragment="modTrat" id='modificacionModal' role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificacion del Tratamiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modifique los campos deseados</p>
+
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Paciente :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" th:value="${cita.paciente.pacNombre} + '  ' + ${cita.paciente.pacApellido}" 
+                               disabled   style="text-align:center;" class="form-control col-sm-12"/>
+                        <div id="detUsuCorreoError"></div>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Psicologo :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" th:value="${usuario.detalleUsuario.detUsuNombre}" 
+                               disabled   style="text-align:center;" class="form-control col-sm-12"/>
+                        <div id="detUsuCorreoError"></div>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Tipo :'"></label>
+                    <div class="col-sm-9">
+                        <select id="tipoTrat" class="browser-default custom-select">
+
+                            <option  th:each="fobia : ${fobias}" th:value="${fobia.fobId}"    
+                                     th:text="'Tratamiento para ' + ${fobia.fobNombre}" 
+                                     th:selected="${fobia.fobId==1}" ></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Cantidad de Citas :'"></label>
+                    <div class="col-sm-9">
+                        <input type="number"  style="text-align:center;"  value="1" class="form-control" name="quantity" id='cantidadCitas' min="1" max="6">
+                        <div id="cantidadCitasError"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-outline-secondary btn-xs col-sm-5 m-l-40 m-b-15" data-dismiss="modal">
+                    <i class="fa fa-chevron-left" style="font-size: 15px"></i>
+                    <span class="btn-text">Volver</span>
+                </button>
+                <button type="button" class="btn btn-outline-warning btn-xs col-sm-5 m-l-10 m-b-15"
+                        id ="btnModificarTratamiento">
+                    <i class="fa fa-edit" style="font-size: 15px"></i>
+                    <span class="btn-text">Modificar</span>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+</div>

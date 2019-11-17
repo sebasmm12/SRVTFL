@@ -37,4 +37,9 @@ public class FobiaServiceImpl implements IFobiaService {
     public Fobia findFobiaById(Long fobiaId) {
         return fobiaService.findById(fobiaId).orElse(null);
     }
+
+    @Override
+    public List<Fobia> findAllFobia() {
+        return fobiaService.listarFobias();
+    }
 }

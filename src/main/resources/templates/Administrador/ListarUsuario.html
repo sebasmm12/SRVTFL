@@ -55,32 +55,32 @@ and open the template in the editor.
                                             </div>
                                         </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-12 col-12 col-md-12">
-                                            <div th:replace="Administrador/_ListarUsuarios :: ListaUsuarios"></div>
-                                        </div>
-                                    </div>
-                                        
-                                        <div>
-                                               <button type="button" class="btn btn btn-outline-secondary btn-xs m-l-15" style="width:200px" id="btnModal">
-                                                    <i class="fa fa-search" style="font-size: 20px"></i>
-                                                    <span class="btn-text">mostrar Modal</span>
-                                                </button>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-12 col-md-12">
+                                                <div th:replace="Administrador/_ListarUsuarios :: ListaUsuarios"></div>
                                             </div>
+                                        </div>
+
+                                        <div>
+                                            <button type="button" class="btn btn btn-outline-secondary btn-xs m-l-15" style="width:200px" id="btnModal">
+                                                <i class="fa fa-search" style="font-size: 20px"></i>
+                                                <span class="btn-text">mostrar Modal</span>
+                                            </button>
+                                        </div>
                                         <div th:replace="Administrador/_modalPermisosRol :: exampleModal"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
                 </div>
-                <div th:replace="layout/layout :: styleSelector"></div>
             </div>
         </div>
     </div>
-</div>
-<footer th:replace="layout/layout :: footer"></footer>
-<script th:src="@{/js/chocolombo/RegistrarUsuario.js}"></script>
+    <footer th:replace="layout/layout :: footer"></footer>
+    <script th:src="@{/js/chocolombo/RegistrarUsuario.js}"></script>
 
 </body>
 </html>
