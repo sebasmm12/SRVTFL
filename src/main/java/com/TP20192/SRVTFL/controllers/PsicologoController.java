@@ -30,6 +30,7 @@ import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -182,17 +183,18 @@ public class PsicologoController {
                 for (int i = 0; true; i++) {
 
                     if (StaticInteger.getInteger() != null ) {
-                        if(StaticInteger.getInteger() <= 150){
-                            //emitter.send(StaticInteger.getInteger());
+                        if(StaticInteger.getInteger() <= 1000){
+                            emitter.send(StaticInteger.getInteger());
                             /*PulsoSimulacion ps = new PulsoSimulacion();
-                            ps.setPulSimHora(Calendar.getInstance().getTime());
+                            ps.setPulSimHora((Time) Calendar.getInstance().getTime());
                             ps.setPulSimNormal(true);
                             ps.setPulSimPulso(StaticInteger.getInteger().longValue());
                             pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
-                            emitter.send((int) (Math.random() * 35) + 50);
+                            //emitter.send((int) (Math.random() * 35) + 50);
                             System.out.println("Dato Recivido");
                         }
                     }
+                    System.out.println("Valor Static Integer: "+StaticInteger.getInteger());
                     /*if(cowl.get(i) != null){
                         emitter.send(cowl.get(i));
                         logger.info("Dato Recivido");
@@ -298,9 +300,10 @@ public class PsicologoController {
     //@Async
     public String registrarPulso(@RequestBody PulsoSimulacion pulSim) {
         //th1 = null;
+        pulSim.setPulsSimId(null);
         pulsoSimulacionService.insertarPulsoSimulacion(pulSim);
-        //StaticInteger.setFinalizar(true);
-        System.out.println("Pulso de Simulacion Creado");
+        //pulSim.toString();
+        System.out.println("Pulso de Simulacion Creado: "+pulSim.getResSimId());
         return "1";
     }
     
@@ -396,6 +399,17 @@ public class PsicologoController {
         model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
         return "Psicologo/RealizarPreguntasTratamiento";
     }
+    
+    
+    @RequestMapping(value = "/registrarObservaciones", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    //@Async
+    public String registrarObservacionPulso(@RequestBody Observacion observacion) {
+        //th1 = null;
+        citaService.registrarObservacion(observacion);
+        return "1";
+    }
+    
     /*
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {

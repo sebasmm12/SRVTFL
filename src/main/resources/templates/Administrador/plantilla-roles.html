@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-	<table th:fragment="rolesUsuario" class="d-none">
-		<tbody id="plantillaRolesUsuario">
-			<tr id="row_{ID}">
-				<td class="d-none"><input type="hidden" value="{ID}" 
-									name="item_id[]"/></td>
-				<td>{NOMBRE}</td>
-                                <td>
-                                    <a href="#"class="btn btn-danger btn-xs feather icon-trash-2" onclick="itemsHelper.eliminarRol({ID});" th:text="' Eliminar Rol'">
-                                        
-                                    </a></td>
-                                <td>
-                                    <a  class="btn btn-success btn-xs feather icon-eye pBtn" th:text="'Ver Permisos'">
-                                    
-                                    </a></td>
-			</tr>
-		</tbody>
-	</table>
-</body>
+    <body>
+        <table th:fragment="rolesUsuario" class="d-none">
+            <tbody id="plantillaRolesUsuario">
+                <tr id="row_{ID}">
+                    <td class="d-none"><input type="hidden" value="{ID}" 
+                                              name="item_id[]"/></td>
+                    <td>{NOMBRE}</td>
+                    <td>
+                        <a href="#"class="btn btn-outline-danger btn-xs feather"  
+                           style='width: 300px' onclick="itemsHelper.eliminarRol({ID});">
+                            <i class="fa fa-trash"></i>
+                            <span class="btn-text">Eliminar ROL</span>
+                        </a></td>
+                    <!--td>
+                        <a  class="btn btn-success btn-xs feather icon-eye pBtn" th:text="'Ver Permisos'">
+                        
+                        </a></td-->
+                </tr>
+            </tbody>
+        </table>
+    </body>
 </html>

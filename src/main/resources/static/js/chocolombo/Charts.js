@@ -17,8 +17,8 @@ var citaId = document.getElementById('citId').value;
 var inicio;
 var fin;
 var suma = 0;
-var totPulsos =0;
-var promedio =0;
+var totPulsos = 0;
+var promedio = 0;
 
 
 document.getElementById('btnsimulacionFinalizar').disabled = true;
@@ -56,7 +56,7 @@ function parseoFecha(today) {
     return date + ' ' + time;
 }
 btnSimuFin.addEventListener('click', function () {
-    promedio = suma/totPulsos;
+    promedio = suma / totPulsos;
     restSimFin = new Date();
     inicio = parseoFecha(restSimInicio);
     fin = parseoFecha(restSimFin);
@@ -74,7 +74,7 @@ btnSimuFin.addEventListener('click', function () {
         cita: cita,
         restSimPulsoPromedio: promedio
     };
-    
+
     sse.close();
     $.ajax({
         url: "/psicologo/finalizarLectura?observacion=" + observacion,
@@ -84,7 +84,7 @@ btnSimuFin.addEventListener('click', function () {
         success: function (data) {
             Swal.fire({
                 type: 'success',
-                title: 'Se registro las observaciones exitosamente, Promedio:'+promedio,
+                title: 'Se registro las observaciones exitosamente, Promedio:' + promedio,
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.value) {
@@ -109,6 +109,7 @@ btnSimuInicio.addEventListener('click', function () {
             if (data !== "") {
                 resSimI = parseInt(data);
                 console.log("Inicializacion correcta" + data);
+                console.log("Resultado de Simulacion " + resSimI);
             }
         }
     });
@@ -150,6 +151,7 @@ btnSimuInicio.addEventListener('click', function () {
                 myChart.data.datasets[0].data.splice(0, 1);
             }
             counter++;
+            registrarPulso(parseInt(evt.data));
             myChart.update();
         };
     }, millisecondsToWait);
@@ -172,7 +174,7 @@ function registrarPulso(pulso) {
         resSimId: resSimI,
         pulSimNormal: true
     };
-
+    console.log(resSimI);
     $.ajax({
         url: "/psicologo/registrarPulso",
         contentType: 'application/json;charset=utf-8',
@@ -247,4 +249,34 @@ function pausar() {
     btnPausaReanudar.classList.remove('btn-outline-success');
     btnPausaReanudar.classList.add('btn-outline-danger');
 }
+
+function registrarObservacion() {
+    var obs = document.getElementById('observaciones').value;
+    if (obs !== "" || obs.toString().trim() !== ""){
+        var Length = myChart.data.datasets[0].data.length;
+        var observacion = {
+            obsId: 0,
+            pulSimId: myChart.data.datasets[0].data[Length - 1],
+            obsComentario: obs
+        };
+        $('#observaciones').val('');
+        $.ajax({
+            url: "/psicologo/registrarObservaciones",
+            contentType: 'application/json;charset=utf-8',
+            type: 'POST',
+            data: JSON.stringify(observacion),
+            success: function (data) {
+                if (data === "1") {
+                    console.log(observacion);
+                }
+            }
+        });
+        //document.getElementById('observaciones').text = "";
+    }
+}
+
+document.getElementById('btnRegistrarObservacion').addEventListener('click',
+        function () {
+            registrarObservacion();
+        });
 
