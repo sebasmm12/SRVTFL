@@ -118,6 +118,7 @@ public class PsicologoController {
         Long usu_codigo = usu.getUsu_id();
         List<Actividad> actividad = new ArrayList<Actividad>();
         actividad = psicologoService.encontrarActividadPsicologo(usu_codigo);
+        System.out.println("Tamaño: "+actividad.size());
         model.put("actividades", actividad);
         return "Agenda/index";
     }

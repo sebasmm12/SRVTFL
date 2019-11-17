@@ -12,7 +12,7 @@ public class EstadoActividad implements Serializable{
 
     @Id
     @Column(name="est_act_id")
-    private int estActId;
+    private Long estActId;
     
     @Column(name = "est_act_nombre")
     private String estActNombre;
@@ -20,11 +20,11 @@ public class EstadoActividad implements Serializable{
     @Column(name = "est_act_color")
     private String estActColor;
 
-    public int getEstActId() {
+    public Long getEstActId() {
         return estActId;
     }
 
-    public void setEstActId(int estActId) {
+    public void setEstActId(Long estActId) {
         this.estActId = estActId;
     }
 
