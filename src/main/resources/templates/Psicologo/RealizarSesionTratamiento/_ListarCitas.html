@@ -6,6 +6,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Paciente</th>
                 <th scope="col">Estado de la Cita</th>
+                <th scope="col">Tipo</th>
                 <th scope="col">Hora Inicio</th>
                 <th scope="col">Hora Fin</th>
                 <th scope="col">Acciones</th>
@@ -16,6 +17,11 @@
                 <th th:text="${num.count}" scope="row"></th>
                 <td th:text="${cita.paciente.nombreCompleto()}"></td>
                 <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
+                <td th:text="${cita.tratId == null} ? 'Primera Cita' : 'En tratamiento' "></td>
+                <!--td>
+                    <label th:if="${cita.tratId} == null" th:text="Primera Cita"></label>
+                    <label th:if="${cita.tratId} != null" th:text="'En Tratamiento'"></label>
+                </td-->
                 <td th:text="${cita.citFechaHoraInicio}"></td>
                 <td th:text="${cita.citFechaHoraFin}"></td>
                 <td>

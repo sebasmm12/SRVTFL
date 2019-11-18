@@ -76,4 +76,10 @@ public class PulsoSimulacion {
         this.pulSimNormal = pulSimNormal;
     }
 
+    @Override
+    public String toString() {
+        return "PulsoSimulacion{" + "pulsSimId=" + pulsSimId + ", pulSimHora=" + pulSimHora + ", pulSimPulso=" + pulSimPulso + ", resSimId=" + resSimId + ", pulSimNormal=" + pulSimNormal + '}';
+    }
+    
+
 }

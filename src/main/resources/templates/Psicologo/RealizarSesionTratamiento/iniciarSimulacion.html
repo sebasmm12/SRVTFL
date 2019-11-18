@@ -54,9 +54,9 @@ and open the template in the editor.
                                             </div>
                                             <div>
                                                 <button class="btn btn-outline-danger" style="width:1064px"
-                                                            id="btnFinalizarAbruptamente">
-                                                        <i class="fa fa-check-square"></i> <span class="btn-text">FINALIZAR SESION ABRUPTAMENTE</span>
-                                                    </button>
+                                                        id="btnFinalizarAbruptamente">
+                                                    <i class="fa fa-check-square"></i> <span class="btn-text">FINALIZAR SESION ABRUPTAMENTE</span>
+                                                </button>
                                             </div>
                                             <div class="chart-container"
                                                  style="position: relative; height: 400px; width: 1050px; margin-left: auto; margin-right: auto">
@@ -67,9 +67,17 @@ and open the template in the editor.
                                         </div>
 
                                         <div class="form-group row m-l-25">
-                                            <label for="detUsuTelefono"class="col-sm-3 col-form-label"
-                                                   th:text="'Observaciones en la Simulacion: '"></label>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-3 m-l-40">
+                                                <label for="detUsuTelefono"class="row col-form-label"
+                                                       th:text="'Observaciones en la Simulacion: '"></label>
+                                                <button class="btn btn-outline-danger row m-l-20 m-t-15" style="width:200px" 
+                                                        id="btnRegistrarObservacion">
+                                                    <i class="fa fa-check-square"></i> <span class="btn-text">Registrar Obs.</span>
+                                                </button>
+                                            </div>
+
+
+                                            <div class="col-sm-8">
                                                 <textarea type="textarea" id="observaciones" class="form-control col-sm-12" 
                                                           style="height: 100px"></textarea>
                                                 <div id="observacionesError"></div>

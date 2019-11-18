@@ -7,11 +7,13 @@ package com.TP20192.SRVTFL.RestController;
 
 import com.TP20192.SRVTFL.models.JsonClass.DiagnosticoJson;
 import com.TP20192.SRVTFL.models.JsonClass.RespuestaJson;
+import com.TP20192.SRVTFL.models.JsonClass.TratamientoJson;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Diagnostico;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
+import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
 import java.text.ParseException;
@@ -25,10 +27,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -97,15 +101,34 @@ public class SesionTratamientoRestController {
         return "1";
     }
 
+    @RequestMapping(value = "/registrarTratamiento", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public String registrarTratamiento(@RequestBody TratamientoJson tratamientojson) {
+        Tratamiento tr = tratamientojson.getTratamiento();
+        List<RespuestaJson> respuestas = tratamientojson.getRespuestas();
+        Cita cita = citaService.obtenerCita(respuestas.get(0).getCitId());
+        tr = citaService.RegistrarTratamiento(tr);
+        for (int i = 0; i < respuestas.size(); i++) {
+            Respuesta respuesta = new Respuesta();
+            respuesta.setResRespuesta(respuestas.get(i).getResRespuesta());
+            respuesta.setCitaId(cita);
+            Pregunta pregunta = citaService.encontrarPregunta(respuestas.get(i).getPregId());
+            respuesta.setPregId(pregunta);
+            citaService.save(respuesta);
+        }
+        cita.setTratId(tr);
+        citaService.registrarCita(cita);
+        return "1";
+    }
+
     @RequestMapping(value = "/registrarDiagnostico", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     public String RegistrarDiagnostico(@RequestBody DiagnosticoJson DiagnosticoJson) {
 
         Cita cita = citaService.obtenerCita(DiagnosticoJson.getCitId());
 
         EstadoCita estCit = citaService.findEstadoCitaById(3);
-        
+
         cita.setEstadoCita(estCit);
-        
+
         Diagnostico diagnostico = new Diagnostico();
 
         diagnostico.setDiaDiagnostico(DiagnosticoJson.getDiaDiagnostico());
@@ -113,9 +136,7 @@ public class SesionTratamientoRestController {
         diagnostico.setDiaPruebasAplicadas(DiagnosticoJson.getDiaPruebasAplicadas());
         diagnostico.setDiaRecomendacion(DiagnosticoJson.getDiaRecomendacion());
         diagnostico.setCitId(cita);
-        
-        
-        
+
         citaService.registrarDiagnostico(diagnostico);
         return "1";
     }
@@ -133,5 +154,35 @@ public class SesionTratamientoRestController {
         citaService.registrarCita(cita);
 
         return "1";
+    }
+
+    @RequestMapping(value = "/obtenerTratamiento", method=RequestMethod.GET,
+                produces="application/json")
+    public Tratamiento obtenerTratamiento(@RequestParam("citId") Long citId) {
+        
+        // cita = citaService.obtenerCita(citId);    
+        Cita cita = citaService.obtenerCita(citId);
+        Tratamiento tratamiento = cita.getTratId();
+        return tratamiento;
+    }
+    
+     @RequestMapping(value = "/modificarTratamiento", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    public String modificarTratamiento(@RequestBody Tratamiento tratamiento) {
+        Tratamiento tr = new Tratamiento();
+        tr = tratamiento;
+        citaService.RegistrarTratamiento(tr);
+        return "1";
+    }
+    
+    @RequestMapping(value="/pruebacita")
+    public Tratamiento obtTrat(){
+        Cita cita = citaService.obtenerCita(10L);
+        Tratamiento tr = cita.getTratId();
+        Tratamiento tratamiento = new Tratamiento();
+        tratamiento.setCitId(10L);
+        tratamiento.setTratCantidadCitas(2);
+        tratamiento.setTratPrimeraVez(true);
+        tratamiento.setTratTipo("Agorafobia");
+        return tr;
     }
 }

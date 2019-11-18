@@ -26,4 +26,7 @@ public interface IPreguntasDao extends PagingAndSortingRepository<Pregunta, Long
             countQuery = "select count(p) from Pregunta p join p.fobId f"
                     + " where p.pregPrimeraVez = :preP and f.fobId = :fobId")
     public Page<Pregunta> EncontrarPreguntasCita(@Param("preP") Boolean preP,@Param("fobId") Long fobId ,Pageable pageable);
+    
+    @Query(value="select p from Pregunta p where p.pregPrimeraVez= :primera")
+    public Page<Pregunta> encontrarPreguntaPrimeraCita(@Param("primera") Boolean primera,Pageable pageable);
 }

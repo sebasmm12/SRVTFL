@@ -6,6 +6,7 @@
 package com.TP20192.SRVTFL.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -88,7 +89,7 @@ public class Cita implements Serializable {
     @JoinColumn(name="est_cit_id")
     private EstadoCita estadoCita;
 
-
+    
     public Tratamiento getTratId() {
         return tratId;
     }
@@ -98,8 +99,8 @@ public class Cita implements Serializable {
     }
     
     //@Null
-    @JoinColumn(name= "trat_id")
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="trat_id")
     private Tratamiento tratId;
     
     //@NotEmpty

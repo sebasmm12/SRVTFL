@@ -9,19 +9,24 @@ import com.TP20192.SRVTFL.models.dao.IActividadDao;
 import com.TP20192.SRVTFL.models.dao.ICitaDao;
 import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IDiagnosticoDao;
+import com.TP20192.SRVTFL.models.dao.IObservacionDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
 import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
+import com.TP20192.SRVTFL.models.dao.ITratamientoDao;
 import com.TP20192.SRVTFL.models.domain.PacientePsicologo;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Diagnostico;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
+import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
+import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
+import com.TP20192.SRVTFL.models.service.IObservacionService;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +62,12 @@ public class CitaServiceImpl implements ICitaService {
     
     @Autowired
     public IDiagnosticoDao diagnosticoDao;
+    
+    @Autowired
+    public ITratamientoDao tratamientoService;
+    
+    @Autowired
+    public IObservacionDao observacionService;
     
     @Transactional(readOnly = true)
     @Override
@@ -241,4 +252,28 @@ public class CitaServiceImpl implements ICitaService {
         return citaService.encontrarCitasPacientePsicologo(psicologoId, pacienteId);
     }
 
+    @Override
+    public Page<Pregunta> encontrarPreguntaPrimeraCita(Boolean primera,Pageable page) {
+        return preguntaDao.encontrarPreguntaPrimeraCita(true,page);
+    }
+
+    @Override
+    public Tratamiento RegistrarTratamiento(Tratamiento t) {
+        return tratamientoService.save(t);
+    }
+
+    @Override
+    public void registrarRespuesta(Respuesta res) {
+        respuestaDao.save(res);
+    }
+    
+    public Page<Cita> obtenerTodasLasCitas(Pageable pageable) {
+        return citaService.listarCitasTratamiento(pageable);
+    }
+
+    @Override
+    public Observacion registrarObservacion(Observacion obs) {
+        return observacionService.save(obs);
+    }
+    
 }

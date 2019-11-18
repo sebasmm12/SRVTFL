@@ -60,5 +60,4 @@ public class EstadoCita implements Serializable{
         this.estCitNombreEstado = estCitNombreEstado;
     }
     
-    
 }

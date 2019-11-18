@@ -119,96 +119,111 @@ and open the template in the editor.
                                                                 <img th:if="${cita.paciente.pacImagen != null}"
                                                                      class="img-thumbnail rounded" style="width: 100% !important;height: auto !important;border: dashed blueviolet"
                                                                      th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}" id="imagenId"/>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-12 col-md-12">
-                                                <div class="card bg-white mt-2">
-                                                    <h2 class="text-secondary card-header">Datos de la Cita</h2>
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-12 col-md-6">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Fecha Inicio
-                                                                    </label>
-                                                                </div>
-                                                                <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraInicio}" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-12 col-md-12">
+                                            <div class="card bg-white mt-2">
+                                                <h2 class="text-secondary card-header">Datos de la Cita</h2>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Fecha Inicio
+                                                                </label>
                                                             </div>
-                                                            <div class="col-sm-6 col-12 col-md-6">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Fecha Fin
-                                                                    </label>
-                                                                </div>
-                                                                <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraFin}" />
+                                                            <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraInicio}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-12 col-md-6">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Fecha Fin
+                                                                </label>
+                                                            </div>
+                                                            <input type="datetime" readonly="readonly" class="form-control bg-white" th:field="${cita.citFechaHoraFin}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-12">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Motivo
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.citMotivo}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-12">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Se necesita Realidad Virtual?
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control bg-white" readonly="readonly" th:if="${cita.citVr}" value="Sí necesita"/>
+                                                            <input type="text" class="form-control bg-white" readonly="readonly" th:if="${!cita.citVr}" value="No necesita"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-12">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Estado de la Cita
+                                                                </label>
+                                                            </div>
+                                                            <input type="text" class="form-control" th:field="${cita.estadoCita.estCitNombreEstado}" />
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-12">
+                                                            <div>
+                                                                <label class="label-size">
+                                                                    Registre Hora de Inicio de la Cita
+                                                                </label>
+                                                            </div>
+                                                            <input type="datetime-local" class="form-control" id="fechaInicioCita" name="fechaInicioCita" />
+                                                            <div>
+                                                                <span id="FechaCitaError"></span>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-md-6 col-12">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Motivo
-                                                                    </label>
-                                                                </div>
-                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:field="${cita.citMotivo}" />
-                                                            </div>
-                                                            <div class="col-sm-6 col-md-6 col-12">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Se necesita Realidad Virtual?
-                                                                    </label>
-                                                                </div>
-                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:if="${cita.citVr}" value="Sí necesita"/>
-                                                                <input type="text" class="form-control bg-white" readonly="readonly" th:if="${!cita.citVr}" value="No necesita"/>
-                                                            </div>
+                                                    </div>
+                                                    <div class="row justify-content-end mt-4">
+                                                        <div class="col-sm-2 col-md-2 col-6">
+                                                            <a th:href="@{/psicologo/RealizarSesionTratamiento}" class="btn btn-secondary btn-SesionTratamiento">
+                                                                <i class="fa fa-backward icon-tratamiento"></i>
+                                                                Regresar
+                                                            </a>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-md-6 col-12">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Estado de la Cita
-                                                                    </label>
-                                                                </div>
-                                                                <input type="text" class="form-control" th:field="${cita.estadoCita.estCitNombreEstado}" />
-                                                            </div>
-                                                            <div class="col-sm-6 col-md-6 col-12">
-                                                                <div>
-                                                                    <label class="label-size">
-                                                                        Registre Hora de Inicio de la Cita
-                                                                    </label>
-                                                                </div>
-                                                                <input type="datetime-local" class="form-control" id="fechaInicioCita" name="fechaInicioCita" />
-                                                                <div>
-                                                                    <span id="FechaCitaError"></span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="col-sm-3 col-md-3 col-6">
+                                                            <a th:href="@{'/Historial/Ver/'+${cita.paciente.pacId}}" target="_blank" class="btn btn-info btn-SesionTratamiento">
+                                                                <i class="fa fa-info icon-tratamiento"></i>
+                                                                Historial del Paciente
+                                                            </a>
                                                         </div>
-                                                        <div class="row justify-content-end mt-4">
-                                                            <div class="col-sm-2 col-md-2 col-6">
-                                                                <a th:href="@{/psicologo/RealizarSesionTratamiento}" class="btn btn-secondary btn-SesionTratamiento">
-                                                                    <i class="fa fa-backward icon-tratamiento"></i>
-                                                                    Regresar
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-sm-3 col-md-3 col-6">
-                                                                <a th:href="@{'/Historial/Ver/'+${cita.paciente.pacId}}" target="_blank" class="btn btn-info btn-SesionTratamiento">
-                                                                    <i class="fa fa-info icon-tratamiento"></i>
-                                                                    Historial del Paciente
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-sm-3 col-md-3 col-6">
-                                                                <button class="btn btn-success btn-SesionTratamiento" id="btnIniciarCita" th:attr="data-id=${cita.citId}">
-                                                                    <i class="fa fa-file-alt icon-tratamiento"></i>
-                                                                    Iniciar Tratamiento
-                                                                </button>
-                                                            </div>
+                                                        <div class="col-sm-3 col-md-3 col-6" th:if='${existeTratamiento == true}'>
+                                                            <button class="btn btn-warning btn-SesionTratamiento" id="btnModTratamiento" 
+                                                                    th:attr="data-id=${cita.citId},
+                                                                    prim-cit=${existeTratamiento}">
+                                                                <i class="fa fa-edit icon-tratamiento"></i>
+                                                                <span class="btn-text">Modificar Tratamiento</span>
+                                                            </button>
                                                         </div>
+                                                        <div class="col-sm-3 col-md-3 col-6">
+                                                            <button class="btn btn-success btn-SesionTratamiento" id="btnIniciarCita" 
+                                                                    th:attr="data-id=${cita.citId},
+                                                                    prim-cit=${existeTratamiento}">
+                                                                <i th:if="${existeTratamiento == true}" class="fa fa-file-alt icon-tratamiento"></i>
+                                                                <i th:if="${existeTratamiento == false}" class="fa fa-file icon-tratamiento"></i>
+                                                                <span th:if="${existeTratamiento == true}" class="btn-text">Iniciar Tratamiento</span>
+                                                                <span th:if="${existeTratamiento == false}" class="btn-text">Evaluar Al Paciente</span>
+                                                            </button>
+
+                                                        </div>
+                                                        <div th:replace="Psicologo/_ModificarTratamiento :: modTrat"></div>
+                                                        <input type="text" class="d-none" id="citId" th:value="${cita.citId}" />
+                                                        <input th:if="${existeTratamiento == true}" type="text" class="d-none" id="tratId" th:value="${cita.tratId.tratId}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,12 +232,13 @@ and open the template in the editor.
                                 </div>
                             </div>
                         </div>
-                        <div th:replace="layout/layout :: styleSelector"></div>
                     </div>
+                    <div th:replace="layout/layout :: styleSelector"></div>
                 </div>
             </div>
         </div>
-        <footer th:replace="layout/layout :: footer"></footer>
-        <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarFechaCita.js}"></script>
-    </body>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+    <script th:src="@{/js/sebas/RealizarSesionTratamiento/RegistrarFechaCita.js}"></script>
+</body>
 </html>

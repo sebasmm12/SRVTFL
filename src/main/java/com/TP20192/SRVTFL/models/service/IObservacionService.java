@@ -5,20 +5,16 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
-import com.TP20192.SRVTFL.models.entity.Fobia;
+import com.TP20192.SRVTFL.models.entity.Observacion;
 import java.util.List;
 
 /**
  *
  * @author hp
  */
-public interface IFobiaService {
+public interface IObservacionService {
     
-    public List<Fobia> findFobiaByNombre(String term);
+    public void registrarObservacion(Observacion obs);
     
-    public Fobia findOneFobiaByNombre(String term);
-    
-    public Fobia findFobiaById(Long fobiaId);
-    
-    public List<Fobia> findAllFobia();
+    public List<Observacion> obtenerObservaciones (Long pulId);
 }

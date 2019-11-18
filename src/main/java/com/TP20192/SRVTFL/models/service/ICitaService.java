@@ -11,9 +11,11 @@ import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.Diagnostico;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
+import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
+import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +81,8 @@ public interface ICitaService {
    
    public Pregunta encontrarPregunta(Long Id);
    
+   public Page<Pregunta> encontrarPreguntaPrimeraCita(Boolean primera,Pageable page);
+   
    public void save(Respuesta r);
    
    public void registrarDiagnostico(Diagnostico d);
@@ -87,4 +91,10 @@ public interface ICitaService {
    public Page<PacientePsicologo> encontrarPacientesPsicologo(Long psicologoId, Pageable pageable);
    
    public List<Cita> encontrarCitasPacientePsicologo(Long psicologoId,Long pacienteId);
+   public Tratamiento RegistrarTratamiento(Tratamiento t);
+   
+   public void registrarRespuesta(Respuesta res);
+   public Page<Cita> obtenerTodasLasCitas(Pageable pageable);
+   
+   public Observacion registrarObservacion(Observacion obs);
 }
