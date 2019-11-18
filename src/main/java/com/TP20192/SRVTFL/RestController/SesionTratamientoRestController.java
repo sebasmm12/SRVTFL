@@ -47,7 +47,7 @@ public class SesionTratamientoRestController {
     public ModelAndView buscarFiltros(String nombrePaciente, String datetime, int page, ModelAndView model, String selectFiltroFecha, String selectFiltroPaciente) throws ParseException {
 
         Pageable pageRequest = PageRequest.of(page, 5);
-        Page<Cita> citas = citaService.encontrarCitasenEstadoenCita(2, pageRequest);;
+        Page<Cita> citas = citaService.encontrarCitasenEstadoenCita(2, pageRequest);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date fechaD = new Date();
         if (!nombrePaciente.equals("") && !datetime.equals("")) {

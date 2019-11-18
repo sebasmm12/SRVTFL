@@ -12,6 +12,7 @@ import com.TP20192.SRVTFL.models.dao.IDiagnosticoDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
 import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
+import com.TP20192.SRVTFL.models.domain.PacientePsicologo;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
@@ -226,6 +227,18 @@ public class CitaServiceImpl implements ICitaService {
     @Override
     public DetalleUsuario encontrarDetalleUsuarioByNombre(String term) {
         return detUsuDao.encontrarUsuarioByNombre(term);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<PacientePsicologo> encontrarPacientesPsicologo(Long psicologoId, Pageable pageable) {
+        return citaService.encontrarPacientesPsicologo(psicologoId, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Cita> encontrarCitasPacientePsicologo(Long psicologoId, Long pacienteId) {
+        return citaService.encontrarCitasPacientePsicologo(psicologoId, pacienteId);
     }
 
 }

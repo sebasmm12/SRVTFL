@@ -16,6 +16,16 @@ public class VrVariables {
     private static long simulacionId;
     private static long resSimId;
     private static String nombreSimulacio;
+    
+    private static String imagen;
+
+    public static String getImagen() {
+        return imagen;
+    }
+
+    public static void setImagen(String imagen) {
+        VrVariables.imagen = imagen;
+    }
 
     // public static long  ;
     public static int getNivelInicial() {

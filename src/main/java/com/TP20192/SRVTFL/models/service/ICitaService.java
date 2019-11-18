@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.service;
 
+import com.TP20192.SRVTFL.models.domain.PacientePsicologo;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
@@ -82,4 +83,8 @@ public interface ICitaService {
    
    public void registrarDiagnostico(Diagnostico d);
    public DetalleUsuario encontrarDetalleUsuarioByNombre(String term);
+   
+   public Page<PacientePsicologo> encontrarPacientesPsicologo(Long psicologoId, Pageable pageable);
+   
+   public List<Cita> encontrarCitasPacientePsicologo(Long psicologoId,Long pacienteId);
 }

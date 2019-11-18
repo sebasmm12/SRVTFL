@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,4 +64,16 @@ public class VRRestController {
          VrVariables.setResSimId(resSimId);
          VrVariables.setSimulacionId(simulacionId);
     }
+    @PostMapping("/screenshoot")
+    public void create(@RequestBody String cadena) {  
+        VrVariables.setImagen(cadena.substring(0,cadena.length()- 1));
+      // return cadena;
+    }
+     @GetMapping("/screenshoot2")
+    public String loco( ) {       
+        return  VrVariables.getImagen();
+    }
+    
+    
+    
 }
