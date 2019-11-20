@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="table-responsive" th:fragment="tablaPacientes">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="text-center font-weight-bolder bg-white">
+                <th scope="col">#</th>
+                <th scope="col">Nombre del Paciente</th>
+                <th scope="col">Última fecha de atención</th>
+                <th scope="col">Número de Sesiones</th>
+                <th scope="col">Reporte</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cita, num :${citas}" class="text-center">
+                <th th:text="${num.count}" scope="row"></th>
+                <td th:text="${cita.pacNombre + ' ' + cita.pacApellido}"></td>
+                <td th:text="${cita.ultimaSesion}"></td>
+                <td th:text="${cita.sesion}"></td>
+                <td>
+                    <a class="btn btn-danger" target="_blank" th:href="@{'/Reportes/reportes/'+${cita.pacId}(format=pdf)}">
+                        <i class="fa fa-file" style="font-size: 20px"></i>
+                        Generar Reporte
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-2"> 
+        <nav th:replace="Usability/paginator-nav :: paginator"></nav>
+    </div>
+</div>

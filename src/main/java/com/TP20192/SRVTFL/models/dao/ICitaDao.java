@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.dao;
 
+import com.TP20192.SRVTFL.models.domain.PacientePsicologo;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Paciente;
@@ -108,5 +109,14 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
         @Query("select c from Cita c")
     public Page<Cita> listarCitasTratamiento(Pageable pageable);
     
+    
+    @Query(value= "select new com.TP20192.SRVTFL.models.domain.PacientePsicologo(p.pacId, p.pacNombre, p.pacApellido,COUNT(e.estCitId),MAX(c.citFechaHoraFinReal))"
+            + "from Cita c inner join c.paciente p inner join c.estadoCita e where c.usuId = :psicologo_id and e.estCitId = 3 group by p.pacId,p.pacNombre,p.pacApellido",
+            countQuery = "select count(distinct p.pacId) from Cita c inner join c.paciente p inner join c.estadoCita e  where c.usuId = :psicologo_id and e.estCitId = 3")
+    public Page<PacientePsicologo> encontrarPacientesPsicologo(@Param("psicologo_id") Long psicologoId, Pageable pageable);
+    
+    
+    @Query(value="select c from Cita c inner join c.paciente p inner join c.estadoCita e where c.usuId = :psicologo_id and e.estCitId = 3 and p.pacId =:pacId")
+    public List<Cita> encontrarCitasPacientePsicologo(@Param("psicologo_id") Long psicologoId,@Param("pacId") Long pacienteId);
     
 }

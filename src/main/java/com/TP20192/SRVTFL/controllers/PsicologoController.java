@@ -5,6 +5,7 @@
  */
 package com.TP20192.SRVTFL.controllers;
 
+import com.TP20192.SRVTFL.EntidadesConfigurables.VrVariables;
 import com.TP20192.SRVTFL.models.dao.IPulsoSimulacionDao;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
@@ -90,16 +91,16 @@ public class PsicologoController {
 
     @Autowired
     private IPacienteService pacienteService;
-    
+
     @Autowired
     private IPulsoSimulacionService pulsoSimulacionService;
-    
+
     @Autowired
     private IFobiaService fobiaService;
 
     @Autowired
     private IResultadoSimulacionService resultadoSimulacionService;
-    
+
     @Autowired
     private IVrAuxService vrAuxService;
     
@@ -164,8 +165,7 @@ public class PsicologoController {
         System.out.println("existe tratamiento: "+existeTratamiento);
         model.addAttribute("fobias",listaFobia );
         model.addAttribute("cita", cita);
-        model.addAttribute("documento", tipoDoc);   
-        model.addAttribute("existeTratamiento", existeTratamiento);
+        model.addAttribute("documento", tipoDoc);
         return "Psicologo/RealizarSesionTratamiento/VisualizarCita";
     }
 
@@ -182,6 +182,7 @@ public class PsicologoController {
         model.addAttribute("ranPulMinimo", rangosPulso[0]);
         model.addAttribute("ranPulPromedio", ranPromedio);
         model.addAttribute("titulo", "Realizacion de Sesion de Simulacion");
+
         model.addAttribute("citId", citId);
         return "Psicologo/RealizarSesionTratamiento/iniciarSimulacion";
     }
@@ -232,6 +233,36 @@ public class PsicologoController {
                         logger.info("Dato Recivido");
                     }*/
                     Thread.sleep(1500);
+                }
+            } catch (Exception ex) {
+            }
+        });
+        return emitter;
+    }
+
+    @GetMapping("/imagenSimulacion")
+    public SseEmitter enviarImagen() {
+        SseEmitter emitter = new SseEmitter();
+        ExecutorService sseMvcExecutor = Executors.newSingleThreadExecutor();
+        sseMvcExecutor.execute(() -> {
+            try {
+                for (int i = 0; true; i++) {
+
+                    if (VrVariables.getImagen() != null) {
+                      
+                            emitter.send(VrVariables.getImagen());
+                            /*PulsoSimulacion ps = new PulsoSimulacion();
+                            ps.setPulSimHora(Calendar.getInstance().getTime());
+                            ps.setPulSimNormal(true);
+                            ps.setPulSimPulso(StaticInteger.getInteger().longValue());
+                            pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
+                            System.out.println("Imagen Recivido");
+                    }
+                    /*if(cowl.get(i) != null){
+                        emitter.send(cowl.get(i));
+                        logger.info("Dato Recivido");
+                    }*/
+                    Thread.sleep(200);
                 }
             } catch (Exception ex) {
             }
@@ -306,11 +337,10 @@ public class PsicologoController {
         return "1";
     }
 
-    
     @RequestMapping(value = "/registrarResultadoSimu", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
-    public Long registrarResultadoSimu(@RequestParam(name="citId") Long citId) {
+    public Long registrarResultadoSimu(@RequestParam(name = "citId") Long citId) {
         //th1 = null;
         ResultadoSimulacion rs = new ResultadoSimulacion();
         Cita c = citaService.obtenerCita(citId);
@@ -326,7 +356,7 @@ public class PsicologoController {
         System.out.println("Resultado Creado: "+rs.getResSimId());
         return rs.getResSimId();
     }
-    
+
     @RequestMapping(value = "/registrarPulso", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
@@ -338,8 +368,7 @@ public class PsicologoController {
         System.out.println("Pulso de Simulacion Creado: "+pulSim.getResSimId());
         return "1";
     }
-    
-    
+
     @RequestMapping(value = "/pausarLectura", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     @Async
@@ -353,9 +382,9 @@ public class PsicologoController {
     @ResponseBody
     //@Async
     public String finalizarLecturaArduino(@RequestBody ResultadoSimulacion resSim,
-            @RequestParam(name="observacion") String observacion) {
+            @RequestParam(name = "observacion") String observacion) {
         //th1 = null;
-        if(observacion =="" || observacion == null){
+        if (observacion == "" || observacion == null) {
             observacion = "NO hay Observaciones";
         }
         System.out.println("Lectura de Listener Finalizado");
@@ -368,8 +397,9 @@ public class PsicologoController {
         citaService.registrarCita(cita);
         StaticInteger.setFinalizar(true);
         System.out.println("Resultado Simulacion Modificada");
-        return cita.getCitId()+"";
+        return cita.getCitId() + "";
     }
+
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id,
             Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -393,28 +423,27 @@ public class PsicologoController {
         model.addAttribute("cita", cita);
         model.addAttribute("primCit", primCita);
         model.addAttribute("page", pageRender);
-        model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        model.addAttribute("titulo", "Preguntas para el paciente".concat(" " + cita.getPaciente().nombreCompleto()));
         citaService.registrarCita(cita);
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
-    @GetMapping(value ="/RegistarDiagnostico")
-    public String RegistrarDiagnostico(Model model, @RequestParam(value ="citId") Long Id,@RequestParam(value= "simId") Long simId) {
+
+    @GetMapping(value = "/RegistarDiagnostico")
+    public String RegistrarDiagnostico(Model model, @RequestParam(value = "citId") Long Id, @RequestParam(value = "simId") Long simId) {
         ResultadoSimulacion resultadoSim = resultadoSimulacionService.findbyId(simId);
         Cita cita = citaService.obtenerCita(Id);
-        Nivel nivelInicial = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelInicial().longValue(),cita.getSimId());
-        Nivel nivelFinal = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelFinal().longValue(),cita.getSimId());
+        Nivel nivelInicial = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelInicial().longValue(), cita.getSimId());
+        Nivel nivelFinal = resultadoSimulacionService.encontrarNivel(resultadoSim.getResSimNivelFinal().longValue(), cita.getSimId());
         model.addAttribute("citId", Id);
         model.addAttribute("resultadoSim", resultadoSim);
         model.addAttribute("nivelInicial", nivelInicial);
         model.addAttribute("nivelFinal", nivelFinal);
         return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
-    //realizar observacion con ajax
-    @RequestMapping(value = "/registrarObservacion", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String registrarObservacionSimulacionPulso(@RequestBody Observacion obs){
-        observacionService.registrarObservacion(obs);
-        return "1";
+
+    @GetMapping(value = "/imagen")
+    public String Imagen(Model model) {
+        return "Psicologo/RealizarSesionTratamiento/ImagenPrueba";
     }
    
     

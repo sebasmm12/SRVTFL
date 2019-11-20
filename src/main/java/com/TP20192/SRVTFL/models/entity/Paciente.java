@@ -95,6 +95,22 @@ public class Paciente implements Serializable{
     @Column(name="pac_sexo_biologico")
     private boolean pacSexoBiologico;
 
+    
+    
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="pac_id")
+    @JsonIgnore
+    private List<Cita> citas;
+
+    public List<Cita> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<Cita> citas) {
+        this.citas = citas;
+    }
+    
     public Long getPacId() {
         return pacId;
     }

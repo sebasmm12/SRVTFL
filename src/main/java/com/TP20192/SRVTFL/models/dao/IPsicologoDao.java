@@ -14,8 +14,4 @@ public interface IPsicologoDao extends CrudRepository<Actividad,Long> {
        
     @Query("select a from  Actividad a where a.agenda_id = :usu_id")
     public List<Actividad> encontrarActividadPsicologo(@Param("usu_id")Long usu_id );
-    
-
-  
-    
 }

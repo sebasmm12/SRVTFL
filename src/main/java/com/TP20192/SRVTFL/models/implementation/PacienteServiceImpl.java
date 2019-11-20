@@ -77,7 +77,7 @@ public class PacienteServiceImpl  implements  IPacienteService{
     public Paciente findOnePaciente(String nombre, String apellido) {
         return pacienteService.buscarPacienteNombre(nombre,apellido);
     }
+
     
-       
-    
+   
 }
