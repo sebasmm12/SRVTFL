@@ -31,8 +31,29 @@ and open the template in the editor.
             </div>
         </div>
         <footer th:replace="layout/layout :: footer"></footer>
-        <script th:src="@{/js/sebas/EnviarImagen.js}"></script>
-        
+        <script>
+            var btnImagen = document.getElementById('btnImagen');
+            var w;
+            btnImagen.addEventListener('click', function () {
+
+                if (typeof (Worker) !== "undefined") {
+
+                    if (typeof (w) === "undefined") {
+                        w = new Worker("../js/sebas/RealizarSesionTratamiento/WorkerSimulacion.js");
+                    }
+                    w.onmessage = function (event) {
+                        //$("#box").html(
+                       // $('<img>').attr('id', 'desktop').attr('src', 'data:image/jpeg;base64,' + event.data));
+                       console.log("1");
+                    };
+                } else {
+
+                }
+                alert('xd');
+            });
+
+        </script>
+        <script th:src="@{/js/sebas/RealizarSesionTratamiento/WorkerSimulacion.js}"></script>
 
 
     </body>
