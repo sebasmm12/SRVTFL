@@ -14,6 +14,7 @@ import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
+import com.TP20192.SRVTFL.models.entity.RangoPulso;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import java.util.Date;
@@ -97,4 +98,9 @@ public interface ICitaService {
    public Page<Cita> obtenerTodasLasCitas(Pageable pageable);
    
    public Observacion registrarObservacion(Observacion obs);
+   
+   public RangoPulso obtenrRangoPulsoPorId(Long id);
+   
+   public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico);
+   
 }

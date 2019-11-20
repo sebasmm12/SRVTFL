@@ -12,6 +12,7 @@ import com.TP20192.SRVTFL.models.dao.IDiagnosticoDao;
 import com.TP20192.SRVTFL.models.dao.IObservacionDao;
 import com.TP20192.SRVTFL.models.dao.IPacienteDao;
 import com.TP20192.SRVTFL.models.dao.IPreguntasDao;
+import com.TP20192.SRVTFL.models.dao.IRangoPulsoDao;
 import com.TP20192.SRVTFL.models.dao.IRespuestaDao;
 import com.TP20192.SRVTFL.models.dao.ITratamientoDao;
 import com.TP20192.SRVTFL.models.domain.PacientePsicologo;
@@ -23,6 +24,7 @@ import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
+import com.TP20192.SRVTFL.models.entity.RangoPulso;
 import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
@@ -68,6 +70,9 @@ public class CitaServiceImpl implements ICitaService {
     
     @Autowired
     public IObservacionDao observacionService;
+    
+    @Autowired
+    public IRangoPulsoDao rangoPulsoService;
     
     @Transactional(readOnly = true)
     @Override
@@ -274,6 +279,16 @@ public class CitaServiceImpl implements ICitaService {
     @Override
     public Observacion registrarObservacion(Observacion obs) {
         return observacionService.save(obs);
+    }
+
+    @Override
+    public RangoPulso obtenrRangoPulsoPorId(Long id) {
+        return rangoPulsoService.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico) {
+        return rangoPulsoService.obtenerRangoPulsoPorSexo(sexoBiologico);
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package com.TP20192.SRVTFL.models.dao;
 
-import com.TP20192.SRVTFL.models.entity.Observacion;
+import com.TP20192.SRVTFL.models.entity.RangoPulso;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -15,8 +15,9 @@ import org.springframework.data.repository.query.Param;
  *
  * @author hp
  */
-public interface IObservacionDao extends PagingAndSortingRepository<Observacion, Long>{
+public interface IRangoPulsoDao extends PagingAndSortingRepository<RangoPulso, Long>{
     
-    /*@Query("select o from Observacion o where o.pulSimId = :citId")
-    public List<Observacion> listarObservacionesSesion(@Param("citId") Long citId);*/
+    
+    @Query("select r from RangoPulso r where r.ranPulSexo = :sexoBiologico")
+    public List<RangoPulso> obtenerRangoPulsoPorSexo(@Param("sexoBiologico") boolean sexoBiologico);
 }

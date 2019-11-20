@@ -4,7 +4,8 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:fragment="head">
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -20,6 +21,7 @@ and open the template in the editor.
         <link rel="stylesheet" th:href="@{/css/layout_empresa/widget.css}" />
         <link rel="stylesheet" th:href="@{/css/boostrap.min.css}" />
         <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+        <link rel="stylesheet" th:href="@{/css/chocolombo/MiCss.css}" />
         <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />-->
         <link rel="stylesheet" th:href="@{/css/mauricio/fullcalendar.min.css}" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
@@ -36,8 +38,10 @@ and open the template in the editor.
                 <nav class="navbar header-navbar pcoded-header" th:fragment="navbar">
                     <div class="navbar-wrapper">
                         <div class="navbar-logo">
-                            <a href="index.html">
-                                <img class="img-fluid" src="/images/logo.png" alt="Theme-Logo" />
+                            <a href="/">
+                                <!--img class="img-fluid" src="/images/logo.png" alt="Theme-Logo" /-->
+                                <i class="fa fa-home"></i>
+                                <span class="btn-text">Sistema SRVTFL</span>
                             </a>
                             <a class="mobile-menu" id="mobile-collapse" href="#!">
                                 <i class="feather icon-menu icon-toggle-right"></i>
@@ -107,8 +111,8 @@ and open the template in the editor.
                                     <div class="dropdown-primary dropdown">
                                         <div class="dropdown-toggle" data-toggle="dropdown">
                                             <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
-                                                                     class="img-radius"
-                                                                     th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>
+                                                 class="img-radius"
+                                                 th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>
                                             <img  th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) <= 0}"src="/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
                                             <span th:text="${usuario.detalleUsuario.detUsuNombre}"></span>
                                             <i class="feather icon-chevron-down"></i>
@@ -135,9 +139,18 @@ and open the template in the editor.
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="auth-sign-in-social.html">
+
+                                                <form id="logoutForm" th:action="@{/logout}" method="post">
+                                                    <button class="btn btn-xs btn-outline-danger" onclick="document.getElementById('logoutForm').submit();">
+                                                        <i class="feather icon-log-out"></i>
+                                                        Cerrar Sesion
+                                                    </button>
+                                                </form>
+
+                                                <!--a href="auth-sign-in-social.html">
                                                     <i class="feather icon-log-out"></i> Logout
-                                                </a>
+                                                </a-->
+
                                             </li>
                                         </ul>
                                     </div>
@@ -291,7 +304,7 @@ and open the template in the editor.
                                             </li>
                                         </ul>
                                     </div>
-                               </div>
+                                </div>
                             </div>
                         </nav>
 
@@ -301,13 +314,16 @@ and open the template in the editor.
                         </div>
 
                         <div id="styleSelector" th:fragment="styleSelector">
-                                <input type="hidden" th:field="${usuario.usu_id}" />
+                            <input type="hidden" th:field="${usuario.usu_id}" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <footer th:fragment="footer">
+            <p sec:authorize="isAuthenticated()">
+                <span sec:authentication="name">HOLA</span>
+            </p>
             <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
             <script th:src="@{/js/popper.min.js}"></script>
             <script th:src="@{/js/bootstrap.min.js}"></script>

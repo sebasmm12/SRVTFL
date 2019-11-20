@@ -1,5 +1,5 @@
 'use strict';
-var ctx = document.getElementById('myChart');
+//var ctx = document.getElementById('myChart');
 var btnSimuInicio = document.getElementById('btnsimulacionInicio');
 var btnSimuFin = document.getElementById('btnsimulacionFinalizar');
 var btnPausaReanudar = document.getElementById('btnsimulacionPausaReanudar');
@@ -19,26 +19,92 @@ var fin;
 var suma = 0;
 var totPulsos = 0;
 var promedio = 0;
-
+var rangoPulsoMinimo = document.getElementById('pulsoMinimo').value;
+var rangoPulsoMaximo = document.getElementById('pulsoMaximo').value;
+var rangoPulsoProm =   document.getElementById('pulsoPromedio').value;
 
 document.getElementById('btnsimulacionFinalizar').disabled = true;
 document.getElementById('btnsimulacionPausaReanudar').disabled = true;
+
+//recien añadido
+var canvas = document.getElementById("myChart");
+var ctx = canvas.getContext("2d");
+var horizonalLinePlugin = {
+    afterDraw: function (chartInstance) {
+        var yScale = chartInstance.scales["y-axis-0"];
+        var canvas = chartInstance.chart;
+        var ctx = canvas.ctx;
+        var index;
+        var line;
+        var style;
+        var yValue;
+
+        if (chartInstance.options.horizontalLine) {
+            for (index = 0; index < chartInstance.options.horizontalLine.length; index++) {
+                line = chartInstance.options.horizontalLine[index];
+
+                if (!line.style) {
+                    style = "rgba(169,169,169, .6)";
+                } else {
+                    style = line.style;
+                }
+
+                if (line.y) {
+                    yValue = yScale.getPixelForValue(line.y);
+                } else {
+                    yValue = 0;
+                }
+
+                ctx.lineWidth = 3;
+
+                if (yValue) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, yValue);
+                    ctx.lineTo(canvas.width, yValue);
+                    ctx.strokeStyle = style;
+                    ctx.stroke();
+                }
+
+                if (line.text) {
+                    ctx.fillStyle = style;
+                    ctx.fillText(line.text, 0, yValue + ctx.lineWidth);
+                }
+            }
+            return;
+        }
+        ;
+    }
+};
+Chart.pluginService.register(horizonalLinePlugin);
+
+var data = {
+    labels: [],
+    datasets: [{
+            label: "My First dataset",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [],
+        }]
+};
+
 var myChart = new Chart(ctx, {
     type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-                backgroundColor: "rgba(63,116,191,0.2)",
-                borderColor: "rgba(63,116,191,1)",
-                label: "Pulso: ",
-                pointBackgroundColor: [],
-                pointBorderColor: [],
-                pointRadius: [],
-                hoverBackgroundColor: "rgba(63,116,191,0.4)",
-                hoverBorderColor: "rgba(63,116,191,0.4)",
-                data: []
-            }]
-    },
+    data: data,
     options: {
         responsive: false,
         maintainAspectRatio: false,
@@ -46,7 +112,17 @@ var myChart = new Chart(ctx, {
             display: true,
             text: 'Grafico de Pulso del paciente',
             fontSize: 24
-        }
+        }, 
+        horizontalLine: [{
+                y: rangoPulsoMaximo,
+                style: "rgba(255, 0, 0, .98)",
+            }, {
+                y: rangoPulsoProm,
+                style: "rgba(28, 154, 8, .98)",
+            }, {
+                y: rangoPulsoMinimo,
+                style: "rgba(0, 0, 255, .98)",
+            }]
     }
 });
 
@@ -137,15 +213,15 @@ btnSimuInicio.addEventListener('click', function () {
             suma = suma + parseInt(evt.data);
             if (myChart.data.datasets[0].data.length <= 10) {
                 myChart.data.datasets[0].data[counter] = parseInt(evt.data);
-                myChart.data.datasets[0].pointBackgroundColor[counter] = "rgba(63,116,191,0.4)";
-                myChart.data.datasets[0].pointBorderColor[counter] = "rgba(63,116,191,1)";
+                //myChart.data.datasets[0].pointBackgroundColor[counter] = "rgba(63,116,191,0.4)";
+                //myChart.data.datasets[0].pointBorderColor[counter] = "rgba(63,116,191,1)";
                 myChart.data.labels[counter] = counter + 1;
                 // myChart.data.datasets[0].pointRadius[counter] =
                 // 4;
             } else {
                 myChart.data.datasets[0].data[11] = parseInt(evt.data);
-                myChart.data.datasets[0].pointBackgroundColor[11] = "rgba(63,116,191,0.4)";
-                myChart.data.datasets[0].pointBorderColor[11] = "rgba(63,116,191,1)";
+                //myChart.data.datasets[0].pointBackgroundColor[11] = "rgba(63,116,191,0.4)";
+                //myChart.data.datasets[0].pointBorderColor[11] = "rgba(63,116,191,1)";
                 myChart.data.labels[11] = counter + 1;
                 myChart.data.labels.splice(0, 1);
                 myChart.data.datasets[0].data.splice(0, 1);
@@ -251,13 +327,16 @@ function pausar() {
 }
 
 function registrarObservacion() {
+    
     var obs = document.getElementById('observaciones').value;
-    if (obs !== "" || obs.toString().trim() !== ""){
-        var Length = myChart.data.datasets[0].data.length;
+    
+    if (obs !== "" && obs.toString().trim() !== "" && resSimI > 0) {
+        var Length = myChart.data.labels.length;
         var observacion = {
             obsId: 0,
-            pulSimId: myChart.data.datasets[0].data[Length - 1],
-            obsComentario: obs
+            resSimId: resSimI,
+            obsComentario: obs,
+            obsTiempo:myChart.data.labels[Length - 1]
         };
         $('#observaciones').val('');
         $.ajax({
@@ -279,4 +358,41 @@ document.getElementById('btnRegistrarObservacion').addEventListener('click',
         function () {
             registrarObservacion();
         });
-
+/*var myChart = new Chart(ctx, {
+ type: 'line',
+ data: {
+ labels: [],
+ datasets: [{
+ backgroundColor: "rgba(63,116,191,0.2)",
+ borderColor: "rgba(63,116,191,1)",
+ label: "Pulso: ",
+ pointBackgroundColor: [],
+ pointBorderColor: [],
+ pointRadius: [],
+ hoverBackgroundColor: "rgba(63,116,191,0.4)",
+ hoverBorderColor: "rgba(63,116,191,0.4)",
+ data: []
+ }]
+ },
+ options: {
+ responsive: false,
+ maintainAspectRatio: false,
+ title: {
+ display: true,
+ text: 'Grafico de Pulso del paciente',
+ fontSize: 24
+ }, options: {
+ "horizontalLine": [{
+ "y": 0.2,
+ "style": "rgba(255, 0, 0, .4)",
+ "text": "max"
+ }, {
+ "y": 60,
+ "style": "#00ffff",
+ }, {
+ "y": 44,
+ "text": "min"
+ }]
+ }
+ }
+ });*/

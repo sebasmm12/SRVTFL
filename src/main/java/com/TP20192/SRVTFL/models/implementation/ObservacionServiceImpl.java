@@ -28,9 +28,9 @@ public class ObservacionServiceImpl implements IObservacionService{
         observacionService.save(obs);
     }
 
-    @Override
+    /*@Override
     public List<Observacion> obtenerObservaciones(Long pulId) {
         return observacionService.listarObservacionesSesion(pulId);
-    }
+    }*/
     
 }

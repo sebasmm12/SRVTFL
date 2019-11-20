@@ -9,6 +9,7 @@ import com.TP20192.SRVTFL.models.JsonClass.CitaJson;
 import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.EstadoActividad;
 import com.TP20192.SRVTFL.models.entity.EstadoCita;
 import com.TP20192.SRVTFL.models.entity.Fobia;
 import com.TP20192.SRVTFL.models.entity.Paciente;
@@ -46,6 +47,10 @@ public class RecepcionistaRestController {
     
     @Autowired
     private IUsuarioService usuarioService;
+    
+     @Autowired
+    public ICitaService citaService;
+
     
     @RequestMapping(value="/verificarNombre",method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     public String verificarNombrePaciente(@RequestBody String term){
@@ -121,6 +126,8 @@ public class RecepcionistaRestController {
         act.setAct_fin(cita.getCitFechaHoraFin());
         act.setAct_inicio(cita.getCitFechaHoraInicio());
         //Guardando la Actividad
+        
+        act.setEstadoActividad(new EstadoActividad(1,"Urgente","red"));
         citaservice.insertaActividad(act);
         return "1";
         
@@ -161,10 +168,6 @@ public class RecepcionistaRestController {
         return "1";
         
     }
-    
-    
-    
-    
     @GetMapping("prueba")
       public String ver(){
         DetalleUsuario detusu = new DetalleUsuario();
