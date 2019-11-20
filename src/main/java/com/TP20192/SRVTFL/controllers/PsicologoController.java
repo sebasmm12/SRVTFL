@@ -10,9 +10,11 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Cita;
 import com.TP20192.SRVTFL.models.entity.Nivel;
 import com.TP20192.SRVTFL.models.entity.Fobia;
+import com.TP20192.SRVTFL.models.entity.Paciente;
 import com.TP20192.SRVTFL.models.entity.Observacion;
 import com.TP20192.SRVTFL.models.entity.Pregunta;
 import com.TP20192.SRVTFL.models.entity.PulsoSimulacion;
+import com.TP20192.SRVTFL.models.entity.RangoPulso;
 import com.TP20192.SRVTFL.models.entity.ResultadoSimulacion;
 import com.TP20192.SRVTFL.models.entity.Simulacion;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
@@ -108,9 +110,13 @@ public class PsicologoController {
 
     @GetMapping(value = {"/index", "/"})
     public String index(Model model, Authentication authentication) {
+        if(authentication.isAuthenticated()){
         Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
         model.addAttribute("usuario", usuario);
         return "Psicologo/index";
+        }else{
+            return "Login/index";
+        }
     }
 
     @GetMapping(value = "/GestionarAgenda") 
@@ -165,9 +171,35 @@ public class PsicologoController {
 
     @GetMapping(value = "/RealizarSesion")
     public String realizarSesion(@RequestParam(name ="citId",required = false, defaultValue = "") Long citId, Model model) {
+        Cita cita = citaService.obtenerCita(citId);
+        Paciente pac = cita.getPaciente();
+        Integer[] rangosPulso = obtenerRangosPorPaciente(pac.getPac_edad(),pac.isPacSexoBiologico());
+        
+        RangoPulso ranPul = citaService.obtenrRangoPulsoPorId(1L);
+        Integer ranPromedio = (rangosPulso[1]+rangosPulso[0])/2;
+        
+        model.addAttribute("ranPulMaximo", rangosPulso[1]);
+        model.addAttribute("ranPulMinimo", rangosPulso[0]);
+        model.addAttribute("ranPulPromedio", ranPromedio);
         model.addAttribute("titulo", "Realizacion de Sesion de Simulacion");
         model.addAttribute("citId", citId);
         return "Psicologo/RealizarSesionTratamiento/iniciarSimulacion";
+    }
+    
+    private Integer[] obtenerRangosPorPaciente(Integer edad, boolean sexoBiologico){
+        
+        List<RangoPulso> rp = citaService.obtenerRangoPulsoPorSexo(sexoBiologico);
+        Integer[] rangoPulsos = new Integer[2];
+        for(RangoPulso p : rp){
+            if(edad >= p.getRanPulEdadMinima() && edad <= p.getRanPulEdadMaxima()){
+                rangoPulsos[0]= p.getRanPulPulsoMinimo();
+                rangoPulsos[1]= p.getRanPulPulsoMaximo();
+                return rangoPulsos;
+            }else{
+                break;
+            }
+        }
+        return rangoPulsos;
     }
 
     /*@GetMapping(value="/chartSEEyWF")
@@ -408,6 +440,19 @@ public class PsicologoController {
         //th1 = null;
         citaService.registrarObservacion(observacion);
         return "1";
+    }
+    
+    @RequestMapping(value = "/obtenerParametrosPulso", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    //@Async
+    public Integer[] obtenerParametrosPulsoPaciente(@RequestParam(name="citId") Long citId) {
+        
+        RangoPulso ranPul = citaService.obtenrRangoPulsoPorId(1L);
+        Integer[] array = new Integer[2];
+        array[0]= ranPul.getRanPulPulsoMaximo();
+        array[1]= ranPul.getRanPulPulsoMinimo();
+        return array;
+        
     }
     
     /*

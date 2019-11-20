@@ -23,7 +23,7 @@ public class LoginController {
     
     private Logger logger =LoggerFactory.getLogger(LoginController.class);
     
-    @RequestMapping("/login")
+    @RequestMapping({"/login","/"})
     public String login(@RequestParam(value="error", required = false) String error,
             @RequestParam(value ="logout", required = false) String logout,
             Model model, Principal principal) {

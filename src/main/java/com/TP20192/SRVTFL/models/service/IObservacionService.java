@@ -16,5 +16,5 @@ public interface IObservacionService {
     
     public void registrarObservacion(Observacion obs);
     
-    public List<Observacion> obtenerObservaciones (Long pulId);
+    /*public List<Observacion> obtenerObservaciones (Long pulId);*/
 }
