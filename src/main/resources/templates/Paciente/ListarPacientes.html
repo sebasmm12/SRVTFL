@@ -29,42 +29,48 @@ and open the template in the editor.
                                     <div class="card-body">
                                         <div class="row">
                                             <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                       th:text="'Nombre del Paciente:'"></label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control"/>                                                  
-                                                </div>
-                                                <a  class="btn btn-success btn-xs m-b-10 col-sm-1" th:text="'Filtrar'" ></a>
-                                                
-                                        <h4 class="card-title col-sm-4">
-                                            <a th:href="@{/Paciente/RegistrarPaciente}" class="btn btn-success btn-xs
-                                               align-items-lg-end">Registrar
-                                                Nuevo Paciente</a>
-                                        </h4>
+                                                   th:text="'Nombre del Paciente:'"></label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control"/>                                                  
+                                            </div>
+                                            <a  class="btn btn-outline-success btn-xs m-b-10 col-sm-1" href="" th:text="'Filtrar'" >
+                                                <i class="fa fa-check" style="font-size: 10px"></i>
+                                                <span class="btn-text">Filtrar</span> 
+                                            </a>
+
+                                            <h4 class="card-title col-sm-4">
+                                                <a th:href="@{/Paciente/RegistrarPaciente}" class="btn btn-outline-success btn-xs
+                                                    align-items-lg-end">
+                                                    <i class="fa fa-check" style="font-size: 15px"></i>
+                                                    <span class="btn-text">Registrar Nuevo Paciente</span>   
+                                                    
+                                                </a>
+                                            </h4>
                                         </div>
 
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>pacId</th>                                                   
+                                                    <th>Detalle</th>                                                   
                                                     <th>Nombre</th>
                                                     <th>Apellidos</th>
-                                                     <th>Edad</th>
+                                                    <th>Edad</th>
                                                     <th>Numero de Documento</th>
                                                     <th>Tipo Documento</th>
                                                     <th>Sexo</th>
                                                     <th>Funciones</th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr th:each="paciente, iStat: ${pacientes}">
-                                                    <td><a class="btn btn-success btn-xs" 
-                                                        th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}"
-                                                        th:text="${iStat.count}">
-                                                            </a>
-                                                        
+                                                    <td><a class="btn btn-outline-info btn-xs" 
+                                                           th:href="@{'/Paciente/detallePaciente/' + ${paciente.pacId}}">
+                                                            <i class="fa fa-eye" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Ver</span>
+                                                        </a>
                                                     </td>                                            
-                                                   <td th:text="${paciente.pacNombre}"></td>                                                                                                     
+                                                    <td th:text="${paciente.pacNombre}"></td>                                                                                                     
                                                     <td th:text="${paciente.pacApellido}"></td>
                                                     <td th:text="${paciente.pac_edad}"></td>   
                                                     <td th:text="${paciente.pacNumeroDocumento}"></td>
@@ -73,15 +79,18 @@ and open the template in the editor.
                                                         <span th:if="${paciente.tipDocId == 2}">Pasaporte</span> 
                                                     </td>
                                                     <td >
-                                                         <span th:if="${paciente.pacSexoBiologico == true}">Masculino</span>
-                                                          <span th:if="${paciente.pacSexoBiologico == false}">Femenino</span>    
-                                                        
-                                                        
+                                                        <span th:if="${paciente.pacSexoBiologico == true}">Masculino</span>
+                                                        <span th:if="${paciente.pacSexoBiologico == false}">Femenino</span>    
+
+
                                                     </td>
-                                                    
-                                                    <td><a class="btn btn-primary btn-xs"
-                                                           th:href="@{'/Paciente/ActualizarPaciente/' + ${paciente.pacId}}">Modificar</a></td>
-                                                    
+
+                                                    <td><a class="btn btn-outline-warning btn-xs"
+                                                            th:href="@{'/Paciente/ActualizarPaciente/' + ${paciente.pacId}}">
+                                                               <i class="fa fa-edit" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Modificar</span>
+                                                        </a></td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
