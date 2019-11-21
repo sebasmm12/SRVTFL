@@ -148,6 +148,7 @@ public class SesionTratamientoRestController {
 
        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fechaD = new Date();
+        cita.setCitFechaHoraInicioReal(fechaD);
         citaService.registrarCita(cita);
 
         return "1";
