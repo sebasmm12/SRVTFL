@@ -166,6 +166,7 @@ public class PsicologoController {
         model.addAttribute("fobias",listaFobia );
         model.addAttribute("cita", cita);
         model.addAttribute("documento", tipoDoc);
+        model.addAttribute("existeTratamiento", existeTratamiento);
         return "Psicologo/RealizarSesionTratamiento/VisualizarCita";
     }
 
@@ -196,8 +197,6 @@ public class PsicologoController {
                 rangoPulsos[0]= p.getRanPulPulsoMinimo();
                 rangoPulsos[1]= p.getRanPulPulsoMaximo();
                 return rangoPulsos;
-            }else{
-                break;
             }
         }
         return rangoPulsos;
@@ -257,6 +256,8 @@ public class PsicologoController {
                             ps.setPulSimPulso(StaticInteger.getInteger().longValue());
                             pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
                             System.out.println("Imagen Recivido");
+                    } else {
+                        System.out.println("No entro");
                     }
                     /*if(cowl.get(i) != null){
                         emitter.send(cowl.get(i));

@@ -176,10 +176,10 @@ and open the template in the editor.
                                                                 </label>
                                                             </div>
                                                             <select class="custom-select" id="civilSelect">
-                                                                <option th:value="1" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'SOLTERO')}">Soltero</option>
-                                                                <option th:value="2" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'CASADO')}">Casado</option>
-                                                                <option th:value="3" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'DIVORCIADO')}">Divorciado</option>
-                                                                <option th:value="4" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuSexo,'VIUDO')}">Viudo</option>
+                                                                <option th:value="1" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuEstadoCivil,'Soltero')}">Soltero</option>
+                                                                <option th:value="2" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuEstadoCivil,'Casado')}">Casado</option>
+                                                                <option th:value="3" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuEstadoCivil,'Divorciado')}">Divorciado</option>
+                                                                <option th:value="4" th:selected="${#strings.equalsIgnoreCase(DetalleUsuario.detUsuEstadoCivil,'Viudo')}">Viudo</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6 col-12 col-md-6">

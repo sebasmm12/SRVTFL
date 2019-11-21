@@ -65,8 +65,8 @@ public class VRRestController {
          VrVariables.setSimulacionId(simulacionId);
     }
     @PostMapping("/screenshoot")
-    public void create(@RequestBody String cadena) {  
-        VrVariables.setImagen(cadena.substring(0,cadena.length()- 1));
+    public void create(@RequestBody String cadena) { 
+       VrVariables.setImagen(cadena.substring(0,cadena.length()- 1));
       // return cadena;
     }
      @GetMapping("/screenshoot2")

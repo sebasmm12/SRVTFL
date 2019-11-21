@@ -21,8 +21,8 @@ var totPulsos = 0;
 var promedio = 0;
 var rangoPulsoMinimo = document.getElementById('pulsoMinimo').value;
 var rangoPulsoMaximo = document.getElementById('pulsoMaximo').value;
-var rangoPulsoProm =   document.getElementById('pulsoPromedio').value;
-
+var rangoPulsoProm = document.getElementById('pulsoPromedio').value;
+var w;
 document.getElementById('btnsimulacionFinalizar').disabled = true;
 document.getElementById('btnsimulacionPausaReanudar').disabled = true;
 
@@ -112,7 +112,7 @@ var myChart = new Chart(ctx, {
             display: true,
             text: 'Grafico de Pulso del paciente',
             fontSize: 24
-        }, 
+        },
         horizontalLine: [{
                 y: rangoPulsoMaximo,
                 style: "rgba(255, 0, 0, .98)",
@@ -181,6 +181,8 @@ btnSimuFin.addEventListener('click', function () {
     document.getElementById("btnsimulacionFinalizar").disabled = true;
     document.getElementById("btnsimulacionPausaReanudar").disabled = true;
     pausa = false;
+    w.terminate();
+    w = undefined;
     pausar();
 });
 btnSimuInicio.addEventListener('click', function () {
@@ -239,7 +241,26 @@ btnSimuInicio.addEventListener('click', function () {
             myChart.update();
         };
     }, millisecondsToWait);
-
+    setTimeout(function () {
+     if (typeof (w) === "undefined") {
+     w = new Worker("../js/sebas/RealizarSesionTratamiento/WorkerSimulacion.js");
+     }
+     console.log('hi');
+     w.postMessage(1);
+     w.onmessage = function (evt) {
+     
+     $('#divcambio').html(  
+                 $('<img class="h-100" style="border: dashed blue;width: 90% !important">').attr('id', 'desktop').attr('src', 'data:image/jpeg;base64,' + evt.data));
+     
+     };
+     }, millisecondsToWait);
+    /*setTimeout(function () {
+        sse = new EventSource('http://localhost:8080/psicologo/imagenSimulacion');
+        sse.onmessage = function (evt) {
+            $('#divcambio').html(  
+                 $('<img class="h-100" style="border: dashed blue;width: 90% !important">').attr('id', 'desktop').attr('src', 'data:image/jpeg;base64,' + evt.data));
+        };
+    }, millisecondsToWait);*/
     document.getElementById("btnsimulacionInicio").disabled = true;
     document.getElementById("btnsimulacionFinalizar").disabled = false;
     document.getElementById("btnsimulacionPausaReanudar").disabled = false;
@@ -335,16 +356,16 @@ function pausar() {
 }
 
 function registrarObservacion() {
-    
+
     var obs = document.getElementById('observaciones').value;
-    
+
     if (obs !== "" && obs.toString().trim() !== "" && resSimI > 0) {
         var Length = myChart.data.labels.length;
         var observacion = {
             obsId: 0,
             resSimId: resSimI,
             obsComentario: obs,
-            obsTiempo:myChart.data.labels[Length - 1]
+            obsTiempo: myChart.data.labels[Length - 1]
         };
         $('#observaciones').val('');
         $.ajax({

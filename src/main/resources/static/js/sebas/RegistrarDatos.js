@@ -86,7 +86,7 @@ var ActualizarImagen = function () {
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.href = "/Administrador/GestionarUsuarios";
+                        window.location.href = "/psicologo/index";
                     }
                 });
             }
