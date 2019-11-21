@@ -37,8 +37,8 @@ $(function () {
             };
 
             var estadoNotificacion = {
-                estNotId: 1,
-                estNotNombre: 'Visto'
+                estNotId: 2,
+                estNotNombre: 'No Visto'
             };
 
             var fecha = new Date();
@@ -55,7 +55,7 @@ $(function () {
                 notDescripcion: 'Se va a realizar una cita con el paciente '+nombrePaciente,
                 usuEnvio: pacienteId,
                 notFecha: null,
-                notUrl: 'Psicologo/Index',
+                notUrl: '/GestionarAgenda',
                 tipNotId: tipoNotificacion,
                 estNotId: estadoNotificacion
             };

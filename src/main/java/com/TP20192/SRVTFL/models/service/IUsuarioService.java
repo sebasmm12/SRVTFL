@@ -9,6 +9,7 @@ import com.TP20192.SRVTFL.models.entity.Actividad;
 import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
+import com.TP20192.SRVTFL.models.entity.Notificacion;
 import com.TP20192.SRVTFL.models.entity.Rol;
 import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
@@ -58,5 +59,9 @@ public interface IUsuarioService {
     public void crearAgenda(Agenda ag);
     
     public DetalleUsuario encontrarDetalleUsuarioPorId(Long id);
+    
+    public Notificacion saveNotificacion(Notificacion notificacion);
+    
+    public Notificacion findNotificacion(Long Id);
 }
 

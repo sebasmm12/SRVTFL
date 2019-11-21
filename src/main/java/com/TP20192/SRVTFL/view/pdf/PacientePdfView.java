@@ -147,6 +147,7 @@ public class PacientePdfView extends AbstractPdfView {
             tabla2.setSpacingBefore(20f);
             dcmnt.add(tabla2);
         }
+        
 
     }
 
