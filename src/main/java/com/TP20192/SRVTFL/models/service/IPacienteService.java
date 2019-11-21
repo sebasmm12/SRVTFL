@@ -30,4 +30,6 @@ public interface IPacienteService {
     
     public Paciente findOnePaciente(String nombre, String apellido);
     
+    public Paciente findOnePaciente2(String nombre, String apellido);
+    
 }

@@ -26,6 +26,7 @@ public class LoginController {
     @RequestMapping({"/login","/"})
     public String login(@RequestParam(value="error", required = false) String error,
             @RequestParam(value ="logout", required = false) String logout,
+            @RequestParam(value ="username",required = false, defaultValue = "") String username,
             Model model, Principal principal) {
         
         if(principal != null) {
@@ -37,6 +38,7 @@ public class LoginController {
         if(logout !=null) {
             logger.info("Ha cerrado sesión con exito");
         }
+        System.out.println("Usuario: "+username);
         return "Login/index";
     }
 }

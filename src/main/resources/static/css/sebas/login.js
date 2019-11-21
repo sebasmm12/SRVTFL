@@ -14,5 +14,9 @@ $(document).ready(function () {
     };
     
     $("#RegistrarId").click(Aceptar);
+    
+    
 });
+
+
 

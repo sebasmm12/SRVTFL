@@ -78,6 +78,13 @@ public class PacienteServiceImpl  implements  IPacienteService{
         return pacienteService.buscarPacienteNombre(nombre,apellido);
     }
 
+    @Override
+    public Paciente findOnePaciente2(String nombre, String apellido) {
+        return pacienteService.findTop1ByPacNombreAndPacApellido(nombre, apellido);
+    }
+    
+    
+
     
    
 }

@@ -27,5 +27,7 @@ public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>
     @Query("select c from Paciente c where c.pacNombre = :paciente_nombre and c.pacApellido = :paciente_apellido")
     public Paciente buscarPacienteNombre (@Param("paciente_nombre") String paciente_nombre,
                                           @Param("paciente_apellido") String paciente_apellido);
+    
+    public Paciente findTop1ByPacNombreAndPacApellido(String pacNombre, String pacApellido);
 }
 

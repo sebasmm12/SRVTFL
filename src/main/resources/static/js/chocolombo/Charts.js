@@ -122,7 +122,15 @@ var myChart = new Chart(ctx, {
             }, {
                 y: rangoPulsoMinimo,
                 style: "rgba(0, 0, 255, .98)",
+            }],
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
             }]
+        }
     }
 });
 
