@@ -34,6 +34,17 @@ public class Permiso implements Serializable {
     @Column(name = "per_url")
     private String perUrl;
 
+    @Column(name ="per_icono")
+    private String perIcono;
+
+    public String getPerIcono() {
+        return perIcono;
+    }
+
+    public void setPerIcono(String perIcono) {
+        this.perIcono = perIcono;
+    }
+    
     public Long getPerId() {
         return perId;
     }

@@ -9,9 +9,11 @@ import com.TP20192.SRVTFL.models.dao.IDetalleUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IUsuarioDao;
 import com.TP20192.SRVTFL.models.dao.IUsuarioRolDao;
 import com.TP20192.SRVTFL.models.dao.IAgendaDao;
+import com.TP20192.SRVTFL.models.dao.INotificacionDao;
 import com.TP20192.SRVTFL.models.entity.Agenda;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.EstadoUsuario;
+import com.TP20192.SRVTFL.models.entity.Notificacion;
 import com.TP20192.SRVTFL.models.entity.Rol;
 import com.TP20192.SRVTFL.models.entity.TipoDetalleUsuario;
 import com.TP20192.SRVTFL.models.entity.TipoDocumento;
@@ -43,6 +45,9 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     
     @Autowired
     private IAgendaDao agendaDao;
+    
+    @Autowired
+    private INotificacionDao notificacionDao;
     
     @Override
     @Transactional(readOnly = true)
@@ -139,4 +144,16 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     public DetalleUsuario encontrarDetalleUsuarioPorId(Long id) {
         return detUsuDao.encontrarUsuarioById(id);
     }
+
+    @Override
+    @Transactional
+    public Notificacion saveNotificacion(Notificacion notificacion) {
+       return  notificacionDao.save(notificacion);
+    }
+
+    @Override
+    public Notificacion findNotificacion(Long Id) {
+        return notificacionDao.findById(Id).orElse(null);
+    }
+    
 }

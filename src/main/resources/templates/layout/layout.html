@@ -38,7 +38,7 @@ and open the template in the editor.
                 <nav class="navbar header-navbar pcoded-header" th:fragment="navbar">
                     <div class="navbar-wrapper">
                         <div class="navbar-logo">
-                            <a href="/">
+                            <a href="/psicologo/index" style="text-decoration: none">
                                 <!--img class="img-fluid" src="/images/logo.png" alt="Theme-Logo" /-->
                                 <i class="fa fa-home"></i>
                                 <span class="btn-text">Sistema SRVTFL</span>
@@ -86,16 +86,19 @@ and open the template in the editor.
                                                 <label class="label label-danger">New</label>
                                             </li>
                                             <!--Aqui ocurre todo lo loco-->
-                                            <li th:each="Notificacion : ${usuario.Notificaciones}">
-                                                <div class="media">
-                                                    <img class="img-radius" src="/images/avatar-3.jpg" alt="Generic placeholder image"/>
-                                                    <div class="media-body">
-                                                        <h5 class="notification-user" th:text="${Notificacion.usuId.usu_codigo}"></h5>
-                                                        <p class="notification-msg" th:text="${Notificacion.notDescripcion}"></p>
-                                                        <span class="notification-time" th:text="${Notificacion.notFecha}"></span>
+                                            <th:block th:each="Notificacion : ${usuario.Notificaciones}">
+                                                <li th:if="${#strings.equals(Notificacion.estNotId.estNotNombre, 'No Visto')}">
+                                                    <div class="media">
+                                                        <img class="img-radius" src="/images/avatar-3.jpg" alt="Generic placeholder image"/>
+                                                        <div class="media-body">
+                                                            <h5 class="notification-user" th:text="${Notificacion.usuId.usu_codigo}"></h5>
+                                                            <p class="notification-msg" th:text="${Notificacion.notDescripcion}"></p>
+                                                            <span class="notification-time" th:text="${Notificacion.notFecha}"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            </th:block>
+
                                         </ul>
                                     </div>
                                 </li>
@@ -110,10 +113,10 @@ and open the template in the editor.
                                 <li class="user-profile header-notification">
                                     <div class="dropdown-primary dropdown">
                                         <div class="dropdown-toggle" data-toggle="dropdown">
-                                            <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
+                                            <img th:if="${usuario.detalleUsuario.detUsuImagen != null}"
                                                  class="img-radius"
-                                                 th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>
-                                            <img  th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) <= 0}"src="/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                                 th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>  
+                                            <img  th:if="${(usuario.detalleUsuario.detUsuImagen) == null || (usuario.detalleUsuario.detUsuImagen == '')}" th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" class="img-radius" alt="User-Profile-Image">
                                             <span th:text="${usuario.detalleUsuario.detUsuNombre}"></span>
                                             <i class="feather icon-chevron-down"></i>
                                         </div>
@@ -291,7 +294,7 @@ and open the template in the editor.
                                         <ul class="pcoded-item pcoded-left-item">
                                             <li class="pcoded-hasmenu" th:each="RolPermisos : ${UsuarioRol.rol.permisos}">
                                                 <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                                                    <span class="pcoded-micon"><i th:class="${RolPermisos.permiso.perIcono}"></i></span>
                                                     <span class="pcoded-mtext" th:text="${RolPermisos.permiso.perNombre}"></span>
                                                 </a>
                                                 <ul class="pcoded-submenu">

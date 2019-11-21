@@ -255,7 +255,7 @@ public class PsicologoController {
                             ps.setPulSimNormal(true);
                             ps.setPulSimPulso(StaticInteger.getInteger().longValue());
                             pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
-                            System.out.println("Imagen Recivido");
+                            System.out.println("Imagen Recibido");
                     } else {
                         System.out.println("No entro");
                     }

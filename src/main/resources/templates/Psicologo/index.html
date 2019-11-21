@@ -20,8 +20,8 @@ and open the template in the editor.
                         <div class="pcoded-content">
                             <!--Aqui es el RenderBody-->
                             <div class="container mt-2 mb-2">
-                                <div th:each="Notificacion : ${usuario.Notificaciones}">
-                                    <div class="alert alert-info" role="alert" style="cursor: pointer">
+                                <th:block th:each="Notificacion : ${usuario.Notificaciones}">
+                                    <div class="alert alert-info notificaciones" th:if="${#strings.equals(Notificacion.estNotId.estNotNombre, 'No Visto')}" role="alert" style="cursor: pointer" th:attr="data-url=${Notificacion.notUrl},data-id=${Notificacion.notId},data-est=${Notificacion.estNotId.estNotId}">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></button>
                                         <h4 class="alert-heading font-weight-bolder" th:text="${Notificacion.notNombre}"></h4>
@@ -33,7 +33,7 @@ and open the template in the editor.
                                                  th:src="@{'/SRVTFLrepo/' + ${Notificacion.usuId.detalleUsuario.detUsuImagen}}" th:alt="${Notificacion.usuId.detalleUsuario.detUsuImagen}"/>
                                         </p>
                                     </div>
-                                </div>
+                                </th:block>
                             </div>
                         </div>
                         <div th:replace="layout/layout :: styleSelector"></div>
@@ -42,5 +42,6 @@ and open the template in the editor.
             </div>
         </div>
         <footer th:replace="layout/layout :: footer"></footer>
+        <script th:src="@{/js/sebas/Notificacion/notificacionesurl.js}"></script>
     </body>
 </html>

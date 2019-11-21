@@ -122,5 +122,5 @@ public class Usuario implements Serializable {
 
     public void setDetalleUsuario(DetalleUsuario detalleUsuario) {
         this.detalleUsuario = detalleUsuario;
-    }
+    } 
 }

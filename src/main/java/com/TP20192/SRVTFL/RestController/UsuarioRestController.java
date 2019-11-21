@@ -7,6 +7,8 @@ package com.TP20192.SRVTFL.RestController;
 
 import com.TP20192.SRVTFL.models.JsonClass.DetalleUsuarioJson;
 import com.TP20192.SRVTFL.models.entity.DetalleUsuario;
+import com.TP20192.SRVTFL.models.entity.EstadoNotificacion;
+import com.TP20192.SRVTFL.models.entity.Notificacion;
 import com.TP20192.SRVTFL.models.entity.Usuario;
 import com.TP20192.SRVTFL.models.service.IUploadFileService;
 import com.TP20192.SRVTFL.models.service.IUsuarioService;
@@ -20,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +52,7 @@ public class UsuarioRestController {
 
     @Autowired
     private IUploadFileService uploadService;
-
+    
     @RequestMapping(value = "/registrar", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     public String RegistrarDetalleUsuario(@RequestBody DetalleUsuarioJson DetalleUsuarioJson, Map<String, Object> model) {
         DetalleUsuario DetUsuModificado = DetalleUsuarioJson.getDetalleUsuario();
@@ -83,6 +87,19 @@ public class UsuarioRestController {
         }
         detUsu.setDetUsuImagen(uniqueFileName);
         usuarioService.guardarDetalleUsuario(detUsu);
+        return "1";
+    }
+    @RequestMapping(value="/notificacionVista",method = RequestMethod.POST)
+    public String RegistrarNotificacionVisto(Long notId) {
+        Notificacion notificacion = usuarioService.findNotificacion(notId);
+        EstadoNotificacion estado = new EstadoNotificacion();
+        Integer id = 1;
+        estado.setEstNotId(id.longValue());
+        estado.setEstNotNombre("Visto");
+        notificacion.setEstNotId(estado);
+        
+        usuarioService.saveNotificacion(notificacion);
+        
         return "1";
     }
 }

@@ -253,7 +253,7 @@ btnSimuInicio.addEventListener('click', function () {
                  $('<img class="h-100" style="border: dashed blue;width: 90% !important">').attr('id', 'desktop').attr('src', 'data:image/jpeg;base64,' + evt.data));
      
      };
-     }, millisecondsToWait);
+     }, 10);
     /*setTimeout(function () {
         sse = new EventSource('http://localhost:8080/psicologo/imagenSimulacion');
         sse.onmessage = function (evt) {
