@@ -29,7 +29,7 @@ var Guardar = function () {
         usu_codigo: UsuarioCodigo,
         usu_contraseña: UsuarioContrasena
     };
-    
+
     var detalleUsuario = {
         usu_id: 0,
         usuario: usuario,
@@ -49,8 +49,8 @@ var Guardar = function () {
         detUsuReligion: Religion,
         detUsuEstadoCivil: estadoCivil
     };
-    
-     var DetalleUsuarioJson = {
+
+    var DetalleUsuarioJson = {
         detalleUsuario: detalleUsuario,
         usuario: usuario
     };
@@ -80,6 +80,8 @@ var ActualizarImagen = function () {
         cache: false,
         success: function (data) {
             if (data === "1") {
+                localStorage.removeItem('contrasena');
+                localStorage.setItem('contrasena', $('#passwordId').val());
                 Swal.fire({
                     type: 'success',
                     title: 'Se modifico los datos personales exitosamente',
@@ -102,20 +104,103 @@ var validacion = function () {
     var $usuCodigo = document.getElementById('usuario.usu_codigo');
     var $usuContrasena = $('#passwordId');
     var $lugarNacimiento = $('#detUsuLugarNacimiento');
+    var $detusudireccion = $('#detUsuDireccion');
+    var $imagen = $('#info').html();
     var validarTelefono = validacionTelefono('detUsuTelefonoError', $telefono.val(), 'detUsuTelefono');
     var validarCorreo = validacionCorreo('detUsuCorreoError', $correo.val(), 'detUsuCorreo');
     var validarReligion = validacionReligion('detUsuReligionError', $religion.val(), 'detUsuReligion');
     var validarUsuCodigo = validacionUsuCodigo('usuCodigoError', $usuCodigo.value, 'usuario.usu_codigo');
     var validarUsuContrasena = validacionUsuContrasena('usuContrasenaError', $usuContrasena.val(), 'passwordId');
     var validarLugarNacimiento = validacionLugarNacimiento('detUsuLugarNacimientoError', $lugarNacimiento.val(), 'detUsuLugarNacimiento');
+    var validarDireccion = validacionDireccion('detUsuDireccionError', $detusudireccion.val(), 'detUsuDireccion');
+    var validarImagen = validacionImagen('imagenError', $imagen, 'imagenId');
     if (validarTelefono === false || validarCorreo === false || validarReligion === false || validarUsuCodigo === false || validarUsuContrasena === false ||
-            validarLugarNacimiento === false) {
+            validarLugarNacimiento === false || validarDireccion === false || validarImagen === false) {
 
     } else {
         Guardar();
     }
 };
 
+var validacionImagen = function (elementError, val, element) {
+    var RegularExpression = /^.+(jpg|png|jpeg)$/;
+    var RegularExpressionImage = /^(?=\/SRVTFLrepo\/).+(.jpg|png|jpeg)$/;
+    var validacionPrimaria = $("#imagenId").attr('src');
+    if (validacionPrimaria.match(RegularExpressionImage)) {
+        return true;
+    } else {
+        if (val === "") {
+            addNegativeAttributtes(element);
+            addNegativeHtml(elementError, 'Debe ingresar una imagen');
+            document.getElementById('imagenId').addEventListener('load', keyImagen, false);
+            return false;
+        } else if (val.match(RegularExpression)) {
+            addPositiveAtributtes(element);
+            addPositiveHtml(elementError, 'Correcto!');
+            return true;
+        } else {
+            addNegativeAttributtes(element);
+            addNegativeHtml(elementError, 'Debe ingresar una imagen válida');
+            document.getElementById('imagenId').addEventListener('load', keyImagen, false);
+            return false;
+        }
+    }
+};
+
+var keyImagen = function () {
+    var RegularExpression = /^.+(jpg|png|jpeg)$/;
+    var $imagen = $('#info').html();
+    if ($imagen === "") {
+        addNegativeAttributtes('imagenId');
+        addNegativeHtml('imagenError', 'Debe ingresar una imagen');
+        return false;
+    } else if ($imagen.match(RegularExpression)) {
+        addPositiveAtributtes('imagenId');
+        addPositiveHtml('imagenError', 'Correcto!');
+        return true;
+    } else {
+        addNegativeAttributtes('imagenId');
+        addNegativeHtml('imagenError', 'Debe ingresar una imagen válida');
+        return false;
+    }
+};
+
+var validacionDireccion = function (elementError, val, element) {
+    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    if (val === "") {
+        addNegativeAttributtes(element);
+        addNegativeHtml(elementError, 'Debe ingresar una dirección');
+        $("#" + element).keyup(keyDireccion);
+        return false;
+    } else if (val.match(RegularExpression)) {
+        addPositiveAtributtes(element);
+        addPositiveHtml(elementError, 'Correcto!');
+        return true;
+    } else {
+        addNegativeAttributtes(element);
+        addNegativeHtml(elementError, 'Debe ingresar una dirección válida');
+        $("#" + element).keyup(keyDireccion);
+        return false;
+    }
+};
+
+var keyDireccion = function () {
+    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var $detusudireccion = $('#detUsuDireccion');
+    if ($detusudireccion.val() === "") {
+        addNegativeAttributtes('detUsuDireccion');
+        addNegativeHtml('detUsuDireccionError', 'Debe ingresar una dirección');
+        return false;
+    } else if ($detusudireccion.val().match(RegularExpression)) {
+        addPositiveAtributtes('detUsuDireccion');
+        addPositiveHtml('detUsuDireccionError', 'Correcto!');
+        return true;
+    } else {
+        addNegativeAttributtes('detUsuDireccion');
+        addNegativeHtml('detUsuDireccionError', 'Debe ingresar una dirección válida');
+        return false;
+    }
+};
 
 var validacionTelefono = function (elementError, val, element) {
     var RegularExpression = /^[0-9]{9}$/;
@@ -328,9 +413,9 @@ var validacionLugarNacimiento = function (elementError, val, element) {
     }
 };
 
-var keyLugarNacimiento = function() {
+var keyLugarNacimiento = function () {
     var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
-    var $lugarNacimiento =$('#detUsuLugarNacimiento');
+    var $lugarNacimiento = $('#detUsuLugarNacimiento');
     if ($lugarNacimiento.val() === "") {
         addNegativeAttributtes('detUsuLugarNacimiento');
         addNegativeHtml('detUsuLugarNacimientoError', 'Debe ingresa un lugar de Nacimiento');
@@ -382,4 +467,4 @@ var addNegativeHtml = function (id, message) {
 
 
 $("#RegistraDatosId").click(validacion);
-            
+

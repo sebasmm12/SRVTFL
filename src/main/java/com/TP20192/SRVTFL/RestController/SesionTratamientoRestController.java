@@ -16,6 +16,7 @@ import com.TP20192.SRVTFL.models.entity.Respuesta;
 import com.TP20192.SRVTFL.models.entity.Tratamiento;
 import com.TP20192.SRVTFL.models.service.ICitaService;
 import com.TP20192.SRVTFL.utils.paginator.PageRender;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -145,12 +146,8 @@ public class SesionTratamientoRestController {
     public String RegistrarFechaInicio(String fecha, Long citId) throws ParseException {
         Cita cita = citaService.obtenerCita(citId);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+       DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fechaD = new Date();
-
-        fechaD = format.parse(fecha);
-        cita.setCitFechaHoraInicioReal(fechaD);
-
         citaService.registrarCita(cita);
 
         return "1";
