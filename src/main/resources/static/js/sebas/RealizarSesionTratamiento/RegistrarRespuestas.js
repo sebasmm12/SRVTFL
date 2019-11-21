@@ -247,7 +247,7 @@ $('#btnRegistrarTratamiento').on('click', function () {
             success: function (data) {
                 Swal.fire({
                     type: 'success',
-                    title: 'Se registro las el Traatamiento Exitosamente',
+                    title: 'Se registro el Tratamiento Exitosamente',
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.value) {
