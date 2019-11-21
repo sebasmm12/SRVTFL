@@ -4,16 +4,20 @@
  * and open the template in the editor.
  */
 
-function timedCount() {
-    console.log("Llego al web workers");
-   // sse = new EventSource('http://localhost:8080/psicologo/imagenSimulacion');
-    //sse.onmessage = function (event) {
+onmessage = function (e) {
+    console.log('entro');
+    var x = e.data;
+    if (x === 1) {
+        console.log('xd');
+            var thisp = this;
+            sse = new EventSource('http://localhost:8080/psicologo/imagenSimulacion');
+            sse.onmessage = function (evt) {
+                var x = x+1;
+                console.log(x);
+                thisp.postMessage(evt.data);
+            };
+    }
 
-      //  postMessage(event.data);
-       postMessage("1");
-    //};
-   
-    setTimeout("timedCount()", 500);
-}
+};
 
-timedCount();
+

@@ -54,7 +54,8 @@ public class UsuarioRestController {
         DetalleUsuario DetUsuModificado = DetalleUsuarioJson.getDetalleUsuario();
         Long Id = ((Usuario) model.get("usuario")).getUsu_id();
         DetUsuModificado.setUsu_id(Id);
-        Usuario usuario=((Usuario) model.get("usuario"));
+        Usuario usuario = ((Usuario) model.get("usuario"));
+        DetalleUsuario DetUsuOriginal = usuarioService.obtenerDetalleUsuario(Id); 
         DetUsuModificado.setUsuario(usuario);
         DetUsuModificado.getUsuario().setUsu_id(Id);
         DetUsuModificado.getUsuario().setEstadoUsuario(usuario.getEstadoUsuario());
@@ -63,6 +64,8 @@ public class UsuarioRestController {
         DetUsuModificado.getUsuario().setEstadoUsuario(usuario.getEstadoUsuario());
         DetUsuModificado.getUsuario().setNotificaciones(usuario.getNotificaciones());
         DetUsuModificado.getUsuario().setRoles(usuario.getRoles());
+        DetUsuModificado.setTipDetUsuId(DetUsuOriginal.getTipDetUsuId());
+        DetUsuModificado.setTipDocId(DetUsuOriginal.getTipDocId());
         usuarioService.guardarDetalleUsuario(DetalleUsuarioJson.getDetalleUsuario());
         usuarioService.guardarUsuario(DetUsuModificado.getUsuario());
         return "1";
