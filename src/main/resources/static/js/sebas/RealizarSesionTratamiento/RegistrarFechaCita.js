@@ -8,7 +8,7 @@ var validar = function () {
 
     var fechaInicio = $('#fechaInicioCita');
 
-    var validarFechaInicio = ValidacionFechaInicio('fechaInicioCita', fechaInicio.val(), 'FechaCitaError');
+    var validarFechaInicio = true;
 
     var citId = $(this).attr("data-id");
     var primCit = $(this).attr("prim-cit");

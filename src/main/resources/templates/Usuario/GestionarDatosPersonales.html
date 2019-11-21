@@ -48,6 +48,7 @@ and open the template in the editor.
                                                                         </label>
                                                                     </div>
                                                                     <input type="text" class="form-control" th:field="*{detUsuDireccion}" />
+                                                                    <div id="detUsuDireccionError"></div>
                                                                 </div> 
                                                             </div>
                                                         </div>
@@ -59,25 +60,29 @@ and open the template in the editor.
                                                                             Foto
                                                                         </label>
                                                                     </div>
-                                                                    <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
-                                                                         class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet"
-                                                                         th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenId"/>
-                                                                    <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
-                                                                         class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet;display: none"
-                                                                         th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/>
+                                                                    <div>
+                                                                        <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                             class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet"
+                                                                             th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenId"/>
+                                                                        <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                             class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet;display: none"
+                                                                             th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/> 
+                                                                    </div>
+
+                                                                    <div id="imagenError"></div>
                                                                 </div>
                                                                 <div class="col-12 col-sm-6">
                                                                     <form id="form">
-                                                                    <label class="btn btn-success btn-imagen" for="file-upload">
-                                                                        <i class="fa fa-user-circle icon-size"></i>
-                                                                        <span class="btn-text">Cambiar Imagen</span>
-                                                                    </label>
-                                                                    <input id="file-upload" type="file" style="display: none;" name="uploadfile"/>
-                                                                    <div id="info" class="btn-text"></div>
-                                                                    <button class="btn btn-info btn-image-second" id="RestaurarId">
-                                                                        <i class="fa fa-arrow-circle-left icon-size"></i>
-                                                                        <span class="btn-text">Restaurar Imagen</span>
-                                                                    </button>    
+                                                                        <label class="btn btn-success btn-imagen" for="file-upload">
+                                                                            <i class="fa fa-user-circle icon-size"></i>
+                                                                            <span class="btn-text">Cambiar Imagen</span>
+                                                                        </label>
+                                                                        <input id="file-upload" type="file" style="display: none;" name="uploadfile" accept="image/*"/>
+                                                                        <div id="info" class="btn-text"></div>
+                                                                        <button class="btn btn-info btn-image-second" id="RestaurarId" type="button">
+                                                                            <i class="fa fa-arrow-circle-left icon-size"></i>
+                                                                            <span class="btn-text">Restaurar Imagen</span>
+                                                                        </button>    
                                                                     </form> 
                                                                 </div>
                                                             </div>
