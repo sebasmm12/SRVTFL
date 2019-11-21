@@ -61,7 +61,7 @@ public class RecepcionistaRestController {
             return "0";
         }
         System.out.println("Realizando Consulta paciente");
-        pac = pacienteService.findOnePaciente(paciente[0],paciente[1]);
+        pac = pacienteService.findOnePaciente2(paciente[0],paciente[1]);
         if(pac.getPacId() == null || pac.getPacId() == 0){
             valor = "0";
         }else{
