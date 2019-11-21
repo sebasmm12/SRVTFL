@@ -45,6 +45,11 @@ public class UsuarioServiceImpl implements UserDetailsService {
            throw new UsernameNotFoundException("Username " + username + "no existe en el sistema");
        }
        
+       if(usuario.getEstadoUsuario().getEstUsuId()==2){
+           logger.error("Error login el usuario '"+ username + "' ha sido bloqueado por el administrador");
+           throw new UsernameNotFoundException("Username " + username + " bloqueado del sistema");
+       }
+       
        List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
        
        for(UsuarioRol rol: usuario.getRoles()) {
