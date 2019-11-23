@@ -119,4 +119,8 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query(value="select c from Cita c inner join c.paciente p inner join c.estadoCita e where c.usuId = :psicologo_id and e.estCitId = 3 and p.pacId =:pacId")
     public List<Cita> encontrarCitasPacientePsicologo(@Param("psicologo_id") Long psicologoId,@Param("pacId") Long pacienteId);
     
+    @Query(value= "select new com.TP20192.SRVTFL.models.domain.PacientePsicologo(p.pacId, p.pacNombre, p.pacApellido,COUNT(e.estCitId),MAX(c.citFechaHoraFinReal))"
+            + "from Cita c inner join c.paciente p inner join c.estadoCita e where c.usuId = :psicologo_id and e.estCitId = 3 and p.pacNombre =:paciente_nombre group by p.pacId,p.pacNombre,p.pacApellido",
+            countQuery = "select count(distinct p.pacId) from Cita c inner join c.paciente p inner join c.estadoCita e  where c.usuId = :psicologo_id and e.estCitId = 3 and p.pacNombre =:paciente_nombre")
+    public Page<PacientePsicologo> filtrarReportesPacienteEspecifico(@Param("psicologo_id") Long psicologoId, Pageable pageable,@Param("paciente_nombre") String pacientenombre);
 }

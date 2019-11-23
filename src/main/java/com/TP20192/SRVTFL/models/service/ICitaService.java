@@ -103,4 +103,6 @@ public interface ICitaService {
    
    public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico);
    
+   public Page<PacientePsicologo> filtrarReportesPacienteEspecifico(Long psicologoId, Pageable pageable,String pacientenombre);
+   
 }

@@ -290,5 +290,11 @@ public class CitaServiceImpl implements ICitaService {
     public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico) {
         return rangoPulsoService.obtenerRangoPulsoPorSexo(sexoBiologico);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PacientePsicologo> filtrarReportesPacienteEspecifico(Long psicologoId, Pageable pageable, String pacientenombre) {
+        return citaService.filtrarReportesPacienteEspecifico(psicologoId, pageable, pacientenombre);
+    }
     
 }
