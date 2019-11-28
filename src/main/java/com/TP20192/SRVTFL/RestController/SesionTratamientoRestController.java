@@ -131,8 +131,10 @@ public class SesionTratamientoRestController {
 
         EstadoCita estCit = citaService.findEstadoCitaById(3);
 
+        Date date = new Date();
+        
         cita.setEstadoCita(estCit);
-
+        cita.setCitFechaHoraFinReal(date);
         Diagnostico diagnostico = new Diagnostico();
 
         diagnostico.setDiaDiagnostico(DiagnosticoJson.getDiaDiagnostico());
@@ -151,6 +153,7 @@ public class SesionTratamientoRestController {
 
        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fechaD = new Date();
+        cita.setCitFechaHoraInicioReal(fechaD);
         citaService.registrarCita(cita);
 
         return "1";

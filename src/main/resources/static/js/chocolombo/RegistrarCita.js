@@ -479,14 +479,16 @@ var validacionCitaActualizaion = function () {
     var VDocPaciente = validarPaciente('buscar_pacienteError', documento, 'buscar_paciente');
     var VDocPsicologo = validarPsicologo('buscar_psicologoError', documentoP, 'buscar_psicologoError');
     var VduracionCita = validacionDuracionCita('duracionCitaError', durCita, 'duracionCita');
+    var VduracionCitaAct = validacionDuracionCitaActualizacion('duracionCitaError', durCita, 'duracionCita');
+    
     
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
-            VduracionCita === false ||  VDocPaciente === false || VfobiaCita === false || VDocPsicologo === false
+            VduracionCitaAct === false ||  VDocPaciente === false || VfobiaCita === false || VDocPsicologo === false
             || validarLogicaHorarios === false) {
         alert("ALGO ESTA MAL!");
     } else {
         alert("TODO BIEN");
-        actualizarCita();
+        //actualizarCita();
     }
 };
 
@@ -1026,6 +1028,63 @@ var keyfechacita = function () {
         return true;
     }
 };
+
+
+var validacionDuracionCitaActualizacion = function (elementoError, valor, elemento) {
+    var regexIsValid = /^([0]?[01]):([0-5][0-9])(:[0-5][0-9])?$/;
+    var duracionAct = document.getElementById('duracion').value;
+    var horas = parseInt(valor.split(":")[0]);
+    var minutos = parseInt(valor.split(":")[1]);
+    if (valor === "" || valor.trim() === "" || valor === "0") {
+        addPositiveAtributtes(elemento);
+        addPositiveHtml(elementoError, 'Correcto');
+        $('#' + elemento).change(changeCantidad);
+        return true;
+    } else if (!valor.match(regexIsValid)) {
+        addNegativeAttributtes(elemento);
+        addNegativeHtml(elementoError, 'La duracion debe ser de hasta 01:59 hr como maximo');
+        $('#' + elemento).change(changeCantidad);
+        return false;
+    } else if (horas === 0 && minutos < 25) {
+        addNegativeAttributtes(elemento);
+        addNegativeHtml(elementoError, 'La duracion debe ser de 25 min como minimo');
+        $('#' + elemento).change(changeCantidad);
+        return false;
+    } else {
+        addPositiveAtributtes(elemento);
+        addPositiveHtml(elementoError, 'Correcto');
+        $('#' + elemento).change(changeCantidad);
+        return true;
+    }
+};
+
+var changeCantidadActualizacion = function () {
+    var $valor = $('#duracionCita').val();
+    var regexIsValid = /^([0]?[01]):([0-5][0-9])(:[0-5][0-9])?$/;
+    var duracionAct = document.getElementById('duracion').value;
+    var horas = parseInt($valor.split(":")[0]);
+    var minutos = parseInt($valor.split(":")[1]);
+    if ($valor === "" || $valor.trim() === "" || $valor === "0") {
+        addPositiveAtributtes('duracionCita');
+        addPositiveHtml('duracionCitaError', 'Correcto');
+        return true;
+    } else if (!$valor.match(regexIsValid)) {
+        addNegativeAttributtes('duracionCita');
+        addNegativeHtml('duracionCitaError', 'La duracion debe ser de hasta 01:59 hr como maximo');
+        return false;
+    } else if (horas === 0 && minutos < 25) {
+        addNegativeAttributtes('duracionCita');
+        addNegativeHtml('duracionCitaError', 'La duracion debe ser de hasta 25 min como minimo');
+        return false;
+    } else {
+        addPositiveAtributtes('duracionCita');
+        addPositiveHtml('duracionCitaError', 'Correcto');
+        return true;
+    }
+};
+
+
+
 var addPositiveAtributtes = function (id) {
     $("#" + id).removeClass('is-invalid');
     $("#" + id).addClass('is-valid');

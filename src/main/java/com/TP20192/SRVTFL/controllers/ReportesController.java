@@ -41,7 +41,7 @@ public class ReportesController {
         Long usuId = ((Usuario)model.get("usuario")).getUsu_id();
         Pageable pageRequest = PageRequest.of(page, 10);
         Page<PacientePsicologo> citas = pacienteservice.encontrarPacientesPsicologo(usuId, pageRequest);
-        PageRender<PacientePsicologo> pageRender = new PageRender<>("/api/reportes/usuario", citas);
+        PageRender<PacientePsicologo> pageRender = new PageRender<>("/api/reportes/buscar", citas);
         model.put("citas", citas);
         model.put("page", pageRender);
         return "Reportes/GenerarReportes";

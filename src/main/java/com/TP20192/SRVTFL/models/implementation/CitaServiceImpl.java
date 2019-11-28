@@ -293,6 +293,10 @@ public class CitaServiceImpl implements ICitaService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Page<PacientePsicologo> filtrarReportesPacienteEspecifico(Long psicologoId, Pageable pageable, String pacientenombre) {
+        return citaService.filtrarReportesPacienteEspecifico(psicologoId, pageable, pacientenombre);
+    }
     public List<Paciente> obtenerPacientesConTratamiento(String term) {
         return citaService.findPacienteTratamientoByNombre(term);
     }

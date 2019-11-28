@@ -94,6 +94,7 @@ and open the template in the editor.
                                             <div class="col-sm-9">
                                                 <input type="text" id="citFecha" class="form-control"
                                                        th:value="${date}"/>
+                                                
                                                 <div id="citFechaError"></div>
                                             </div>
                                         </div>
@@ -115,14 +116,19 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <button class="btn btn-outline-success" style="width:705px" id="actualizarCitas">
+                                            
+                                                <button class="btn btn-outline-success col-sm-5" style="width:705px" id="actualizarCitas">
                                                     <i class="fa fa-check"></i>
                                                     <span class="btn-text">Actualizar Cita</span>
                                                 </button>  
-                                            </div>
+                                            
+                                            <a class="btn btn-outline-secondary col-sm-4 m-l-5" style="margin: auto" th:href="@{/Recepcionista/GestionarCitas}">
+                                                    <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion</span>
+                                                </a>
                                         </div>
                                         <input type="hidden"   id="fechaCit" th:value="${date}"/>
+                                        <input type="hidden"   id="duracion" th:value="${duracion}"/>
                                         <input type="hidden"   id="citId" th:value="${citId}"/>
                                         <!-- comentado para utilizar una variable session -->
                                     </div>
