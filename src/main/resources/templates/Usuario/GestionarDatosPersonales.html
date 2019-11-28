@@ -61,12 +61,18 @@ and open the template in the editor.
                                                                         </label>
                                                                     </div>
                                                                     <div>
-                                                                        <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                        <img th:if="${(DetalleUsuario.detUsuImagen) == null || (DetalleUsuario.detUsuImagen == '')}"
                                                                              class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet"
-                                                                             th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenId"/>
-                                                                        <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
-                                                                             class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet;display: none"
-                                                                             th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/> 
+                                                                             th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" th:alt="usuario_normal" id="imagenId"/>
+                                                                        <div th:if="${DetalleUsuario.detUsuImagen != null}">
+                                                                            <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                                 class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet"
+                                                                                 th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenId"/>
+                                                                            <img th:if="${#strings.length(DetalleUsuario.detUsuImagen) > 0}"
+                                                                                 class="img-thumbnail rounded" style="width: 60% !important;height: 80% !important;border: dashed blueviolet;display: none"
+                                                                                 th:src="@{'/SRVTFLrepo/' + ${DetalleUsuario.detUsuImagen}}" th:alt="${DetalleUsuario.detUsuImagen}" id="imagenIdRepetido"/> 
+                                                                        </div>
+
                                                                     </div>
 
                                                                     <div id="imagenError"></div>

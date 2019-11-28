@@ -124,6 +124,7 @@ public class Usuario implements Serializable {
         this.detalleUsuario = detalleUsuario;
     }
 
+    @JsonIgnore
     public int getConteo() {
         int conteo = 0;
         for (int i = 0; i < this.getNotificaciones().size(); i++) {

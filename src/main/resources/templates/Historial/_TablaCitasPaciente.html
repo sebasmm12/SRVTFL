@@ -18,8 +18,10 @@ and open the template in the editor.
             <tr th:each="cita, num: ${citas}" class="text-center">
                 <th scope="row">
                     <a class="btn btn-success btn-xs" 
-                       th:href="@{'/Historial/detalleCita/' + ${cita.citId}}"
-                       th:text="${num.count}"></a>
+                       th:href="@{'/Historial/detalleCita/' + ${cita.citId}}">
+                        <i class="fa fa-eye" style="font-style: 24px !important"></i>
+                        Ver
+                    </a>
                 </th>
                 <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
                 <td th:text="${cita.citMotivo}"></td>
