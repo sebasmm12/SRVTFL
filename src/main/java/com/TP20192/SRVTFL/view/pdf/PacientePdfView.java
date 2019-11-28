@@ -45,7 +45,7 @@ public class PacientePdfView extends AbstractPdfView {
         Paciente paciente = (Paciente) map.get("paciente");
 
         String Imagefile;
-        if (paciente.getPacImagen() == null) {
+        if (paciente.getPacImagen() != null) {
             Imagefile = "D:/SRVTFLrepo/" + paciente.getPacImagen();
         } else {
             Imagefile = "D:/SRVTFLrepo/" + "usuario_normal.png";
