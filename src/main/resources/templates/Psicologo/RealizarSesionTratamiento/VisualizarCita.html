@@ -201,17 +201,29 @@ and open the template in the editor.
                                                                 <span class="btn-text">Modificar Tratamiento</span>
                                                             </button>
                                                         </div>
-                                                        <div class="col-sm-3 col-md-3 col-6">
-                                                            <button class="btn btn-success btn-SesionTratamiento" id="btnIniciarCita" 
-                                                                    th:attr="data-id=${cita.citId},
-                                                                    prim-cit=${existeTratamiento}">
-                                                                <i th:if="${existeTratamiento == true}" class="fa fa-file-alt icon-tratamiento"></i>
-                                                                <i th:if="${existeTratamiento == false}" class="fa fa-file icon-tratamiento"></i>
-                                                                <span th:if="${existeTratamiento == true}" class="btn-text">Iniciar Tratamiento</span>
-                                                                <span th:if="${existeTratamiento == false}" class="btn-text">Evaluar Al Paciente</span>
-                                                            </button>
+                                                        <th:block  th:if="${cita.citFechaHoraInicio.before(#dates.createNow())}">
+                                                            <div class="col-sm-3 col-md-3 col-6">
+                                                                <button class="btn btn-success btn-SesionTratamiento" id="btnIniciarCita" 
+                                                                        th:attr="data-id=${cita.citId},
+                                                                        prim-cit=${existeTratamiento}">
+                                                                    <i th:if="${existeTratamiento == true}" class="fa fa-file-alt icon-tratamiento"></i>
+                                                                    <i th:if="${existeTratamiento == false}" class="fa fa-file icon-tratamiento"></i>
+                                                                    <span th:if="${existeTratamiento == true}" class="btn-text">Iniciar Tratamiento</span>
+                                                                    <span th:if="${existeTratamiento == false}" class="btn-text">Evaluar Al Paciente</span>
+                                                                </button>
 
-                                                        </div>
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block  th:if="${cita.citFechaHoraInicio.after(#dates.createNow())}">
+                                                            <div class="col-sm-3 col-md-3 col-6">
+                                                                <button class="btn btn-warning btn-SesionTratamiento">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    <span class="btn-text">En espera</span>
+                                                                </button>
+
+                                                            </div>
+                                                        </th:block>
+
                                                         <div th:replace="Psicologo/_ModificarTratamiento :: modTrat"></div>
                                                         <input type="text" class="d-none" id="citId" th:value="${cita.citId}" />
                                                         <input th:if="${existeTratamiento == true}" type="text" class="d-none" id="tratId" th:value="${cita.tratId.tratId}" />
