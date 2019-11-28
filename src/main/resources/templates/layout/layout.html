@@ -78,7 +78,7 @@ and open the template in the editor.
                                     <div class="dropdown-primary dropdown">
                                         <div class="dropdown-toggle" data-toggle="dropdown">
                                             <i class="feather icon-bell"></i>
-                                            <span class="badge bg-c-red">5</span>
+                                            <span class="badge bg-c-red" th:text="${usuario.Conteo}"></span>
                                         </div>
                                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" th:id="'notificaciones'+${usuario.usu_id}">
                                             <li>

@@ -73,7 +73,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RequestMapping(value = {"/", "/psicologo"})
 @SessionAttributes("usuario")
 public class PsicologoController {
-
+    
     final static Logger logger = LoggerFactory.getLogger(PsicologoController.class);
     //public static boolean finalizar = false;
     public static CopyOnWriteArrayList<Integer> cowl = new CopyOnWriteArrayList<>();
@@ -82,25 +82,25 @@ public class PsicologoController {
     @Autowired
     @Qualifier("UsuarioDatos")
     private IUsuarioService usuarioService;
-
+    
     @Autowired
     private IPsicologoService psicologoService;
-
+    
     @Autowired
     private ICitaService citaService;
-
+    
     @Autowired
     private IPacienteService pacienteService;
-
+    
     @Autowired
     private IPulsoSimulacionService pulsoSimulacionService;
-
+    
     @Autowired
     private IFobiaService fobiaService;
-
+    
     @Autowired
     private IResultadoSimulacionService resultadoSimulacionService;
-
+    
     @Autowired
     private IVrAuxService vrAuxService;
     
@@ -108,19 +108,19 @@ public class PsicologoController {
     private IObservacionService observacionService;
     
     private volatile Thread th1;
-
+    
     @GetMapping(value = {"/index", "/"})
     public String index(Model model, Authentication authentication) {
-        if(authentication.isAuthenticated()){
-        Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
-        model.addAttribute("usuario", usuario);
-        return "Psicologo/index";
-        }else{
+        if (authentication.isAuthenticated()) {
+            Usuario usuario = usuarioService.encontrarUsuario(authentication.getName());
+            model.addAttribute("usuario", usuario);
+            return "Psicologo/index";
+        } else {
             return "Login/index";
         }
     }
-
-    @GetMapping(value = "/GestionarAgenda") 
+    
+    @GetMapping(value = "/GestionarAgenda")    
     public String gestionarAgenda(Map<String, Object> model) {
         Usuario usu = (Usuario) model.get("usuario");
         Long usu_codigo = usu.getUsu_id();
@@ -131,17 +131,17 @@ public class PsicologoController {
     }
     
     @RequestMapping(value = "/GestionarTratamiento", method = RequestMethod.GET)
-    public String gestionarTratamiento(@RequestParam(name="page",defaultValue="0") int page, Model model) {
+    public String gestionarTratamiento(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<Cita> cita = citaService.obtenerTodasLasCitas(pageRequest);
-        PageRender<Cita> pageRender = new PageRender<>("GestionarTratamiento",cita);
-        model.addAttribute("titutlo","LISTAR TRATAMIENTO");
-        model.addAttribute("cita",cita);
-        model.addAttribute("page",pageRender);
+        PageRender<Cita> pageRender = new PageRender<>("GestionarTratamiento", cita);
+        model.addAttribute("titutlo", "LISTAR TRATAMIENTO");
+        model.addAttribute("cita", cita);
+        model.addAttribute("page", pageRender);
         model.addAttribute("titulo", "Gestion de Tratamientos");
         return "Psicologo/GestionarTratamiento";
     }
-
+    
     @GetMapping(value = "/RealizarSesionTratamiento")
     public String realizarSesionTratamiento(Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
         Pageable pageRequest = PageRequest.of(page, 5);
@@ -151,51 +151,51 @@ public class PsicologoController {
         model.addAttribute("page", pageRender);
         return "Psicologo/RealizarSesionTratamiento/ListarSesionesCitas";
     }
-
+    
     @GetMapping(value = "/VisualizarInformacion")
     public String visualizarInformacionCita(Model model, @RequestParam(value = "citId") Long Id) {
         Cita cita = citaService.encontrarCitaconPacinenteconEstado(Id);
         TipoDocumento tipoDoc = pacienteService.findDocumentoById(Long.valueOf(cita.getPaciente().getTipDocId()));
         boolean existeTratamiento = true;
-        if(cita.getTratId() == null){
+        if (cita.getTratId() == null) {
             existeTratamiento = false;
         }
         List<Fobia> listaFobia = fobiaService.findAllFobia();
         
-        System.out.println("existe tratamiento: "+existeTratamiento);
-        model.addAttribute("fobias",listaFobia );
+        System.out.println("existe tratamiento: " + existeTratamiento);
+        model.addAttribute("fobias", listaFobia);
         model.addAttribute("cita", cita);
         model.addAttribute("documento", tipoDoc);
         model.addAttribute("existeTratamiento", existeTratamiento);
         return "Psicologo/RealizarSesionTratamiento/VisualizarCita";
     }
-
+    
     @GetMapping(value = "/RealizarSesion")
-    public String realizarSesion(@RequestParam(name ="citId",required = false, defaultValue = "") Long citId, Model model) {
+    public String realizarSesion(@RequestParam(name = "citId", required = false, defaultValue = "") Long citId, Model model) {
         Cita cita = citaService.obtenerCita(citId);
         Paciente pac = cita.getPaciente();
-        Integer[] rangosPulso = obtenerRangosPorPaciente(pac.getPac_edad(),pac.isPacSexoBiologico());
+        Integer[] rangosPulso = obtenerRangosPorPaciente(pac.getPac_edad(), pac.isPacSexoBiologico());
         
         RangoPulso ranPul = citaService.obtenrRangoPulsoPorId(1L);
-        Integer ranPromedio = (rangosPulso[1]+rangosPulso[0])/2;
+        Integer ranPromedio = (rangosPulso[1] + rangosPulso[0]) / 2;
         
         model.addAttribute("ranPulMaximo", rangosPulso[1]);
         model.addAttribute("ranPulMinimo", rangosPulso[0]);
         model.addAttribute("ranPulPromedio", ranPromedio);
         model.addAttribute("titulo", "Realizacion de Sesion de Simulacion");
-
+        
         model.addAttribute("citId", citId);
         return "Psicologo/RealizarSesionTratamiento/iniciarSimulacion";
     }
     
-    private Integer[] obtenerRangosPorPaciente(Integer edad, boolean sexoBiologico){
+    private Integer[] obtenerRangosPorPaciente(Integer edad, boolean sexoBiologico) {
         
         List<RangoPulso> rp = citaService.obtenerRangoPulsoPorSexo(sexoBiologico);
         Integer[] rangoPulsos = new Integer[2];
-        for(RangoPulso p : rp){
-            if(edad >= p.getRanPulEdadMinima() && edad <= p.getRanPulEdadMaxima()){
-                rangoPulsos[0]= p.getRanPulPulsoMinimo();
-                rangoPulsos[1]= p.getRanPulPulsoMaximo();
+        for (RangoPulso p : rp) {
+            if (edad >= p.getRanPulEdadMinima() && edad <= p.getRanPulEdadMaxima()) {
+                rangoPulsos[0] = p.getRanPulPulsoMinimo();
+                rangoPulsos[1] = p.getRanPulPulsoMaximo();
                 return rangoPulsos;
             }
         }
@@ -213,9 +213,9 @@ public class PsicologoController {
         sseMvcExecutor.execute(() -> {
             try {
                 for (int i = 0; true; i++) {
-
-                    if (StaticInteger.getInteger() != null ) {
-                        if(StaticInteger.getInteger() <= 1000){
+                    
+                    if (StaticInteger.getInteger() != null) {
+                        if (StaticInteger.getInteger() <= 1000) {
                             emitter.send(StaticInteger.getInteger());
                             /*PulsoSimulacion ps = new PulsoSimulacion();
                             ps.setPulSimHora((Time) Calendar.getInstance().getTime());
@@ -226,7 +226,7 @@ public class PsicologoController {
                             System.out.println("Dato Recivido");
                         }
                     }
-                    System.out.println("Valor Static Integer: "+StaticInteger.getInteger());
+                    System.out.println("Valor Static Integer: " + StaticInteger.getInteger());
                     /*if(cowl.get(i) != null){
                         emitter.send(cowl.get(i));
                         logger.info("Dato Recivido");
@@ -238,7 +238,7 @@ public class PsicologoController {
         });
         return emitter;
     }
-
+    
     @GetMapping("/imagenSimulacion")
     public SseEmitter enviarImagen() {
         SseEmitter emitter = new SseEmitter();
@@ -246,16 +246,16 @@ public class PsicologoController {
         sseMvcExecutor.execute(() -> {
             try {
                 for (int i = 0; true; i++) {
-
+                    
                     if (VrVariables.getImagen() != null) {
-                      
-                            emitter.send(VrVariables.getImagen());
-                            /*PulsoSimulacion ps = new PulsoSimulacion();
+                        
+                        emitter.send(VrVariables.getImagen());
+                        /*PulsoSimulacion ps = new PulsoSimulacion();
                             ps.setPulSimHora(Calendar.getInstance().getTime());
                             ps.setPulSimNormal(true);
                             ps.setPulSimPulso(StaticInteger.getInteger().longValue());
                             pulsoSimulacionService.insertarPulsoSimulacion(ps);*/
-                            System.out.println("Imagen Recibido");
+                        System.out.println("Imagen Recibido");
                     } else {
                         System.out.println("No entro");
                     }
@@ -270,15 +270,15 @@ public class PsicologoController {
         });
         return emitter;
     }
-
+    
     @RequestMapping(value = "/iniciarLectura", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     @Async
     public String iniciarLecturaArduino() {
-
+        
         th1 = new Thread(new Runnable() {
             int i = 1;
-
+            
             @Override
             public void run() {
                 SerialPort sp[] = SerialPort.getCommPorts();
@@ -286,17 +286,17 @@ public class PsicologoController {
                 SerialPort s = sp[0];
                 System.out.println(s.getDescriptivePortName());
                 System.out.println(s.isOpen());
-
+                
                 s.openPort();
                 s.clearRTS();
                 s.clearDTR();
                 s.setComPortTimeouts(SerialPort.TIMEOUT_NONBLOCKING, 0, 0);
                 s.setComPortParameters(9600, 8, 1, 0);
-
+                
                 logger.info("Conectado a " + s.getSystemPortName());
-
+                
                 s.addDataListener(new SerialPortDataListener() {
-
+                    
                     @Override
                     public void serialEvent(SerialPortEvent event) {
                         //String data = new String (event.getReceivedData());
@@ -311,14 +311,14 @@ public class PsicologoController {
                             s.closePort();  
                             logger.info("Listener Eliminado y Puerto Cerrado");
                         }*/
-
+                        
                     }
-
+                    
                     @Override
                     public int getListeningEvents() {
                         return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
                     }
-
+                    
                 });
                 while (!StaticInteger.isFinalizar()) {
                     try {
@@ -334,10 +334,10 @@ public class PsicologoController {
         }
         );
         th1.start();
-
+        
         return "1";
     }
-
+    
     @RequestMapping(value = "/registrarResultadoSimu", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
@@ -353,11 +353,11 @@ public class PsicologoController {
         rs.setResSimId(0L);
         rs = resultadoSimulacionService.RegistrarResultadoSimulacion(rs);
         Fobia fob = fobiaService.findFobiaById(c.getSimId());
-        vrAuxService.iniciarTratamiento(c.getSimId(),1, rs.getResSimId(), "SIMULACION-"+fob.getFobNombre());
-        System.out.println("Resultado Creado: "+rs.getResSimId());
+        vrAuxService.iniciarTratamiento(c.getSimId(), 1, rs.getResSimId(), "SIMULACION-" + fob.getFobNombre());
+        System.out.println("Resultado Creado: " + rs.getResSimId());
         return rs.getResSimId();
     }
-
+    
     @RequestMapping(value = "/registrarPulso", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
@@ -366,10 +366,10 @@ public class PsicologoController {
         pulSim.setPulsSimId(null);
         pulsoSimulacionService.insertarPulsoSimulacion(pulSim);
         //pulSim.toString();
-        System.out.println("Pulso de Simulacion Creado: "+pulSim.getResSimId());
+        System.out.println("Pulso de Simulacion Creado: " + pulSim.getResSimId());
         return "1";
     }
-
+    
     @RequestMapping(value = "/pausarLectura", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     @Async
@@ -378,7 +378,7 @@ public class PsicologoController {
         System.out.println("Lectura de Listener pausada");
         return "1";
     }
-
+    
     @RequestMapping(value = "/finalizarLectura", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
@@ -400,7 +400,7 @@ public class PsicologoController {
         System.out.println("Resultado Simulacion Modificada");
         return cita.getCitId() + "";
     }
-
+    
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id,
             Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -415,10 +415,10 @@ public class PsicologoController {
         Page<Pregunta> preguntas;
         List<Fobia> listaFobia = new ArrayList<Fobia>();
         listaFobia = fobiaService.findAllFobia();
-        if(primCita == false){
-        preguntas = citaService.EncontrarPreguntasCita(primCita, cita.getSimId().longValue(), pageRequest);
-        }else{
-        preguntas = citaService.encontrarPreguntaPrimeraCita(primCita, pageRequest);
+        if (primCita == false) {
+            preguntas = citaService.EncontrarPreguntasCita(primCita, cita.getSimId().longValue(), pageRequest);
+        } else {
+            preguntas = citaService.encontrarPreguntaPrimeraCita(primCita, pageRequest);
         }
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
         model.addAttribute("fobia", fob);
@@ -431,7 +431,7 @@ public class PsicologoController {
         citaService.registrarCita(cita);
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
-
+    
     @GetMapping(value = "/RegistarDiagnostico")
     public String RegistrarDiagnostico(Model model, @RequestParam(value = "citId") Long Id, @RequestParam(value = "simId") Long simId) {
         ResultadoSimulacion resultadoSim = resultadoSimulacionService.findbyId(simId);
@@ -444,27 +444,25 @@ public class PsicologoController {
         model.addAttribute("nivelFinal", nivelFinal);
         return "Psicologo/RealizarSesionTratamiento/RegistrarDiagnostico";
     }
-
+    
     @GetMapping(value = "/imagen")
     public String Imagen(Model model) {
         return "Psicologo/RealizarSesionTratamiento/ImagenPrueba";
     }
-   
     
-    @RequestMapping(value="/realizarPreguntasPrimeraCita/{citId}")
-    public String realizarPreguntasPrimeraCita(Model model, @PathVariable(name="citId") Long citId,
-            @RequestParam(name="page",defaultValue = "0") Integer page){
+    @RequestMapping(value = "/realizarPreguntasPrimeraCita/{citId}")
+    public String realizarPreguntasPrimeraCita(Model model, @PathVariable(name = "citId") Long citId,
+            @RequestParam(name = "page", defaultValue = "0") Integer page) {
         Cita cita = citaService.obtenerCita(citId);
         Pageable pageRequest = PageRequest.of(page, 10);
-        Page<Pregunta> preguntasPrimCita = citaService.encontrarPreguntaPrimeraCita(true,pageRequest);
+        Page<Pregunta> preguntasPrimCita = citaService.encontrarPreguntaPrimeraCita(true, pageRequest);
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntasPrimCita);
         model.addAttribute("preguntas", preguntasPrimCita);
-        model.addAttribute("cita",cita);
+        model.addAttribute("cita", cita);
         model.addAttribute("page", pageRender);
-        model.addAttribute("titulo","Preguntas para el paciente".concat(" " +cita.getPaciente().nombreCompleto()));
+        model.addAttribute("titulo", "Preguntas para el paciente".concat(" " + cita.getPaciente().nombreCompleto()));
         return "Psicologo/RealizarPreguntasTratamiento";
     }
-    
     
     @RequestMapping(value = "/registrarObservaciones", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -478,16 +476,16 @@ public class PsicologoController {
     @RequestMapping(value = "/obtenerParametrosPulso", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     //@Async
-    public Integer[] obtenerParametrosPulsoPaciente(@RequestParam(name="citId") Long citId) {
+    public Integer[] obtenerParametrosPulsoPaciente(@RequestParam(name = "citId") Long citId) {
         
         RangoPulso ranPul = citaService.obtenrRangoPulsoPorId(1L);
         Integer[] array = new Integer[2];
-        array[0]= ranPul.getRanPulPulsoMaximo();
-        array[1]= ranPul.getRanPulPulsoMinimo();
+        array[0] = ranPul.getRanPulPulsoMaximo();
+        array[1] = ranPul.getRanPulPulsoMinimo();
         return array;
         
     }
-    
+
     /*
     @GetMapping(value = "/RealizarPreguntas")
     public String RealizarPreguntas(@RequestParam(value = "citId") Long Id, Model model, @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -507,5 +505,5 @@ public class PsicologoController {
         citaService.registrarCita(cita);
         return "Psicologo/RealizarSesionTratamiento/RealizarPreguntas";
     }
-    */
+     */
 }

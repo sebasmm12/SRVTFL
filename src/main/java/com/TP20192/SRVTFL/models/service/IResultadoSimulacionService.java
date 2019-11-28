@@ -23,4 +23,6 @@ public interface IResultadoSimulacionService {
       public ResultadoSimulacion findbyId(Long simId);
       
       public Nivel encontrarNivel(Long nivId, Long simId);
+      
+      public ResultadoSimulacion obtenerResultadoByCita(Long citId);
 }

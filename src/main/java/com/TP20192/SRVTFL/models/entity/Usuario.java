@@ -42,10 +42,9 @@ public class Usuario implements Serializable {
 
     //@Column(name = "est_usu_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="est_usu_id")
+    @JoinColumn(name = "est_usu_id")
     @JsonIgnore
     private EstadoUsuario estadoUsuario;
-
 
     @Column(name = "usu_codigo")
     private String usu_codigo;
@@ -65,6 +64,7 @@ public class Usuario implements Serializable {
     public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
         this.estadoUsuario = estadoUsuario;
     }
+
     public String getUsu_codigo() {
         return usu_codigo;
     }
@@ -80,7 +80,7 @@ public class Usuario implements Serializable {
     public void setUsu_contraseña(String usu_contraseña) {
         this.usu_contraseña = usu_contraseña;
     }
-    
+
     @NotEmpty
     @Column(name = "usu_contraseña")
     private String usu_contraseña;
@@ -97,9 +97,9 @@ public class Usuario implements Serializable {
     public void setRoles(List<UsuarioRol> roles) {
         this.roles = roles;
     }
-    
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="usu_id")
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usu_id")
     @JsonIgnore
     private List<Notificacion> Notificaciones;
 
@@ -110,9 +110,9 @@ public class Usuario implements Serializable {
     public void setNotificaciones(List<Notificacion> Notificaciones) {
         this.Notificaciones = Notificaciones;
     }
-    
+
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="usu_id")
+    @JoinColumn(name = "usu_id")
     @JsonIgnore
     private DetalleUsuario detalleUsuario;
 
@@ -122,5 +122,15 @@ public class Usuario implements Serializable {
 
     public void setDetalleUsuario(DetalleUsuario detalleUsuario) {
         this.detalleUsuario = detalleUsuario;
-    } 
+    }
+
+    public int getConteo() {
+        int conteo = 0;
+        for (int i = 0; i < this.getNotificaciones().size(); i++) {
+            if (this.getNotificaciones().get(i).getEstNotId().getEstNotId() == 2) {
+                conteo++;
+            }
+        }
+        return conteo;
+    }
 }

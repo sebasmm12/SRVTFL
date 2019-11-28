@@ -21,4 +21,7 @@ public interface IResultadoSimulacionDao  extends CrudRepository<ResultadoSimula
     
    @Query("select c from ResultadoSimulacion c where c.resSimId =:id")
     public ResultadoSimulacion obtenerResultado ( @Param("id")  Long id);
+    
+   @Query("select c from ResultadoSimulacion c join fetch c.cita t where t.citId =:citId")
+    public ResultadoSimulacion obtenerResultadoByCita(@Param("citId") Long citId);
 }
