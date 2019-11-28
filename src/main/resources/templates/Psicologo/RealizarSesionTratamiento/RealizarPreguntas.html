@@ -29,9 +29,14 @@ and open the template in the editor.
                                             <div class="card bg-white">
                                                 <div class="card-header pregunta">
                                                     <a href="#">
-                                                        <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
-                                                             class="img-radius" style="width: 50px !important; height: 50px"
-                                                             th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>    
+                                                        <img th:if="${(usuario.detalleUsuario.detUsuImagen) == null || (usuario.detalleUsuario.detUsuImagen == '')}"
+                                                             class="img-thumbnail rounded" style="width: 50px !important;height: 50px !important;border: dashed blueviolet"
+                                                             th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" th:alt="usuario_normal" id="imagenId"/>
+                                                        <div th:if="${usuario.detalleUsuario.detUsuImagen != null}">
+                                                            <img th:if="${#strings.length(usuario.detalleUsuario.detUsuImagen) > 0}"
+                                                                 class="img-radius" style="width: 50px !important; height: 50px"
+                                                                 th:src="@{'/SRVTFLrepo/' + ${usuario.detalleUsuario.detUsuImagen}}" th:alt="${usuario.detalleUsuario.detUsuImagen}"/>    
+                                                        </div>                                                       
                                                     </a> 
                                                     <div class="pregunta-text">
                                                         <h2 class="text-secondary" th:text="${pregunta.pregPregunta}"></h2> 
@@ -54,10 +59,10 @@ and open the template in the editor.
                                                          th:src="@{'/SRVTFLrepo/' + 'usuario_normal.png'}" th:alt="usuario_normal" id="imagenId"/>
                                                     <div th:if="${cita.paciente.pacImagen != null}">
                                                         <img th:if="${#strings.length(cita.paciente.pacImagen) > 0}"
-                                                         class="img-radius" style="width: 50px !important; height: 50px"
-                                                         th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}"/>
+                                                             class="img-radius" style="width: 50px !important; height: 50px"
+                                                             th:src="@{'/SRVTFLrepo/' + ${cita.paciente.pacImagen}}" th:alt="${cita.paciente.pacImagen}"/>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>                                   
                                         </div>
