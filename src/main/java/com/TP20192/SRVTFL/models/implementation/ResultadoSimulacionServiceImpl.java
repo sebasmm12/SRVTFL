@@ -56,4 +56,9 @@ public class ResultadoSimulacionServiceImpl implements IResultadoSimulacionServi
     public Nivel encontrarNivel(Long nivId, Long simId) {
         return nivelDao.encontrarNivel(nivId, simId);
     }
+
+    @Override
+    public ResultadoSimulacion obtenerResultadoByCita(Long citId) {
+        return resultadoSimulacioneService.obtenerResultadoByCita(citId);
+    }
 }

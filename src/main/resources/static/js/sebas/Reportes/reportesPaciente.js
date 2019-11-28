@@ -34,7 +34,7 @@ var BuscarReportes = function () {
 };
 
 var ValidarNombrePaciente = function (elementError, val, element) {
-    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú\d]))+$/;
+    var RegularExpression = /^(([A-Za-záéíóú])*(\s){0,1}([A-Za-záéíóú]))+$/;
     if (val === "") {
         addNegativeAttributtes(element);
         addNegativeHtml(elementError, 'Debe ingresar un nombre');
