@@ -98,10 +98,10 @@ public class AdministradorRestController {
 
         return "1";
     }
-    
+
     @RequestMapping(value = "/GestionarUsuarios", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView gestionarUsuarios(int page,
-              String nombreUsu, Integer filtro ,ModelAndView model) throws ParseException {
+            String nombreUsu, Integer filtro, ModelAndView model) throws ParseException {
 
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<DetalleUsuario> detUsus;
@@ -109,9 +109,9 @@ public class AdministradorRestController {
             detUsus = usuarioService.encontrarDetalleUsuario(pageRequest);
         } else {
             if (filtro == 0) {
-                detUsus = usuarioService.filtroDetUsuEspecifico(nombreUsu, pageRequest);
-            } else {
                 detUsus = usuarioService.filtroDetUsuAproximado(nombreUsu, pageRequest);
+            } else {
+                detUsus = usuarioService.filtroDetUsuEspecifico(nombreUsu, pageRequest);
             }
         }
         if (detUsus.isEmpty()) {
@@ -124,8 +124,6 @@ public class AdministradorRestController {
         model.setViewName("/Administrador/_ListarUsuarios");
         return model;
     }
-    
-    
 
     private List<UsuarioRol> rolesDeUsuario(Long[] rolId, Long id) {
         List<UsuarioRol> lur = new ArrayList<>();
