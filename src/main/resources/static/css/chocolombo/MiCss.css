@@ -22,3 +22,6 @@
   display: inline-block;
 }
 
+.disabled{
+    disabled: true;
+}

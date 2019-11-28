@@ -81,7 +81,7 @@ and open the template in the editor.
                                             <label  class="col-sm-2 col-form-label"
                                                     th:text="'Fobia Especifica: '"></label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" 
+                                                <input type="text" class="form-control disabled" th:classappend="${cita.tratId != null} ? disabled : userclass"
                                                        id="buscar_fobia" th:value="${fobia}"/>
                                                 <div id="buscar_fobiaError"></div>
                                             </div>

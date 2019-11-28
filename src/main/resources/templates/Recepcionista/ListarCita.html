@@ -29,17 +29,17 @@ and open the template in the editor.
                                     <!--div class="alert alert-danger m-l-10 m-r-10" th:if="">
                                         
                                     </div-->
-                                    <ul th:if="${mensaje != null}" class="alert alert-danger m-l-10 m-r-10">
+                                    <!--ul th:if="${mensaje != null}" class="alert alert-danger m-l-10 m-r-10">
                                         <li th:text="${mensaje}"></li>
-                                    </ul>
+                                    </ul-->
                                     <div class="card-body">
-                                        <form name="GestionarCitas"  class="col-sm-12">
+                                        <form name="GestionarCitas" th:action='@{/Recepcionista/GestionarCitas}' class="col-sm-12">
                                             <div class="row m-b-15">
                                                 <label class="col-sm-2 col-form-label" style="width: 45px"
                                                        th:text="'Paciente Citado:'"></label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" 
-                                                           th:value="${nombre}" name="buscar_Paciente" id="buscar_paciente"/>                                                  
+                                                      th:value="${nombre}"   name="buscar_paciente" id="buscar_paciente"/>    
                                                 </div>
                                                 <select id="tipoFiltro" name="tipoFiltro" class="col-sm-2 browser-default custom-select m-l-15">
                                                     <option th:value="0" th:text="'Especifico'"></option>
@@ -65,11 +65,18 @@ and open the template in the editor.
                                                     <option th:value="0" th:text="'Actual'"></option>
                                                     <option th:value="1" selected="selected" th:text="'Anteriores'"></option>
                                                 </select>
-                                                <a th:href="@{/Recepcionista/GestionarCitas}" class="btn btn-outline-success btn-xs
+                                               
+                                                <!--<a th:href="@{/Recepcionista/GestionarCitas}" class="btn btn-outline-success btn-xs
                                                    align-items-lg-end col-sm-3 m-l-15">
                                                     <i class="fa fa-search" style="font-size: 20px"></i>
                                                     <span class="btn-text">Buscar Por Filtros</span>
-                                                </a>
+                                                </a> -->
+                                                <button type="submit" class="btn btn-outline-success btn-xs
+                                                   align-items-lg-end col-sm-3 m-l-15">
+                                                    <i class="fa fa-search" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Buscar Por Filtros</span>
+                                                    
+                                                </button>
                                             </div>
 
                                             <!input type="hidden" name="paciente_id"  id="paciente_id"/-->
@@ -112,7 +119,7 @@ and open the template in the editor.
                                                             <i class="fa fa-info" style="font-size: 15px"></i>
                                                             <span class="btn-text">Ver Sesiones</span></a>
 
-                                                        <a class="btn btn-outline-primary btn-xs" th:if='${cita.estadoCita.estCitId != 3}'
+                                                        <a class="btn btn-outline-primary btn-xs" th:if='${cita.estadoCita.estCitId < 3}'
                                                            th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">
                                                             <i class="fa fa-edit" style="font-size: 15px"></i>
                                                             <span class="btn-text">Actualizar</span></a>
@@ -162,6 +169,6 @@ and open the template in the editor.
 
         <footer th:replace="layout/layout :: footer"></footer>
         <script th:src="@{/js/chocolombo/gestionarRecepcionista.js}"></script>
-        <!--script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script-->
+        <script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script>
     </body>
 </html>

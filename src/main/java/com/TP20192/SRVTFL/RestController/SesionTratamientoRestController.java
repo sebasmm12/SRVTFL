@@ -109,6 +109,7 @@ public class SesionTratamientoRestController {
         Cita cita = citaService.obtenerCita(respuestas.get(0).getCitId());
         tr.setEstadoTratamiento(1);
         tr = citaService.RegistrarTratamiento(tr);
+        Date horaFechaFin = new Date();
         for (int i = 0; i < respuestas.size(); i++) {
             Respuesta respuesta = new Respuesta();
             respuesta.setResRespuesta(respuestas.get(i).getResRespuesta());
@@ -117,7 +118,9 @@ public class SesionTratamientoRestController {
             respuesta.setPregId(pregunta);
             citaService.save(respuesta);
         }
+        
         cita.setTratId(tr);
+        cita.setCitFechaHoraFinReal(horaFechaFin);
         EstadoCita ec = citaService.findEstadoCitaById(3);
         cita.setEstadoCita(ec);
         citaService.registrarCita(cita);
