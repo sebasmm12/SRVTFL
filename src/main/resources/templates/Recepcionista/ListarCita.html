@@ -45,8 +45,8 @@ and open the template in the editor.
                                                     <option th:value="0" th:text="'Especifico'"></option>
                                                     <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
                                                 </select>
-                                                <a th:href="@{/Recepcionista/RegistrarCita}" class="btn btn-outline-success btn-xs
-                                                   align-items-lg-end col-sm-3 m-l-15">
+                                                <a  class="btn btn-outline-success btn-xs
+                                                    align-items-lg-end col-sm-3 m-l-15" id="registrarCita">
 
                                                     <i class="fa fa-check" style="font-size: 20px"></i>
                                                     <span class="btn-text">Nueva Cita</span>
@@ -89,8 +89,7 @@ and open the template in the editor.
                                                     <th>Hora Fin</th>
                                                     <th>Estado de Cita</th>
                                                     <!--th>Tipo</th-->
-                                                    <th>Modificar</th>
-                                                    <th>Eliminar</th>
+                                                    <th style="text-align:center">Funciones de la Cita</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -104,27 +103,47 @@ and open the template in the editor.
                                                         </a>
                                                     </td>
                                                     <td th:text="${cita.paciente.pacNombre}+ ' ' + ${cita.paciente.pacApellido}"></td>
-                                                    <td th:text="${cita.citFechaHoraInicio}"></td>
-                                                    <td th:text="${cita.citFechaHoraFin}"></td>
+                                                    <td th:text="${#dates.format(cita.citFechaHoraInicio, 'dd-MM-yyyy HH:mm')}"></td>
+                                                    <td th:text="${#dates.format(cita.citFechaHoraFin, 'dd-MM-yyyy HH:mm')}"></td>
                                                     <td th:text="${cita.estadoCita.estCitNombreEstado}"></td>
                                                     <!--td th:text="${cita.tratId == null} ? 'Primera Cita' : 'En tratamiento' "></td-->
-                                                    <td><a class="btn btn-outline-primary btn-xs"
+                                                    <td style="text-align:center" ><a th:if="${cita.estadoCita.estCitId  == 3 && cita.tratId  == null}" 
+                                                                                      class="btn btn-outline-primary btn-xs">
+                                                            <i class="fa fa-info" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Ver Sesiones</span></a>
+
+                                                        <a class="btn btn-outline-primary btn-xs" th:if='${cita.estadoCita.estCitId != 3}'
                                                            th:href="@{'/Recepcionista/ActualizarCita/' + ${cita.citId}}">
                                                             <i class="fa fa-edit" style="font-size: 15px"></i>
-                                                            <span class="btn-text">Actualizar</span></a></td>
+                                                            <span class="btn-text">Actualizar</span></a>
 
-                                                    <td>
-                                                        <a th:if="${cita.estadoCita.estCitId  <= 3}"
-                                                           th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-outline-danger btn-xs"
-                                                           onclick="return confirm('estas seguro que deseas Cancelar la Cita??');">
+                                                        <div class='btn btn-outline-danger' th:if='${cita.estadoCita.estCitId == 3}'>
+                                                            Sin Accion Disponible
+                                                        </div>
+                                                        <a th:if="${cita.estadoCita.estCitId  < 3}"  th:attr="cita-id=${cita.citId}"
+                                                           class="btn btn-outline-danger btn-xs btnEliminar">
                                                             <i class="fa fa-times" style="font-size: 15px"></i>
                                                             <span class="btn-text">Bloquear</span></a>
+
+                                                        <!--a th:if="${cita.estadoCita.estCitId  < 3}"  th:attr="cita-id=${cita.citId}"
+                                                       th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-outline-danger btn-xs btnEliminar">
+                                                        <i class="fa fa-times" style="font-size: 15px"></i>
+                                                        <span class="btn-text">Bloquear</span></a-->
+
                                                         <a th:if="${cita.estadoCita.estCitId == 4}"
+                                                           th:attr="cita-id2=${cita.citId}" class="btn btn-outline-success btn-xs btnHabilitar">
+                                                            <i class="fa fa-unlock" style="font-size: 15px"></i>
+                                                            <span class="btn-text">Habilitar</span>
+                                                        </a>
+
+                                                        <!--a th:if="${cita.estadoCita.estCitId == 4}"
                                                            th:href="@{'/Recepcionista/CancelarCita/' + ${cita.citId}}" class="btn btn-outline-success btn-xs"
                                                            onclick="return confirm('estas seguro que deseas Habilitar la Cita??');">
                                                             <i class="fa fa-unlock" style="font-size: 15px"></i>
-                                                            <span class="btn-text">Habilitar</span></a>
+                                                            <span class="btn-text">Habilitar</span>
+                                                        </a-->
                                                     </td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -135,12 +154,14 @@ and open the template in the editor.
                         </div>
 
                     </div>
+
                     <div th:replace="layout/layout :: styleSelector"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer th:replace="layout/layout :: footer"></footer>
-    <!--script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script-->
-</body>
+
+        <footer th:replace="layout/layout :: footer"></footer>
+        <script th:src="@{/js/chocolombo/gestionarRecepcionista.js}"></script>
+        <!--script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script-->
+    </body>
 </html>

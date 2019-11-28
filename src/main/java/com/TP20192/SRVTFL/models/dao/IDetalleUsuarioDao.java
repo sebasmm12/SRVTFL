@@ -70,4 +70,7 @@ public interface IDetalleUsuarioDao extends PagingAndSortingRepository<DetalleUs
     
     @Query("select du from DetalleUsuario du where du.usu_id = :id_usuario")
     public DetalleUsuario encontrarUsuarioById(@Param("id_usuario") Long id_usuario);
+    
+    @Query("select du from DetalleUsuario du where du.detUsuTipoDocNumero = :numDoc")
+    public DetalleUsuario encontrarUsuarioPorNumeroDoc(@Param("numDoc") String numDoc);
 }

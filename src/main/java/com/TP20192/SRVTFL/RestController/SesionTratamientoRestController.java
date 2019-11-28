@@ -107,6 +107,7 @@ public class SesionTratamientoRestController {
         Tratamiento tr = tratamientojson.getTratamiento();
         List<RespuestaJson> respuestas = tratamientojson.getRespuestas();
         Cita cita = citaService.obtenerCita(respuestas.get(0).getCitId());
+        tr.setEstadoTratamiento(1);
         tr = citaService.RegistrarTratamiento(tr);
         for (int i = 0; i < respuestas.size(); i++) {
             Respuesta respuesta = new Respuesta();
@@ -117,6 +118,8 @@ public class SesionTratamientoRestController {
             citaService.save(respuesta);
         }
         cita.setTratId(tr);
+        EstadoCita ec = citaService.findEstadoCitaById(3);
+        cita.setEstadoCita(ec);
         citaService.registrarCita(cita);
         return "1";
     }
@@ -167,6 +170,7 @@ public class SesionTratamientoRestController {
     public String modificarTratamiento(@RequestBody Tratamiento tratamiento) {
         Tratamiento tr = new Tratamiento();
         tr = tratamiento;
+        tr.setEstadoTratamiento(1);
         citaService.RegistrarTratamiento(tr);
         return "1";
     }

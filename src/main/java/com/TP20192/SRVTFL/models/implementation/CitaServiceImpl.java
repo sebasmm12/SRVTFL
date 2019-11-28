@@ -36,6 +36,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.standard.expression.OrExpression;
 
 /**
  *
@@ -290,5 +291,60 @@ public class CitaServiceImpl implements ICitaService {
     public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico) {
         return rangoPulsoService.obtenerRangoPulsoPorSexo(sexoBiologico);
     }
+
+    @Override
+    public List<Paciente> obtenerPacientesConTratamiento(String term) {
+        return citaService.findPacienteTratamientoByNombre(term);
+    }
+
+    @Override
+    public Cita obtenerCitaPorPaciente(Long pacienteId) {
+        return citaService.obtenerCitaPorPaciente(pacienteId);
+    }
+
+    @Override
+    public Tratamiento obtenerTratamientoPorPaciente(Long pacienteId) {
+        return tratamientoService.obtenerTratamientoPorPaciente(pacienteId);
+
+    }
+
+    @Override
+    public List<Cita> verificarCitaPacienteTratamiento(Long pacId, Long tratId) {
+
+        return citaService.obtenerCitasPendientePorTratamientPaciente(pacId, tratId);
+    }
+
+    @Override
+    public List<Cita> verificarFechaCitaPacienteCorrecto(Long idPsicologo, Date FechaIni, Date FechaFin) {
+        return citaService.verificarFechaCitaPacienteCorrecto(idPsicologo, FechaIni, FechaFin);
+    }
+
+    
+    @Override
+    public List<Tratamiento> obtenerTratamientosPorPaciente(Long pacienteId, Integer estadoTrat) {
+        return tratamientoService.obtenerTratamientosPorPaciente(pacienteId, estadoTrat);
+    }
+
+    @Override
+    public List<Cita> verificarPrimCitaPacientePendiente(Long pacienteId, Long fobId) {
+        return citaService.verificarPrimCitaPacientePendiente(pacienteId,fobId);
+    }
+
+    @Override
+    public List<Cita> verificarSessionTratamientoPendiente(Long pacienteId, Long tratamientoId, Long fobiaId) {
+        return citaService.verificarSessionTratamientoPendiente(pacienteId, tratamientoId, fobiaId);
+    }
+
+    @Override
+    public Tratamiento obtenerTratamientosPorPacienteFobia(Long idPaciente, Long idFobia, Integer estadoTrat) {
+        return tratamientoService.obtenerTratamientoPorPacienteFobia(idPaciente, idFobia,estadoTrat);
+    }
+
+    @Override
+    public Actividad obtenerActividadPorId(Long idActividad) {  
+        return actividadDao.findById(idActividad).orElse(null);
+    }
+    
+    
     
 }

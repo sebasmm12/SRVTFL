@@ -202,7 +202,7 @@ var changeCantidadCita = function () {
 
 $('#btnRegistrarTratamiento').on('click', function () {
     var cantidadCitas = $('#cantidadCitas').val();
-    var VcantidadCitas = validacionCantidadCitas('cantidadCitas', cantidadCitas, 'cantidadCitasError')
+    var VcantidadCitas = validacionCantidadCitas('cantidadCitas', cantidadCitas, 'cantidadCitasError');
     if (VcantidadCitas === true) {
         var Respuestas = document.querySelectorAll(".respuestas");
 
@@ -214,9 +214,11 @@ $('#btnRegistrarTratamiento').on('click', function () {
         var primCit = document.getElementById('primCit').value;
 
         var cantcitas = document.getElementById('cantidadCitas').value;
-        var tipoTrat = document.getElementById("tipoTrat");
-        var tipTrat = tipoTrat.options[tipoTrat.selectedIndex].text;
-        var fobId = tipoTrat.options[tipoTrat.selectedIndex].value;
+        var tipTrat = document.getElementById("tipoTrat").value;
+        /*var tipTrat = tipoTrat.options[tipoTrat.selectedIndex].text;
+        var fobId = tipoTrat.options[tipoTrat.selectedIndex].value;*/
+        var fobId =document.getElementById("fobId").value;
+        var paciente = document.getElementById('pacId').value;
 
         for (var i = 0; i < Respuestas.length; i++) {
             var RespuestaJson = new Object();
@@ -233,6 +235,7 @@ $('#btnRegistrarTratamiento').on('click', function () {
         tratamiento.tratTipo = tipTrat;
         tratamiento.tratPrimeraVez = true;
         tratamiento.fobId = fobId;
+        tratamiento.pacienteId = paciente;
 
         var tratamientojson = {
             tratamiento: tratamiento,

@@ -47,6 +47,30 @@ public class Tratamiento implements Serializable {
 
     @Column(name = "fob_id")
     private Long fobId;
+    
+    @Column(name = "pac_id")
+    private Long pacienteId;
+    
+    @Column(name = "trat_est_trat")
+    private Integer estadoTratamiento;
+
+    public Long getPacienteId() {
+        return pacienteId;
+    }
+
+    public void setPacienteId(Long pacienteId) {
+        this.pacienteId = pacienteId;
+    }
+
+    public Integer getEstadoTratamiento() {
+        return estadoTratamiento;
+    }
+
+    public void setEstadoTratamiento(Integer estadoTratamiento) {
+        this.estadoTratamiento = estadoTratamiento;
+    }
+    
+    
 
     public Long getFobId() {
         return fobId;

@@ -234,4 +234,6 @@ public class Cita implements Serializable {
     public void setCitVr(boolean citVr) {
         this.citVr = citVr;
     }
+    
+    
 }

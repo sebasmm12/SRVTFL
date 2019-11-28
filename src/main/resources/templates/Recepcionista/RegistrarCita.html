@@ -37,8 +37,14 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label for="buscar_paciente"class="col-sm-2 col-form-label"
                                                    th:text="'Paciente: '"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <input type="text" name="buscar_paciente" id="buscar_paciente" class="form-control" />                           
+                                                <div id="buscar_pacienteError"></div>
+                                            </div>
+                                            <label for=""class="col-sm-1 col-form-label"
+                                                   th:text="'Doc.: '"></label>
+                                            <div class="col-sm-3">
+                                                <input disabled="disabled" type="text" name="documentoPaciente" id="documentoPaciente" class="form-control" />                           
                                                 <div id="buscar_pacienteError"></div>
                                             </div>
                                         </div>
@@ -46,9 +52,14 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label for="buscar_psicologo"class="col-sm-2 col-form-label"
                                                    th:text="'Psicologo: '"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-5">
                                                 <input type="text" name="buscar_psicologo" id="buscar_psicologo" class="form-control" />                           
                                                 <div id="buscar_psicologoError"></div>
+                                            </div>
+                                            <label for=""class="col-sm-1 col-form-label"
+                                                   th:text="'Doc.: '"></label>
+                                            <div class="col-sm-3">
+                                                <input disabled="disabled" type="text" name="documentoPsicologo" id="documentoPsicologo" class="form-control" />                          
                                             </div>
                                         </div>
 
@@ -56,7 +67,7 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label  class="col-sm-2 col-form-label"
                                                     th:text="'Motivo de la cita: '"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="citMotivo"/> 
                                                 <div id="citMotivoError"></div>
                                             </div>
@@ -65,7 +76,7 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label  class="col-sm-2 col-form-label"
                                                     th:text="'Fobia Especifica: '"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="buscar_fobia"/>
                                                 <div id="buscar_fobiaError"></div>
                                             </div>
@@ -75,7 +86,7 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label  class="col-sm-2 col-form-label"
                                                     th:text="'Fecha de la Cita: '"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-9">
                                                 <input type="text" id="citFecha" class="form-control"/>
                                                 <div id="citFechaError"></div>
                                             </div>
@@ -83,17 +94,15 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label"
                                                    th:text="'Hora de Inicio'"></label>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <input type="time" class="form-control" id="fechaHoraInicio"/>
                                                 <div id="fechaHoraInicioError"></div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label  class="col-sm-2 col-form-label"
-                                                    th:text="'Hora de Finalizacion'"></label>
-                                            <div class="col-sm-6">
-                                                <input type="time" id="fechaHoraFin" class="form-control"/>
-                                                <div id="fechaHoraFinError"></div>
+                                                    th:text="'Duracion: '"></label>
+                                            <div class="col-sm-4">
+                                                <input type="time" min="25" max="60" id="duracionCita" class="form-control"/>
+                                                <div id="duracionCitaError"></div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -121,10 +130,11 @@ and open the template in the editor.
             </div>
         </div>
     <footer th:replace="layout/layout :: footer"></footer>
-    <script th:replace="Recepcionista/js/autocomplete-paciente :: javascript"></script>
-    <script th:replace="Recepcionista/js/autocomplete-psicologo :: javascript2"></script>
+    <script th:replace="Recepcionista/js/autocomplete-paciente-primCita :: javascript5"></script>
+    <script th:replace="Recepcionista/js/autocomplete-psicologo-tratamiento :: javascript2"></script>
     <script th:replace="Recepcionista/js/autocomplete-fobia :: javascript3"></script>
     <script th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/chocolombo/RegistrarCita.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}">
     <script>
         $(function () {

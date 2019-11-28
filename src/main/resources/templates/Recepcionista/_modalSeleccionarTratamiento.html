@@ -1,0 +1,66 @@
+<div class="modal" tabindex="-1" th:fragment="regSesionTrat" id='tratamientoModal' role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Un ultimo paso...</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Seleccione el tratamiento para el cual registrara la cita respectiva</p>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Paciente :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" disabled id="pac"  style="text-align:center;" class="form-control col-sm-12"/>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Psicologo :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text"  disabled  id="psico" style="text-align:center;" class="form-control col-sm-12"/>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Inicio :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" id="inicio" disabled   style="text-align:center;" class="form-control col-sm-12"/>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Inicio :'"></label>
+                    <div class="col-sm-9">
+                        <input type="text" id="fin" disabled   style="text-align:center;" class="form-control col-sm-12"/>
+                    </div>
+                </div>
+                <div class="form-group row m-l-25">
+                    <label class="col-sm-3 col-form-label"
+                           th:text="'Tipo :'"></label>
+                    <div class="col-sm-9">
+                        <select id="tipoTrat" class="browser-default custom-select">
+
+                            <option  th:each="fobia : ${fobias}" th:value="${fobia.fobId}"    
+                                     th:text="'Tratamiento para ' + ${fobia.fobNombre}" 
+                                     th:selected="${fobia.fobId==1}" ></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-outline-secondary btn-xs col-sm-5 m-l-40 m-b-15" data-dismiss="modal">
+                    <i class="fa fa-chevron-left" style="font-size: 15px"></i>
+                    <span class="btn-text">Volver</span>
+                </button>
+                <button type="button" class="btn btn-outline-success btn-xs col-sm-5 m-l-5 m-b-15"
+                        id ="btnRegistrarCitaTratSelect">
+                    <i class="fa fa-check" style="font-size: 15px"></i>
+                    <span class="btn-text">Registrar Sesion de Tratamiento</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

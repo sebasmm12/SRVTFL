@@ -409,6 +409,8 @@ public class PsicologoController {
         if (cita.getTratId() != null) {
             primCita = false;
         }
+        Fobia fob = new Fobia();
+        fob = fobiaService.findFobiaById(cita.getSimId());
         Pageable pageRequest = PageRequest.of(page, 10);
         Page<Pregunta> preguntas;
         List<Fobia> listaFobia = new ArrayList<Fobia>();
@@ -419,6 +421,7 @@ public class PsicologoController {
         preguntas = citaService.encontrarPreguntaPrimeraCita(primCita, pageRequest);
         }
         PageRender<Pregunta> pageRender = new PageRender<>("/api/sesion/buscar", preguntas);
+        model.addAttribute("fobia", fob);
         model.addAttribute("fobias",listaFobia);
         model.addAttribute("preguntas", preguntas);
         model.addAttribute("cita", cita);

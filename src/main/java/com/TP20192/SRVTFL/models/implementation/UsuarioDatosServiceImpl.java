@@ -155,5 +155,10 @@ public class UsuarioDatosServiceImpl implements IUsuarioService {
     public Notificacion findNotificacion(Long Id) {
         return notificacionDao.findById(Id).orElse(null);
     }
+
+    @Override
+    public DetalleUsuario encontrarUsuarioPorNumeroDoc(String numDoc) {
+        return detUsuDao.encontrarUsuarioPorNumeroDoc(numDoc);
+    }
     
 }

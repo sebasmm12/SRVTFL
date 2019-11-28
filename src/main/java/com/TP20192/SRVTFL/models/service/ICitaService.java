@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 /**
  *
  * @author hp
@@ -103,4 +104,21 @@ public interface ICitaService {
    
    public List<RangoPulso> obtenerRangoPulsoPorSexo(boolean sexoBiologico);
    
+   public List<Paciente> obtenerPacientesConTratamiento(String term);
+   
+   public Cita obtenerCitaPorPaciente(Long pacienteId);
+   
+   public Tratamiento obtenerTratamientoPorPaciente(Long pacienteId);
+    public List<Tratamiento> obtenerTratamientosPorPaciente(Long pacienteId, Integer estadoTrat);
+   
+   public List<Cita> verificarCitaPacienteTratamiento(Long pacId, Long tratId);
+   
+   public List<Cita> verificarFechaCitaPacienteCorrecto(Long idPsicologo,Date FechaIni,  Date FechaFin);
+   
+   public List<Cita> verificarPrimCitaPacientePendiente(Long pacienteId, Long fobId);
+   public List<Cita> verificarSessionTratamientoPendiente(Long pacienteId, Long tratamientoId, Long fobiaId);
+   public Tratamiento obtenerTratamientosPorPacienteFobia( Long idPaciente,  Long idFobia, Integer estadoTrat);
+   
+   public Actividad obtenerActividadPorId(Long idActividad);
+
 }

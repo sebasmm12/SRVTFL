@@ -29,5 +29,8 @@ public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>
                                           @Param("paciente_apellido") String paciente_apellido);
     
     public Paciente findTop1ByPacNombreAndPacApellido(String pacNombre, String pacApellido);
+    
+    @Query("select p from Paciente p where p.pacNumeroDocumento = :dni_paciente")
+    public Paciente verificarDniPaciente(@Param("dni_paciente") String dni);
 }
 

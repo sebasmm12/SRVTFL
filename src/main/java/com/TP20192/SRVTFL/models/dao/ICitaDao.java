@@ -36,6 +36,12 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     @Query("select p from Paciente p where p.pacNombre like %?1%")
     public List<Paciente> findPacienteByNombre(String term);
     
+    @Query("select distinct c.paciente from Cita c where c.paciente.pacNombre like %?1% and c.tratId = null")
+    public List<Paciente> findPacientePrimeraCitaByNombre(String term);
+    
+    @Query("select distinct c.paciente from Cita c where c.paciente.pacNombre like %?1% and c.tratId <> null")
+    public List<Paciente> findPacienteTratamientoByNombre(String term);
+    
     @Query("select ec from EstadoCita ec where ec.estCitId = :estCitId")
     public EstadoCita findEstadoCitaById(int estCitId);
 
@@ -118,5 +124,26 @@ public interface ICitaDao extends PagingAndSortingRepository<Cita, Long> {
     
     @Query(value="select c from Cita c inner join c.paciente p inner join c.estadoCita e where c.usuId = :psicologo_id and e.estCitId = 3 and p.pacId =:pacId")
     public List<Cita> encontrarCitasPacientePsicologo(@Param("psicologo_id") Long psicologoId,@Param("pacId") Long pacienteId);
+    
+    
+    @Query(value="select c from Cita c where c.paciente.pacId = :pacienteId")
+    public Cita obtenerCitaPorPaciente(@Param("pacienteId") Long pacienteId);
+    
+    @Query(value="select c from Cita c where c.paciente.pacId = :pacienteId and c.estadoCita.estCitId <> 3 and c.tratId.tratId = :tratId")
+    public List<Cita> obtenerCitasPendientePorTratamientPaciente(@Param("pacienteId")Long pacienteId,
+            @Param("tratId") Long tratId);
+    
+    @Query(value="select c from Cita c where c.usuId = :idPsicologo and "
+            + "(c.citFechaHoraInicio > :FechaIni and c.citFechaHoraFin < :FechaFin)")
+    public List<Cita> verificarFechaCitaPacienteCorrecto(@Param("idPsicologo")Long idPsicologo,
+            @Param("FechaIni") Date FechaIni, @Param("FechaFin") Date FechaFin);
+    
+    @Query(value="select c from Cita c where c.paciente.pacId = :pacienteId and c.tratId = null and c.estadoCita.estCitId <> 3 and c.simId = :fobId")
+    public List<Cita> verificarPrimCitaPacientePendiente(@Param("pacienteId") Long pacienteId, @Param("fobId") Long fobId);
+    
+    
+    @Query(value="select c from Cita c where c.paciente.pacId = :pacienteId and c.tratId.tratId = :tratId  and c.simId = :fobId and c.estadoCita.estCitId <> 3")
+    public List<Cita> verificarSessionTratamientoPendiente(@Param("pacienteId") Long pacienteId, @Param("tratId") Long tratId,@Param("fobId") Long fobId);
+    
     
 }

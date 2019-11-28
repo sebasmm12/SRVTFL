@@ -32,4 +32,6 @@ public interface IPacienteService {
     
     public Paciente findOnePaciente2(String nombre, String apellido);
     
+    public Paciente verificarDniPaciente(String dni);
+    
 }

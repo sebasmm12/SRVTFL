@@ -63,5 +63,7 @@ public interface IUsuarioService {
     public Notificacion saveNotificacion(Notificacion notificacion);
     
     public Notificacion findNotificacion(Long Id);
+    
+    public DetalleUsuario encontrarUsuarioPorNumeroDoc(String numDoc);
 }
 

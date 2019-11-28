@@ -82,6 +82,11 @@ public class PacienteServiceImpl  implements  IPacienteService{
     public Paciente findOnePaciente2(String nombre, String apellido) {
         return pacienteService.findTop1ByPacNombreAndPacApellido(nombre, apellido);
     }
+
+    @Override
+    public Paciente verificarDniPaciente(String dni) {
+        return pacienteService.verificarDniPaciente(dni);
+    }
     
     
 

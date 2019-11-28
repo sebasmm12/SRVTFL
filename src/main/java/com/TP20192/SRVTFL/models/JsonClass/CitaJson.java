@@ -13,9 +13,9 @@ import com.TP20192.SRVTFL.models.entity.Cita;
 public class CitaJson {
     
     private Cita cita;
-    private Long pacienteId;
-    private Long fobiaId;
-    private Long psicologoId;
+    private String documentoPaciente;
+    private String fobia;
+    private String documentoPsicologo;
 
     public Cita getCita() {
         return cita;
@@ -25,29 +25,27 @@ public class CitaJson {
         this.cita = cita;
     }
 
-    public Long getPacienteId() {
-        return pacienteId;
+    public String getDocumentoPaciente() {
+        return documentoPaciente;
     }
 
-    public void setPacienteId(Long pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setDocumentoPaciente(String documentoPaciente) {
+        this.documentoPaciente = documentoPaciente;
     }
 
-    public Long getFobiaId() {
-        return fobiaId;
+    public String getFobia() {
+        return fobia;
     }
 
-    public void setFobiaId(Long fobiaId) {
-        this.fobiaId = fobiaId;
+    public void setFobia(String fobia) {
+        this.fobia = fobia;
     }
 
-    public Long getPsicologoId() {
-        return psicologoId;
+    public String getDocumentoPsicologo() {
+        return documentoPsicologo;
     }
 
-    public void setPsicologoId(Long psicologoId) {
-        this.psicologoId = psicologoId;
+    public void setDocumentoPsicologo(String documentoPsicologo) {
+        this.documentoPsicologo = documentoPsicologo;
     }
-    
-    
 }

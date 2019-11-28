@@ -32,12 +32,10 @@
                     <label class="col-sm-3 col-form-label"
                            th:text="'Tipo :'"></label>
                     <div class="col-sm-9">
-                        <select id="tipoTrat" class="browser-default custom-select">
-
-                            <option  th:each="fobia : ${fobias}" th:value="${fobia.fobId}"    
-                                     th:text="'Tratamiento para ' + ${fobia.fobNombre}" 
-                                     th:selected="${fobia.fobId==1}" ></option>
-                        </select>
+                        <input type="text" th:value="'Tratamiento para ' + ${fobia.fobNombre}" 
+                               disabled   style="text-align:center;" id='tipoTrat' class="form-control col-sm-12"/>                      
+                        
+                        <input type='hidden' id='fobId' th:value='${fobia.fobId}'/>
                     </div>
                 </div>
                 <div class="form-group row m-l-25">
