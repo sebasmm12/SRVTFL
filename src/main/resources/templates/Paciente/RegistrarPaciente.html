@@ -27,105 +27,88 @@ and open the template in the editor.
                                     <div class="card-header">
                                         <h2 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h2>
                                     </div>
-                                    <div th:object="${paciente}" th:remove="tag">
+                                    <!--div th:object="${paciente}" th:remove="tag">
                                         <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger m-l-10 m-r-10">
                                             <li th:each="err: ${#fields.errors('*')}"
                                                 th:text="${err}"></li>
                                         </ul>
-                                    </div>
+                                    </div-->
                                     <div class="card-body">
-                                        <form th:action="@{/Paciente/GuardarPaciente}" th:object="${paciente}" method="post">
-                                            <div class="form-group row">
+                                        <div class="form-group row" style="text-align: center">
                                                 <label for="pac_edad" class="col-sm-2 col-form-label"
                                                        th:text="'Edad'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="number" th:field="*{pac_edad}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'" min="2" max="70"/> 
-                                                    <small th:if="${#fields.hasErrors('pac_edad')}" th:errors="*{pac_edad}"
-                                                           class="form-text text-danger"></small>
+                                                <div class="col-sm-8">
+                                                    <input type="number" min='10' max='80' class="form-control" id='pacienteEdad'  /> 
+                                                    <div id="pacienteEdadError"></div>
+                                                    <!--div id="nombrePacienteError"></div-->
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacNombre" class="col-sm-2 col-form-label"
                                                        th:text="'Nombre'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{pacNombre}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacNombre')}" th:errors="*{pacNombre}"
-                                                           class="form-text text-danger"></small>
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control" id='nombrePaciente'/>
+                                                    <div id="nombrePacienteError"></div>
 
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacApellido" class="col-sm-2 col-form-label"
                                                        th:text="'Apellido'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{pacApellido}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacApellido')}" th:errors="*{pacApellido}"
-                                                           class="form-text text-danger"></small>
-
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control"
+                                                           id='apellidoPaciente'/>
+                                                    <div id="apellidoPacienteError"></div>
                                                 </div>
                                             </div>
 
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacTelefono" class="col-sm-2 col-form-label"
                                                        th:text="'Telefono'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{pacTelefono}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacTelefono')}" th:errors="*{pacTelefono}"
-                                                           class="form-text text-danger"></small>
-
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control" id='telefonoPaciente'/>
+                                                    <div id="telefonoPacienteError"></div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacEmail" class="col-sm-2 col-form-label"
                                                        th:text="'Email'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{pacEmail}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacEmail')}" th:errors="*{pacEmail}"
-                                                           class="form-text text-danger"></small>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id='pacienteCorreo'/>
+                                                    <div id="pacienteCorreoError"></div>
 
                                                 </div>
                                             </div>
 
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacDireccion" class="col-sm-2 col-form-label"
                                                        th:text="'Direccion'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" th:field="*{pacDireccion}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacDireccion')}" th:errors="*{pacDireccion}"
-                                                           class="form-text text-danger"></small>
-
+                                                <div class="col-sm-8">
+                                                    <input type="text"  class="form-control" id='pacienteDireccion'/>
+                                                    <div id="pacienteDireccionError"></div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="text-align: center">
                                                 <label for="pacNumeroDocumento" class="col-sm-2 col-form-label"
                                                        th:text="'Numero de documento'"></label>
-                                                <div class="col-sm-6">
-                                                    <input type="text"  th:field="*{pacNumeroDocumento}" class="form-control"
-                                                           th:errorClass="'form-control alert-danger'"/>
-                                                    <small th:if="${#fields.hasErrors('pacNumeroDocumento')}" th:errors="*{pacNumeroDocumento}"
-                                                           class="form-text text-danger"></small>
-
+                                                <div class="col-sm-8">
+                                                    <input type="text"   class="form-control" id='pacienteDocumento'/>
+                                                    <div id="pacienteDocumentoError"></div>
                                                 </div>
                                             </div>
 
 
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="">
                                                 <label for="tipDocId" class="col-sm-2 col-form-label"
                                                        th:text="'Tipo de documento'"></label>
-                                                <div class="col-sm-6">
-                                                    <select th:field="*{tipDocId}" class="col-sm-6 browser-default custom-select"
-                                                               style="max-width:  280px">
+                                                <div class="col-sm-8">
+                                                    <select  class="col-sm-6 browser-default custom-select" id='pacienteTipoDocumento'
+                                                            style="max-width:  320px">
                                                         <option th:value="1" th:text="DNI"></option>
                                                         <option th:value="2" th:text="Pasaporte"></option>
                                                     </select>
@@ -138,12 +121,12 @@ and open the template in the editor.
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="">
                                                 <label for="pacSexoBiologico" class="col-sm-2 col-form-label"
                                                        th:text="'Sexo Biologico'"></label>
-                                                <div class="col-sm-6">
-                                                    <select th:field="*{pacSexoBiologico}" class="col-sm-6 browser-default custom-select"
-                                                               style="max-width:  280px">
+                                                <div class="col-sm-8">
+                                                    <select  class="col-sm-6 browser-default custom-select"
+                                                            style="max-width:  320px" id='pacienteSexoBiologico'>
                                                         <option th:value="1" th:text="Masculino"></option>
                                                         <option th:value="0" th:text="Femenino"></option>
                                                     </select>
@@ -155,15 +138,23 @@ and open the template in the editor.
                                                            class="form-text text-danger"></small>-->
                                                 </div>
                                             </div>  
-                                            <div class="form-group row">
+                                            <!--div class="form-group row">
                                                 <div class="col-sm-6" >
                                                     <input type="submit" class="btn btn-success"
                                                            value="Registrar Paciente"/>
                                                 </div>
+                                            </div-->
+                                            <div class="form-group row" >
+                                                <button class="btn btn-outline-success col-sm-4" style="margin: auto" id="registrarpacientes">
+                                                    <i class="fa fa-check"></i>
+                                                    <span class="btn-text">Registrar Paciente</span>
+                                                </button> 
+                                                <a class="btn btn-outline-secondary col-sm-4 m-l-5" style="margin: auto" th:href="@{/Paciente/GestionarPacientes}">
+                                                    <i class="fa fa-chevron-left"></i>
+                                                    <span class="btn-text">Volver a la Gestion</span>
+                                                </a>
                                             </div>
-
                                             <!-- comentado para utilizar una variable session -->
-                                        </form>
 
 
                                     </div>
@@ -179,6 +170,7 @@ and open the template in the editor.
     </div>
 </div>
 <footer th:replace="layout/layout :: footer"></footer>
-<script th:replace="Paciente/js/autocomplete-paciente :: javascript"></script>
+<script th:src="@{/js/chocolombo/paciente.js}"></script>
+<!--script th:replace="Paciente/js/autocomplete-paciente :: javascript"></script-->
 </body>
 </html>

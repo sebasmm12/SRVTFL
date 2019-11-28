@@ -51,8 +51,33 @@ public class PacienteController {
         return "Paciente/index";
     }
     
-    
     @GetMapping("/GestionarPacientes")
+    public String listarPaciente(@RequestParam(name="page", defaultValue="0") int page, Model model,
+            @RequestParam(name = "buscar_paciente",  defaultValue = "") String nombrePaciente,
+            @RequestParam(name = "tipoFiltro", required = false, defaultValue = "1") Integer tipoFiltro){
+        
+        Pageable pageRequest = PageRequest.of(page, 5);    
+        Page<Paciente> pacientes;
+        if(nombrePaciente=="" ||nombrePaciente.trim()=="" || nombrePaciente== null){
+            pacientes = pacienteService.obtenerPacientes(pageRequest);
+        }else{
+            if(tipoFiltro == 0){
+                pacientes = pacienteService.buscarPacienteNombrePageable(nombrePaciente,pageRequest);
+            }else{
+                pacientes = pacienteService.findPacienteByNombrePageable(nombrePaciente, pageRequest);
+            }
+        }
+        //pacienteService.obtenerPacientes(pageRequest);
+        PageRender<Paciente> pageRender= new PageRender("/Paciente/GestionarPacientes?buscar_paciente="+nombrePaciente+
+                "&tipoFiltro="+tipoFiltro,pacientes);
+        model.addAttribute("titulo", "Gestion de Pacientes");
+        model.addAttribute("pacientes",pacientes);
+        model.addAttribute("page",pageRender);
+        model.addAttribute("nombre", nombrePaciente);
+        return "Paciente/ListarPacientes";     
+    }
+    
+    /*@GetMapping("/GestionarPacientes")
     public String listarPaciente(@RequestParam(name="page", defaultValue="0") int page, Model model){
         
         Pageable pageRequest = PageRequest.of(page, 5);    
@@ -62,7 +87,7 @@ public class PacienteController {
         model.addAttribute("pacientes",pacientes);
         model.addAttribute("page",pageRender);
         return "Paciente/ListarPacientes";     
-    }
+    }*/
     
     @GetMapping("/RegistrarPaciente")
     public String registrarPaciente(Model model){

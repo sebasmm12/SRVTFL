@@ -28,25 +28,40 @@ and open the template in the editor.
                                         th:text="${titulo}"></h2>
                                     <div class="card-body">
                                         <div class="row">
-                                            <label class="col-sm-3 col-form-label" style="width: 45px"
-                                                   th:text="'Nombre del Paciente:'"></label>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control"/>                                                  
-                                            </div>
-                                            <a  class="btn btn-outline-success btn-xs m-b-10 col-sm-1" href="" th:text="'Filtrar'" >
-                                                <i class="fa fa-check" style="font-size: 10px"></i>
-                                                <span class="btn-text">Filtrar</span> 
-                                            </a>
+                                            <form name="GestionarPacientes" th:action='@{/Paciente/GestionarPacientes}' class="col-sm-9">
+                                                <div class="row">
+                                                <label class="col-sm-2 col-form-label" style="width: 45px"
+                                                       th:text="'Paciente:'"></label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control"
+                                                           th:value="${nombre}"   name="buscar_paciente" id="buscar_paciente"/>                                                  
+                                                </div>
+                                                <select id="tipoFiltro" name="tipoFiltro" class="col-sm-3 browser-default custom-select m-l-15">
+                                                    <option th:value="0" th:text="'Especifico'"></option>
+                                                    <option th:value="1" selected="selected" th:text="'Aproximado'"></option>
+                                                </select>
+                                                <!--a  class="btn btn-outline-success btn-xs m-b-10 col-sm-1" href="" th:text="'Filtrar'" >
+                                                    <i class="fa fa-check" style="font-size: 10px"></i>
+                                                    <span class="btn-text">Filtrar</span> 
+                                                </a-->
+                                                <button type="submit" class="btn btn-outline-success btn-xs
+                                                    col-sm-2 m-l-15">
+                                                    <i class="fa fa-search" style="font-size: 20px"></i>
+                                                    <span class="btn-text">Filtrar</span>
+                                            
+                                                </button>
+                                                </div>
+                                            </form>
 
-                                            <h4 class="card-title col-sm-4">
+                                            <h4 class="card-title col-sm-3">
                                                 <a th:href="@{/Paciente/RegistrarPaciente}" class="btn btn-outline-success btn-xs
-                                                    align-items-lg-end">
+                                                   align-items-lg-end">
                                                     <i class="fa fa-check" style="font-size: 15px"></i>
-                                                    <span class="btn-text">Registrar Nuevo Paciente</span>   
-                                                    
+                                                    <span class="btn-text">Registrar Paciente</span>   
+
                                                 </a>
                                             </h4>
-                                        </div>
+                                            </div>
 
                                         <table class="table table-striped">
                                             <thead>
@@ -86,8 +101,8 @@ and open the template in the editor.
                                                     </td>
 
                                                     <td><a class="btn btn-outline-warning btn-xs"
-                                                            th:href="@{'/Paciente/ActualizarPaciente/' + ${paciente.pacId}}">
-                                                               <i class="fa fa-edit" style="font-size: 15px"></i>
+                                                           th:href="@{'/Paciente/ActualizarPaciente/' + ${paciente.pacId}}">
+                                                            <i class="fa fa-edit" style="font-size: 15px"></i>
                                                             <span class="btn-text">Modificar</span>
                                                         </a></td>
 

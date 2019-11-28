@@ -43,7 +43,7 @@ public class PacienteServiceImpl  implements  IPacienteService{
       return  (Paciente) pacienteService.buscarPaciente(paciente_id);
     }
     
-    @Transactional
+    
     @Override
     public int registrarPaciente(Paciente paciente) {
      
@@ -86,6 +86,16 @@ public class PacienteServiceImpl  implements  IPacienteService{
     @Override
     public Paciente verificarDniPaciente(String dni) {
         return pacienteService.verificarDniPaciente(dni);
+    }
+
+    @Override
+    public Page<Paciente> buscarPacienteNombrePageable(String paciente_nombre, Pageable page) {
+        return pacienteService.buscarPacienteNombrePageable(paciente_nombre, page);
+    }
+
+    @Override
+    public Page<Paciente> findPacienteByNombrePageable(String term, Pageable page) {
+        return pacienteService.findPacienteByNombrePageable(term, page);
     }
     
     

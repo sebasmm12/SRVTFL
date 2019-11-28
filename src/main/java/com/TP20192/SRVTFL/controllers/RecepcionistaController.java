@@ -70,7 +70,7 @@ public class RecepcionistaController {
 
     @GetMapping("/GestionarCitas")
     public String listarCita(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
-            @RequestParam(name = "buscar_paciente",  defaultValue = "") String nombrePaciente,
+            @RequestParam(name = "buscar_paciente",  required = false, defaultValue = "") String nombrePaciente,
             @RequestParam(name = "tipoFiltro", required = false, defaultValue = "1") Integer tipoFiltro,
             @RequestParam(name = "fecha", required = false, defaultValue = "00/00/0000") /*@DateTimeFormat(pattern = "dd.MM.yyyy")*/ String fecha,
             @RequestParam(name = "evalFecha", required = false, defaultValue = "1") Integer evalFecha) {

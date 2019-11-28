@@ -32,5 +32,13 @@ public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>
     
     @Query("select p from Paciente p where p.pacNumeroDocumento = :dni_paciente")
     public Paciente verificarDniPaciente(@Param("dni_paciente") String dni);
+    
+    
+    @Query("select c from Paciente c where c.pacNombre = :paciente_nombre")
+    public Page<Paciente> buscarPacienteNombrePageable (@Param("paciente_nombre") String paciente_nombre, Pageable page);
+    
+    @Query("select p from Paciente p where p.pacNombre like %?1%")
+    public Page<Paciente> findPacienteByNombrePageable(String term, Pageable page);
+    
 }
 

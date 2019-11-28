@@ -473,19 +473,19 @@ var validacionDireccion = function (elementoError, valor, elemento) {
 };
 
 var keydireccion = function () {
-    var $direccion = $('#detUsuDireccion');
+    var $direccion = $('#pacienteDireccion');
     var regex = /^([^\d\s]+).*([^\s]+)$/;
     if ($direccion.val() === "") {
-        addNegativeAttributtes('detUsuDireccion');
-        addNegativeHtml('detUsuDireccionError', 'Debe una Direccion Obligatoriamente');
+        addNegativeAttributtes('pacienteDireccion');
+        addNegativeHtml('pacienteDireccionError', 'Debe una Direccion Obligatoriamente');
         return false;
     } else if (!$direccion.val().match(regex)) {
-        addNegativeAttributtes('detUsuDireccion');
-        addNegativeHtml('detUsuDireccionError', 'La direccion no debe poseer digitos al inicio ni tener espacios a los extremos, minimo 2 caracteres');
+        addNegativeAttributtes('pacienteDireccion');
+        addNegativeHtml('pacienteDireccionError', 'La direccion no debe poseer digitos al inicio ni tener espacios a los extremos, minimo 2 caracteres');
         return false;
     } else {
-        addPositiveAtributtes('detUsuDireccion');
-        addPositiveHtml('detUsuDireccionError', 'Correcto');
+        addPositiveAtributtes('pacienteDireccion');
+        addPositiveHtml('pacienteDireccionError', 'Correcto');
         return true;
     }
 };
@@ -567,29 +567,29 @@ var keynumerodoc = function () {
     var regexDni = /^([0-9])[0-9]{6}([0-9])$/;
     var regexPas = /^([0-9])[0-9]{9}([0-9])$/;
     var tipDoc = document.getElementById('detUsuTipoDocumento').selectedIndex;
-    var $numerodoc = $('#detUsuTipoDocNumero');
+    var $numerodoc = $('#pacienteDocumento');
     if ($numerodoc.val() === "") {
-        addNegativeAttributtes('detUsuTipoDocNumero');
-        addNegativeHtml('detUsuTipoDocNumeroError', 'Debe ingresar un Numero de Documento  Obligatoriamente');
+        addNegativeAttributtes('pacienteDocumento');
+        addNegativeHtml('pacienteDocumentoError', 'Debe ingresar un Numero de Documento  Obligatoriamente');
         return false;
     } else if (tipDoc === 0) {
         if ($numerodoc.val().match(regexDni)) {
-            addPositiveAtributtes('detUsuTipoDocNumero');
-            addPositiveHtml('detUsuTipoDocNumeroError', 'Correcto');
+            addPositiveAtributtes('pacienteDocumento');
+            addPositiveHtml('pacienteDocumentoError', 'Correcto');
             return true;
         } else {
-            addNegativeAttributtes('detUsuTipoDocNumero');
-            addNegativeHtml('detUsuTipoDocNumeroError', 'Numero de Documento  debe poseer 8 digitos numericos');
+            addNegativeAttributtes('pacienteDocumento');
+            addNegativeHtml('pacienteDocumentoError', 'Numero de Documento  debe poseer 8 digitos numericos');
             return false;
         }
     } else {
         if ($numerodoc.val().match(regexPas)) {
-            addPositiveAtributtes('detUsuTipoDocNumero');
-            addPositiveHtml('detUsuTipoDocNumeroError', 'Correcto');
+            addPositiveAtributtes('pacienteDocumento');
+            addPositiveHtml('pacienteDocumentoError', 'Correcto');
             return true;
         } else {
-            addNegativeAttributtes('detUsuTipoDocNumero');
-            addNegativeHtml('detUsuTipoDocNumeroError', 'Numero de Documento  debe poseer 11 digitos numericos');
+            addNegativeAttributtes('pacienteDocumento');
+            addNegativeHtml('pacienteDocumentoError', 'Numero de Documento  debe poseer 11 digitos numericos');
             return false;
         }
     }

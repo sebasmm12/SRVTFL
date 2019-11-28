@@ -51,15 +51,15 @@ public class Paciente implements Serializable{
     @Column(name="usu_id")
     private long usu_id;
     
-    @NotNull
+    //@NotNull
     @Column(name="pac_edad")
     private Integer pac_edad;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_nombre")
     private String pacNombre;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_apellido")
     private String pacApellido;
     
@@ -67,23 +67,23 @@ public class Paciente implements Serializable{
     @Column(name="pac_imagen")
     private String pacImagen;
     
-    @NotEmpty
-    @Pattern(regexp = "\\d{9}")
+    //@NotEmpty
+    //@Pattern(regexp = "\\d{9}")
     @Column(name="pac_telefono")
     private String pacTelefono;
     
     
-    @NotEmpty
-    @Pattern(regexp = "\\d{8}")
+    //@NotEmpty
+    //@Pattern(regexp = "\\d{8}")
     @Column(name="pac_número_documento")
     private String pacNumeroDocumento;
     
-    @NotEmpty
-    @Email
+    //@NotEmpty
+    //@Email
     @Column(name="pac_email")
     private String pacEmail;
     
-    @NotEmpty
+    //@NotEmpty
     @Column(name="pac_direccion")
     private String pacDireccion;
     

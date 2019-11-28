@@ -34,4 +34,7 @@ public interface IPacienteService {
     
     public Paciente verificarDniPaciente(String dni);
     
+    public Page<Paciente> buscarPacienteNombrePageable (String paciente_nombre, Pageable page);
+    
+     public Page<Paciente> findPacienteByNombrePageable(String term, Pageable page);
 }
