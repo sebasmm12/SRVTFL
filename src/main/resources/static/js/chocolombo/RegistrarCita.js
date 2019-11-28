@@ -485,10 +485,10 @@ var validacionCitaActualizaion = function () {
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
             VduracionCitaAct === false ||  VDocPaciente === false || VfobiaCita === false || VDocPsicologo === false
             || validarLogicaHorarios === false) {
-        alert("ALGO ESTA MAL!");
+        //alert("ALGO ESTA MAL!");
     } else {
-        alert("TODO BIEN");
-        //actualizarCita();
+        //alert("TODO BIEN");
+        actualizarCita();
     }
 };
 
