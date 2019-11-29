@@ -479,7 +479,7 @@ var validacionCitaActualizaion = function () {
     var VDocPaciente = validarPaciente('buscar_pacienteError', documento, 'buscar_paciente');
     var VDocPsicologo = validarPsicologo('buscar_psicologoError', documentoP, 'buscar_psicologoError');
     var VduracionCita = validacionDuracionCita('duracionCitaError', durCita, 'duracionCita');
-    var VduracionCitaAct = validacionDuracionCitaActualizacion('duracionCitaError', durCita, 'duracionCita');
+    var VduracionCitaAct = validacionDuracionCita('duracionCitaError', durCita, 'duracionCita');
     
     
     if (VFechaCita === false || VmotivoCita === false || VhoraIniCita === false ||
